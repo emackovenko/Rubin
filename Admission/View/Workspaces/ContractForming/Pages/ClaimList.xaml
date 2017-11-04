@@ -1,0 +1,98 @@
+﻿<Page 
+	x:Class="Admission.View.Workspaces.ContractForming.Pages.ClaimList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:Admission.View.Workspaces.ContractForming.Pages"
+	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+	xmlns:gmvvml="http://www.galasoft.ch/mvvmlight"
+	xmlns:vm="clr-namespace:Admission.ViewModel.Workspaces.ContractForming"
+	mc:Ignorable="d"
+	d:DesignHeight="300"
+	d:DesignWidth="594.051"
+	Title="ContractList">
+	<Page.DataContext>
+		<vm:ClaimListViewModel />
+	</Page.DataContext>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition
+				Height="32" />
+			<RowDefinition
+				Height="*" />
+		</Grid.RowDefinitions>
+		<StackPanel
+			Height="32"
+			Margin="1,1,1,1"
+			Orientation="Horizontal"
+			VerticalAlignment="Top">
+			<Button
+				Style="{StaticResource ToolButton}"
+				Height="32"
+				Width="32"
+				ToolTip="Создать договор"
+				Command="{Binding Path=AddContractCommand}">
+				<Image
+					Source="/ResourceLibrary;component/Images/contract.png" />
+			</Button>
+			<Border
+				Margin="5,4,2,4"
+				BorderBrush="#FF515151"
+				BorderThickness="1"
+				CornerRadius="10">
+				<StackPanel
+					ToolTip="Введите искомый текст"
+					Orientation="Horizontal">
+					<Image
+						Margin="5,2,0,2"
+						Source="/ResourceLibrary;component/Images/Buttons/view.png" />
+					<TextBox
+						x:Name="searchTextBox"
+						MinWidth="310"
+						Margin="0,0,10,0"
+						Background="{x:Null}"
+						BorderBrush="{x:Null}">
+						<i:Interaction.Triggers>
+							<i:EventTrigger
+								EventName="TextChanged">
+								<gmvvml:EventToCommand
+									Command="{Binding SearchClaimByEntrantNameCommand}"
+									CommandParameter="{Binding Text, ElementName=searchTextBox}" />
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</TextBox>
+				</StackPanel>
+			</Border>
+		</StackPanel>
+		<ListView
+			x:Name="claimList"
+			SelectionChanged="claimList_SelectionChanged"
+			Grid.Row="1"
+			ItemsSource="{Binding Path=Claims}"
+			SelectedItem="{Binding Path=SelectedClaim}">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn
+						Header="Номер"
+						DisplayMemberBinding="{Binding Path=Number}" />
+					<GridViewColumn
+						Header="Ф.И.О."
+						DisplayMemberBinding="{Binding Path=Person.FullName}" />
+					<GridViewColumn
+						Header="Форма обучения"
+						DisplayMemberBinding="{Binding Path=EducationForm.Name}" />
+					<GridViewColumn
+						Header="I"
+						DisplayMemberBinding="{Binding Path=FirstDirection.ShortName}" />
+					<GridViewColumn
+						Header="II"
+						DisplayMemberBinding="{Binding Path=SecondDirection.ShortName}" />
+					<GridViewColumn
+						Header="III"
+						DisplayMemberBinding="{Binding Path=ThirdDirection.ShortName}" />
+				</GridView>
+			</ListView.View>
+		</ListView>
+	</Grid>
+</Page>

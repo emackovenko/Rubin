@@ -1,0 +1,182 @@
+/*
+ * Developed by: emackovenko
+ * Personal page: http://emackovenko.com
+ * Date: 23.06.2017
+ * IDE: PHPShtorm 2016.1.2, Aptana Studio 3
+ */
+
+#filter_parent
+{
+	display: block;
+	margin: 10px;
+	padding-left: 10px;
+	width: auto;
+	height: auto;
+	border: 2px #a8afde solid;
+	border-radius: 3px;
+	background-color: rgba(176, 191, 207, 0.81);
+}
+
+#filter_form
+{
+	font-size: 12px;
+	font-family: "PT Sans";
+}
+
+#combobox
+{
+	height: 26px;
+}
+
+#refresh_entrant_data
+{
+	width: auto;
+	height: 40px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	border: 1px #ffffff solid;
+	border-radius: 10px;
+	background: #a8afde;
+	color: #000;
+	font-size: 14px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#refresh_entrant_data:hover
+{
+	background:#358DE5;
+	color: #fff;
+}
+
+#refresh_entrant_data:focus
+{
+	outline:none;
+}
+
+#entrant_content
+{
+	display: block;
+	width: auto;
+	height: auto;
+	margin-top: 15px;
+	margin-left: 10px;
+	margin-right: 10px;
+	font-family: "PT Sans";
+}
+
+#entrant_full
+{
+	display: block;
+	width: auto;
+	height: auto;
+	margin-top: 15px;
+	margin-left: 10px;
+	margin-right: 10px;
+	font-family: "PT Sans";
+}
+
+table
+{
+	width: 100%;
+	border: 1px solid #3bb4f7;
+	border-collapse: collapse;
+}
+
+th
+{
+	border: 1px solid #3bb4f7;
+	background-color: #caedf7;
+}
+
+td
+{
+	border: 1px solid #3bb4f7;
+}
+
+
+.cssload-container{
+	position:relative;
+}
+
+.cssload-whirlpool,
+.cssload-whirlpool::before,
+.cssload-whirlpool::after {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	border: 0px solid rgb(255,255,255);
+	border-left-color: rgb(0,0,0);
+	border-radius: 400px;
+	-o-border-radius: 400px;
+	-ms-border-radius: 400px;
+	-webkit-border-radius: 400px;
+	-moz-border-radius: 400px;
+}
+
+.cssload-whirlpool {
+	margin: -10px 0 0 -10px;
+	height: 20px;
+	width: 20px;
+	animation: cssload-rotate 4000ms linear infinite;
+	-o-animation: cssload-rotate 4000ms linear infinite;
+	-ms-animation: cssload-rotate 4000ms linear infinite;
+	-webkit-animation: cssload-rotate 4000ms linear infinite;
+	-moz-animation: cssload-rotate 4000ms linear infinite;
+}
+
+.cssload-whirlpool::before {
+	content: "";
+	margin: -9px 0 0 -9px;
+	height: 18px;
+	width: 18px;
+	animation: cssload-rotate 4000ms linear infinite;
+	-o-animation: cssload-rotate 4000ms linear infinite;
+	-ms-animation: cssload-rotate 4000ms linear infinite;
+	-webkit-animation: cssload-rotate 4000ms linear infinite;
+	-moz-animation: cssload-rotate 4000ms linear infinite;
+}
+
+.cssload-whirlpool::after {
+	content: "";
+	margin: -12px 0 0 -12px;
+	height: 22px;
+	width: 22px;
+	animation: cssload-rotate 8000ms linear infinite;
+	-o-animation: cssload-rotate 8000ms linear infinite;
+	-ms-animation: cssload-rotate 8000ms linear infinite;
+	-webkit-animation: cssload-rotate 8000ms linear infinite;
+	-moz-animation: cssload-rotate 8000ms linear infinite;
+}
+
+@keyframes cssload-rotate {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@-o-keyframes cssload-rotate {
+	100% {
+		-o-transform: rotate(360deg);
+	}
+}
+
+@-ms-keyframes cssload-rotate {
+	100% {
+		-ms-transform: rotate(360deg);
+	}
+}
+
+@-webkit-keyframes cssload-rotate {
+	100% {
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+@-moz-keyframes cssload-rotate {
+	100% {
+		-moz-transform: rotate(360deg);
+	}
+}

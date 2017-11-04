@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="Admission.View.Editors.RoleEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Admission.View.Editors"
+             mc:Ignorable="d" 
+             Height="31" 
+             Width="435">
+    <Grid>
+        <TextBlock 
+            Margin="5"
+            Text="Наименование:"/>
+        <TextBox
+            Margin="95,5,5,5"
+            Text="{Binding Path=SelectedRole.Name, UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
+</UserControl>

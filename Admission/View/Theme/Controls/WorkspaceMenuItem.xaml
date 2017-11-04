@@ -1,0 +1,17 @@
+﻿<UserControl                                                       
+             x:Class="Admission.View.Theme.Controls.WorkspaceMenuItem"
+             x:Name="workspacemenuitem" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Admission.View.Theme.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="23" d:DesignWidth="150">
+    <Grid>
+        <TextBlock
+            TextWrapping="Wrap"
+            TextAlignment="Justify"
+            Text="{Binding ElementName=workspacemenuitem, Path=Title}" Foreground="Black"/> 
+    </Grid>
+</UserControl>

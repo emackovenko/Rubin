@@ -1,0 +1,220 @@
+﻿<UserControl
+	x:Class="Admission.View.Workspaces.Enrollment.Pages.Editors.EnrollmentProtocolEditor"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:Admission.View.Workspaces.Enrollment.Pages.Editors"
+	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+	xmlns:gmvvml="http://www.galasoft.ch/mvvmlight"
+	mc:Ignorable="d"
+	Width="720"
+	Height="640">
+	<Grid
+		Margin="5"
+		Background="Bisque">
+		<Grid.RowDefinitions>
+			<RowDefinition
+				Height="Auto" />
+			<RowDefinition
+				Height="*" />
+		</Grid.RowDefinitions>
+		<Grid
+			Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition
+					Height="32" />
+				<RowDefinition
+					Height="32" />
+				<RowDefinition
+					Height="32" />
+				<RowDefinition
+					Height="32" />
+				<RowDefinition
+					Height="32" />
+				<RowDefinition
+					Height="32" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="3" />
+				<ColumnDefinition
+					x:Name="lastDetailColumn"
+					Width="*" />
+			</Grid.ColumnDefinitions>
+			<TextBlock
+				Grid.Row="0"
+				Grid.Column="0"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Right"
+				Text="Номер:" />
+			<TextBox
+				Grid.Row="0"
+				Grid.Column="2"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				Width="100"
+				Text="{Binding Path=Protocol.Number}" />
+			<TextBlock
+				Grid.Row="1"
+				Grid.Column="0"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Right"
+				Text="Дата:" />
+			<DatePicker
+				Grid.Row="1"
+				Grid.Column="2"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				SelectedDate="{Binding Path=Protocol.Date}" />
+			<TextBlock
+				Grid.Row="2"
+				Grid.Column="0"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Right"
+				Text="Направление подготовки:" />
+			<ComboBox
+				Grid.Row="2"
+				Grid.Column="2"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				Width="280"
+				ItemsSource="{Binding Path=Directions}"
+				SelectedItem="{Binding Path=SelectedDirection}"
+				DisplayMemberPath="Name" />
+			<TextBlock
+				Grid.Row="3"
+				Grid.Column="0"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Right"
+				Text="Факультет:" />
+			<ComboBox
+				Grid.Row="3"
+				Grid.Column="2"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				Width="280"
+				ItemsSource="{Binding Path=Faculties}"
+				SelectedItem="{Binding Path=Protocol.Faculty}"
+				DisplayMemberPath="Name" />
+			<TextBlock
+				Grid.Row="4"
+				Grid.Column="0"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Right"
+				Text="Дата окончания образовательной программы:" />
+			<DatePicker
+				Grid.Row="4"
+				Grid.Column="2"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left" 
+				SelectedDate="{Binding Path=Protocol.TrainingEndDate}"/>
+			<TextBlock
+				Grid.Row="5"
+				Grid.Column="0"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Right"
+				Text="Срок освоения образовательной программы:" />
+			<TextBox
+				Grid.Row="5"
+				Grid.Column="2"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				Width="100"
+				ToolTip="[Кол-во лет.кол-во месяцев]"
+				Text="{Binding Path=Protocol.TrainingTime, UpdateSourceTrigger=PropertyChanged}" />
+		</Grid>
+		<Grid
+			Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition
+					Width="*" />
+				<ColumnDefinition
+					Width="Auto" />
+				<ColumnDefinition
+					Width="*" />
+			</Grid.ColumnDefinitions>
+			<GroupBox
+				Grid.Column="0"
+				Header="Доступные абитуриенты"
+				Background="Beige">
+				<Grid>
+					<ListView
+						x:Name="availableClaimListView"
+						ItemsSource="{Binding Path=AvailableClaims}"
+						SelectedItem="{Binding Path=SelectedAvailableClaim}">
+						<i:Interaction.Triggers>
+							<i:EventTrigger
+								EventName="MouseDoubleClick">
+								<gmvvml:EventToCommand
+									Command="{Binding Path=MoveSelectedAvailableClaimToProtocolCommand}" />
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+						<ListView.View>
+							<GridView>
+								<GridViewColumn
+									Width="{Binding ElementName=availableClaimListView, Path=Width}"
+									Header="Ф.И.О."
+									DisplayMemberBinding="{Binding Path=Person.FullName}" />
+							</GridView>
+						</ListView.View>
+					</ListView>
+				</Grid>
+			</GroupBox>
+			<StackPanel
+				Grid.Column="1"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Center"
+				Orientation="Vertical">
+				<Button
+					ToolTip="Переместить выбранного доступного абитуриента в протокол"
+					Foreground="{x:Null}"
+					Background="{x:Null}"
+					BorderBrush="{x:Null}"
+					Width="64"
+					Height="32"
+					Margin="5"
+					Command="{Binding Path=MoveSelectedAvailableClaimToProtocolCommand}">
+					<Image
+						Source="/ResourceLibrary;component/Images/Buttons/arrow2_right_blue.png"
+						Stretch="Fill" />
+				</Button>
+				<Button
+					ToolTip="Убрать выбранного абитуриента из протокола"
+					Foreground="{x:Null}"
+					Background="{x:Null}"
+					BorderBrush="{x:Null}"
+					Width="64"
+					Height="32"
+					Margin="5"
+					Command="{Binding Path=RemoveSelectedProtocolClaimCommand}">
+					<Image
+						Source="/ResourceLibrary;component/Images/Buttons/arrow2_left_red.png"
+						Stretch="Fill" />
+				</Button>
+			</StackPanel>
+			<GroupBox
+				Grid.Column="2"
+				Header="Абитуриенты в протоколе"
+				Background="Beige">
+				<Grid>
+					<ListView
+						x:Name="protocolClaimsListView"
+						ItemsSource="{Binding Path=ProtocolClaims}"
+						SelectedItem="{Binding Path=SelectedProtocolClaim}">
+						<ListView.View>
+							<GridView>
+								<GridViewColumn
+									Width="{Binding ElementName=protocolClaimsListView, Path=Width}"
+									Header="Ф.И.О."
+									DisplayMemberBinding="{Binding Path=Person.FullName}" />
+							</GridView>
+						</ListView.View>
+					</ListView>
+				</Grid>
+			</GroupBox>
+		</Grid>
+	</Grid>
+</UserControl>

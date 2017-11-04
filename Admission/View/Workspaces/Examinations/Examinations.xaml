@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="Admission.View.Workspaces.Examinations.Examinations"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Admission.View.Workspaces.Examinations"
+             xmlns:controls="clr-namespace:Admission.View.Theme.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="585">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border
+            Grid.Column="0"
+            BorderThickness="1"
+            BorderBrush="#FF7C7C7C">
+            <Expander
+                ExpandDirection="Left"
+                IsExpanded="True">
+                <Expander.Header>
+                    <TextBlock Text="Панель навигации">
+                        <TextBlock.LayoutTransform>
+                            <RotateTransform Angle="90"/>
+                        </TextBlock.LayoutTransform>
+                    </TextBlock>
+                </Expander.Header>
+                <ListView
+                    x:Name="menu"
+                    Width="175"
+                    SelectionMode="Single"
+                    SelectedIndex="0"
+					ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+					<controls:WorkspaceMenuItem
+						Title="Конвертирование первичных баллов внутренних вступительных испытаний в основные"
+						URL="Pages/EntranceTestResultConverting.xaml" />
+					<controls:WorkspaceMenuItem
+						Title="Проверка результатов ЕГЭ"
+						URL="Pages/EgeResultChecking.xaml" />
+					<controls:WorkspaceMenuItem
+						Title="Протоколы проверки результатов вступительных испытаний"
+						URL="Pages/EntranceExaminationsProtocols.xaml" />
+				</ListView>
+            </Expander>
+        </Border>
+        <Border
+            Grid.Column="2"
+            BorderBrush="#FF7C7C7C">
+            <Frame 
+                NavigationUIVisibility="Hidden" 
+                Source="{Binding SelectedItem.URL, ElementName=menu}"/>
+        </Border>
+    </Grid>
+</UserControl>

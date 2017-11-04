@@ -1,0 +1,210 @@
+﻿<UserControl x:Class="Admission.View.Editors.EducationDocumentEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"            
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:g="http://www.galasoft.ch/mvvmlight"
+             xmlns:local="clr-namespace:Admission.View.Editors"
+             mc:Ignorable="d" 
+             Width="420">
+    <UserControl.Resources>
+        <Style TargetType="CheckBox" x:Key="IsOriginalCheckBox">
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Content" Value="Оригинал"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="False">
+                    <Setter Property="Content" Value="Копия"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid Margin="5" Background="#FFD0DDFF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <CheckBox
+            Style="{StaticResource IsOriginalCheckBox}"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            IsChecked="{Binding Path=Document.IsOriginal}"/>
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Text="Серия:"/>
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Text="Номер:"/>   
+        <TextBlock
+            Grid.Row="3"
+            Grid.Column="0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Text="Количество 5:"/>
+        <TextBlock
+            Grid.Row="4"
+            Grid.Column="0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Text="Количество 4:"/>
+        <TextBlock
+            Grid.Row="5"
+            Grid.Column="0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Text="Количество 3:"/>
+        <TextBlock
+            Grid.Row="6"
+            Grid.Column="0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Text="Средний балл:"/>  
+        <TextBlock
+            Grid.Row="7"
+            Grid.Column="0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Text="Дата выдачи:"/>
+        <TextBlock
+            Grid.Row="8"
+            Grid.Column="0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Text="Организация:"/>
+        <TextBlock
+            Grid.Row="9"
+            Grid.Column="0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Text="Код подразделения:"/>
+        <TextBox
+            Grid.Row="1"
+            Grid.Column="2"
+            Height="23"
+            Width="150"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Text="{Binding Path=Document.Series, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox
+            Grid.Row="2"
+            Grid.Column="2"
+            Height="23"
+            Width="150"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Text="{Binding Path=Document.Number, UpdateSourceTrigger=PropertyChanged}"/>  
+        <TextBox
+            Grid.Row="3"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left" 
+            Width="30"
+            Height="21"
+            Margin="0,0,10,0"
+            Text="{Binding Path=Document.FiveCount, UpdateSourceTrigger=PropertyChanged}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <g:EventToCommand
+                            Command="{Binding Path=RefreshMiddleMarkCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+        <TextBox
+            Grid.Row="4"
+            Grid.Column="2"
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Left" 
+            Width="30"
+            Height="21"
+            Margin="0,0,10,0"
+            Text="{Binding Path=Document.FourCount, UpdateSourceTrigger=PropertyChanged}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <g:EventToCommand
+                            Command="{Binding Path=RefreshMiddleMarkCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+        <TextBox
+            Grid.Row="5"
+            Grid.Column="2"
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Left" 
+            Width="30"
+            Height="21"
+            Margin="0,0,10,0"
+            Text="{Binding Path=Document.ThreeCount, UpdateSourceTrigger=PropertyChanged}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <g:EventToCommand
+                            Command="{Binding Path=RefreshMiddleMarkCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+        <TextBox
+            Grid.Row="6"
+            Grid.Column="2"
+            Height="23"
+            Width="50"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            IsReadOnly="True"
+            Text="{Binding Path=MiddleMark, Mode=OneWay}"/>
+        <DatePicker
+            x:Name="issueDate"
+            Grid.Row="7"
+            Grid.Column="2"
+            Height="23"
+            Width="110"
+            HorizontalAlignment="Left"
+            SelectedDate="{Binding Path=Document.Date, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox
+            Grid.Row="8"
+            Grid.Column="2"
+            Height="23"
+            Margin="0,0,28,0"
+            VerticalAlignment="Center"
+            IsReadOnly="True"
+            ToolTip=""
+            Text="{Binding Path=Document.EducationOrganization.IdentityName, Mode=OneWay}"/>
+        <Button
+            Content="..."
+            ToolTip="Обзор..."
+            Grid.Row="8"
+            Grid.Column="2"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Height="21"
+            Width="21"
+            Margin="3"
+            Command="{Binding Path=SelectEducationOrganizationCommand}"/>
+        <TextBox
+            Grid.Row="9"
+            Grid.Column="2"
+            Height="23"
+            Width="100"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Text="{Binding Path=Document.SubdivisionCode, UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
+</UserControl>

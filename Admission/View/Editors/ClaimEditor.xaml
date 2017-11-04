@@ -1,0 +1,1396 @@
+﻿<UserControl x:Class="Admission.View.Editors.ClaimEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Admission.View.Editors"
+             xmlns:vm="clr-namespace:Admission.ViewModel.Editors"
+             xmlns:conv="clr-namespace:Admission.View.Theme.Converters"
+             Height="630" 
+             Width="1170">
+    <UserControl.DataContext>
+        <vm:ClaimEditorViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <conv:DateConverter x:Key="DateConverter"/>
+        <Style TargetType="CheckBox" x:Key="IsOriginalCheckBox">
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Content" Value="Оригинал"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="False">
+                    <Setter Property="Content" Value="Копия"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="CheckBox" x:Key="DocumentsReturningType">
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Content" Value="Возврат документов: лично"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="False">
+                    <Setter Property="Content" Value="Возврат документов: по почте"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <TabControl>
+            <TabItem Header="Заявление">
+                <Grid 
+                    Margin="5"
+                    Background="#CCCCCC">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="200"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="3"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="10,0,0,0"
+                        Text="Регистрационный номер:"/>
+                    <TextBlock
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Grid.Row="1"
+                        Grid.Column="0" 
+                        Margin="10,0,0,0"
+                        Text="Дата регистрации:"/>
+                    <CheckBox
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Grid.Row="2"
+                        Grid.Column="0" 
+                        Margin="10,0,0,0"
+                        Content="Нуждается в общежитии" 
+                        FlowDirection="RightToLeft"
+                        IsChecked="{Binding Path=EditedClaim.IsHostelNeed, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Grid.Row="3"
+                        Grid.Column="0" 
+                        Margin="10,0,0,0"
+                        Text="Статус заявления:"/>
+                    <TextBlock
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Grid.Row="4"
+                        Grid.Column="0" 
+                        Margin="10,0,0,0"
+                        Text="Комментарий к статусу:"/>
+                    <TextBox
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Height="21"
+                        Width="150"         
+                        IsReadOnly="True"
+                        ToolTip="Будет сгенерирован автоматически при изменении условий приёма"
+                        Text="{Binding Path=EditedClaim.Number, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DatePicker
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Width="177"
+                        DisplayDate="{Binding Path=EditedClaim.RegistrationDate}"
+                        SelectedDate="{Binding Path=EditedClaim.RegistrationDate}"/>
+                    <ComboBox
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Height="21"
+                        Width="250"
+                        IsEditable="False"
+                        SelectedIndex="0"
+                        ItemsSource="{Binding Path=ClaimStatuses}"   
+                        DisplayMemberPath="Name"
+                        SelectedItem="{Binding Path=EditedClaim.ClaimStatus}"/>
+                    <TextBox
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        Height="21" 
+                        Margin="0,0,10,0"
+                        Text="{Binding Path=EditedClaim.StatusComment, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox
+                        Grid.Row="5"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        FlowDirection="RightToLeft"
+                        Width="200"
+                        Style="{StaticResource DocumentsReturningType}"
+                        IsChecked="{Binding Path=EditedClaim.PersonalReturning, UpdateSourceTrigger=PropertyChanged}"/>
+                    <GroupBox Header="Условия приёма"
+                        Grid.Row="6"
+                        Grid.ColumnSpan="3" 
+                        BorderBrush="#FF6C7A81">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="23"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Grid.Row="0">
+                                <Button 
+                                    ToolTip="Добавить запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=NewClaimConditionCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+                                </Button>
+                                <Button 
+                                    ToolTip="Редактировать запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=EditClaimConditionCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/pencil.png"/>
+                                </Button>
+                                <Button 
+                                    ToolTip="Удалить запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=RemoveClaimConditionCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+                                </Button>
+                            </StackPanel>
+                            <ListView
+                                Grid.Row="1"
+                                ItemsSource="{Binding Path=ClaimConditions}"
+                                SelectedItem="{Binding Path=SelectedClaimCondition}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn
+                                            Header="Форма обучения"
+                                            DisplayMemberBinding="{Binding Path=CompetitiveGroup.EducationForm}"/>
+                                        <GridViewColumn
+                                            Header="Источник финансирования"
+                                            DisplayMemberBinding="{Binding Path=CompetitiveGroup.FinanceSource}"/>
+                                        <GridViewColumn
+                                            Header="Специальность"
+                                            DisplayMemberBinding="{Binding Path=CompetitiveGroup.Direction}"/>
+                                        <GridViewColumn
+                                            Header="Приоритет"
+                                            DisplayMemberBinding="{Binding Path=Priority}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Личные данные">
+               <Grid 
+                    Margin="5"
+                    Background="#CCCCCC">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="Auto"/> 
+                        <ColumnDefinition
+                            Width="3"/>
+                        <ColumnDefinition
+                            Width="350"/>   
+                        <ColumnDefinition
+                            Width="3"/>
+                        <ColumnDefinition
+                            Width="Auto"/>
+                        <ColumnDefinition
+                            Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Text="Фамилия:"/>
+                    <TextBox
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Height="21"
+                        Width="250"
+                        Text="{Binding Path=EditedEntrant.LastName, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Text="Имя:"/>
+                    <TextBox
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Height="21"
+                        Width="250"     
+                        Text="{Binding Path=EditedEntrant.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Text="Отчество:"/>
+                    <TextBox
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Height="21"
+                        Width="250"
+                        Text="{Binding Path=EditedEntrant.Patronymic, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock
+                       Grid.Row="3"
+                       Grid.Column="0"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Text="Пол:"/> 
+                    <ComboBox
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Height="21"
+                        Width="150"
+                        ItemsSource="{Binding Path=Genders}"     
+                        DisplayMemberPath="Name"
+                        SelectedItem="{Binding Path=EditedEntrant.Gender, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock
+                       Grid.Row="4"
+                       Grid.Column="0"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Text="Дата рождения:"/>
+                    <DatePicker
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Height="25"
+                        Width="150"
+                        SelectedDate="{Binding Path=IdentityDocument.BirthDate, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock
+                       Grid.Row="5"
+                       Grid.Column="0"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Text="Телефон:"/>
+                    <TextBox
+                        Grid.Row="5"
+                        Grid.Column="2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Height="21"
+                        Width="350"
+                        Text="{Binding Path=EditedEntrant.Phone, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock
+                       Grid.Row="6"
+                       Grid.Column="0"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Text="E-mail:"/>
+                    <TextBox
+                        Grid.Row="6"
+                        Grid.Column="2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Height="21"
+                        Width="250"
+                        Text="{Binding Path=EditedEntrant.Email, UpdateSourceTrigger=PropertyChanged}"/>
+                    <GroupBox Header="Документ, удостоверяющий личность" 
+                        BorderBrush="DarkBlue"
+                        Grid.Row="0"
+                        Grid.Column="4"
+                        Grid.ColumnSpan="2"
+                        Grid.RowSpan="5">
+                        <Grid
+                            Margin="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition
+                                    Height="32"/>
+                                <RowDefinition
+                                    Height="32"/>
+                                <RowDefinition
+                                    Height="32"/>
+                                <RowDefinition
+                                    Height="32"/>
+                                <RowDefinition
+                                    Height="32"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+                                    Width="Auto"/>
+                                <ColumnDefinition
+                                    Width="3"/>
+                                <ColumnDefinition
+                                    Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Text="Тип документа:"/>
+                            <ComboBox
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Height="21"
+                                Width="400"
+                                ItemsSource="{Binding Path=IdentityDocumentTypes}"
+                                DisplayMemberPath="Name"
+                                SelectedItem="{Binding Path=IdentityDocument.IdentityDocumentType}"/>
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Text="Серия:"/>
+                            <StackPanel
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                Orientation="Horizontal">
+                                <TextBox
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Height="21"
+                                    Width="100"
+                                    Text="{Binding Path=IdentityDocument.Series, UpdateSourceTrigger=PropertyChanged}"/>
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Margin="5"
+                                    Text="Номер:"/>
+                                <TextBox
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Height="21"
+                                    Width="100"
+                                    Text="{Binding Path=IdentityDocument.Number, UpdateSourceTrigger=PropertyChanged}"/>  
+                            </StackPanel>
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Text="Дата выдачи:"/>
+                            <DatePicker
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Height="25"
+                                Width="150"
+                                SelectedDate="{Binding Path=IdentityDocument.Date, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Text="Организация:"/>
+                            <ComboBox
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                IsEditable="True"
+                                Text="{Binding Path=IdentityDocument.Organization, UpdateSourceTrigger=PropertyChanged}"
+                                ItemsSource="{Binding Path=IdentityDocumentIssuingOrganizations}"/>
+							<Button 
+								Content="+" 
+								Padding="5,0"
+								Grid.Column="2" 
+								ToolTip="Добавить еще один документ"
+								Command="{Binding Path=AddIdentityDocumentCommand}"
+								HorizontalAlignment="Left" 
+								Margin="405,5,0,0" 
+								VerticalAlignment="Top"/>
+						</Grid>
+                    </GroupBox>
+                    <TextBlock
+                       Grid.Row="7"
+                       Grid.Column="0"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Text="Иностранный язык:"/>
+                    <ComboBox
+                       Grid.Row="7"
+                       Grid.Column="2"
+                       Height="21"
+                       Width="300"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                        ItemsSource="{Binding Path=Languages}"
+                        DisplayMemberPath="Name"
+                        SelectedItem="{Binding Path=EditedEntrant.ForeignLanguage, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock
+                        Grid.Row="5"
+                        Grid.Column="4"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Text="Гражданство:"/>
+                    <ComboBox
+                        Grid.Row="5"
+                        Grid.Column="6"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Height="21"
+                        Width="300"
+                        ItemsSource="{Binding Path=Citizenships}"
+                        DisplayMemberPath="Name"
+                        SelectedItem="{Binding Path=IdentityDocument.Citizenship, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock
+                       Grid.Row="6"
+                       Grid.Column="4"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Text="Место рождения:"/>
+                    <StackPanel
+                       Orientation="Horizontal"
+                       Grid.Row="6"
+                       Grid.Column="6">
+                        <TextBox
+                            Width="550"
+                            Height="21"
+                            IsReadOnly="True"
+                            Text="{Binding Path=IdentityDocument.BirthPlace}"/>
+                        <Button
+                            Height="21"
+                            Width="21"
+                            Margin="5,0"
+                            Content="..."
+                            ToolTip="Сформировать"
+                            Command="{Binding Path=EditBirthPlaceCommand}"/>
+                    </StackPanel>
+                    <TextBlock
+                       Grid.Row="7"
+                       Grid.Column="4"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Text="Адрес:"/>
+                    <StackPanel
+                       Orientation="Horizontal"
+                       Grid.Row="7"
+                       Grid.Column="6">
+                        <TextBox
+                            Width="550"
+                            Height="21"
+                            IsReadOnly="True"
+                            Text="{Binding Path=EditedEntrant.Address.ViewAddress, Mode=OneWay}"/>
+                        <Button
+                            Height="21"
+                            Width="21"
+                            Margin="5,0"
+                            Content="..."
+                            ToolTip="Сформировать"
+                            Command="{Binding Path=SelectAddressCommand}"/>
+                    </StackPanel>
+                    <GroupBox Header="Сведения о родителях"
+                        BorderBrush="DarkBlue"
+                        Grid.Row="8"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Grid.RowSpan="8">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition
+                                    Height="*"/>
+                                <RowDefinition
+                                    Height="*"/>
+                            </Grid.RowDefinitions>
+                            <GroupBox Header="Отец"
+                                Grid.Row="0"
+                                Margin="0, 0, 0, 5"
+                                BorderBrush="DarkBlue">
+                                <Grid
+                                    Margin="5,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition
+                                            Height="32"/>
+                                        <RowDefinition
+                                            Height="32"/>
+                                        <RowDefinition
+                                            Height="32"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition
+                                            Width="Auto"/>
+                                        <ColumnDefinition
+                                            Width="3"/>
+                                        <ColumnDefinition
+                                            Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Right"
+                                        Text="Ф.И.О.:"/>
+                                    <TextBox
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        VerticalAlignment="Center"
+                                        Height="21"
+                                        Text="{Binding Path=EditedEntrant.FatherName, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Right"
+                                        Text="Телефон:"/>
+                                    <TextBox
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        VerticalAlignment="Center"
+                                        Height="21"
+                                        Text="{Binding Path=EditedEntrant.FatherPhone, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Right"
+                                        Text="Место работы:"/>
+                                    <TextBox
+                                        Grid.Row="2"
+                                        Grid.Column="2"
+                                        VerticalAlignment="Center"
+                                        Height="21"
+                                        Text="{Binding Path=EditedEntrant.FatherJob, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Мать"
+                                Grid.Row="1"
+                                Margin="0, 0, 0, 5"
+                                BorderBrush="DarkBlue">
+                                <Grid
+                                    Margin="5,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition
+                                            Height="32"/>
+                                        <RowDefinition
+                                            Height="32"/>
+                                        <RowDefinition
+                                            Height="32"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition
+                                            Width="Auto"/>
+                                        <ColumnDefinition
+                                            Width="3"/>
+                                        <ColumnDefinition
+                                            Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Right"
+                                        Text="Ф.И.О.:"/>
+                                    <TextBox
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        VerticalAlignment="Center"
+                                        Height="21"
+                                        Text="{Binding Path=EditedEntrant.MotherName, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Right"
+                                        Text="Телефон:"/>
+                                    <TextBox
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        VerticalAlignment="Center"
+                                        Height="21"
+                                        Text="{Binding Path=EditedEntrant.MotherPhone, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Right"
+                                        Text="Место работы:"/>
+                                    <TextBox
+                                        Grid.Row="2"
+                                        Grid.Column="2"
+                                        VerticalAlignment="Center"
+                                        Height="21"
+                                        Text="{Binding Path=EditedEntrant.MotherJob, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Сведения о работе"
+                        BorderBrush="DarkBlue"
+                        Grid.Row="8"
+                        Grid.Column="3"
+                        Grid.ColumnSpan="3"
+                        Grid.RowSpan="4">
+                        <Grid
+                            Margin="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition
+                                    Height="32"/>
+                                <RowDefinition
+                                    Height="32"/>
+                                <RowDefinition
+                                    Height="32"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+                                    Width="Auto"/>
+                                <ColumnDefinition
+                                    Width="3"/>
+                                <ColumnDefinition
+                                    Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               Text="Организация:"/>
+                            <TextBox
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Height="21"
+                                Width="580"
+                                Text="{Binding Path=EditedEntrant.JobOrganization, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               Text="Должность:"/>
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Height="21"
+                                Width="400"
+                                Text="{Binding Path=EditedEntrant.JobPost, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock
+                               Grid.Row="2"
+                               Grid.Column="0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               Text="Стаж:"/>
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Height="21"
+                                Width="100"
+                                Text="{Binding Path=EditedEntrant.JobStage, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid> 
+            </TabItem>
+            <TabItem Header="Документы">
+                <Grid 
+                    Margin="5"
+                    Background="#CCCCCC">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="3"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="3"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3"/>
+                    </Grid.ColumnDefinitions>
+                 <!--   <GroupBox Header="Документы, удостоверяющие личность"
+                              BorderBrush="DarkBlue"
+                              Grid.Row="0"
+                              Grid.Column="0">
+                            <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Grid.Row="0">
+                                <Button 
+                                    ToolTip="Добавить запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=AddIdentityDocumentCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+                                </Button>
+                                <Button 
+                                    ToolTip="Редактировать запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=EditIdentityDocumentCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/pencil.png"/>
+                                </Button>
+                                <Button 
+                                    ToolTip="Удалить запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=RemoveIdentityDocumentCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+                                </Button>
+                            </StackPanel>
+                            <ListView
+                                Grid.Row="1"
+                                ItemsSource="{Binding Path=IdentityDocuments}"
+                                SelectedItem="{Binding Path=SelectedIdentityDocument}" 
+                                ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Тип" Width="130">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock
+                                                        Text="{Binding Path=IdentityDocumentType}"
+                                                        TextWrapping="Wrap"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Серия"
+                                                        DisplayMemberBinding="{Binding Path=Series}"/>
+                                        <GridViewColumn Header="Номер"
+                                                        DisplayMemberBinding="{Binding Path=Number}"/>
+                                        <GridViewColumn Header="Дата выдачи" 
+                                                        DisplayMemberBinding="{Binding Path=Date, 
+                                                            Converter={StaticResource DateConverter}}"/>
+                                        <GridViewColumn Header="Дата рождения" 
+                                                        DisplayMemberBinding="{Binding Path=BirthDate, 
+                                                            Converter={StaticResource DateConverter}}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>    
+                    </GroupBox>  -->
+                    <GroupBox Header="Документы, подтверждающие льготу"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        BorderBrush="DarkBlue">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="23"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Grid.Row="0">
+                                <Button 
+                                    ToolTip="Добавить запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=AddOrphanDocumentCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+                                </Button>
+                                <Button 
+                                    ToolTip="Редактировать запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=EditOrphanDocumentCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/pencil.png"/>
+                                </Button>
+                                <Button 
+                                    ToolTip="Удалить запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=RemoveOrphanDocumentCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+                                </Button>
+                            </StackPanel>
+                            <ListBox
+                                Grid.Row="1"
+                                SelectedItem="{Binding Path=SelectedOrphanDocument}"
+                                ItemsSource="{Binding Path=OrphanDocuments}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel
+                                            Orientation="Vertical"
+                                            ToolTip="{Binding Path=OrphanDocumentType.Name}">
+                                            <StackPanel
+                                                Orientation="Horizontal">
+                                                <TextBlock
+                                                    Text="{Binding Path=Series, StringFormat=Серия: {0};}" 
+                                                    FontSize="10"/>
+                                                <TextBlock
+                                                    Text="{Binding Path=Number, StringFormat=Номер: {0};}" 
+                                                    FontSize="10"/>
+                                                <TextBlock
+                                                    Text="{Binding Path=Date, Converter={StaticResource DateConverter}, StringFormat=От {0}}" 
+                                                    FontSize="10"/>
+                                            </StackPanel>
+                                            <TextBlock
+                                                Text="{Binding Path=Organization}"
+                                                FontSize="8"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Другие истребуемые документы"
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        BorderBrush="DarkBlue">
+                        <Grid>
+                            <Grid
+                                Background="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition
+                                        Height="15"/>
+                                    <RowDefinition
+                                        Height="32"/>
+                                    <RowDefinition
+                                        Height="32"/>
+                                    <RowDefinition
+                                        Height="32"/>
+                                    <RowDefinition
+                                        Height="32"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition
+                                        Width="15"/>
+                                    <ColumnDefinition
+                                        Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <CheckBox
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Content="Флюорография"
+                                    IsChecked="{Binding Path=OtherRequiredDocument.Fluorography, UpdateSourceTrigger=PropertyChanged}"/>
+                                <CheckBox
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Content="Медицинская справка №086-у"
+                                    IsChecked="{Binding Path=OtherRequiredDocument.MedicinePermission, UpdateSourceTrigger=PropertyChanged}"/>
+                                <CheckBox
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Content="Фотографии 3х4"
+                                    IsChecked="{Binding Path=OtherRequiredDocument.Photos, UpdateSourceTrigger=PropertyChanged}"/>
+                                <CheckBox
+                                    Grid.Row="4"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Content="Сертификат о прививках"
+                                    IsChecked="{Binding Path=OtherRequiredDocument.Certificate, UpdateSourceTrigger=PropertyChanged}"/>
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Образование">
+                <Grid 
+                    Margin="5"
+                    Background="#CCCCCC">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Среднее образование"
+                              BorderBrush="DarkBlue"
+                              Grid.Column="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Grid.Row="0">
+                                <Button 
+                                    ToolTip="Добавить запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=AddSchoolCertificateDocumentCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+                                </Button>
+                                <Button 
+                                    ToolTip="Редактировать запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=EditSchoolCertificateDocumentCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/pencil.png"/>
+                                </Button>
+                                <Button 
+                                    ToolTip="Удалить запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=RemoveSchoolCertificateDocumentCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+                                </Button>
+                            </StackPanel>
+                            <ListView
+                                x:Name="schoolDocList"
+                                Grid.Row="1"                                                       
+                                SelectedItem="{Binding Path=SelectedSchoolCertificateDocument}"
+                                ItemsSource="{Binding Path=SchoolCertificateDocuments}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn
+                                            Width="{Binding ElementName=schoolDocList, Path=Width}">
+                                            <GridViewColumnHeader
+                                                Height="0"/>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <CheckBox
+                                                            Style="{StaticResource IsOriginalCheckBox}"
+                                                            IsChecked="{Binding Path=IsOriginal, UpdateSourceTrigger=PropertyChanged}">
+                                                        </CheckBox>
+                                                        <TextBlock        
+                                                            Text="{Binding Path=Series, 
+                                                                StringFormat=Серия: {0}}"
+                                                            FontSize="10"/>
+                                                        <TextBlock        
+                                                            Text="{Binding Path=Number, 
+                                                                StringFormat=Номер: {0}}"
+                                                            FontSize="10"/>
+                                                        <TextBlock        
+                                                            Text="{Binding Path=GraduationYear, 
+                                                                StringFormat=Год окончания: {0}}"
+                                                            FontSize="10"/>
+                                                        <TextBlock        
+                                                            Text="{Binding Path=MiddleMark, 
+                                                                StringFormat=Средний балл: {0}}"
+                                                            FontSize="10"/>
+                                                        <TextBlock        
+                                                            Text="{Binding Path=EducationOrganization.IdentityName}"
+                                                            FontSize="10"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Средне-профессиональное образование"
+                              BorderBrush="DarkBlue"
+                              Grid.Column="2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Grid.Row="0">
+                                <Button 
+                                    ToolTip="Добавить запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=AddMiddleEducationDiplomaDocumentCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+                                </Button>
+                                <Button 
+                                    ToolTip="Редактировать запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=EditMiddleEducationDiplomaDocumentCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/pencil.png"/>
+                                </Button>
+                                <Button 
+                                    ToolTip="Удалить запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=RemoveMiddleEducationDiplomaDocumentCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+                                </Button>
+                            </StackPanel>
+                            <ListView
+                                x:Name="middleEduDocList"
+                                Grid.Row="1"                                                       
+                                SelectedItem="{Binding Path=SelectedMiddleEducationDiplomaDocument}"
+                                ItemsSource="{Binding Path=MiddleEducationDiplomaDocuments}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn
+                                            Width="{Binding ElementName=middleEduDocList, Path=Width}">
+                                            <GridViewColumnHeader
+                                                Height="0"/>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <CheckBox
+                                                            Style="{StaticResource IsOriginalCheckBox}"
+                                                            IsChecked="{Binding Path=IsOriginal, UpdateSourceTrigger=PropertyChanged}">
+                                                        </CheckBox>
+                                                        <TextBlock        
+                                                            Text="{Binding Path=Series, 
+                                                                StringFormat=Серия: {0}}"
+                                                            FontSize="10"/>  
+                                                        <TextBlock        
+                                                            Text="{Binding Path=Number, 
+                                                                StringFormat=Номер: {0}}"
+                                                            FontSize="10"/>
+                                                        <TextBlock        
+                                                            Text="{Binding Path=GraduationYear, 
+                                                                StringFormat=Год окончания: {0}}"
+                                                            FontSize="10"/>
+                                                        <TextBlock        
+                                                            Text="{Binding Path=MiddleMark, 
+                                                                StringFormat=Средний балл: {0}}"
+                                                            FontSize="10"/>
+                                                        <TextBlock        
+                                                            Text="{Binding Path=EducationOrganization.IdentityName}"
+                                                            FontSize="10"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Высшее образование"
+                              BorderBrush="DarkBlue"
+                              Grid.Column="4">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Grid.Row="0">
+                                <Button 
+                                    ToolTip="Добавить запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=AddHighEducationDiplomaDocumentCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+                                </Button>
+                                <Button 
+                                    ToolTip="Редактировать запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=EditHighEducationDiplomaDocumentCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/pencil.png"/>
+                                </Button>
+                                <Button 
+                                    ToolTip="Удалить запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=RemoveHighEducationDiplomaDocumentCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+                                </Button>
+                            </StackPanel>
+                            <ListView
+                                x:Name="highEduDocList"
+                                Grid.Row="1"                                                       
+                                SelectedItem="{Binding Path=SelectedHighEducationDiplomaDocument}"
+                                ItemsSource="{Binding Path=HighEducationDiplomaDocuments}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn
+                                            Width="{Binding ElementName=highEduDocList, Path=Width}">
+                                            <GridViewColumnHeader
+                                                Height="0"/>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <CheckBox
+                                                            Style="{StaticResource IsOriginalCheckBox}"
+                                                            IsChecked="{Binding Path=IsOriginal, UpdateSourceTrigger=PropertyChanged}">
+                                                        </CheckBox>
+                                                        <TextBlock        
+                                                            Text="{Binding Path=Series, 
+                                                                StringFormat=Серия: {0}}"
+                                                            FontSize="10"/>
+                                                        <TextBlock        
+                                                            Text="{Binding Path=Number, 
+                                                                StringFormat=Номер: {0}}"
+                                                            FontSize="10"/>
+                                                        <TextBlock        
+                                                            Text="{Binding Path=GraduationYear, 
+                                                                StringFormat=Год окончания: {0}}"
+                                                            FontSize="10"/>
+                                                        <TextBlock        
+                                                            Text="{Binding Path=MiddleMark, 
+                                                                StringFormat=Средний балл: {0}}"
+                                                            FontSize="10"/>
+                                                        <TextBlock        
+                                                            Text="{Binding Path=EducationOrganization.IdentityName}"
+                                                            FontSize="10"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Вступительные испытания">
+                <Grid 
+                    Margin="5"
+                    Background="#CCCCCC">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="3"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="3"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Header="Свидетельства о результатах ЕГЭ"
+                              Grid.Column="0"
+                              Grid.Row="0"
+                              BorderBrush="DarkBlue">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Grid.Row="0">
+                                <Button 
+                                    ToolTip="Открыть редактор"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=ShowEgeDocumentsEditorCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/pencil.png"/>
+                                </Button>
+                            </StackPanel>
+                            <ListView
+                                Grid.Row="1"
+                                ItemsSource="{Binding Path=EgeResults}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn
+                                            Header="Предмет"
+                                            DisplayMemberBinding="{Binding Path=ExamSubject.Name}"/>
+                                        <GridViewColumn
+                                            Header="Балл"
+                                            DisplayMemberBinding="{Binding Path=Value}"/>
+                                        <GridViewColumn
+                                            Header="Свидетельство"
+                                            DisplayMemberBinding="{Binding Path=EgeDocument.Number, Mode=OneWay}"/>
+                                        <GridViewColumn
+                                            Header="Год сдачи"
+                                            DisplayMemberBinding="{Binding Path=EgeDocument.Year, Mode=OneWay}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Внутренние вступительные испытания"
+                              Grid.Column="2"     
+                              Grid.Row="0"
+                              BorderBrush="DarkBlue">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Grid.Row="0">
+                                <Button 
+                                    ToolTip="Добавить запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=AddEntranceTestResultCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+                                </Button>
+                                <Button 
+                                    ToolTip="Удалить запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=RemoveEntranceTestResultCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+                                </Button>
+                            </StackPanel>
+                            <ListBox
+                                Grid.Row="1"
+                                SelectedItem="{Binding Path=SelectedEntranceTestResult}"
+                                ItemsSource="{Binding Path=EntranceTestResults}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel
+                                            Orientation="Vertical">
+                                            <StackPanel
+                                                Orientation="Horizontal">
+                                                <TextBlock
+                                                    Text="Предмет:"
+                                                    Margin="3"/>
+                                                <ComboBox
+                                                    MinWidth="200"
+                                                    ItemsSource="{Binding Path=AvailableTests, Mode=OneWay}"
+                                                    SelectedItem="{Binding Path=EntranceTest}"/>
+											</StackPanel>
+											<StackPanel
+                                                Orientation="Horizontal"
+                                                Margin="3">
+												<TextBlock
+                                                    Text="Балл:"
+                                                    Margin="0,0,3,0"/>
+												<TextBox
+                                                    BorderBrush="Black"
+                                                    Height="21"
+                                                    Width="40"
+                                                    Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+											</StackPanel>
+											<StackPanel
+                                                Orientation="Horizontal"
+                                                Margin="3">
+												<TextBlock
+                                                    Text="Первичный балл:"
+                                                    Margin="0,0,3,0"/>
+												<TextBox
+                                                    BorderBrush="Black"
+                                                    Height="21"
+                                                    Width="40"
+                                                    Text="{Binding Path=PrimaryMark, UpdateSourceTrigger=PropertyChanged}"/>
+											</StackPanel>
+										</StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Индивидуальные достижения"
+                              Grid.Column="0"     
+                              Grid.Row="2"
+                              BorderBrush="DarkBlue">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel
+                                Orientation="Horizontal"
+                                Grid.Row="0">
+                                <Button 
+                                    ToolTip="Добавить запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=AddIndividualAchievementCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+                                </Button>
+                                <Button 
+                                    ToolTip="Редактировать запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=EditIndividualAchievementCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/pencil.png"/>
+                                </Button>
+                                <Button 
+                                    ToolTip="Удалить запись"
+                                    Height="23"
+                                    Width="23"
+                                    Margin="1,0,1,0"
+                                    Command="{Binding Path=RemoveIndividualAchievementCommand}">
+                                    <Image Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+                                </Button>
+                            </StackPanel>
+                            <ListView
+                                Grid.Row="1"
+                                ItemsSource="{Binding Path=IndividualAchievements}"
+                                SelectedItem="{Binding Path=SelectedIndividualAchievement}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn
+                                            Header="Тип"
+                                            Width="450"
+                                            DisplayMemberBinding="{Binding Path=CampaignIndividualAchievement.Name}"/>
+                                        <GridViewColumn
+                                            Header="Балл"
+                                            DisplayMemberBinding="{Binding Path=CampaignIndividualAchievement.MaxMark}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

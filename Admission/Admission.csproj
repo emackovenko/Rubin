@@ -1,0 +1,817 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{16CBB707-552E-40C1-9DF8-5A8B8145C250}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Admission</RootNamespace>
+    <AssemblyName>Admission</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>\\192.168.0.220\shared\Distributions\Admission\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>true</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <TargetCulture>ru-RU</TargetCulture>
+    <ProductName>Приёмная комиссия</ProductName>
+    <PublisherName>Рубцовский индустриальный институт</PublisherName>
+    <SuiteName>Информационно-технический отдел</SuiteName>
+    <MinimumRequiredVersion>1.0.45.20</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>76</ApplicationRevision>
+    <ApplicationVersion>1.0.45.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <BootstrapperComponentsUrl>\\192.168.0.220\shared\Distributions\Redist</BootstrapperComponentsUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>ClientIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>1D355C2F8A3DFCFFFDA418C09774DD9ED949E478</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Admission_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19038, Culture=neutral, PublicKeyToken=0e453835af4ee6ce, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net40\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=f46ff315b1088208, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net40\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GemBox.Document, Version=25.3.30.1297, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL" />
+    <Reference Include="GemBox.Spreadsheet, Version=41.3.30.1101, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Other files\Additional packages\GemBox.Spreadsheet.dll</HintPath>
+    </Reference>
+    <Reference Include="LingvoNET, Version=1.1.2.0, Culture=neutral, PublicKeyToken=7d49b21a20bef57b, processorArchitecture=MSIL">
+      <HintPath>..\packages\LingvoNET.1.1.2\lib\LingvoNET.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MoreLinq, Version=2.6.20831.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\morelinq.2.6.0\lib\net40\MoreLinq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net40\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.9.9\lib\net40\MySql.Data.Entity.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\portable-net40+sl4+win8+wp8\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>..\Other files\Additional packages\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero">
+      <HintPath>..\Other files\Additional packages\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
+      <HintPath>..\Other files\Additional packages\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010">
+      <HintPath>..\Other files\Additional packages\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\Other files\Additional packages\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\Other files\Additional packages\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="DialogService\DocumentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DialogService\InfoBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DialogService\Editor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DialogService\ItemSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Theme\Controls\OpenXmlDocumentViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Theme\Controls\ProtectedTabItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Theme\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\AddressSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\ClaimConditionEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\ClaimEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\CountryEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\DistrictEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\EducationDocumentEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\EducationOrganizationEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\EducationOrganizationSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\EgeDocumentsEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\EgeResultEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\EntranceIndividualAchievementEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\IdentityDocumentEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\LocalityEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\OrphanDocumentEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\RegionEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\RoleEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\StreetFromLocalityEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\StreetFromTownEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editors\TownEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InfoBoxes\RoleInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InfoBoxes\VersionHistoryInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\Wizards\ExaminationSeating\ExaminationSeatingWizard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\Wizards\ExaminationSeating\Pages\TestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\Wizards\ExaminationSeating\Pages\Welcome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\ContractForming\ContractForming.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Workspaces\ContractForming\Pages\ClaimList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\ContractForming\Pages\ContractList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\ContractForming\Pages\Editors\ContractIndividualPlanAgreementEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\ContractForming\Pages\Editors\ContragentOrganizationEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\ContractForming\Pages\Editors\ContragentPersonEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\ContractForming\Pages\Editors\EntrantContractEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\ContractForming\Pages\Editors\MotherCapitalCertificateEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Enrollment\Pages\Editors\EnrollmentProtocolEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Enrollment\Pages\EnrollmentOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\EntrantClaims\InfoBoxes\FastAdmissionStatistic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\EntrantClaims\Pages\ArchiveClaims.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\EntrantClaims\Pages\EnrollmentClaims.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Workspaces\EntrantClaims\Pages\ClaimList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\AccessControl\Pages\RoleList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\Auth.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\AccessControl\AccessControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Workspaces\AdmissionCampaign\AdmissionCampaign.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Dictionaries\Dictionaries.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Enrollment\Enrollment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\EntrantClaims\EntrantClaims.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Examinations\Examinations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Examinations\Pages\Editors\EgeResultCheckProtocolEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Enrollment\Pages\Editors\EnrollmentOrderEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Examinations\Pages\Editors\InnerEntranceExaminationProtocolEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Examinations\Pages\EgeResultChecking.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Examinations\Pages\EntranceExaminationsProtocols.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Examinations\Pages\EntranceTestResultConverting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\ReportGeneration\Pages\AdmissionStatistic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\ReportGeneration\Pages\GeneralizedEntrantList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\ReportGeneration\Pages\PublicEntrantList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\ReportGeneration\ReportGeneration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Theme\Controls\WorkspaceMenuItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Windows\DesktopWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DialogService\DialogService.cs" />
+    <Compile Include="DialogService\DialogLayer.cs" />
+    <Compile Include="DialogService\DocumentWindow.xaml.cs">
+      <DependentUpon>DocumentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DialogService\EntityType.cs" />
+    <Compile Include="DialogService\InfoBox.xaml.cs">
+      <DependentUpon>InfoBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DialogService\Editor.xaml.cs">
+      <DependentUpon>Editor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DialogService\ItemSelector.xaml.cs">
+      <DependentUpon>ItemSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DialogService\Messenger.cs" />
+    <Compile Include="ViewModel\Documents\AdmissionStatistic.cs" />
+    <Compile Include="ViewModel\Documents\DocumentClaimMiddleEducation.cs" />
+    <Compile Include="ViewModel\Documents\DocumentClaim.cs" />
+    <Compile Include="ViewModel\Documents\DocumentEnrollAgreementClaim.cs" />
+    <Compile Include="ViewModel\Documents\DocumentHostelClaim.cs" />
+    <Compile Include="ViewModel\Documents\DocumentIndividualAchievementsProtocol.cs" />
+    <Compile Include="ViewModel\Documents\DocumentInventoryList.cs" />
+    <Compile Include="ViewModel\Documents\DocumentTitlePage.cs" />
+    <Compile Include="ViewModel\Documents\DocumentVoucher.cs" />
+    <Compile Include="ViewModel\Documents\EnrollmentDisagreementClaimDocument.cs" />
+    <Compile Include="ViewModel\Documents\EnrollmentOrderDocument.cs" />
+    <Compile Include="ViewModel\Documents\EnrollmentProtocolDocument.cs" />
+    <Compile Include="ViewModel\Documents\EnrollmentOrderStatement.cs" />
+    <Compile Include="ViewModel\Documents\ContractIndividualPlanAgreementDocument.cs" />
+    <Compile Include="ViewModel\Documents\EntrantContractDocument.cs" />
+    <Compile Include="ViewModel\Documents\ExaminationStatement.cs" />
+    <Compile Include="ViewModel\Documents\ExaminationStatementMiddleEducationDocument.cs" />
+    <Compile Include="ViewModel\Documents\GeneralizedEntrantList.cs" />
+    <Compile Include="ViewModel\Documents\InnerExaminationCheckProtocol.cs" />
+    <Compile Include="ViewModel\Documents\MissingDocument.cs" />
+    <Compile Include="ViewModel\Documents\PublicEntrantList.cs" />
+    <Compile Include="ViewModel\Editors\AddressSelectorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\ClaimConditionEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\ClaimEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\CountryEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\DistrictEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\EducationOrganizationEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\EducationOrganizationSelectorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\EgeDocumentsEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\EgeResultEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\HighEducationDiplomaDocumentEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\IdentityDocumentEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\LocalityEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\MiddleEducationDiplomaDocumentEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\OrphanDocumentEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\RegionEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\SchoolCertificateDocumentEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\StreetFromLocalityEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\StreetFromTownEditorViewModel.cs" />
+    <Compile Include="ViewModel\Editors\TownEditorViewModel.cs" />
+    <Compile Include="ViewModel\Export\Exporter.cs" />
+    <Compile Include="ViewModel\InfoBoxes\VersionHistoryViewModel.cs" />
+    <Compile Include="ViewModel\ProtectedCommand.cs" />
+    <Compile Include="ViewModel\ValidationRules\Email.cs" />
+    <Compile Include="ViewModel\ValidationRules\NotEmptyOnlyRusLetterString.cs" />
+    <Compile Include="ViewModel\ValidationRules\RegularExpressionProvider.cs" />
+    <Compile Include="ViewModel\ValidationRules\Validators\ClaimValidator.cs" />
+    <Compile Include="ViewModel\ValidationRules\Validators\EgeDocumentValidator.cs" />
+    <Compile Include="ViewModel\ValidationRules\Validators\EnrollmentOrderValidator.cs" />
+    <Compile Include="ViewModel\ValidationRules\Validators\EnrollmentProtocolValidator.cs" />
+    <Compile Include="ViewModel\ValidationRules\Validators\IEntityValidator.cs" />
+    <Compile Include="ViewModel\Workspaces\ClaimsViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\ContractForming\ClaimListViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\ContractForming\ContractListViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\ContractForming\Editors\ContractIndividualPlanAgreementViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\ContractForming\Editors\ContragentOrganizationEditorViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\ContractForming\Editors\ContragentPersonEditorViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\ContractForming\Editors\EntrantContractEditorViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Enrollment\Editors\EnrollmentOrderEditorViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Enrollment\EnrollmentOrdersViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Enrollment\Editors\EnrollmentProtocolEditorViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\EntrantClaims\EnrollmentClaimsViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\EntrantClaims\InfoBoxes\FastAdmissionStatisticViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\EntrantClaims\Pages\ArchiveClaimsViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Examinations\Editors\EgeResultCheckProtocolEditorViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Examinations\Editors\InnerEntranceExaminationProtocolEditorViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Examinations\EgeResultCheckingViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Examinations\EntranceExaminationsProtocolsViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Examinations\EntranceTestResultConvertingViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\ReportGeneration\AdmissionStatisticViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\ReportGeneration\PublicEntrantListViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\ReportGeneration\GeneralizedEntrantListViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\RolesViewModel.cs" />
+    <Compile Include="View\Theme\Behaviors\AutoScrollTextBoxBehavior.cs" />
+    <Compile Include="View\Theme\Behaviors\PasswordBehaivor.cs" />
+    <Compile Include="View\Theme\Controls\RaiseDocumentViewer.cs" />
+    <Compile Include="View\Theme\Controls\OpenXmlDocumentViewer.xaml.cs">
+      <DependentUpon>OpenXmlDocumentViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Theme\Controls\ProtectedTabItem.xaml.cs">
+      <DependentUpon>ProtectedTabItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Theme\Controls\WaitIndicator.cs" />
+    <Compile Include="View\Theme\Converters\IsOriginalToStringConverter.cs" />
+    <Compile Include="View\Theme\Converters\ClaimEntrantToString.cs" />
+    <Compile Include="View\Theme\Converters\DateConverter.cs" />
+    <Compile Include="View\Editors\AddressSelector.xaml.cs">
+      <DependentUpon>AddressSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\ClaimConditionEditor.xaml.cs">
+      <DependentUpon>ClaimConditionEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\ClaimEditor.xaml.cs">
+      <DependentUpon>ClaimEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\CountryEditor.xaml.cs">
+      <DependentUpon>CountryEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\DistrictEditor.xaml.cs">
+      <DependentUpon>DistrictEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\EducationDocumentEditor.xaml.cs">
+      <DependentUpon>EducationDocumentEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\EducationOrganizationEditor.xaml.cs">
+      <DependentUpon>EducationOrganizationEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\EducationOrganizationSelector.xaml.cs">
+      <DependentUpon>EducationOrganizationSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\EgeDocumentsEditor.xaml.cs">
+      <DependentUpon>EgeDocumentsEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\EgeResultEditor.xaml.cs">
+      <DependentUpon>EgeResultEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\EntranceIndividualAchievementEditor.xaml.cs">
+      <DependentUpon>EntranceIndividualAchievementEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\IdentityDocumentEditor.xaml.cs">
+      <DependentUpon>IdentityDocumentEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\LocalityEditor.xaml.cs">
+      <DependentUpon>LocalityEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\OrphanDocumentEditor.xaml.cs">
+      <DependentUpon>OrphanDocumentEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\RegionEditor.xaml.cs">
+      <DependentUpon>RegionEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\RoleEditor.xaml.cs">
+      <DependentUpon>RoleEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\StreetFromLocalityEditor.xaml.cs">
+      <DependentUpon>StreetFromLocalityEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\StreetFromTownEditor.xaml.cs">
+      <DependentUpon>StreetFromTownEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editors\TownEditor.xaml.cs">
+      <DependentUpon>TownEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InfoBoxes\RoleInfo.xaml.cs">
+      <DependentUpon>RoleInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InfoBoxes\VersionHistoryInfo.xaml.cs">
+      <DependentUpon>VersionHistoryInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\Wizards\ExaminationSeating\ExaminationSeatingWizard.xaml.cs">
+      <DependentUpon>ExaminationSeatingWizard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\Wizards\ExaminationSeating\Pages\TestPage.xaml.cs">
+      <DependentUpon>TestPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\Wizards\ExaminationSeating\Pages\Welcome.xaml.cs">
+      <DependentUpon>Welcome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\ContractForming\ContractForming.xaml.cs">
+      <DependentUpon>ContractForming.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\ContractForming\Pages\ClaimList.xaml.cs">
+      <DependentUpon>ClaimList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\ContractForming\Pages\ContractList.xaml.cs">
+      <DependentUpon>ContractList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\ContractForming\Pages\Editors\ContractIndividualPlanAgreementEditor.xaml.cs">
+      <DependentUpon>ContractIndividualPlanAgreementEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\ContractForming\Pages\Editors\ContragentOrganizationEditor.xaml.cs">
+      <DependentUpon>ContragentOrganizationEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\ContractForming\Pages\Editors\ContragentPersonEditor.xaml.cs">
+      <DependentUpon>ContragentPersonEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\ContractForming\Pages\Editors\EntrantContractEditor.xaml.cs">
+      <DependentUpon>EntrantContractEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\ContractForming\Pages\Editors\MotherCapitalCertificateEditor.xaml.cs">
+      <DependentUpon>MotherCapitalCertificateEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Enrollment\Pages\Editors\EnrollmentProtocolEditor.xaml.cs">
+      <DependentUpon>EnrollmentProtocolEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Enrollment\Pages\EnrollmentOrders.xaml.cs">
+      <DependentUpon>EnrollmentOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\EntrantClaims\InfoBoxes\FastAdmissionStatistic.xaml.cs">
+      <DependentUpon>FastAdmissionStatistic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\EntrantClaims\Pages\ArchiveClaims.xaml.cs">
+      <DependentUpon>ArchiveClaims.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\EntrantClaims\Pages\EnrollmentClaims.xaml.cs">
+      <DependentUpon>EnrollmentClaims.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\EntrantClaims\Pages\ClaimList.xaml.cs">
+      <DependentUpon>ClaimList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\AccessControl\Pages\RoleList.xaml.cs">
+      <DependentUpon>RoleList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Windows\Auth.cs" />
+    <Compile Include="ViewModel\Windows\Desktop.cs" />
+    <Compile Include="ViewModel\LogService.cs" />
+    <Compile Include="ViewModel\ProtectedView\VisibilityControl.cs" />
+    <Compile Include="ViewModel\Session.cs" />
+    <Compile Include="View\Windows\Auth.xaml.cs">
+      <DependentUpon>Auth.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\AccessControl\AccessControl.xaml.cs">
+      <DependentUpon>AccessControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\AdmissionCampaign\AdmissionCampaign.xaml.cs">
+      <DependentUpon>AdmissionCampaign.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Dictionaries\Dictionaries.xaml.cs">
+      <DependentUpon>Dictionaries.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Enrollment\Enrollment.xaml.cs">
+      <DependentUpon>Enrollment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\EntrantClaims\EntrantClaims.xaml.cs">
+      <DependentUpon>EntrantClaims.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Examinations\Examinations.xaml.cs">
+      <DependentUpon>Examinations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Examinations\Pages\Editors\EgeResultCheckProtocolEditor.xaml.cs">
+      <DependentUpon>EgeResultCheckProtocolEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Enrollment\Pages\Editors\EnrollmentOrderEditor.xaml.cs">
+      <DependentUpon>EnrollmentOrderEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Examinations\Pages\Editors\InnerEntranceExaminationProtocolEditor.xaml.cs">
+      <DependentUpon>InnerEntranceExaminationProtocolEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Examinations\Pages\EgeResultChecking.xaml.cs">
+      <DependentUpon>EgeResultChecking.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Examinations\Pages\EntranceExaminationsProtocols.xaml.cs">
+      <DependentUpon>EntranceExaminationsProtocols.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Examinations\Pages\EntranceTestResultConverting.xaml.cs">
+      <DependentUpon>EntranceTestResultConverting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\ReportGeneration\Pages\AdmissionStatistic.xaml.cs">
+      <DependentUpon>AdmissionStatistic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\ReportGeneration\Pages\GeneralizedEntrantList.xaml.cs">
+      <DependentUpon>GeneralizedEntrantList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\ReportGeneration\Pages\PublicEntrantList.xaml.cs">
+      <DependentUpon>PublicEntrantList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\ReportGeneration\ReportGeneration.xaml.cs">
+      <DependentUpon>ReportGeneration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Theme\Controls\WorkspaceMenuItem.xaml.cs">
+      <DependentUpon>WorkspaceMenuItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\DesktopWindow.xaml.cs">
+      <DependentUpon>DesktopWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonMethods\CommonMethods.csproj">
+      <Project>{e41820c5-0c01-4c5e-b9d5-b2ea7bcdc050}</Project>
+      <Name>CommonMethods</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{0560a8da-69ed-4810-b450-02dc02f0ef85}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ResourceLibrary\ResourceLibrary.csproj">
+      <Project>{4a97de8a-9743-4a12-b831-775cb6a364b9}</Project>
+      <Name>ResourceLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ClientIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <SplashScreen Include="Properties\splashscreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\Workspaces\Dictionaries\Pages\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

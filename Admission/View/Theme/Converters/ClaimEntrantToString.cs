@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Windows.Data;
+using Model.Admission;
+
+namespace Admission.View.Theme.Converters
+{
+	[ValueConversion(typeof(ICollection<Entrant>), typeof(string))]
+	public class ClaimEntrantToString : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			if (value == null)
+			{
+				return string.Empty;
+			}
+			ICollection<Entrant> entrant = (ICollection<Entrant>)value;
+			string result = string.Format("{0} {1} {2}", entrant.FirstOrDefault().LastName, 
+				entrant.FirstOrDefault().FirstName, entrant.FirstOrDefault().Patronymic);
+			return result;	 
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return new List<Entrant>();
+		}
+	}
+}

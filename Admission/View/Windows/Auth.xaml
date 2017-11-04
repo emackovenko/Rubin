@@ -1,0 +1,66 @@
+﻿<Window x:Class="Admission.View.Windows.Auth"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Admission.View.Windows"
+        xmlns:behaviors="clr-namespace:Admission.View.Theme.Behaviors"
+        mc:Ignorable="d"
+        Title="Авторизация" 
+        Height="295" 
+        Width="585"
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize" 
+        Icon="/Admission;component/ClientIcon.ico" 
+        WindowStyle="None"  
+        ShowInTaskbar="True">
+    <Grid Background="#FF4EB6FF">
+        <Grid Margin="5" Background="#FF99C7FF">
+			<Button                   
+                IsDefault="True" 
+                Content="Войти"
+				Command="{Binding Path=CommandLogin}"
+                Margin="0,182,15,0"
+                VerticalAlignment="Top"   
+                HorizontalAlignment="Right"
+                Height="28" 
+                Width="195"/>
+            <Button             
+                IsCancel="True" 
+                Content="Выход"
+                Command="{Binding Path=CommandExit}"
+                Margin="0,215,15,0"
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Right" 
+                Height="28" 
+                Width="195"/>
+            <TextBox 
+                Text="{Binding Path=Username}"
+                Height="23" 
+                Margin="0,95,15,0" 
+                TextWrapping="Wrap" 
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Right" 
+                Width="195"/>
+            <PasswordBox
+				x:Name="pwdBox"
+                Margin="0,135,15,0" 
+                VerticalAlignment="Top"        
+                HorizontalAlignment="Right" 
+                Height="25" 
+                Width="195">
+                <i:Interaction.Behaviors>
+                    <behaviors:PasswordBehavior Password="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </i:Interaction.Behaviors>
+            </PasswordBox>
+            <Image 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top"
+                Margin="10,10,0,0"
+                Width="275" Height="265" Source="/ResourceLibrary;component/Images/logo_orig.png"/>
+            <TextBlock HorizontalAlignment="Left" Margin="323,99,0,0" TextWrapping="Wrap" Text="Логин:" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="316,141,0,0" TextWrapping="Wrap" Text="Пароль:" VerticalAlignment="Top"/>
+		</Grid>
+    </Grid>
+</Window>

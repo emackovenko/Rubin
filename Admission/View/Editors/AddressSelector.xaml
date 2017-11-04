@@ -1,0 +1,295 @@
+﻿<UserControl x:Class="Admission.View.Editors.AddressSelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
+             xmlns:local="clr-namespace:Admission.View.Editors"
+             xmlns:vm="clr-namespace:Admission.ViewModel.Editors"
+             mc:Ignorable="d"
+             Margin="5"
+             Height="315" 
+             Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Страна:"
+            Grid.Row="1"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"/>
+        <TextBlock Text="Регион"
+            Grid.Row="2"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"/>
+        <TextBlock Text="Город:"
+            Grid.Row="3"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"/>
+        <TextBlock Text="Район:"
+            Grid.Row="4"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"/>
+        <TextBlock Text="Нас. пункт:"
+            Grid.Row="5"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"/>
+        <TextBlock Text="Улица:"
+            Grid.Row="6"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"/>
+        <TextBlock Text="Строение:"
+            Grid.Row="7"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"/>
+        <TextBlock Text="Квартира:"
+            Grid.Row="8"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"/>
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="2"
+            Orientation="Horizontal">
+            <ComboBox
+                Height="23"
+                Width="192"
+                VerticalAlignment="Center"
+                ItemsSource="{Binding Path=Countries}"
+                SelectedItem="{Binding Path=Country}"/>
+            <Button
+                Height="20"
+                Width="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="2,0,0,0"
+                ToolTip="Добавить объект КЛАДР"
+                Command="{Binding Path=AddCountryCommand}">
+                <Image  Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+            </Button>
+            <Button
+                Height="20"
+                Width="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="2,0,0,0"
+                ToolTip="Очистить поле">
+                <Image  Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="2"
+            Orientation="Horizontal">
+            <ComboBox
+                Height="23"
+                Width="192"
+                VerticalAlignment="Center"
+                ItemsSource="{Binding Path=Regions}"
+                SelectedItem="{Binding Path=Region}"/>
+            <Button
+                Height="20"
+                Width="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="2,0,0,0"
+                ToolTip="Добавить объект КЛАДР"
+                Command="{Binding Path=AddRegionCommand}">
+                <Image  Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+            </Button>
+            <Button
+                Height="20"
+                Width="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="2,0,0,0"
+                ToolTip="Очистить данное поле"
+                Command="{Binding Path=SetNullRegionCommand}">
+                <Image  Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="3"
+            Grid.Column="2"
+            Orientation="Horizontal">
+            <ComboBox
+                Height="23"
+                Width="192"
+                VerticalAlignment="Center"
+                ItemsSource="{Binding Path=Towns}"
+                SelectedItem="{Binding Path=Town}"/>
+            <Button
+                Height="20"
+                Width="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="2,0,0,0"
+                ToolTip="Добавить объект КЛАДР"
+                Command="{Binding Path=AddTownCommand}">
+                <Image  Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+            </Button>
+            <Button
+                Height="20"
+                Width="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="2,0,0,0"
+                ToolTip="Очистить данное поле"
+                Command="{Binding Path=SetNullTownCommand}">
+                <Image  Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="4"
+            Grid.Column="2"
+            Orientation="Horizontal">
+            <ComboBox
+                Height="23"
+                Width="192"
+                VerticalAlignment="Center"
+                ItemsSource="{Binding Path=Districts}"
+                SelectedItem="{Binding Path=District}"/>
+            <Button
+                Height="20"
+                Width="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="2,0,0,0"
+                ToolTip="Добавить объект КЛАДР"
+                Command="{Binding Path=AddDistrictCommand}">
+                <Image  Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+            </Button>
+            <Button
+                Height="20"
+                Width="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="2,0,0,0"
+                ToolTip="Очистить данное поле"
+                Command="{Binding Path=SetNullDistrictCommand}">
+                <Image  Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="5"
+            Grid.Column="2"
+            Orientation="Horizontal">
+            <ComboBox
+                Height="23"
+                Width="192"
+                VerticalAlignment="Center"
+                ItemsSource="{Binding Path=Localities}"
+                SelectedItem="{Binding Path=Locality}"/>
+            <Button
+                Height="20"
+                Width="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="2,0,0,0"
+                ToolTip="Добавить объект КЛАДР"
+                Command="{Binding Path=AddLocalityCommand}">
+                <Image  Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+            </Button>
+            <Button
+                Height="20"
+                Width="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="2,0,0,0"
+                ToolTip="Очистить данное поле" 
+                Command="{Binding Path=SetNullLocalityCommand}">
+                <Image  Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="6"
+            Grid.Column="2"
+            Orientation="Horizontal">
+            <ComboBox
+                Height="23"
+                Width="192"
+                VerticalAlignment="Center"
+                ItemsSource="{Binding Path=Streets}"
+                SelectedItem="{Binding Path=Street}"/>
+            <Button
+                Height="20"
+                Width="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="2,0,0,0"
+                ToolTip="Добавить объект КЛАДР"
+                Command="{Binding Path=AddStreetCommand}">
+                <Image  Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+            </Button>
+            <Button
+                Height="20"
+                Width="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="2,0,0,0"
+                ToolTip="Очистить данное поле" 
+                Command="{Binding Path=SetNullStreetCommand}">
+                <Image  Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="7"
+            Grid.Column="2"
+            Orientation="Horizontal">
+            <TextBox
+                Height="23"
+                Width="50"
+                VerticalAlignment="Center"
+                Text="{Binding Path=Building, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button
+                Height="20"
+                Width="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="2,0,0,0"
+                ToolTip="Очистить данное поле"   
+                Command="{Binding Path=SetNullBuildingCommand}">
+                <Image  Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+            </Button>
+        </StackPanel>
+        <StackPanel
+            Grid.Row="8"
+            Grid.Column="2"
+            Orientation="Horizontal">
+            <TextBox
+                Height="23"
+                Width="50"
+                VerticalAlignment="Center"
+                Text="{Binding Path=Flat, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button
+                Height="20"
+                Width="20"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Margin="2,0,0,0"
+                ToolTip="Очистить данное поле"  
+                Command="{Binding Path=SetNullFlatCommand}">
+                <Image  Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+            </Button>
+        </StackPanel>   
+    </Grid>
+</UserControl>

@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="Admission.View.Workspaces.ContractForming.Pages.Editors.ContractIndividualPlanAgreementEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 						   
+			 xmlns:gmvvml="http://www.galasoft.ch/mvvmlight"
+			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:local="clr-namespace:Admission.View.Workspaces.ContractForming.Pages.Editors"
+             mc:Ignorable="d" 
+             Width="400">
+	<Grid
+		Background="Bisque">
+		<Grid.RowDefinitions>
+			<RowDefinition
+				Height="32"/>
+			<RowDefinition
+				Height="32"/>
+			<RowDefinition
+				Height="32"/>
+			<RowDefinition
+				Height="32"/>
+			<RowDefinition
+				Height="32"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition
+				Width="Auto"/>
+			<ColumnDefinition
+				Width="3"/>
+			<ColumnDefinition
+				Width="*"/>
+		</Grid.ColumnDefinitions>
+		<TextBlock
+			Grid.Row="0"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Text="Номер"/>
+		<TextBlock
+			Grid.Row="1"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Text="Дата"/>
+		<TextBlock
+			Grid.Row="2"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Text="Период обучения"/>
+		<TextBlock
+			Grid.Row="3"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Text="Стоимость за год"/>
+		<TextBlock
+			Grid.Row="4"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Text="Полная стоимость"/>
+		<TextBox
+			Grid.Row="0"
+			Grid.Column="2"
+			VerticalAlignment="Center"
+			HorizontalAlignment="Left"
+			Width="100"
+			Text="{Binding Path=Agreement.Number, UpdateSourceTrigger=PropertyChanged}"/>
+		<DatePicker
+			Grid.Row="1"
+			Grid.Column="2"
+			VerticalAlignment="Center"
+			HorizontalAlignment="Left"
+			SelectedDate="{Binding Path=Agreement.Date, UpdateSourceTrigger=PropertyChanged}"/>
+		<TextBox
+			Grid.Row="2"
+			Grid.Column="2"
+			VerticalAlignment="Center"
+			HorizontalAlignment="Left"
+			Width="100"
+			Text="{Binding Path=Agreement.TrainingPeriod, UpdateSourceTrigger=PropertyChanged}">
+			<i:Interaction.Triggers>
+				<i:EventTrigger
+					EventName="TextChanged">
+					<gmvvml:EventToCommand
+						Command="{Binding Path=FullPriceCalculateCommand}"/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
+		</TextBox>
+		<TextBox
+			Grid.Row="3"
+			Grid.Column="2"
+			VerticalAlignment="Center"
+			HorizontalAlignment="Left"
+			Width="150"
+			Text="{Binding Path=Agreement.YearPrice, UpdateSourceTrigger=PropertyChanged}">
+			<i:Interaction.Triggers>
+				<i:EventTrigger
+					EventName="TextChanged">
+					<gmvvml:EventToCommand
+						Command="{Binding Path=FullPriceCalculateCommand}"/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
+		</TextBox>
+		<TextBox
+			Grid.Row="4"
+			Grid.Column="2"
+			VerticalAlignment="Center"
+			HorizontalAlignment="Left"
+			Width="150"
+			Text="{Binding Path=Agreement.FullPrice, UpdateSourceTrigger=PropertyChanged}"/>
+	</Grid>
+</UserControl>

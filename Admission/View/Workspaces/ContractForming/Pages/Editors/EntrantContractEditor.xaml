@@ -1,0 +1,165 @@
+﻿<UserControl x:Class="Admission.View.Workspaces.ContractForming.Pages.Editors.EntrantContractEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Admission.View.Workspaces.ContractForming.Pages.Editors"		
+			 xmlns:galasoft="http://www.galasoft.ch/mvvmlight"
+			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d">
+    <Grid
+		Margin="5"
+		Background="Bisque">
+		<Grid.RowDefinitions>
+			<RowDefinition
+				Height="32"/>
+			<RowDefinition
+				Height="32"/>
+			<RowDefinition
+				Height="32"/>
+			<RowDefinition
+				Height="32"/>
+			<RowDefinition
+				Height="32"/>
+			<RowDefinition
+				Height="32"/>
+			<RowDefinition
+				Height="32"/>
+			<RowDefinition
+				Height="32"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition
+				Width="Auto"/>
+			<ColumnDefinition
+				Width="3"/>
+			<ColumnDefinition
+				Width="*"/>
+		</Grid.ColumnDefinitions>
+		<TextBlock
+			Grid.Row="0"
+			Grid.Column="0"
+			Grid.ColumnSpan="3"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center"
+			Text="{Binding Path=Contract.Entrant.FullName, StringFormat=Абитуриент: {0}}"/>
+		<TextBlock
+			Grid.Row="1"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Text="Номер:"/>
+		<TextBox
+			Grid.Row="1"
+			Grid.Column="2"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			Width="100"
+			Text="{Binding Path=Contract.Number, UpdateSourceTrigger=PropertyChanged}"/>
+		<TextBlock
+			Grid.Row="2"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Text="Дата:"/>
+		<DatePicker
+			Grid.Row="2"
+			Grid.Column="2"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			SelectedDate="{Binding Path=Contract.Date, UpdateSourceTrigger=PropertyChanged}"/>
+		<TextBlock
+			Grid.Row="3"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Text="Срок обучения"/>
+		<TextBox
+			Grid.Row="3"
+			Grid.Column="2"
+			VerticalAlignment="Center"
+			HorizontalAlignment="Left"
+			Width="80"
+			Text="{Binding Path=Contract.TrainingPeriod, UpdateSourceTrigger=PropertyChanged}">
+			<i:Interaction.Triggers>
+				<i:EventTrigger
+					EventName="TextChanged">
+					<galasoft:EventToCommand
+						Command="{Binding Path=FullPriceCalculateCommand}"/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
+		</TextBox>
+		<TextBlock
+			Grid.Row="4"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Text="Стоимость за год:"/>
+		<TextBox
+			Grid.Row="4"
+			Grid.Column="2"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			Width="200"
+			Text="{Binding Path=Contract.YearPrice, UpdateSourceTrigger=PropertyChanged}">
+			<i:Interaction.Triggers>
+				<i:EventTrigger
+					EventName="TextChanged">
+					<galasoft:EventToCommand
+						Command="{Binding Path=FullPriceCalculateCommand}"/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
+		</TextBox>
+		<TextBlock
+			Grid.Row="5"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Text="Полная стоимость:"/>
+		<TextBox
+			Grid.Row="5"
+			Grid.Column="2"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			Width="200"
+			Text="{Binding Path=Contract.FullPrice, UpdateSourceTrigger=PropertyChanged}"/>
+		<TextBlock
+			Grid.Row="6"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Text="Тип контрагента:"/>
+		<ComboBox
+			Grid.Row="6"
+			Grid.Column="2"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			Width="400"
+			ItemsSource="{Binding Path=ContragentTypes}"
+			SelectedItem="{Binding Path=Contract.ContragentType}"
+			DisplayMemberPath="Name"/>
+		<TextBlock
+			Grid.Row="7"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Text="Контрагент:"/>
+		<StackPanel
+			Grid.Row="7"
+			Grid.Column="2"
+			Orientation="Horizontal">
+			<TextBox
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				Width="350"
+				IsReadOnly="True"
+				Text="{Binding Path=Contract.PayerName, Mode=OneWay}"/>
+			<Button
+				VerticalAlignment="Center"
+				Padding="5,0"
+				Margin="10,0"
+				Content="..."
+				Command="{Binding Path=CreateContragentCommand}"/>
+		</StackPanel>
+	</Grid>
+</UserControl>

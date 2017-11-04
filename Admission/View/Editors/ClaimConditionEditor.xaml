@@ -1,0 +1,87 @@
+﻿<UserControl                                                    
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"                   
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"   
+             xmlns:gmvvml="http://www.galasoft.ch/mvvmlight"
+             xmlns:local="clr-namespace:Admission.View.Editors"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+             x:Class="Admission.View.Editors.ClaimConditionEditor"
+             xmlns:vm="clr-namespace:Admission.ViewModel.Editors"
+             mc:Ignorable="d" Height="160" Width="465">
+    <Grid Background="#CCCCCC">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            Text="Форма обучения"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Margin="5,0,0,0"/>
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="0"
+            Text="Источник финансирования"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Margin="5,0,0,0"/>
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="0"
+            Text="Специальность"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Margin="5,0,0,0"/>
+        <TextBlock
+            Grid.Row="3"
+            Grid.Column="0"
+            Text="Приоритет"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Margin="5,0,0,0"/>
+        <ComboBox
+            Grid.Row="0"
+            Grid.Column="2"
+            Height="23"
+            VerticalAlignment="Center"
+            ItemsSource="{Binding Path=EducationForms}"
+            SelectedItem="{Binding Path=EducationForm}"/>
+        <ComboBox
+            Grid.Row="1"
+            Grid.Column="2"
+            Height="23"
+            VerticalAlignment="Center"
+            ItemsSource="{Binding Path=FinanceSources}"
+            SelectedItem="{Binding Path=FinanceSource}"/>
+        <ComboBox
+            Grid.Row="2"
+            Grid.Column="2"
+            Height="23"
+            VerticalAlignment="Center"
+            ItemsSource="{Binding Path=Directions}"
+            SelectedItem="{Binding Path=Direction}"/>
+        <xctk:SingleUpDown 
+            Grid.Column="2"           
+            Grid.Row="3"
+            HorizontalAlignment="Left"  
+            VerticalAlignment="Center" 
+            BorderBrush="#FF747474" 
+            Width="50" 
+            Maximum="3" 
+            Minimum="1"
+            Value="{Binding Path=Condition.Priority, UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
+</UserControl>

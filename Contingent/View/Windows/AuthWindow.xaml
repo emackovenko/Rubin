@@ -1,0 +1,81 @@
+﻿<Window x:Class="Contingent.View.Windows.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:behavior="clr-namespace:Contingent.Themes.Behaviors"
+        xmlns:vm="clr-namespace:Contingent.ViewModel.Windows"
+        xmlns:local="clr-namespace:Contingent.View.Windows"
+        mc:Ignorable="d"
+        Title="Авторизация"
+        Height="300"
+        Width="600" 
+        ResizeMode="NoResize" 
+        Icon="/Contingent;component/id_card.ico" 
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None">
+    <Window.DataContext>
+        <vm:AuthViewModel/>
+    </Window.DataContext>
+    <Grid 
+        Background="#FF53ADEC">
+        <Grid
+            Margin="3" 
+            Background="#FF8BD0FF">
+            <Image
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Margin="15"
+                Source="/ResourceLibrary;component/Images/logo_orig.png"/>
+            <TextBlock
+                Margin="300,120,0,0"
+                Text="Логин:"/>
+            <TextBlock
+                Margin="293,150,0,0"
+                Text="Пароль:"/>
+            <TextBox
+                Height="21"
+                Width="232"
+                Margin="340,118,0,0" 
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                Text="{Binding Path=Username}"/>
+            <PasswordBox
+                Height="21"
+                Width="232"
+                Margin="340,149,0,0" 
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left">
+                <i:Interaction.Behaviors>
+                    <behavior:PasswordBehavior Password="{Binding Path=Password, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                </i:Interaction.Behaviors>                
+            </PasswordBox>
+            <Button 
+                Content="Войти"
+                IsDefault="True"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left" 
+                Margin="322,193,0,0"
+                Width="240"
+                Command="{Binding Path=TryAuthCommand}"/>
+            <Button 
+                Content="Выход" 
+                IsCancel="True"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="322,226,0,0"  
+                Width="240"
+                Command="{Binding Path=ExitCommand}"/>
+            <Button
+                Height="24"
+                Width="24"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                ToolTip="Параметры подключения"
+                Style="{StaticResource ToolButton}" Click="Button_Click">
+                <Image Style="{StaticResource PictureParams}"/>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

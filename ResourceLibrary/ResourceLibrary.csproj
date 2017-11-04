@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4A97DE8A-9743-4A12-B831-775CB6A364B9}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ResourceLibrary</RootNamespace>
+    <AssemblyName>ResourceLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Documents\DocumentTemplate.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Resource Include="Documents\EnrollmentAgreementClaim.dotx" />
+    <Resource Include="Documents\EntrantClaim.dotx" />
+    <Resource Include="Documents\HostelClaim.dotx" />
+    <Resource Include="Documents\TitlePage.dotx" />
+    <None Include="Documents\AdmissionStatistic.xlsx" />
+    <None Include="Documents\ContractIndividualPlanAgreement.dotx" />
+    <None Include="Documents\EnrollmentDisagreementClaim.dotx" />
+    <None Include="Documents\EnrollmentOrder.dotx" />
+    <None Include="Documents\EnrollmentOrderStatement.dotx" />
+    <None Include="Documents\EnrollmentProtocol.xlsx" />
+    <None Include="Documents\EntrantClaimMiddleEducation.dotx" />
+    <None Include="Documents\EntrantContract.dotx" />
+    <None Include="Documents\EntrantList.xlsx" />
+    <None Include="Documents\ExaminationStatement.dotx" />
+    <None Include="Documents\ExaminationStatementMiddleEducation.dotx.docx" />
+    <None Include="Documents\IndividualAchievementsProtocol.dotx" />
+    <None Include="Documents\InnerExaminationCheckProtocol.xlsx" />
+    <None Include="Documents\InventoryList.dotx" />
+    <None Include="Documents\MissingDocument.dotx" />
+    <None Include="Documents\PublicEntrantList.xlsx" />
+    <None Include="Documents\Voucher.dotx" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\contract.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\address_book.png" />
+    <Resource Include="Images\blackboard.png" />
+    <Resource Include="Images\briefcase_document.png" />
+    <Resource Include="Images\Buttons\about.png" />
+    <Resource Include="Images\Buttons\add2.png" />
+    <Resource Include="Images\Buttons\delete2.png" />
+    <Resource Include="Images\Buttons\document.png" />
+    <Resource Include="Images\Buttons\find.png" />
+    <Resource Include="Images\Buttons\pencil.png" />
+    <Resource Include="Images\Buttons\printer.png" />
+    <Resource Include="Images\Buttons\recycle.png" />
+    <Resource Include="Images\Buttons\view.png" />
+    <Resource Include="Images\environment.png" />
+    <Resource Include="Images\graduate.png" />
+    <Resource Include="Images\graduation_hat2.png" />
+    <Resource Include="Images\id_cards.png" />
+    <Resource Include="Images\logo_orig.png" />
+    <Resource Include="Images\school.png" />
+    <SplashScreen Include="Images\splashscreen.png" />
+    <Resource Include="Images\workplace2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\params.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\id_card_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\selection_replace.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\arrow2_left_red.png" />
+    <Resource Include="Images\Buttons\arrow2_right_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Buttons\excel.png" />
+    <Resource Include="Images\Buttons\word.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tests.csproj" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

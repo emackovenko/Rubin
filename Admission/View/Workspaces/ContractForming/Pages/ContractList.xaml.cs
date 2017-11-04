@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace Admission.View.Workspaces.ContractForming.Pages
+{
+    /// <summary>
+    /// Логика взаимодействия для ContractList.xaml
+    /// </summary>
+    public partial class ContractList : Page
+    {
+        public ContractList()
+        {
+            InitializeComponent();
+        }
+			  
+		private void claimList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			// на MVVM я на мгновение плюнул к хуям - отдельный контрол не помогает
+			claimList.ScrollIntoView(claimList.SelectedItem);
+		}
+	}
+}

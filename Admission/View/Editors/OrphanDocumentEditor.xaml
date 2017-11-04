@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="Admission.View.Editors.OrphanDocumentEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Admission.View.Editors"
+             xmlns:vm="clr-namespace:Admission.ViewModel.Editors"
+             mc:Ignorable="d"              
+             Width="400">
+    <UserControl.DataContext>
+        <vm:OrphanDocumentEditorViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <Style TargetType="CheckBox" x:Key="IsOriginalCheckBox">
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Content" Value="Оригинал"/>
+                </Trigger>
+                <Trigger Property="IsChecked" Value="False">
+                    <Setter Property="Content" Value="Копия"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid
+        Background="#CCCCCC">
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="32"/>
+            <RowDefinition
+                Height="32"/>
+            <RowDefinition
+                Height="32"/>
+            <RowDefinition
+                Height="32"/>
+            <RowDefinition
+                Height="32"/>
+            <RowDefinition
+                Height="32"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition 
+                Width="5"/>
+            <ColumnDefinition 
+                Width="Auto"/>
+            <ColumnDefinition 
+                Width="3"/>
+            <ColumnDefinition 
+                Width="*"/>
+            <ColumnDefinition 
+                Width="5"/>
+        </Grid.ColumnDefinitions>
+        <CheckBox
+            Grid.Row="0"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            FlowDirection="RightToLeft"
+            Style="{StaticResource IsOriginalCheckBox}"
+            IsChecked="{Binding Path=Document.IsOriginal}"/>
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Тип документа:"/>
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Серия:"/>
+        <TextBlock
+            Grid.Row="3"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Номер:"/>
+        <TextBlock
+            Grid.Row="4"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Дата выдачи:"/>
+        <TextBlock
+            Grid.Row="5"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Организация:"/>
+        <ComboBox
+            Grid.Row="1"
+            Grid.Column="3"
+            Height="21"
+            VerticalAlignment="Center"
+            ItemsSource="{Binding Path=DocumentTypes}"
+            IsTextSearchCaseSensitive="False"
+            DisplayMemberPath="Name"
+            SelectedItem="{Binding Path=Document.OrphanDocumentType}"/>
+        <TextBox
+            Grid.Row="2"
+            Grid.Column="3"
+            Height="21"
+            Width="100"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Text="{Binding Path=Document.Series, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox
+            Grid.Row="3"
+            Grid.Column="3"
+            Height="21"
+            Width="100"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Text="{Binding Path=Document.Number, UpdateSourceTrigger=PropertyChanged}"/>
+        <DatePicker
+            Grid.Row="4"
+            Grid.Column="3"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            DisplayDate="{Binding Path=System.DateTime.Now}"
+            SelectedDate="{Binding Path=Document.Date}"/>
+        <TextBox
+            Grid.Row="5"
+            Grid.Column="3"
+            Height="21"
+            VerticalAlignment="Center"
+            Text="{Binding Path=Document.Organization, UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
+</UserControl>

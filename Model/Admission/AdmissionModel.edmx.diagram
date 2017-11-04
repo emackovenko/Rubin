@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8d5a53a55f024b05bbcdd75402be47c4" Name="AdmissionDiagram" ZoomLevel="63" DisplayType="false" ShowGrid="false">
+        <EntityTypeShape EntityType="AdmissionModel.Address" Width="1.5" PointX="6.75" PointY="36.75" />
+        <EntityTypeShape EntityType="AdmissionModel.AdmissionVolume" Width="1.5" PointX="9" PointY="59.75" />
+        <EntityTypeShape EntityType="AdmissionModel.BudgetLevel" Width="1.5" PointX="9" PointY="71.25" />
+        <EntityTypeShape EntityType="AdmissionModel.CampaignIndividualAchievement" Width="1.5" PointX="6" PointY="58.125" />
+        <EntityTypeShape EntityType="AdmissionModel.Campaign" Width="1.5" PointX="3.75" PointY="57.75" />
+        <EntityTypeShape EntityType="AdmissionModel.CampaignStatus" Width="1.5" PointX="1.5" PointY="59.75" />
+        <EntityTypeShape EntityType="AdmissionModel.CampaignType" Width="1.5" PointX="1.5" PointY="57.25" />
+        <EntityTypeShape EntityType="AdmissionModel.Citizenship" Width="1.5" PointX="9" PointY="30.25" />
+        <EntityTypeShape EntityType="AdmissionModel.ClaimCondition" Width="1.5" PointX="8.25" PointY="19.75" />
+        <EntityTypeShape EntityType="AdmissionModel.Claim" Width="1.5" PointX="3" PointY="18.75" />
+        <EntityTypeShape EntityType="AdmissionModel.ClaimStatus" Width="1.5" PointX="0.75" PointY="20" />
+        <EntityTypeShape EntityType="AdmissionModel.CommandPermission" Width="1.5" PointX="14" PointY="1.5" />
+        <EntityTypeShape EntityType="AdmissionModel.Command" Width="1.5" PointX="11.75" PointY="1.5" />
+        <EntityTypeShape EntityType="AdmissionModel.CompetitionEntranceTest" Width="1.5" PointX="8.25" PointY="44.25" />
+        <EntityTypeShape EntityType="AdmissionModel.CompetitiveGroupItem" Width="1.5" PointX="8.25" PointY="66.125" />
+        <EntityTypeShape EntityType="AdmissionModel.CompetitiveGroup" Width="1.5" PointX="6" PointY="62.875" />
+        <EntityTypeShape EntityType="AdmissionModel.Country" Width="1.5" PointX="4.5" PointY="39.5" />
+        <EntityTypeShape EntityType="AdmissionModel.Direction" Width="1.5" PointX="3.75" PointY="70.5" />
+        <EntityTypeShape EntityType="AdmissionModel.DistributedAdmissionVolume" Width="1.5" PointX="11.25" PointY="60.25" />
+        <EntityTypeShape EntityType="AdmissionModel.District" Width="1.5" PointX="4.5" PointY="30.375" />
+        <EntityTypeShape EntityType="AdmissionModel.EducationForm" Width="1.5" PointX="3.75" PointY="62.25" />
+        <EntityTypeShape EntityType="AdmissionModel.EducationLevel" Width="1.5" PointX="3.75" PointY="67.75" />
+        <EntityTypeShape EntityType="AdmissionModel.EducationOrganization" Width="1.5" PointX="9" PointY="2.5" />
+        <EntityTypeShape EntityType="AdmissionModel.EducationOrganizationType" Width="1.5" PointX="6.75" PointY="6.625" />
+        <EntityTypeShape EntityType="AdmissionModel.EgeDocument" Width="1.5" PointX="5.25" PointY="53.625" />
+        <EntityTypeShape EntityType="AdmissionModel.EgeResult" Width="1.5" PointX="7.5" PointY="53.625" />
+        <EntityTypeShape EntityType="AdmissionModel.EnrollmentAgreementClaim" Width="1.5" PointX="10.5" PointY="23.875" />
+        <EntityTypeShape EntityType="AdmissionModel.EnrollmentDisagreementClaim" Width="1.5" PointX="12.75" PointY="24" />
+        <EntityTypeShape EntityType="AdmissionModel.EntranceTestResult" Width="1.5" PointX="5.25" PointY="19.375" />
+        <EntityTypeShape EntityType="AdmissionModel.EntranceTest" Width="1.5" PointX="3" PointY="24.625" />
+        <EntityTypeShape EntityType="AdmissionModel.Entrant" Width="1.5" PointX="8.25" PointY="23.125" />
+        <EntityTypeShape EntityType="AdmissionModel.ExamSubject" Width="1.5" PointX="0.75" PointY="24.875" />
+        <EntityTypeShape EntityType="AdmissionModel.FinanceSource" Width="1.5" PointX="3.75" PointY="65" />
+        <EntityTypeShape EntityType="AdmissionModel.Gender" Width="1.5" PointX="6" PointY="12.125" />
+        <EntityTypeShape EntityType="AdmissionModel.HighEducationDiplomaDocument" Width="1.5" PointX="5.25" PointY="23.125" />
+        <EntityTypeShape EntityType="AdmissionModel.IdentityDocument" Width="1.5" PointX="11.25" PointY="19" />
+        <EntityTypeShape EntityType="AdmissionModel.IdentityDocumentType" Width="1.5" PointX="9" PointY="11.75" />
+        <EntityTypeShape EntityType="AdmissionModel.IndividualAchievementCategory" Width="1.5" PointX="3.75" PointY="50.5" />
+        <EntityTypeShape EntityType="AdmissionModel.Locality" Width="1.5" PointX="4.5" PointY="41.875" />
+        <EntityTypeShape EntityType="AdmissionModel.MiddleEducationDiplomaDocument" Width="1.5" PointX="8.25" PointY="15.125" />
+        <EntityTypeShape EntityType="AdmissionModel.OrphanDocument" Width="1.5" PointX="5.25" PointY="15.375" />
+        <EntityTypeShape EntityType="AdmissionModel.OrphanDocumentType" Width="1.5" PointX="3" PointY="16" />
+        <EntityTypeShape EntityType="AdmissionModel.PreviousEducationLevel" Width="1.5" PointX="4.5" PointY="6.875" />
+        <EntityTypeShape EntityType="AdmissionModel.Region" Width="1.5" PointX="4.5" PointY="36.625" />
+        <EntityTypeShape EntityType="AdmissionModel.Role" Width="1.5" PointX="11.75" PointY="4.5" />
+        <EntityTypeShape EntityType="AdmissionModel.SchoolCertificateDocument" Width="1.5" PointX="11.25" PointY="14.25" />
+        <EntityTypeShape EntityType="AdmissionModel.Street" Width="1.5" PointX="4.5" PointY="33.5" />
+        <EntityTypeShape EntityType="AdmissionModel.Town" Width="1.5" PointX="4.5" PointY="45" />
+        <EntityTypeShape EntityType="AdmissionModel.User" Width="1.5" PointX="14" PointY="9.375" />
+        <EntityTypeShape EntityType="AdmissionModel.BuildVersion" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AdmissionModel.WorkspacePermission" Width="1.5" PointX="14" PointY="4.5" />
+        <EntityTypeShape EntityType="AdmissionModel.Workspace" Width="1.5" PointX="11.75" PointY="7.5" />
+        <AssociationConnector Association="AdmissionModel.FK_Addresses_Countries_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_Addresses_Districts_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_Addresses_Localities_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_Addresses_Regions_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_Addresses_Streets_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_Addresses_Towns_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EducationOrganizations_Addresses_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_Entrants_Addresses_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_AdmissionVolume_Capmaigns_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_AdmissionVolume_Directions_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_AdmissionVolume_EducationLevels_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_DistributedAdmissionVolume_AdmissionVolume_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_DistributedAdmissionVolume_BudgetLevels_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_CampaignIndividualAchievements_Campaigns_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_CIndividualAchievements_IndividualAchievementCategories_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_Capmaigns_CampaignStatuses_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_Capmaigns_CampaignTypes_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_CompetitiveGroups_Capmaigns_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EntranceTests_Campaigns_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_IdentityDocuments_Citizenships_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_ClaimConditions_Claims_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_ClaimConditions_CompetitiveGroups_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EnrollmentAgreementClaims_ClaimConditions_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_Claims_ClaimStatuses_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EgeDocuments_Claims_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EntranceTestResults_Claims_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_Entrants_Claims_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_HighEducationDiplomaDocuments_Claims_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_IdentityDocuments_Claims_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_MiddleEducationDiplomaDocuments_Claims_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_OrphanDocuments_Claims_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_SchoolCertificateDocuments_Claims_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_CommandPermissions_Commands_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_CommandPermissions_Roles_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_CompetitionEntranceTests_CompetitiveGroups_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_CompetitionEntranceTests_EntranceTests_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_CompetitiveGroupItems_CompetitiveGroups_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_CompetitiveGroups_Directions_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_CompetitiveGroups_EducationForms_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_CompetitiveGroups_EducationLevels_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_CompetitiveGroups_FinanceSources_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EntranceTests_EducationForms_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EducationOrganizations_EducationOrganizationTypes_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_HighEducationDiplomaDocuments_EducationOrganizations_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_MiddleEducationDiplomaDocuments_EducationOrganizations_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_SchoolCertificateDocuments_EducationOrganizations_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EducationOrganizationTypes_PreviousEducationLevels_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EgeResults_EgeDocuments_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EgeResults_ExamSubjects_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EnrollmentDisagreementClaims_EnrollmentAgreementClaims_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EntranceTestResults_EntranceTests_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EntranceTests_ExamSubjects_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EntranceTests_FinanceSources_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_Entrants_Genders_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_IdentityDocuments_IdentityDocumentTypes_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_OrphanDocuments_OrphanDocumentTypes_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_Users_Roles_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_WorkspacePermissions_Roles_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_WorkspacePermissions_Workspaces_Id" />
+        <EntityTypeShape EntityType="AdmissionModel.EntranceIndividualAchievement" Width="1.5" PointX="9.25" PointY="38.875" />
+        <AssociationConnector Association="AdmissionModel.FK_EntranceIndividualAchieveme" />
+        <AssociationConnector Association="AdmissionModel.FK_EntranceIndividualAchievem2" />
+        <EntityTypeShape EntityType="AdmissionModel.Classroom" Width="1.5" PointX="9" PointY="33.5" />
+        <EntityTypeShape EntityType="AdmissionModel.ConsultationsLocation" Width="1.5" PointX="11.25" PointY="30.5" />
+        <EntityTypeShape EntityType="AdmissionModel.ExaminationsLocation" Width="1.5" PointX="11.25" PointY="27.5" />
+        <AssociationConnector Association="AdmissionModel.FK_ConsultationsLocations_Clas" />
+        <AssociationConnector Association="AdmissionModel.FK_ExaminationsLocations_Class" />
+        <AssociationConnector Association="AdmissionModel.FK_ConsultationsLocations_Entr" />
+        <AssociationConnector Association="AdmissionModel.FK_ExaminationsLocations_Entra" />
+        <EntityTypeShape EntityType="AdmissionModel.OtherRequiredDocument" Width="1.5" PointX="5.25" PointY="2.875" />
+        <AssociationConnector Association="AdmissionModel.FK_OtherRequiredDocuments_Clai" />
+        <EntityTypeShape EntityType="AdmissionModel.EducationProgramType" Width="1.5" PointX="0.75" PointY="3.875" />
+        <AssociationConnector Association="AdmissionModel.FK_CompetitiveGroups_Education" />
+        <EntityTypeShape EntityType="AdmissionModel.ForeignLanguage" Width="1.5" PointX="0.75" PointY="6.875" />
+        <AssociationConnector Association="AdmissionModel.FK_Entrants_ForeignLanguages_Id" />
+        <EntityTypeShape EntityType="AdmissionModel.Log" Width="1.5" PointX="16.25" PointY="9.875" />
+        <AssociationConnector Association="AdmissionModel.FK_Logs_UserId" />
+        <EntityTypeShape EntityType="AdmissionModel.EntranceExaminationsCheckProtocol" Width="1.5" PointX="0.75" PointY="9.875" />
+        <AssociationConnector Association="AdmissionModel.FK_EgeResults_EntranceExaminationsCheckProtocols_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EntranceTests_InnerEntranceExaminationsCheckProtocols_Id" />
+        <EntityTypeShape EntityType="AdmissionModel.EnrollmentClaim" Width="1.5" PointX="13.5" PointY="42.375" />
+        <EntityTypeShape EntityType="AdmissionModel.EnrollmentOrder" Width="1.5" PointX="9" PointY="74.75" />
+        <AssociationConnector Association="AdmissionModel.FK_EnrollmentOrders_Campaigns_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EnrollmentClaims_Claims_Id" />
+        <EntityTypeShape EntityType="AdmissionModel.Faculty" Width="1.5" PointX="0.75" PointY="12.875" />
+        <EntityTypeShape EntityType="AdmissionModel.ContragentOrganization" Width="1.5" PointX="11.25" PointY="46.875" />
+        <EntityTypeShape EntityType="AdmissionModel.ContragentType" Width="1.5" PointX="11.25" PointY="33.875" />
+        <EntityTypeShape EntityType="AdmissionModel.MotherCapitalCertificates" Width="1.5" PointX="13.5" PointY="46.125" />
+        <AssociationConnector Association="AdmissionModel.FK_ContragentOrganizations_Addresses_Id" />
+        <EntityTypeShape EntityType="AdmissionModel.ContragentPerson" Width="1.5" PointX="9" PointY="48.125" />
+        <AssociationConnector Association="AdmissionModel.FK_ContragentPersons_Addresses_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_MotherCapitalCertificates_ContragentPersons_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EnrollmentOrders_EducationForms_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EnrollmentOrders_EducationLevels_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EnrollmentOrders_FinanceSources_Id" />
+        <EntityTypeShape EntityType="AdmissionModel.EnrollmentExceptionOrders" Width="1.5" PointX="11.25" PointY="75.375" />
+        <AssociationConnector Association="AdmissionModel.FK_EnrollmentClaims_EnrollmentExceptionOrders_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EnrollmentExceptionOrders_EnrollmentOrders_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_SCD_EECP_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_ContragentPersons_IdentityDocumentTypes_Id" />
+        <EntityTypeShape EntityType="AdmissionModel.EntrantContract" Width="1.5" PointX="13.5" PointY="35.875" />
+        <AssociationConnector Association="AdmissionModel.FK_EntrantContracts_ContragentOrganizations_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EntrantContracts_ContragentPersons_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EntrantContracts_ContragentTypes_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EntrantContracts_Entrants_Id" />
+        <EntityTypeShape EntityType="AdmissionModel.EnrollmentProtocol" Width="1.5" PointX="11.25" PointY="41.875" />
+        <AssociationConnector Association="AdmissionModel.FK_EnrollmentProtocols_CompetitiveGroups_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EnrollmentClaims_EnrollmentProtocols_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EnrollmentProtocols_EnrollmentOrders_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_EnrollmentProtocols_Faculties_Id" />
+        <EntityTypeShape EntityType="AdmissionModel.ContractIndividualPlanAuxAgreement" Width="1.5" PointX="15.75" PointY="36.5" />
+        <AssociationConnector Association="AdmissionModel.FK_ContractIndividualPlanAuxAg" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

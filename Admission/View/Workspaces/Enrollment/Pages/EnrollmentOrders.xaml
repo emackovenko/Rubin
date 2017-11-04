@@ -1,0 +1,76 @@
+﻿<Page x:Class="Admission.View.Workspaces.Enrollment.Pages.EnrollmentOrders"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Admission.View.Workspaces.Enrollment.Pages"
+	  xmlns:controls="clr-namespace:Admission.View.Theme.Controls"
+	  xmlns:converters="clr-namespace:Admission.View.Theme.Converters"
+	  xmlns:vm="clr-namespace:Admission.ViewModel.Workspaces.Enrollment"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="526.062"
+      Title="EnrollmentOrders">
+	<Page.DataContext>
+		<vm:EnrollmentOrdersViewModel/>
+	</Page.DataContext>
+	<Page.Resources>
+		<converters:DateConverter x:Key="DateConverter"/>
+	</Page.Resources>
+    <Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition
+				Height="32"/>
+			<RowDefinition
+				Height="*"/>
+		</Grid.RowDefinitions>
+		<StackPanel
+			Grid.Row="0"
+			Margin="1"
+			Orientation="Horizontal">
+			<Button
+                    Style="{StaticResource ToolButton}"
+                    Height="32"
+                    Width="32" 
+                    ToolTip="Добавить"
+                    Command="{Binding Path=AddOrderCommand}">
+				<Image Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+			</Button>
+			<Button  
+                    Style="{StaticResource ToolButton}"
+                    Height="32"
+                    Width="32"   
+                    ToolTip="Редактировать"
+                    Command="{Binding Path=EditOrderCommand}">
+				<Image Source="/ResourceLibrary;component/Images/Buttons/pencil.png"/>
+			</Button>
+			<Button 
+                Style="{StaticResource ToolButton}"
+                Height="32"
+                Width="32" 
+                ToolTip="Печать"
+				Command="{Binding Path=PrintOrderCommand}">
+				<Image Source="/ResourceLibrary;component/Images/Buttons/printer.png"/>
+			</Button>
+		</StackPanel>
+		<Grid
+			Grid.Row="1">
+			<ListView
+				ItemsSource="{Binding Path=Orders}"
+				SelectedItem="{Binding Path=SelectedOrder}">
+				<ListView.View>
+					<GridView>
+						<GridViewColumn
+							Header="Номер"
+							DisplayMemberBinding="{Binding Path=Number}"/>
+						<GridViewColumn
+							Header="Дата"
+							DisplayMemberBinding="{Binding Path=Date, Converter={StaticResource DateConverter}}"/>
+						<GridViewColumn
+							Header="Приёмная кампания"
+							DisplayMemberBinding="{Binding Path=Campaign.Name}"/>
+					</GridView>
+				</ListView.View>				
+			</ListView>
+		</Grid>
+	</Grid>
+</Page>

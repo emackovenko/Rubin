@@ -1,0 +1,51 @@
+﻿<Window x:Class="Admission.View.Windows.Wizards.ExaminationSeating.ExaminationSeatingWizard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Admission.View.Windows.Wizards.ExaminationSeating"
+        mc:Ignorable="d"
+        Title="Мастер генерации рассадки абитуриентов" 
+		Height="376" 
+		Width="653.807" 
+		ResizeMode="NoResize" 
+		WindowStartupLocation="CenterScreen" >
+    <Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition
+				Height="*"/>
+			<RowDefinition
+				Height="32"/>
+		</Grid.RowDefinitions>
+		<Frame
+			x:Name="contentArea"
+			Grid.Row="0" NavigationUIVisibility="Hidden"/>
+		<StackPanel
+			Grid.Row="1"
+			Orientation="Horizontal"
+			FlowDirection="RightToLeft">
+			<Button
+				Content="Завершить"
+				VerticalAlignment="Center"
+				Margin="30,0"/>
+			<Button				
+				x:Name="nextButton"
+				Content="Вперед"
+				Click="nextButton_Click"
+				VerticalAlignment="Center"
+				Margin="5,0"/>
+			<Button
+				x:Name="prevCommand"
+				Content="Назад"
+				Click="prevCommand_Click"
+				VerticalAlignment="Center"
+				Margin="5,0"/>
+			<Button
+				x:Name="cancelButton"
+				Content="Отмена"
+				Click="cancelButton_Click"
+				VerticalAlignment="Center"
+				Margin="30,0"/>
+		</StackPanel>
+	</Grid>
+</Window>
