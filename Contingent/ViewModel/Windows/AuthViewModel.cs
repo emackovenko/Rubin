@@ -23,7 +23,10 @@ namespace Contingent.ViewModel.Windows
             }
             set
             {
-                Settings.Default.DbUsername = value;
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    Settings.Default.DbUsername = value;
+                }
                 RaisePropertyChanged("Username");
             }
         }

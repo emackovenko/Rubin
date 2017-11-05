@@ -12,6 +12,8 @@ namespace Model.Astu
     /// <param name="entity">Удаляемая сущность</param>
     public delegate void EntityRemovingHandler(Entity entity);
 
+    public delegate void ModelSaveChangesHandler(string saveQuery);
+
     public interface IEntitySet: IEnumerable
     {
         event EntityRemovingHandler EntityRemoving;

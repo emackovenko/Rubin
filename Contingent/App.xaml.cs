@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Contingent.View.Windows;
+using Contingent.ViewModel;
 
 namespace Contingent
 {
@@ -16,6 +17,9 @@ namespace Contingent
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            //создаем глобальный обработчик исключений, который будет нам писать логи в папку данных приложения
+            LogWriter logger = new LogWriter();
+            App.Current.DispatcherUnhandledException += logger.Handler;
 
             // Регистрация библиотек GemBox
             GemBox.Document.ComponentInfo.SetLicense("DH5L-PTFV-SL2S-5PCN");

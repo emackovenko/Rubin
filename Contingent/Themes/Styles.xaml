@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Contingent.Themes"
-                    xmlns:control="clr-namespace:Contingent.Themes.Controls">
+                    xmlns:control="clr-namespace:Contingent.Themes.Controls"
+                    xmlns:converter="clr-namespace:Contingent.Themes.Converters">
     
     <!--**********  Brushes  ***********-->
     
@@ -37,6 +38,8 @@
 		x:Key="NotAvailableEffect"
 		KernelType="Box"
 		Radius="5" />
+    
+    <!-- END Brushes -->
 
     
     
@@ -58,8 +61,8 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
-    
+
+
     <!-- END Components -->
 
 
@@ -115,5 +118,38 @@
     </Style>
     
     
+    <!-- END Preloaded images -->
+    
+    <!-- ********** Converters ********* -->
+
+    <converter:DateConverter x:Key="DateConverter"/>
+
+    <!-- END Converters -->
+    
+    
+    <!-- CheckBox triggers -->
+
+    <Style
+        TargetType="CheckBox"
+        x:Key="HostelNeedingCheckBox">
+        <Style.Triggers>
+            <Trigger                                    
+                Property="IsChecked"
+                Value="True">
+                <Setter
+                    Property="Content"
+                    Value="Нуждается в общежитии"/>
+            </Trigger>
+            <Trigger                                    
+                Property="IsChecked"
+                Value="False">
+                <Setter
+                    Property="Content"
+                    Value="Не нуждается в общежитии"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!-- END CheckBox triggers -->
 
 </ResourceDictionary>

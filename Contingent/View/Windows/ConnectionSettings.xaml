@@ -80,13 +80,17 @@
             <Button
                 VerticalAlignment="Center"
                 Margin="15,0"
+                Padding="15,0"
                 Height="25"
+                IsCancel="True"
                 Content="Отмена"
                 Command="{Binding Path=CloseCommand}"/>
             <Button
                 VerticalAlignment="Center"
                 Margin="15,0"
+                Padding="15,0"
                 Height="25"
+                IsDefault="True"
                 Content="ОК"
                 Command="{Binding Path=SaveCommand}"/>
         </StackPanel>

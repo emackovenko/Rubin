@@ -14,7 +14,7 @@ namespace ResourceLibrary.Documents
 		/// Имя каталога шаблонов
 		/// </summary>
 		static string templatePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData) 
-			+ "\\Admission\\Templates";
+			+ "\\Rubin\\Templates";
 
 		/// <summary>
 		/// Справочник шаблонов [имя шаблона - шаблон из ресурсов]

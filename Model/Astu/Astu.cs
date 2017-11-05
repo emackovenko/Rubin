@@ -14,6 +14,23 @@ namespace Model.Astu
     public static class Astu
     {
 
+        /// <summary>
+        /// Загружает все коллекции сущностей из БД в память
+        /// </summary>
+        static void InitializeContext()
+        {
+            Students = new EntitySet<Student>();
+            Groups = new EntitySet<Group>();
+            EducationProgramTypes = new EntitySet<EducationProgramType>();
+            Directions = new EntitySet<Direction>();
+            Faculties = new EntitySet<Faculty>();
+            EducationForms = new EntitySet<EducationForm>();
+            EducationPlans = new EntitySet<EducationPlan>();
+            QuotaTypes = new EntitySet<QuotaType>();
+            ForeignLanguages = new EntitySet<ForeignLanguage>();
+        }
+
+
         #region Entity collections
 
         public static EntitySet<Student> Students { get; set; }
@@ -149,6 +166,7 @@ namespace Model.Astu
             {
                 var cmd = _dbConnection.CreateCommand();
                 cmd.CommandText = sb.ToString();
+                OnSaveChanges(sb.ToString());
                 cmd.ExecuteNonQuery();
             }
         }
@@ -178,21 +196,6 @@ namespace Model.Astu
             }
         }
 
-        /// <summary>
-        /// Загружает все коллекции сущностей из БД в память
-        /// </summary>
-        static void InitializeContext()
-        {
-            Students = new EntitySet<Student>();
-            Groups = new EntitySet<Group>();
-            EducationProgramTypes = new EntitySet<EducationProgramType>();
-            Directions = new EntitySet<Direction>();
-            Faculties = new EntitySet<Faculty>();
-            EducationForms = new EntitySet<EducationForm>();
-            EducationPlans = new EntitySet<EducationPlan>();
-            QuotaTypes = new EntitySet<QuotaType>();
-            ForeignLanguages = new EntitySet<ForeignLanguage>();
-        }
-
+        public static event ModelSaveChangesHandler OnSaveChanges;
     }
 }

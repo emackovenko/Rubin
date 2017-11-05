@@ -4,8 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Contingent.View.Workspaces.Students.Pages.Views"
+             xmlns:control="clr-namespace:Contingent.Themes.Controls"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             Width="823"
+             Width="840"
              Height="460">
     <TabControl>
         <TabItem
@@ -14,84 +16,620 @@
         Background="Beige">
                 <Grid.RowDefinitions>
                     <RowDefinition
-                Height="32"/>
+                        Height="32"/>
                     <RowDefinition
-                Height="32"/>
+                        Height="32"/>
                     <RowDefinition
-                Height="32"/>
+                        Height="32"/>
                     <RowDefinition
-                Height="32"/>
+                        Height="32"/>
                     <RowDefinition
-                Height="32"/>
+                        Height="12"/>
                     <RowDefinition
-                Height="32"/>
+                        Height="32"/>
                     <RowDefinition
-                Height="32"/>
+                        Height="32"/>
                     <RowDefinition
-                Height="32"/>
+                        Height="32"/>
                     <RowDefinition
-                Height="32"/>
+                        Height="32"/>
                     <RowDefinition
-                Height="32"/>
+                        Height="32"/>
                     <RowDefinition
-                Height="32"/>
+                        Height="32"/>
+                    <RowDefinition
+                        Height="32"/>
+                    <RowDefinition
+                        Height="32"/>
+                    <RowDefinition
+                        Height="32"/>
+                    <RowDefinition
+                        Height="32"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition
-                Width="Auto"/>
+                        Width="Auto"/>
                     <ColumnDefinition
-                Width="3"/>
+                        Width="3"/>
                     <ColumnDefinition
-                Width="*"/>
+                        Width="*"/>
+                    <ColumnDefinition
+                        Width="3"/>
+                    <ColumnDefinition
+                        Width="Auto"/>
+                    <ColumnDefinition
+                        Width="3"/>
+                    <ColumnDefinition
+                        Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock
+                <GroupBox
+                    BorderBrush="DarkBlue"
+                    Header="Персональные данные"
                     Grid.Row="0"
                     Grid.Column="0"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right"
-                    Text="Ф.И.О."/>
-                <TextBlock
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right"
-                    Text="Дата рождения"/>
-                <TextBlock
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right"
-                    Text="Пол"/>
-                <TextBlock
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right"
-                    Text=""/>
-                <TextBlock
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right"
-                    Text=""/>
-                <TextBlock
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right"
-                    Text=""/>
-                <TextBlock
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right"
-                    Text=""/>
+                    Grid.ColumnSpan="7"
+                    Grid.RowSpan="4">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+                                Height="*"/>
+                            <RowDefinition
+                                Height="*"/>
+                            <RowDefinition
+                                Height="*"/>
+                            <RowDefinition
+                                Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition
+                                Width="Auto"/>
+                            <ColumnDefinition
+                                Width="3"/>
+                            <ColumnDefinition
+                                Width="6*"/>
+                            <ColumnDefinition
+                                Width="5"/>
+                            <ColumnDefinition
+                                Width="Auto"/>
+                            <ColumnDefinition
+                                Width="3"/>
+                            <ColumnDefinition
+                                Width="8*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Text="Ф.И.О."/>
+                        <TextBox
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Width="270"
+                            Text=""/>
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Text="Пол"/>
+                        <ComboBox
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Width="60"
+                            Text="">
+                            <sys:String>м</sys:String>
+                            <sys:String>ж</sys:String>
+                        </ComboBox>
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Text="Дата рождения"/>
+                        <DatePicker
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Width="100"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            SelectedDate=""
+                            DisplayDate=""/>
+                        <CheckBox
+                            Grid.Row="3"
+                            Grid.ColumnSpan="3"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Style="{StaticResource HostelNeedingCheckBox}"
+                            IsChecked="False"/>
+                        <StackPanel
+                            Grid.Row="0"
+                            Grid.Column="4"
+                            Grid.RowSpan="2"
+                            Grid.ColumnSpan="3"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,3,0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Text="Адрес"/>
+                            <TextBox                 
+                                Margin="0,0,5,0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Height="48"
+                                Width="390"
+                                IsReadOnly="True"
+                                TextWrapping="Wrap"
+                                Text=""/>
+                            <Button
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="6"
+                            Height="23"
+                            Width="23"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Content="..."
+                            ToolTip="Собрать адрес"/>
+                        </StackPanel>
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="4"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Text="Место жительства"/>
+                        <ComboBox
+                            Grid.Column="6"
+                            Grid.Row="2"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Width="350"
+                            SelectedItem=""/>
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="4"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Text="Гражданство"/>
+                        <ComboBox
+                            Grid.Column="6"
+                            Grid.Row="3"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Width="350"
+                            SelectedItem=""/>
+                    </Grid>
+                </GroupBox>
+                <Grid
+                    Grid.Row="5"
+                    Grid.RowSpan="9"
+                    Grid.ColumnSpan="7">
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+                            Height="4*"/>
+                        <RowDefinition
+                            Height="3"/>
+                        <RowDefinition
+                            Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="4*"/>
+                        <ColumnDefinition
+                            Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox
+                        BorderBrush="DarkBlue"
+                        Header="Документ, удостоверяющий личность"
+                        Grid.Row="0"
+                        Grid.Column="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition
+                                    Height="*"/>
+                                <RowDefinition
+                                    Height="*"/>
+                                <RowDefinition
+                                    Height="*"/>
+                                <RowDefinition
+                                    Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+                                    Width="Auto"/>
+                                <ColumnDefinition
+                                    Width="3"/>
+                                <ColumnDefinition
+                                    Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel
+                                Grid.Row="0"
+                                Grid.ColumnSpan="3"
+                                Orientation="Horizontal">
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,3,0"
+                                    Text="Серия"/>
+                                <TextBox
+                                    Margin="0,0,10,0"
+                                    Height="23"
+                                    Width="50"
+                                    Text=""/>
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Margin="0,0,3,0"
+                                    VerticalAlignment="Center"
+                                    Text="Номер"/>
+                                <TextBox
+                                    Height="23"
+                                    Width="100"
+                                    Text=""/>
+                            </StackPanel>
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Text="Дата выдачи"/>
+                            <DatePicker
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Width="100"
+                                SelectedDate=""/>
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Text="Кем выдан"/>
+                            <ComboBox
+                                Grid.Row="2"
+                                Grid.Column="4"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Width="440"
+                                Text="" 
+                                IsEditable="True"/>
+                            <StackPanel
+                                Grid.Row="3"
+                                Grid.ColumnSpan="3"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                                <TextBlock
+                                    Margin="0,0,3,0"
+                                    VerticalAlignment="Center"
+                                    Text="Место рождения"/>
+                                <TextBox
+                                    Margin="0,0,5,0"
+                                    VerticalAlignment="Center"
+                                    Width="415"
+                                    Text=""/>
+                                <Button
+                                    Height="21"
+                                    Width="21"
+                                    ToolTip="Собрать место рождения"
+                                    Content="..."
+                                    Command=""/>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox
+                        BorderBrush="DarkBlue"
+                        Header="Документ об образовании"
+                        Grid.Row="2"
+                        Grid.Column="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition
+                                    Height="*"/>
+                                <RowDefinition
+                                    Height="*"/>
+                                <RowDefinition
+                                    Height="*"/>
+                                <RowDefinition
+                                    Height="*"/>
+                                <RowDefinition
+                                    Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+                                   Width="Auto"/>
+                                <ColumnDefinition
+                                    Width="3"/>
+                                <ColumnDefinition
+                                    Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel
+                                Grid.Row="0"
+                                Grid.ColumnSpan="3"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <TextBlock
+                                    Margin="0,0,3,0"
+                                    VerticalAlignment="Center"
+                                    Text="Серия"/>
+                                <TextBox
+                                    Margin="0,0,10,0"
+                                    VerticalAlignment="Center"
+                                    Width="150"
+                                    Text=""/>
+                                <TextBlock
+                                    Margin="0,0,3,0"
+                                    VerticalAlignment="Center"
+                                    Text="Номер"/>
+                                <TextBox
+                                    Margin="0,0,10,0"
+                                    VerticalAlignment="Center"
+                                    Width="150"
+                                    Text=""/>
+                            </StackPanel>
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Text="Дата выдачи"/>
+                            <DatePicker
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Width="100"
+                                SelectedDate=""/>
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Text="Вид документа"/>
+                            <ComboBox
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Width="400"
+                                SelectedItem=""/>
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Text="Организация"/>
+                            <ComboBox
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Width="400"
+                                SelectedItem=""/>
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Text="Ин. язык"/>
+                            <ComboBox
+                                Grid.Row="4"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Width="200"
+                                SelectedItem=""/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox
+                        Header="Учебная информация"
+                        BorderBrush="DarkBlue"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Grid.RowSpan="3">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition
+                                    Height="*"/>
+                                <RowDefinition
+                                    Height="*"/>
+                                <RowDefinition
+                                    Height="*"/>
+                                <RowDefinition
+                                    Height="*"/>
+                                <RowDefinition
+                                    Height="*"/>
+                                <RowDefinition
+                                    Height="*"/>
+                                <RowDefinition
+                                    Height="*"/>
+                                <RowDefinition
+                                    Height="*"/>
+                                <RowDefinition
+                                    Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+                                    Width="Auto"
+                                    MaxWidth="100"/>
+                                <ColumnDefinition
+                                    Width="3"/>
+                                <ColumnDefinition
+                                    Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                TextWrapping="Wrap"
+                                Text="Статус"/>
+                            <ComboBox
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Width="170"
+                                SelectedItem=""/>
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                TextWrapping="Wrap"
+                                Text="Группа"/>
+                            <ComboBox
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Width="170"
+                                SelectedItem=""/>
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                TextWrapping="Wrap"
+                                Text="Факультет"/>
+                            <ComboBox
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Width="170"
+                                SelectedItem=""/>
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                TextWrapping="Wrap"
+                                Text="Специальность"/>
+                            <ComboBox
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Width="170"
+                                SelectedItem=""/>
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                TextWrapping="Wrap"
+                                Text="Форма обуч."/>
+                            <ComboBox
+                                Grid.Row="4"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Width="170"
+                                SelectedItem=""/>
+                            <TextBlock
+                                Grid.Row="5"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Text="Категория обуч."/>
+                            <ComboBox
+                                Grid.Row="5"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Width="170"
+                                SelectedItem=""/>
+                            <TextBlock
+                                Grid.Row="6"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Text="Вид стипендии"/>
+                            <ComboBox
+                                Grid.Row="6"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Width="170"
+                                SelectedItem=""/>
+                            <TextBlock
+                                Grid.Row="7"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Text="Год приёма"/>
+                            <TextBox
+                                Grid.Row="7"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Width="100"
+                                Text=""/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
             </Grid>
         </TabItem>
         <TabItem
-            Header="Приказы"></TabItem>
+            Header="Приказы">
+            <Grid
+                Background="Beige">
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="32"/>
+                    <RowDefinition
+                        Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel
+                    Grid.Row="0"
+                    Orientation="Horizontal">
+                    <Button
+                        Style="{StaticResource ToolButton}"
+                        ToolTip="Добавить запись">
+                        <Image Style="{StaticResource PictureAdd}"/>
+                    </Button>
+                    <Button
+                        Style="{StaticResource ToolButton}"
+                        ToolTip="Редактировать запись">
+                        <Image Style="{StaticResource PictureEdit}"/>
+                    </Button>
+                    <Button
+                        Style="{StaticResource ToolButton}"
+                        ToolTip="Удалить запись">
+                        <Image Style="{StaticResource PictureDelete}"/>
+                    </Button>
+                </StackPanel>
+                <control:ExDataGrid
+                    Grid.Row="1">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Header="Номер"
+                            Binding="{Binding Path=TODO}"/>
+                        <DataGridTextColumn
+                            Header="Дата"
+                            Binding="{Binding Path=TODO}"/>
+                        <DataGridTextColumn
+                            Header="Тип приказа"
+                            Binding="{Binding Path=TODO}"/>
+                        <DataGridTextColumn
+                            Header="Комментарий"
+                            Binding="{Binding Path=TODO}"/>
+                    </DataGrid.Columns>                    
+                </control:ExDataGrid>
+            </Grid>
+        </TabItem>
         <TabItem 
             Header="Документы">
+        </TabItem>
+        <TabItem 
+            Header="Другая информация">
         </TabItem>
     </TabControl>
 </UserControl>

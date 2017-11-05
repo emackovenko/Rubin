@@ -19,10 +19,10 @@
         <vm:AuthViewModel/>
     </Window.DataContext>
     <Grid 
-        Background="#FF53ADEC">
+        Background="#FF4EB6FF">
         <Grid
             Margin="3" 
-            Background="#FF8BD0FF">
+            Background="#FF99C7FF">
             <Image
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
@@ -35,37 +35,39 @@
                 Margin="293,150,0,0"
                 Text="Пароль:"/>
             <TextBox
-                Height="21"
+                Height="23"
                 Width="232"
-                Margin="340,118,0,0" 
+                Margin="340,116,0,0" 
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Left"
                 Text="{Binding Path=Username}"/>
             <PasswordBox
-                Height="21"
+                Height="23"
                 Width="232"
-                Margin="340,149,0,0" 
+                Margin="340,147,0,0" 
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Left">
                 <i:Interaction.Behaviors>
                     <behavior:PasswordBehavior Password="{Binding Path=Password, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
-                </i:Interaction.Behaviors>                
+                </i:Interaction.Behaviors>
             </PasswordBox>
             <Button 
                 Content="Войти"
                 IsDefault="True"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Left" 
-                Margin="322,193,0,0"
-                Width="240"
+                Margin="340,193,0,0"
+                Width="232"
+                Height="28"
                 Command="{Binding Path=TryAuthCommand}"/>
             <Button 
                 Content="Выход" 
                 IsCancel="True"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Margin="322,226,0,0"  
-                Width="240"
+                Margin="340,234,0,0"  
+                Width="232"
+                Height="28"
                 Command="{Binding Path=ExitCommand}"/>
             <Button
                 Height="24"

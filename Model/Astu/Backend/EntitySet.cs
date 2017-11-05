@@ -34,7 +34,15 @@ namespace Model.Astu
             sb.Append("SELECT ");
             foreach (var f in fields)
             {
-                sb.Append((f.GetCustomAttributes(typeof(FieldNameAttribute), true).First() as FieldNameAttribute).Value);
+                if (f.PropertyType == typeof(string))
+                {
+                    sb.AppendFormat("TRIM({0})",
+                        (f.GetCustomAttributes(typeof(FieldNameAttribute), true).First() as FieldNameAttribute).Value);
+                }
+                else
+                {
+                    sb.Append((f.GetCustomAttributes(typeof(FieldNameAttribute), true).First() as FieldNameAttribute).Value);
+                }                
                 sb.Append(",");
             }
             sb.Remove(sb.Length - 1, 1);

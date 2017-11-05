@@ -82,7 +82,19 @@
                         Binding="{Binding Path=Group.Name}"/>
                     <DataGridTextColumn
                         Header="Категория обучения"
-                        Binding="{Binding Path=Category}"/>
+                        Binding="{Binding Path=Category.Name}"/>
+                    <DataGridTextColumn
+                        Header="Факультет"
+                        Binding="{Binding Path=Faculty.ShortName}"/>
+                    <DataGridTextColumn
+                        Header="Форма обучения"
+                        Binding="{Binding Path=EducationForm.Name}"/>
+                    <DataGridTextColumn
+                        Header="Направление"
+                        Binding="{Binding Path=Direction.Name}"/>
+                    <DataGridTextColumn
+                        Header="Гражданство"
+                        Binding="{Binding Path=Students}"/>
                 </DataGrid.Columns>
             </control:ExDataGrid>
         </Grid>
