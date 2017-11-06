@@ -7,7 +7,7 @@ using Contingent.Properties;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using Devart.Data.Oracle;
+using System.Data.OracleClient;
 
 namespace Contingent.ViewModel.Windows
 {
@@ -67,19 +67,8 @@ namespace Contingent.ViewModel.Windows
             int dbPort = Settings.Default.DbPort;
             string dbServiceName = Settings.Default.DbServiceName;
 
-            var connectionString = new OracleConnectionStringBuilder
-            {
-                Direct = true,
-                Server = dbHost,
-                Port = dbPort,
-                ServiceName = dbServiceName,
-                Sid = dbServiceName,
-                UserId = Username,
-                Password = _password
-            };
-
-            connectionString.UserId = "mackovenko_e";
-            connectionString.Password = "orhuvei0";
+            string connectionString = string.Format("Data Source={0};User Id={1};Password={2};",
+                dbServiceName, Username, _password);
 
             // создаем коннект и пытаемся инициализировать модель
             var connection = new OracleConnection(connectionString.ToString());
@@ -108,7 +97,7 @@ namespace Contingent.ViewModel.Windows
 
         bool TryAuthCanExecute()
         {
-            return true;// !(string.IsNullOrWhiteSpace(Username) && string.IsNullOrWhiteSpace(_password));
+            return !(string.IsNullOrWhiteSpace(Username) && string.IsNullOrWhiteSpace(_password));
         }
     }
 }

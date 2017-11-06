@@ -103,8 +103,7 @@
                         <StackPanel Orientation="Horizontal" Grid.Row="1">
                         <TextBox x:Name="PART_SearchControl" HorizontalAlignment="Left" MinWidth="100" BorderThickness="1 0 0 1"
                                  BorderBrush="{TemplateBinding BorderBrush}"
-                                 Visibility="{Binding RelativeSource={RelativeSource AncestorType=control:ExDataGrid}, Path=SearchTextVisibility, Mode=OneWay}"
-                                 Text="{Binding RelativeSource={RelativeSource AncestorType=control:ExDataGrid}, Path=SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                 Visibility="{Binding RelativeSource={RelativeSource AncestorType=control:ExDataGrid}, Path=SearchTextVisibility, Mode=OneWay}"/>
                             <Button Content="x" x:Name="PART_CloseButton" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" Style="{StaticResource ResourceKey=CloseButtonStyle}"
                                     Visibility="{Binding RelativeSource={RelativeSource AncestorType=control:ExDataGrid}, Path=SearchTextVisibility, Mode=OneWay}"/>
                         </StackPanel>

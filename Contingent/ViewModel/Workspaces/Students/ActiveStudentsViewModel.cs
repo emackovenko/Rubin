@@ -26,7 +26,10 @@ namespace Contingent.ViewModel.Workspaces.Students
             {
                 if (_students == null)
                 {
-                    _students = new ObservableCollection<Student>(Astu.Students.OrderBy(s => s.Group.Name));
+                    var activeStatuses = new string[] {"0001", "0002", "0007", "0008"};
+                    var students = Astu.Students.Where(s => activeStatuses.Contains(s.StatusId));
+                    students = students.OrderBy(s => s.Course).OrderBy(s => s.Name).OrderBy(s => s.Group?.Name);
+                    _students = new ObservableCollection<Student>(students);
                 }
                 return _students;
             }

@@ -66,7 +66,7 @@
         <Grid
             Grid.Row="1">
             <control:ExDataGrid
-                ItemsSource="{Binding Path=Students}">
+                ItemsSource="{Binding Path=Students}" SelectionUnit="Cell" SelectionMode="Single">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Header="Рег. №"
@@ -82,7 +82,7 @@
                         Binding="{Binding Path=Group.Name}"/>
                     <DataGridTextColumn
                         Header="Категория обучения"
-                        Binding="{Binding Path=Category.Name}"/>
+                        Binding="{Binding Path=FinanceSource.Name}"/>
                     <DataGridTextColumn
                         Header="Факультет"
                         Binding="{Binding Path=Faculty.ShortName}"/>
@@ -91,10 +91,10 @@
                         Binding="{Binding Path=EducationForm.Name}"/>
                     <DataGridTextColumn
                         Header="Направление"
-                        Binding="{Binding Path=Direction.Name}"/>
+                        Binding="{Binding Path=Direction.ShortName}"/>
                     <DataGridTextColumn
                         Header="Гражданство"
-                        Binding="{Binding Path=Students}"/>
+                        Binding="{Binding Path=Citizenship.Name}"/>
                 </DataGrid.Columns>
             </control:ExDataGrid>
         </Grid>

@@ -13,6 +13,7 @@
         <Setter Property="HorizontalGridLinesBrush" Value="#D0D0D0" />
         <Setter Property="RowHeight" Value="18" />
         <Setter Property="SelectionMode" Value="Single" />
+        <Setter Property="SelectionUnit" Value="Cell"/>
         <Setter Property="HeadersVisibility" Value="Column" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
@@ -62,8 +63,8 @@
                             <ContentPresenter Grid.Column="0" Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}"/>
 
                             <Grid Grid.Column="1">
-                                <Image Opacity="1" Width="16" Height="16" x:Name="SortArrow" Visibility="Collapsed" Source="/Main;component/Images/sort.png" />
-                                <Image Opacity="1" Width="16" Height="16" x:Name="SortArrow_" Visibility="Collapsed" Source="/Main;component/Images/sort_.png" />
+                                <Image Opacity="1" Width="16" Height="16" x:Name="SortArrow" Visibility="Collapsed" Source="/ResourceLibrary;component/Images/Buttons/sort.png" />
+                                <Image Opacity="1" Width="16" Height="16" x:Name="SortArrow_" Visibility="Collapsed" Source="/ResourceLibrary;component/Images/Buttons/sort_.png" />
                             </Grid>
 
                             <Thumb Grid.Column="0" x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource ResourceKey=DgThumb1}"/>

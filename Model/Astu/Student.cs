@@ -97,6 +97,55 @@ namespace Model.Astu
         public string GroupId { get; set; }
 
         /// <summary>
+        /// Идентификатор статуса студента
+        /// </summary>
+        [FieldName("ID_STAT")]
+        [FieldType(DatabaseFieldType.String)]
+        public string StatusId { get; set; }
+
+        /// <summary>
+        /// Текущий курс студента
+        /// </summary>
+        [FieldName("KURS")]
+        [FieldType(DatabaseFieldType.Integer)]
+        public int Course { get; set; }
+
+        /// <summary>
+        /// Идентификатор источника финансирования
+        /// </summary>
+        [FieldName("KOB")]
+        [FieldType(DatabaseFieldType.String)]
+        public string FinanceSourceId { get; set; }
+
+        /// <summary>
+        /// Идентификатор формы обучения
+        /// </summary>
+        [FieldName("FRM")]
+        [FieldType(DatabaseFieldType.String)]
+        public string EducationFormId { get; set; }
+
+        /// <summary>
+        /// Идентификатор факультета
+        /// </summary>
+        [FieldName("FAK")]
+        [FieldType(DatabaseFieldType.String)]
+        public string FacultyId { get; set; }
+
+        /// <summary>
+        /// Идентификатор направления подготовки
+        /// </summary>
+        [FieldName("SPC")]
+        [FieldType(DatabaseFieldType.String)]
+        public string DirectionId { get; set; }
+
+        /// <summary>
+        /// Идентификатор гражданства
+        /// </summary>
+        [FieldName("GOS")]
+        [FieldType(DatabaseFieldType.String)]
+        public string CitizenshipId { get; set; }
+
+        /// <summary>
         /// Группа, в которой обучается студент
         /// </summary>
         public Group Group
@@ -117,5 +166,138 @@ namespace Model.Astu
                 }
             }
         }
+
+        /// <summary>
+        /// Статус студента
+        /// </summary>
+        public Status Status
+        {
+            get
+            {
+                return Astu.Statuses.Where(s => s.Id == StatusId).FirstOrDefault();
+            }
+            set
+            {
+                if (value != null)
+                {
+                    StatusId = value.Id;
+                }
+                else
+                {
+                    StatusId = null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Источник финансирования (категория обучения студента)
+        /// </summary>
+        public FinanceSource FinanceSource
+        {
+            get
+            {
+                return Astu.FinanceSources.FirstOrDefault(fs => fs.Id == FinanceSourceId);
+            }
+            set
+            {
+                if (value != null)
+                {
+                    FinanceSourceId = value.Id;
+                }
+                else
+                {
+                    FinanceSourceId = null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Форма обучения
+        /// </summary>
+        public EducationForm EducationForm 
+        {
+            get
+            {
+                return Astu.EducationForms.FirstOrDefault(ef => ef.Id == EducationFormId);
+            }
+            set
+            {
+                if (value != null)
+                {
+                    EducationFormId = value.Id;
+                }
+                else
+                {
+                    EducationFormId = null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Факультет
+        /// </summary>
+        public Faculty Faculty 
+        {
+            get
+            {
+                return Astu.Faculties.FirstOrDefault(f => f.Id == FacultyId);
+            }
+            set
+            {
+                if (value != null)
+                {
+                    FacultyId = value.Id;
+                }
+                else
+                {
+                    FacultyId = null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Направление подготовки (специальность)
+        /// </summary>
+        public Direction Direction 
+        {
+            get
+            {
+                return Astu.Directions.FirstOrDefault(d => d.Id == DirectionId);
+            }
+            set
+            {
+                if (value != null)
+                {
+                    DirectionId = value.Id;
+                }
+                else
+                {
+                    DirectionId = null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Гражданство
+        /// </summary>
+        public Citizenship Citizenship 
+        {
+            get
+            {
+                return Astu.Citizenships.FirstOrDefault(c => c.Id == CitizenshipId);
+            }
+            set
+            {
+                if (value != null)
+                {
+                    CitizenshipId = value.Id;
+                }
+                else
+                {
+                    CitizenshipId = null;
+                }
+            }
+        }
+
     }
 }

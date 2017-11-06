@@ -14,14 +14,15 @@ namespace Model.Astu
     /// <typeparam name="TEntity">Тип загружаемой сущности</typeparam>
     public class EntitySet<TEntity>: List<TEntity>, IEntitySet where TEntity: Entity
     {
+        string _filterSqlOption;
 
         public event EntityRemovingHandler EntityRemoving;
         
         /// <summary>
         /// Инициализирует коллекцию и загружает ее из БД
         /// </summary>
-        /// <param name="databaseModel"></param>
-        public EntitySet()
+        /// <param name="filterSqlOption">Содержимое строки "WHERE" в запросе выборки</param>
+        public EntitySet(string filterSqlOption = null)
         {
             var dbConnection = Astu.DbConnection;
             var type = typeof(TEntity);
@@ -49,6 +50,11 @@ namespace Model.Astu
 
             var tableName = (type.GetCustomAttributes(typeof(TableNameAttribute), true).First() as TableNameAttribute).Value;
             sb.AppendFormat(" FROM {0}", tableName);
+            // докидывем условие, если оно есть
+            if (!string.IsNullOrWhiteSpace(_filterSqlOption))
+            {
+                sb.AppendFormat(" WHERE {0}", _filterSqlOption);
+            }
 
             // Создаем SQL команду для выполнения запроса и загрузки данных
             var dbCommand = dbConnection.CreateCommand();

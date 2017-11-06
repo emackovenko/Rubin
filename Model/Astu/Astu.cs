@@ -28,6 +28,9 @@ namespace Model.Astu
             EducationPlans = new EntitySet<EducationPlan>();
             QuotaTypes = new EntitySet<QuotaType>();
             ForeignLanguages = new EntitySet<ForeignLanguage>();
+            Statuses = new EntitySet<Status>();
+            FinanceSources = new EntitySet<FinanceSource>();
+            Citizenships = new EntitySet<Citizenship>("SNG = 1");
         }
 
 
@@ -51,6 +54,11 @@ namespace Model.Astu
 
         public static EntitySet<QuotaType> QuotaTypes { get; set; }
 
+        public static EntitySet<Status> Statuses { get; set; }
+
+        public static EntitySet<FinanceSource> FinanceSources { get; set; }
+
+        public static EntitySet<Citizenship> Citizenships { get; set; }
         #endregion
 
 

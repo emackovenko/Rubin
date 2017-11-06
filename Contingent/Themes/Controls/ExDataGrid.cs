@@ -1,6 +1,10 @@
+using System.Data;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
+using System.Reflection;
 
 namespace Contingent.Themes.Controls
 {
@@ -30,9 +34,6 @@ namespace Contingent.Themes.Controls
         protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
         {
             base.OnMouseDoubleClick(e);
-            var mi = DataContext.GetType().GetMethod("EditItem");
-            if (mi != null)
-                mi.Invoke(DataContext, null);
         }
 
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
@@ -52,9 +53,14 @@ namespace Contingent.Themes.Controls
             if (!IsTextSearchEnabled)
                 return;
             var tb = (TextBox)Template.FindName("PART_SearchControl", this);
+            if (SearchTextVisibility != Visibility.Visible)
+            {
+                SearchTextVisibility = Visibility.Visible;
+                tb.Focus();
+                tb.SelectAll();
+            }
             SearchTextVisibility = Visibility.Visible;
-            //SearchText = e.Text;
-            tb.Focus();
+            SearchText = tb.Text + e.Text;
         }
 
         protected override void OnGotFocus(RoutedEventArgs e)
@@ -64,8 +70,18 @@ namespace Contingent.Themes.Controls
 
         public string SearchText
         {
-            get { return (string)GetValue(SearchTextProperty); }
-            set { SetValue(SearchTextProperty, value); }
+            get
+            {
+                return (string)GetValue(SearchTextProperty);
+            }
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    SetValue(SearchTextProperty, value);
+                    FindRowByStringValue(value);
+                }
+            }
         }
 
         // Using a DependencyProperty as the backing store for SearchPath.  This enables animation, styling, binding, etc...
@@ -83,5 +99,44 @@ namespace Contingent.Themes.Controls
         // Using a DependencyProperty as the backing store for SearchTextVisibility.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SearchTextVisibilityProperty =
             DependencyProperty.Register("SearchTextVisibility", typeof(Visibility), typeof(ExDataGrid), new UIPropertyMetadata(Visibility.Collapsed));
+
+        void FindRowByStringValue(string searchedValue)
+        {
+            if (string.IsNullOrWhiteSpace(searchedValue) || CurrentColumn == null)
+            {
+                return;
+            }
+
+            if (CurrentColumn is DataGridTextColumn)
+            {
+                string searchedText = searchedValue.ToLower();
+
+                var col = CurrentColumn as DataGridTextColumn;
+
+                string bindingPath = (col.Binding as Binding).Path.Path;
+
+                foreach (var item in ItemsSource)
+                {
+                    // ќпредел€ем тип источника и получаем искомое свойство
+                    var type = item.GetType();
+                    var searchedProperty = type.GetProperty(bindingPath);
+                    if (searchedProperty != null)
+                    {
+                        // ѕредставл€ем как строку и сравниваем
+                        string currentValue = searchedProperty.GetValue(item, null).ToString().ToLower();
+                        if (currentValue.StartsWith(searchedText))
+                        {
+                            var cellInfo = new DataGridCellInfo(item, CurrentColumn);
+                            SelectedCells.Clear();
+                            SelectedCells.Add(cellInfo);
+                            ScrollIntoView(item, CurrentColumn);
+                            break;
+                        }
+                    }
+                }
+                
+            }
+
+        }
     }
 }
