@@ -6,9 +6,13 @@
              xmlns:local="clr-namespace:Contingent.View.Workspaces.Students.Pages.Views"
              xmlns:control="clr-namespace:Contingent.Themes.Controls"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:vm="clr-namespace:Contingent.ViewModel.Workspaces.Students"
              mc:Ignorable="d" 
              Width="840"
              Height="460">
+    <UserControl.DataContext>
+        <vm:StudentViewViewModel/>
+    </UserControl.DataContext>
     <TabControl>
         <TabItem
             Header="Личные данные">
@@ -108,7 +112,7 @@
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Width="270"
-                            Text=""/>
+                            Text="{Binding Path=Student.Name, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="0"
@@ -121,7 +125,7 @@
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Width="60"
-                            Text="">
+                            Text="{Binding Path=Student.Gender, UpdateSourceTrigger=PropertyChanged}">
                             <sys:String>м</sys:String>
                             <sys:String>ж</sys:String>
                         </ComboBox>
@@ -137,16 +141,15 @@
                             Width="100"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
-                            SelectedDate=""
-                            DisplayDate=""/>
+                            SelectedDate="{Binding Path=Student.BirthDate, UpdateSourceTrigger=PropertyChanged}"/>
                         <CheckBox
                             Grid.Row="3"
                             Grid.ColumnSpan="3"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Style="{StaticResource HostelNeedingCheckBox}"
-                            IsChecked="False"/>
-                        <StackPanel
+                            IsChecked="{Binding Path=Student.IsNeedHostel, UpdateSourceTrigger=PropertyChanged}"/>
+                       <!-- <StackPanel
                             Grid.Row="0"
                             Grid.Column="4"
                             Grid.RowSpan="2"
@@ -189,7 +192,7 @@
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Width="350"
-                            SelectedItem=""/>
+                            SelectedItem=""/> -->
                         <TextBlock
                             Grid.Row="3"
                             Grid.Column="4"
@@ -476,7 +479,9 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Width="170"
-                                SelectedItem=""/>
+                                ItemsSource="{Binding Path=StudentStatuses}"
+                                DisplayMemberPath="Name"
+                                SelectedItem="{Binding Path=Student.Status, UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock
                                 Grid.Row="1"
                                 Grid.Column="0"

@@ -76,6 +76,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -119,6 +120,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DialogService\Editor.xaml.cs">
+      <DependentUpon>Editor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DialogService\Enums.cs" />
+    <Compile Include="DialogService\Messenger.cs" />
+    <Compile Include="DialogService\ViewInvoker.cs" />
     <Compile Include="Themes\Behaviors\PasswordBehavior.cs" />
     <Compile Include="Themes\Controls\ExDataGrid.cs" />
     <Compile Include="Themes\Controls\WorkspaceMenuItem.xaml.cs">
@@ -129,6 +136,7 @@
     <Compile Include="ViewModel\Windows\AuthViewModel.cs" />
     <Compile Include="ViewModel\Windows\ConnectionSettingsViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Students\ActiveStudentsViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Students\StudentViewViewModel.cs" />
     <Compile Include="View\Windows\AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
     </Compile>
@@ -182,10 +190,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="DialogService\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Page Include="DialogService\Editor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Controls\ExDataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

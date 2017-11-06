@@ -357,9 +357,11 @@
     <Compile Include="Astu\Faculty.cs" />
     <Compile Include="Astu\FinanceSource.cs" />
     <Compile Include="Astu\ForeignLanguage.cs" />
+    <Compile Include="Astu\GraduationDocumentType.cs" />
+    <Compile Include="Astu\GrantType.cs" />
     <Compile Include="Astu\Group.cs" />
     <Compile Include="Astu\QuotaType.cs" />
-    <Compile Include="Astu\Status.cs" />
+    <Compile Include="Astu\StudentStatus.cs" />
     <Compile Include="Astu\Student.cs" />
     <Compile Include="ExportData\Application.cs" />
     <Compile Include="ExportData\ApplicationCommonBenefits.cs" />

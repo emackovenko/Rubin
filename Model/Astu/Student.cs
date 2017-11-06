@@ -11,6 +11,9 @@ namespace Model.Astu
     [TableName("ANKETA")]
     public class Student : Entity
     {
+
+        #region Database properties
+
         /// <summary>
         /// Идентификатор
         /// </summary>
@@ -111,6 +114,13 @@ namespace Model.Astu
         public int Course { get; set; }
 
         /// <summary>
+        /// Год приёма
+        /// </summary>
+        [FieldName("GOD_P")]
+        [FieldType(DatabaseFieldType.Integer)]
+        public int AdmissionYear { get; set; }
+
+        /// <summary>
         /// Идентификатор источника финансирования
         /// </summary>
         [FieldName("KOB")]
@@ -146,6 +156,24 @@ namespace Model.Astu
         public string CitizenshipId { get; set; }
 
         /// <summary>
+        /// Идентификатор вида стипендии
+        /// </summary>
+        [FieldName("VST")]
+        [FieldType(DatabaseFieldType.String)]
+        public string GrantTypeId { get; set; }
+
+        /// <summary>
+        /// Идентификатор вида документа об образовании
+        /// </summary>
+        [FieldName("VDO")]
+        [FieldType(DatabaseFieldType.String)]
+        public string GraduationDocumentTypeId { get; set; }
+
+        #endregion
+
+        #region Navigation properties
+
+        /// <summary>
         /// Группа, в которой обучается студент
         /// </summary>
         public Group Group
@@ -170,11 +198,11 @@ namespace Model.Astu
         /// <summary>
         /// Статус студента
         /// </summary>
-        public Status Status
+        public StudentStatus Status
         {
             get
             {
-                return Astu.Statuses.Where(s => s.Id == StatusId).FirstOrDefault();
+                return Astu.StudentStatuses.Where(s => s.Id == StatusId).FirstOrDefault();
             }
             set
             {
@@ -298,6 +326,57 @@ namespace Model.Astu
                 }
             }
         }
+
+        /// <summary>
+        /// Вид стипендии
+        /// </summary>
+        public GrantType GrantType 
+        {
+            get
+            {
+                return Astu.GrantTypes.FirstOrDefault(gt => gt.Id == GrantTypeId);
+            }
+            set
+            {
+                if (value != null)
+                {
+                    GrantTypeId = value.Id;
+                }
+                else
+                {
+                    GrantTypeId = null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Вид документа об образовании
+        /// </summary>
+        public GraduationDocumentType GraduationDocumentType
+        {
+            get
+            {
+                return Astu.GraduationDocumentTypes.FirstOrDefault(gdt => gdt.Id == GraduationDocumentTypeId);
+            }
+            set
+            {
+                if (value != null)
+                {
+                    GraduationDocumentTypeId = value.Id;
+                }
+                else
+                {
+                    GraduationDocumentTypeId = null;
+                }
+            }
+        }
+
+        #endregion
+
+
+        #region Navigation collections
+
+        #endregion
 
     }
 }

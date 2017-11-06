@@ -6,6 +6,7 @@ using System.Text;
 using Model.Astu;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Contingent.DialogService;
 
 namespace Contingent.ViewModel.Workspaces.Students
 {
@@ -13,12 +14,31 @@ namespace Contingent.ViewModel.Workspaces.Students
     {
         #region Fields
 
+        Student _selectedStudent;
+
         ObservableCollection<Student> _students;
 
         #endregion
 
 
         #region Properties
+
+        public Student SelectedStudent
+        {
+            get
+            {
+                if (_selectedStudent == null)
+                {
+                    _selectedStudent = Students.FirstOrDefault();
+                }
+                return _selectedStudent;
+            }
+            set
+            {
+                _selectedStudent = value;
+                RaisePropertyChanged("SelectedStudent");
+            }
+        }
 
         public ObservableCollection<Student> Students
         {
@@ -45,6 +65,39 @@ namespace Contingent.ViewModel.Workspaces.Students
 
         #region Logic
 
+        #region Commands
+
+        public RelayCommand EditStudentCommand
+        {
+            get
+            {
+                return new RelayCommand(EditStudent, EditStudentCanExecute);
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        void EditStudent()
+        {
+            var vm = new StudentViewViewModel(SelectedStudent);
+            if (ViewInvoker.ShowEditor(EditingContent.StudentView, vm))
+            {
+                Astu.Save();
+            }
+        }
+
+        #endregion
+
+        #region Checks
+
+        bool EditStudentCanExecute()
+        {
+            return SelectedStudent != null;
+        }
+
+        #endregion
 
         #endregion
     }

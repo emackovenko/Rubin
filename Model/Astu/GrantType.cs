@@ -5,14 +5,17 @@ using System.Text;
 
 namespace Model.Astu
 {
-    [TableName("STATUS")]
-    public class Status: Entity
+    /// <summary>
+    /// Вид стипендии студента
+    /// </summary>
+    [TableName("VSTSPR")]
+    public class GrantType: Entity
     {
         /// <summary>
         /// Идентификатор
         /// </summary>
         [PrimaryKey]
-        [FieldName("ID_STAT")]
+        [FieldName("VST")]
         [FieldType(DatabaseFieldType.String)]
         public string Id { get; set; }
 

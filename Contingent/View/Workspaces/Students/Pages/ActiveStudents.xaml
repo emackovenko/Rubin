@@ -32,7 +32,8 @@
             </Button>
             <Button
                 ToolTip="Редактировать"
-                Style="{StaticResource ToolButton}">
+                Style="{StaticResource ToolButton}"
+                Command="{Binding Path=EditStudentCommand}">
                 <Image
                     Style="{StaticResource PictureEdit}"/>
             </Button>
@@ -66,7 +67,8 @@
         <Grid
             Grid.Row="1">
             <control:ExDataGrid
-                ItemsSource="{Binding Path=Students}" SelectionUnit="Cell" SelectionMode="Single">
+                ItemsSource="{Binding Path=Students}"
+                SelectedItem="{Binding Path=SelectedStudent}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Header="Рег. №"

@@ -28,13 +28,19 @@ namespace Model.Astu
             EducationPlans = new EntitySet<EducationPlan>();
             QuotaTypes = new EntitySet<QuotaType>();
             ForeignLanguages = new EntitySet<ForeignLanguage>();
-            Statuses = new EntitySet<Status>();
+            StudentStatuses = new EntitySet<StudentStatus>();
             FinanceSources = new EntitySet<FinanceSource>();
             Citizenships = new EntitySet<Citizenship>("SNG = 1");
+            GrantTypes = new EntitySet<GrantType>("POR_VIS <> 99");
+            GraduationDocumentTypes = new EntitySet<GraduationDocumentType>(@"VDO IN ('0001', '0009', '0052')");
         }
 
 
         #region Entity collections
+
+        public static EntitySet<GraduationDocumentType> GraduationDocumentTypes { get; set; }
+
+        public static EntitySet<GrantType> GrantTypes { get; set; }
 
         public static EntitySet<Student> Students { get; set; }
 
@@ -54,7 +60,7 @@ namespace Model.Astu
 
         public static EntitySet<QuotaType> QuotaTypes { get; set; }
 
-        public static EntitySet<Status> Statuses { get; set; }
+        public static EntitySet<StudentStatus> StudentStatuses { get; set; }
 
         public static EntitySet<FinanceSource> FinanceSources { get; set; }
 
