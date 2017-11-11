@@ -54,7 +54,7 @@ namespace Model.Astu
         /// Флаг - нуждается в общежитии
         /// </summary>
         [FieldName("OBCHAGA")]
-        [FieldType(DatabaseFieldType.String)]
+        [FieldType(DatabaseFieldType.Boolean)]
         public bool IsNeedHostel { get; set; }
 
         /// <summary>
@@ -89,8 +89,38 @@ namespace Model.Astu
         /// Документ, удостоверяющий личность - дата выдачи
         /// </summary>
         [FieldName("PASP_DATE")]
-        [FieldType(DatabaseFieldType.String)]
+        [FieldType(DatabaseFieldType.OracleDateTime)]
         public DateTime? IdentityDocumentDate { get; set; }
+
+        ///// <summary>
+        ///// Место рождения
+        ///// </summary>
+        //[FieldName("PASP_MST_ROJ")]
+        //[FieldType(DatabaseFieldType.String)]
+        //public string BirthPlace { get; set; }
+
+        /// <summary>
+        /// Документ об образовании - серия
+        /// </summary>
+        [FieldName("ATT_SER")]
+        [FieldType(DatabaseFieldType.String)]
+        public string GraduationDocumentSeries { get; set; }
+
+        /// <summary>
+        /// Документ об образовании - номер
+        /// </summary>
+        [FieldName("ATT_NOM")]
+        [FieldType(DatabaseFieldType.String)]
+        public string GraduationDocumentNumber { get; set; }
+
+        /// <summary>
+        /// Документ об образовании - дата выдачи
+        /// </summary>
+        [FieldName("ATT_DATE")]
+        [FieldType(DatabaseFieldType.OracleDateTime)]
+        public DateTime? GraduationDocumentDate { get; set; }
+
+
 
         /// <summary>
         /// Идентификатор группы
@@ -154,6 +184,13 @@ namespace Model.Astu
         [FieldName("GOS")]
         [FieldType(DatabaseFieldType.String)]
         public string CitizenshipId { get; set; }
+
+        /// <summary>
+        /// Идентификатор изучаемого иностранного языка
+        /// </summary>
+        [FieldName("LNG")]
+        [FieldType(DatabaseFieldType.String)]
+        public string ForeignLanguageId { get; set; }
 
         /// <summary>
         /// Идентификатор вида стипендии
@@ -367,6 +404,28 @@ namespace Model.Astu
                 else
                 {
                     GraduationDocumentTypeId = null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Изучаемый иностранный язык
+        /// </summary>
+        public ForeignLanguage ForeignLanguage
+        {
+            get
+            {
+                return Astu.ForeignLanguages.FirstOrDefault(fl => fl.Id == ForeignLanguageId);
+            }
+            set
+            {
+                if (value != null)
+                {
+                    ForeignLanguageId = value.Id;
+                }
+                else
+                {
+                    ForeignLanguageId = null;
                 }
             }
         }

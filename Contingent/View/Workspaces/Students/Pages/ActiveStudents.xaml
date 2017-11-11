@@ -68,7 +68,7 @@
             Grid.Row="1">
             <control:ExDataGrid
                 ItemsSource="{Binding Path=Students}"
-                SelectedItem="{Binding Path=SelectedStudent}">
+                SelectedItem="{Binding Path=SelectedStudent, UpdateSourceTrigger=PropertyChanged}">
                 <DataGrid.Columns>
                     <DataGridTextColumn
                         Header="Рег. №"

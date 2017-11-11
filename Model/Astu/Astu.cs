@@ -175,12 +175,16 @@ namespace Model.Astu
                 RemovedEntities.Clear();
             }
 
+            //string queryString = sb.ToString();
+            //var coder = Encoding.GetEncoding("Windows-1251");
+            //byte[] queryBytes = coder.GetBytes(queryString);
+            //string finalStr = coder.GetString(queryBytes);
+
             // выполняем команду
             if (sb.Length > 0)
             {
                 var cmd = _dbConnection.CreateCommand();
                 cmd.CommandText = sb.ToString();
-                OnSaveChanges(sb.ToString());
                 cmd.ExecuteNonQuery();
             }
         }

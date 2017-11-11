@@ -67,7 +67,7 @@ namespace Contingent.ViewModel.Windows
             int dbPort = Settings.Default.DbPort;
             string dbServiceName = Settings.Default.DbServiceName;
 
-            string connectionString = string.Format("Data Source={0};User Id={1};Password={2};",
+            string connectionString = string.Format("Data Source={0};User Id={1};Password={2};Unicode=True;",
                 dbServiceName, Username, _password);
 
             // создаем коннект и пытаемся инициализировать модель

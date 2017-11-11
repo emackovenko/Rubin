@@ -10,9 +10,6 @@
              mc:Ignorable="d" 
              Width="840"
              Height="460">
-    <UserControl.DataContext>
-        <vm:StudentViewViewModel/>
-    </UserControl.DataContext>
     <TabControl>
         <TabItem
             Header="Личные данные">
@@ -205,7 +202,9 @@
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Width="350"
-                            SelectedItem=""/>
+                            ItemsSource="{Binding Path=Citizenships}"
+                            SelectedItem="{Binding Path=Student.Citizenship, UpdateSourceTrigger=PropertyChanged}"
+                            DisplayMemberPath="Name"/>
                     </Grid>
                 </GroupBox>
                 <Grid
@@ -264,7 +263,7 @@
                                     Margin="0,0,10,0"
                                     Height="23"
                                     Width="50"
-                                    Text=""/>
+                                    Text="{Binding Path=Student.IdentityDocumentSeries, UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock
                                     Grid.Row="1"
                                     Grid.Column="0"
@@ -274,7 +273,7 @@
                                 <TextBox
                                     Height="23"
                                     Width="100"
-                                    Text=""/>
+                                    Text="{Binding Path=Student.IdentityDocumentNumber, UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
                             <TextBlock
                                 Grid.Row="1"
@@ -288,7 +287,7 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Width="100"
-                                SelectedDate=""/>
+                                SelectedDate="{Binding Path=Student.IdentityDocumentDate, UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock
                                 Grid.Row="2"
                                 Grid.Column="0"
@@ -301,7 +300,8 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Width="440"
-                                Text="" 
+                                Text="{Binding Path=Student.IdentityDocumentOrganization, UpdateSourceTrigger=PropertyChanged}" 
+                                ItemsSource="{Binding Path=IdentityDocumentOrganizations}"
                                 IsEditable="True"/>
                             <StackPanel
                                 Grid.Row="3"
@@ -316,13 +316,14 @@
                                     Margin="0,0,5,0"
                                     VerticalAlignment="Center"
                                     Width="415"
-                                    Text=""/>
+                                    Text="{Binding Path=Student.BirthPlace, UpdateSourceTrigger=PropertyChanged}"/>
                                 <Button
                                     Height="21"
                                     Width="21"
                                     ToolTip="Собрать место рождения"
                                     Content="..."
-                                    Command=""/>
+                                    Command=""
+                                    IsEnabled="False"/>
                             </StackPanel>
                         </Grid>
                     </GroupBox>
@@ -365,7 +366,7 @@
                                     Margin="0,0,10,0"
                                     VerticalAlignment="Center"
                                     Width="150"
-                                    Text=""/>
+                                    Text="{Binding Path=Student.GraduationDocumentSeries, UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBlock
                                     Margin="0,0,3,0"
                                     VerticalAlignment="Center"
@@ -374,7 +375,7 @@
                                     Margin="0,0,10,0"
                                     VerticalAlignment="Center"
                                     Width="150"
-                                    Text=""/>
+                                    Text="{Binding Path=Student.GraduationDocumentNumber, UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
                             <TextBlock
                                 Grid.Row="1"
@@ -388,7 +389,7 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Width="100"
-                                SelectedDate=""/>
+                                SelectedDate="{Binding Path=Student.GraduationDocumentDate, UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock
                                 Grid.Row="2"
                                 Grid.Column="0"
@@ -401,7 +402,9 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Width="400"
-                                SelectedItem=""/>
+                                ItemsSource="{Binding Path=GraduationDocumentTypes}"
+                                SelectedItem="{Binding Path=Student.GraduationDocumentType, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberPath="Name"/>
                             <TextBlock
                                 Grid.Row="3"
                                 Grid.Column="0"
@@ -427,7 +430,9 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Width="200"
-                                SelectedItem=""/>
+                                ItemsSource="{Binding Path=ForeignLanguages}"
+                                SelectedItem="{Binding Path=Student.ForeignLanguage, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberPath="Name"/>
                         </Grid>
                     </GroupBox>
                     <GroupBox
@@ -495,7 +500,9 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Width="170"
-                                SelectedItem=""/>
+                                ItemsSource="{Binding Path=StudentGroups}"
+                                SelectedItem="{Binding Path=Student.Group, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberPath="Name"/>
                             <TextBlock
                                 Grid.Row="2"
                                 Grid.Column="0"
@@ -509,7 +516,9 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Width="170"
-                                SelectedItem=""/>
+                                ItemsSource="{Binding Path=Faculties}"
+                                SelectedItem="{Binding Path=Student.Faculty, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberPath="ShortName"/>
                             <TextBlock
                                 Grid.Row="3"
                                 Grid.Column="0"
@@ -523,7 +532,9 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Width="170"
-                                SelectedItem=""/>
+                                ItemsSource="{Binding Path=Directions}"
+                                SelectedItem="{Binding Path=Student.Direction, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayMemberPath="ShortName"/>
                             <TextBlock
                                 Grid.Row="4"
                                 Grid.Column="0"
@@ -537,7 +548,9 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Width="170"
-                                SelectedItem=""/>
+                                ItemsSource="{Binding Path=EducationForms}"
+                                DisplayMemberPath="Name"
+                                SelectedItem="{Binding Path=Student.EducationForm, UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock
                                 Grid.Row="5"
                                 Grid.Column="0"
@@ -550,7 +563,9 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Width="170"
-                                SelectedItem=""/>
+                                ItemsSource="{Binding Path=FinanceSources}"
+                                DisplayMemberPath="Name"
+                                SelectedItem="{Binding Path=Student.FinanceSource, UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock
                                 Grid.Row="6"
                                 Grid.Column="0"
@@ -563,7 +578,9 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Width="170"
-                                SelectedItem=""/>
+                                ItemsSource="{Binding Path=GrantTypes}"
+                                DisplayMemberPath="Name"
+                                SelectedItem="{Binding Path=Student.GrantType, UpdateSourceTrigger=PropertyChanged}"/>
                             <TextBlock
                                 Grid.Row="7"
                                 Grid.Column="0"
@@ -576,7 +593,7 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 Width="100"
-                                Text=""/>
+                                Text="{Binding Path=Student.AdmissionYear, UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
                     </GroupBox>
                 </Grid>

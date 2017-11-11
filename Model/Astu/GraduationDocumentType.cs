@@ -18,7 +18,7 @@ namespace Model.Astu
         /// <summary>
         /// Наименование
         /// </summary>
-        [FieldName("VDO_NAME")]
+        [FieldName("NAME_VDO")]
         [FieldType(DatabaseFieldType.String)]
         public string Name { get; set; }
     }

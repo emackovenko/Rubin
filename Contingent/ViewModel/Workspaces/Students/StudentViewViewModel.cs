@@ -6,12 +6,18 @@ using System.Text;
 using Model.Astu;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using MoreLinq;
 
 
 namespace Contingent.ViewModel.Workspaces.Students
 {
     public class StudentViewViewModel: ViewModelBase
     {
+        public StudentViewViewModel()
+        {
+
+        }
+
         public StudentViewViewModel(Student student)
         {
             Student = student;
@@ -72,6 +78,94 @@ namespace Contingent.ViewModel.Workspaces.Students
             get
             {
                 return new ObservableCollection<StudentStatus>(Astu.StudentStatuses);
+            }
+        }
+
+
+        public ObservableCollection<Citizenship> Citizenships
+        {
+            get
+            {
+                return new ObservableCollection<Citizenship>(Astu.Citizenships);
+            }
+        }
+
+        public ObservableCollection<GraduationDocumentType> GraduationDocumentTypes
+        {
+            get
+            {
+                return new ObservableCollection<GraduationDocumentType>(Astu.GraduationDocumentTypes);
+            }
+        }
+
+        public ObservableCollection<string> IdentityDocumentOrganizations
+        {
+            get
+            {
+                var collection = new List<string>();
+                var strings = Astu.Students.Select(s => s.IdentityDocumentOrganization).Distinct().OrderBy(s => s);
+                foreach (var s in strings)
+                {
+                    collection.Add(s);
+                }
+                return new ObservableCollection<string>(collection);
+            }
+        }
+
+        public ObservableCollection<ForeignLanguage> ForeignLanguages
+        {
+            get
+            {
+                return new ObservableCollection<ForeignLanguage>(Astu.ForeignLanguages);
+            }
+        }
+
+        public ObservableCollection<Group> StudentGroups
+        {
+            get
+            {
+                return new ObservableCollection<Group>(Astu.Groups.OrderBy(g => g.Name).OrderBy(g => g.IsGraduated));
+            }
+        }
+
+        public ObservableCollection<Faculty> Faculties
+        {
+            get
+            {
+                return new ObservableCollection<Faculty>(Astu.Faculties);
+            }
+        }
+
+        public ObservableCollection<Direction> Directions
+        {
+            get
+            {
+                return new ObservableCollection<Direction>(Astu.Directions);
+            }
+        }
+
+        public ObservableCollection<EducationForm> EducationForms
+        {
+            get
+            {
+                return new ObservableCollection<EducationForm>(Astu.EducationForms);
+            }
+        }
+
+        public ObservableCollection<FinanceSource> FinanceSources
+        {
+            get
+            {
+                return new ObservableCollection<FinanceSource>(Astu.FinanceSources);
+            }
+        }
+
+        public ObservableCollection<GrantType> GrantTypes
+
+        {
+            get
+            {
+                return new ObservableCollection<GrantType>(Astu.GrantTypes);
             }
         }
 

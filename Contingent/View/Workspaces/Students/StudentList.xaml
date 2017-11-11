@@ -36,9 +36,6 @@
                     <controls:WorkspaceMenuItem
                         Title="Обучающиеся студенты" 
                         URL="/Contingent;component/View/Workspaces/Students/Pages/ActiveStudents.xaml"/>
-                    <controls:WorkspaceMenuItem
-                        Title="Все студенты" 
-                        URL="/Contingent;component/View/Workspaces/Students/Pages/ActiveStudents.xaml"/>
                 </ListView>
             </Expander>
         </Border>

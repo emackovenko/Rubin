@@ -85,20 +85,31 @@ namespace Model.Astu
 
         internal string GetSaveQuery()
         {
+            string str = string.Empty;
             switch (EntityState)
             {
                 case EntityState.Default:
-                    return string.Empty;
+                    break;
                 case EntityState.New:
-                    return InsertQuery();
+                    str = InsertQuery();
+                    break;
                 case EntityState.Changed:
-                    return UpdateQuery();
+                    str = UpdateQuery();
+                    break;
                 case EntityState.Deleted:
-                    return DeleteQuery();
+                    str = DeleteQuery();
+                    break;
                 default:
                     throw new InvalidEnumArgumentException("Unknown entity state");
             }
 
+            //Encoding utf8 = Encoding.UTF8;
+            //Encoding cp1251 = Encoding.GetEncoding("Windows-1251");
+            //byte[] utf8Bytes, cp1251Bytes;
+            //utf8Bytes = utf8.GetBytes(str);
+            //cp1251Bytes = Encoding.Convert(utf8, cp1251, utf8Bytes);
+            //string finalQuery = cp1251.GetString(cp1251Bytes);
+            return str;
         }
         
         string DeleteQuery()
@@ -160,7 +171,7 @@ namespace Model.Astu
                     GetPropertyInfo(prop.Name).GetValue(this, null)));
             }
             sb.Remove(sb.Length - 1, 1);
-            sb.AppendFormat(" WHERE {0}={1};",
+            sb.AppendFormat(" WHERE {0}={1}",
                 PrimaryFieldName, 
                 ConvertObjectToExpression(GetDatabaseFieldType(primaryKey.Name), GetPropertyInfo(primaryKey.Name).GetValue(this, null)));
             return sb.ToString();

@@ -100,7 +100,8 @@
                                 <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                             </ScrollViewer>
                         </Border>
-                        <StackPanel Orientation="Horizontal" Grid.Row="1">
+                        <StackPanel Orientation="Horizontal" Grid.Row="1"
+                                    Visibility="{Binding RelativeSource={RelativeSource AncestorType=control:ExDataGrid}, Path=SearchTextVisibility, UpdateSourceTrigger=PropertyChanged}">
                         <TextBox x:Name="PART_SearchControl" HorizontalAlignment="Left" MinWidth="100" BorderThickness="1 0 0 1"
                                  BorderBrush="{TemplateBinding BorderBrush}"
                                  Visibility="{Binding RelativeSource={RelativeSource AncestorType=control:ExDataGrid}, Path=SearchTextVisibility, Mode=OneWay}"/>

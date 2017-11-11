@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Reflection;
+using System;
 
 namespace Contingent.Themes.Controls
 {
@@ -40,10 +41,12 @@ namespace Contingent.Themes.Controls
         {
             base.OnSelectionChanged(e);
             var dg = this;
-            if (dg.SelectedItem == null) return;
+            if (dg.SelectedItem == null)
+                return;
             dg.ScrollIntoView(dg.SelectedItem);
             var dgRow = (DataGridRow)dg.ItemContainerGenerator.ContainerFromItem(dg.SelectedItem);
-            if (dgRow == null) return;
+            if (dgRow == null)
+                return;
             dgRow.Focus();
         }
 
@@ -53,19 +56,19 @@ namespace Contingent.Themes.Controls
             if (!IsTextSearchEnabled)
                 return;
             var tb = (TextBox)Template.FindName("PART_SearchControl", this);
+
             if (SearchTextVisibility != Visibility.Visible)
             {
                 SearchTextVisibility = Visibility.Visible;
+            }
+
+            if (!tb.IsFocused)
+            {
                 tb.Focus();
                 tb.SelectAll();
             }
-            SearchTextVisibility = Visibility.Visible;
-            SearchText = tb.Text + e.Text;
-        }
 
-        protected override void OnGotFocus(RoutedEventArgs e)
-        {
-            SearchTextVisibility = Visibility.Collapsed;
+            SearchText = tb.Text + e.Text;
         }
 
         public string SearchText
@@ -98,7 +101,16 @@ namespace Contingent.Themes.Controls
 
         // Using a DependencyProperty as the backing store for SearchTextVisibility.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SearchTextVisibilityProperty =
-            DependencyProperty.Register("SearchTextVisibility", typeof(Visibility), typeof(ExDataGrid), new UIPropertyMetadata(Visibility.Collapsed));
+            DependencyProperty.Register("SearchTextVisibility", typeof(Visibility), typeof(ExDataGrid), 
+                new UIPropertyMetadata(Visibility.Collapsed, new PropertyChangedCallback(OnSearchTextVisibilityChanged)));
+
+        static void OnSearchTextVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Visibility newValue = (Visibility)e.NewValue;
+            var exDataGrid = (ExDataGrid)d;
+            var tb = (TextBox)exDataGrid.Template.FindName("PART_SearchControl", exDataGrid);
+            tb.Visibility = newValue;
+        }
 
         void FindRowByStringValue(string searchedValue)
         {
@@ -126,9 +138,7 @@ namespace Contingent.Themes.Controls
                         string currentValue = searchedProperty.GetValue(item, null).ToString().ToLower();
                         if (currentValue.StartsWith(searchedText))
                         {
-                            var cellInfo = new DataGridCellInfo(item, CurrentColumn);
-                            SelectedCells.Clear();
-                            SelectedCells.Add(cellInfo);
+                            SelectedItem = item;
                             ScrollIntoView(item, CurrentColumn);
                             break;
                         }
