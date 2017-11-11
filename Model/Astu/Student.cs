@@ -408,6 +408,20 @@ namespace Model.Astu
 
         #region Navigation collections
 
+        public IEnumerable<StudentOrderBase> Orders
+        {
+            get
+            {
+                var list = new List<StudentOrderBase>();
+                var ao = Astu.AdmissionOrders.Where(o => o.StudentId == Id);
+                foreach (var item in ao)
+                {
+                    list.Add(item);
+                }
+                return list;
+            }
+        }
+
         #endregion
 
     }

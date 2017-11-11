@@ -272,7 +272,7 @@ namespace Model.Astu
         /// </summary>
         /// <param name="obj">Сравниваемый объект</param>
         /// <returns></returns>
-        public override bool Equals(object obj)
+        public bool IsEquals(object obj)
         {
             // если разные типы, то сразу неравные
             if (obj.GetType() != GetType())

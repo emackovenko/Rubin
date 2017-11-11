@@ -12,15 +12,13 @@ namespace Model.Astu
         /// Идентификатор
         /// </summary>
         [PrimaryKey]
-        [DbDbFieldInfo("ID_STAT", 
-DbFieldType.String)]
+        [DbFieldInfo("ID_STAT", DbFieldType.String)]
         public string Id { get; set; }
 
         /// <summary>
         /// Наименование
         /// </summary>
-        [DbDbFieldInfo("NAME", 
-DbFieldType.String)]
+        [DbFieldInfo("NAME", DbFieldType.String)]
         public string Name { get; set; }
     }
 }

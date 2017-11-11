@@ -33,6 +33,7 @@ namespace Model.Astu
             Citizenships = new EntitySet<Citizenship>("WHERE SNG = 1");
             GrantTypes = new EntitySet<GrantType>("WHERE POR_VIS <> 99");
             GraduationDocumentTypes = new EntitySet<GraduationDocumentType>(@"WHERE VDO IN ('0001', '0009', '0052')");
+            OrderTypes = new EntitySet<OrderType>();
             AdmissionOrders = new EntitySet<AdmissionOrder>(@"WHERE TPR='0001' ORDER BY KOD, DAT");
         }
 

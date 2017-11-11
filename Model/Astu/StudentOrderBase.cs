@@ -14,6 +14,7 @@ namespace Model.Astu
         /// <summary>
         /// Идентификатор
         /// </summary>
+        [PrimaryKey]
         [DbFieldInfo("ID_HIST")]
         public string Id { get; set; }
 
