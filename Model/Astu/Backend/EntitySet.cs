@@ -14,21 +14,31 @@ namespace Model.Astu
     /// <typeparam name="TEntity">Тип загружаемой сущности</typeparam>
     public class EntitySet<TEntity>: List<TEntity>, IEntitySet where TEntity: Entity
     {
-        string _filterSqlOption;
+        string _sqlOption;
 
-        public event EntityRemovingHandler EntityRemoving;
+        public event EntityRemovingHandler OnEntityRemoving;
         
         /// <summary>
         /// Инициализирует коллекцию и загружает ее из БД
         /// </summary>
-        /// <param name="filterSqlOption">Содержимое строки "WHERE" в запросе выборки</param>
-        public EntitySet(string filterSqlOption = null)
+        /// <param name="sqlOption">Опция будет дописана в финальный запрос "SELECT {Fields} FROM {TableName}"</param>
+        public EntitySet(string sqlOption = null)
         {
+            _sqlOption = sqlOption;
+            Reset();
+        }
+
+        /// <summary>
+        /// Очищает текущую коллекцию и заново подгружает все элементы из БД
+        /// </summary>
+        public void Reset()
+        {
+            Clear();
             var dbConnection = Astu.DbConnection;
             var type = typeof(TEntity);
 
             // Получаем коллекцию загружаемых полей объекта
-            var fields = type.GetProperties().Where(pi => pi.GetCustomAttributes(typeof(FieldNameAttribute), true).Count() > 0);
+            var fields = type.GetProperties().Where(pi => pi.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).Count() > 0);
 
             // Составляем строку запроса
             var sb = new StringBuilder();
@@ -38,12 +48,12 @@ namespace Model.Astu
                 if (f.PropertyType == typeof(string))
                 {
                     sb.AppendFormat("TRIM({0})",
-                        (f.GetCustomAttributes(typeof(FieldNameAttribute), true).First() as FieldNameAttribute).Value);
+                        (f.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).First() as DbFieldInfoAttribute).Name);
                 }
                 else
                 {
-                    sb.Append((f.GetCustomAttributes(typeof(FieldNameAttribute), true).First() as FieldNameAttribute).Value);
-                }                
+                    sb.Append((f.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).First() as DbFieldInfoAttribute).Name);
+                }
                 sb.Append(",");
             }
             sb.Remove(sb.Length - 1, 1);
@@ -51,9 +61,9 @@ namespace Model.Astu
             var tableName = (type.GetCustomAttributes(typeof(TableNameAttribute), true).First() as TableNameAttribute).Value;
             sb.AppendFormat(" FROM {0}", tableName);
             // докидывем условие, если оно есть
-            if (!string.IsNullOrWhiteSpace(_filterSqlOption))
+            if (!string.IsNullOrWhiteSpace(_sqlOption))
             {
-                sb.AppendFormat(" WHERE {0}", _filterSqlOption);
+                sb.AppendFormat(" {0}", _sqlOption);
             }
 
             // Создаем SQL команду для выполнения запроса и загрузки данных
@@ -122,7 +132,7 @@ namespace Model.Astu
         {
             base.Remove(item);
             item.EntityState = EntityState.Deleted;
-            EntityRemoving(item);
+            OnEntityRemoving(item);
         }
     }
 }

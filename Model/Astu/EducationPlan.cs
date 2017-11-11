@@ -15,36 +15,31 @@ namespace Model.Astu
         /// Идентификатор
         /// </summary>
         [PrimaryKey]
-        [FieldName("ID_UCH")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("ID_UCH")]
         public string Id { get; set; }
 
         /// <summary>
         /// Идентификатор факультета
         /// </summary>
-        [FieldName("FAK")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("FAK")]
         public string FacultyId { get; set; }
 
         /// <summary>
         /// Идентификатор направления подготовки
         /// </summary>
-        [FieldName("SPC")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("SPC")]
         public string DirectionId { get; set; }
 
         /// <summary>
         /// Идентификатор формы обучения
         /// </summary>
-        [FieldName("FRM")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("FRM")]
         public string EducationFormId { get; set; }
 
         /// <summary>
         /// Год, с которого учебный план вступает в силу
         /// </summary>
-        [FieldName("GOD")]
-        [FieldType(DatabaseFieldType.Integer)]
+        [DbFieldInfo("GOD", DbFieldType.Integer)]
         public int Year { get; set; }
 
         /// <summary>

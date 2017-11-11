@@ -16,22 +16,19 @@ namespace Model.Astu
         /// Идентификатор
         /// </summary>
         [PrimaryKey]
-        [FieldName("ID_VIDPROG")]
-        [FieldType(DatabaseFieldType.Integer)]
+        [DbFieldInfo("ID_VIDPROG", DbFieldType.Integer)]
         public int Id { get; set; }
 
         /// <summary>
         /// Наименование
         /// </summary>
-        [FieldName("NAME_VIDPROG")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("NAME_VIDPROG")]
         public string Name { get; set; }
 
         /// <summary>
         /// Краткое наименование
         /// </summary>
-        [FieldName("FOLDER_OMKO")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("FOLDER_OMKO")]
         public string ShortName { get; set; }
 
         ObservableCollection<Direction> _directions;

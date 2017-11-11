@@ -16,6 +16,8 @@ namespace Model.Astu
 
     public interface IEntitySet: IEnumerable
     {
-        event EntityRemovingHandler EntityRemoving;
+        event EntityRemovingHandler OnEntityRemoving;
+
+        void Reset();
     }
 }

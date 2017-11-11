@@ -15,15 +15,13 @@ namespace Model.Astu
         /// Идентификатор
         /// </summary>
         [PrimaryKey]
-        [FieldName("LNG")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("LNG")]
         public string Id { get; set; }
 
         /// <summary>
         /// Наименование
         /// </summary>
-        [FieldName("NAME")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("NAME")]
         public string Name { get; set; }
     }
 }

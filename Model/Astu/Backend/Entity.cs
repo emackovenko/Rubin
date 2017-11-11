@@ -11,7 +11,7 @@ namespace Model.Astu
 	/// <summary>
 	/// Предоставляет базовый функционал для сущности
 	/// </summary> 
-	public abstract class Entity: PropertyChangedBase
+	public abstract class Entity: PropertyChangedBase, ICloneable
 	{
         public Entity()
         {
@@ -62,17 +62,17 @@ namespace Model.Astu
         {
             get
             {
-                var props = this.GetType().GetProperties();
+                var props = GetType().GetProperties();
                 foreach (var prop in props)
                 {
                     if (prop.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).Count() > 0)
                     {
-                        var fieldName = prop.GetCustomAttributes(typeof(FieldNameAttribute), true).FirstOrDefault() as FieldNameAttribute;
+                        var fieldName = prop.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).FirstOrDefault() as DbFieldInfoAttribute;
                         if (fieldName == null)
                         {
                             throw new ArgumentNullException(string.Format("Для свойства {0} не указан сопоставляемый тип", prop.Name));
                         }
-                        return fieldName.Value;
+                        return fieldName.Name;
                     }
                 }
                 throw new InvalidOperationException("Для таблицы не указано поле первичного ключа");
@@ -126,11 +126,11 @@ namespace Model.Astu
             sb.Append("(");
 
             // Получаем набор свойств с аттрибутом FieldName
-            var props = this.GetType().GetProperties().Where(pi => pi.GetCustomAttributes(typeof(FieldNameAttribute), true).Count() > 0);
+            var props = this.GetType().GetProperties().Where(pi => pi.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).Count() > 0);
             foreach (var prop in props)
             {
-                var fieldName = prop.GetCustomAttributes(typeof(FieldNameAttribute), true).First() as FieldNameAttribute;
-                sb.AppendFormat("{0},", fieldName.Value);
+                var fieldName = prop.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).First() as DbFieldInfoAttribute;
+                sb.AppendFormat("{0},", fieldName.Name);
             }
             sb.Remove(sb.Length - 1, 1);
             sb.Append(") VALUES (");
@@ -159,14 +159,14 @@ namespace Model.Astu
             sb.Append("SET ");
             // Получаем набор свойств с аттрибутом FieldName 
             var props = this.GetType().GetProperties().Where(pi => 
-            (pi.GetCustomAttributes(typeof(FieldNameAttribute), true).Count() > 0 && 
+            (pi.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).Count() > 0 && 
             pi.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).Count() == 0));
 
             foreach (var prop in props)
             {
-                var fieldName = prop.GetCustomAttributes(typeof(FieldNameAttribute), true).First() as FieldNameAttribute;
+                var fieldName = prop.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).First() as DbFieldInfoAttribute;
                 sb.AppendFormat("{0}={1},", 
-                    fieldName.Value, 
+                    fieldName.Name, 
                     ConvertObjectToExpression(GetDatabaseFieldType(prop.Name), 
                     GetPropertyInfo(prop.Name).GetValue(this, null)));
             }
@@ -185,9 +185,9 @@ namespace Model.Astu
         /// Возвращает строковое представление объекта в формате SQL выражения
         /// </summary>
         /// <param name="databaseFieldType">Тип поля объекта в БД</param>
-        /// <param name="value">Сам объекта</param>
+        /// <param name="value">Сам объект</param>
         /// <returns></returns>
-        string ConvertObjectToExpression(DatabaseFieldType databaseFieldType, object value)
+        string ConvertObjectToExpression(DbFieldType databaseFieldType, object value)
         {
             if (value == null)
             {
@@ -195,17 +195,15 @@ namespace Model.Astu
             }
             switch (databaseFieldType)
             {
-                case DatabaseFieldType.String:
+                case DbFieldType.String:
                     return string.Format(@"'{0}'", value.ToString());
-                case DatabaseFieldType.Integer:
+                case DbFieldType.Integer:
                     return value.ToString();
-                case DatabaseFieldType.Double:
+                case DbFieldType.Double:
                     return value.ToString();
-                case DatabaseFieldType.DateTime:
-                    return string.Format(@"'{0}'", ((DateTime)value).ToString("yyyy-MM-dd"));
-                case DatabaseFieldType.OracleDateTime:
+                case DbFieldType.DateTime:
                     return string.Format(@"TO_DATE('{0}', 'YYYYMMDD')", ((DateTime)value).ToString("yyyyMMdd"));
-                case DatabaseFieldType.Boolean:
+                case DbFieldType.Boolean:
                     return ((bool)value) == true ? "1" : "0";
                 default:
                     throw new InvalidOperationException("Non-registered field type.");
@@ -217,14 +215,14 @@ namespace Model.Astu
         /// </summary>
         /// <param name="propertyName">Имя заданного свойства</param>
         /// <returns></returns>
-        DatabaseFieldType GetDatabaseFieldType(string propertyName)
+        DbFieldType GetDatabaseFieldType(string propertyName)
         {
-            var p = this.GetType().GetProperty(propertyName).GetCustomAttributes(typeof(FieldTypeAttribute), true).FirstOrDefault() as FieldTypeAttribute;
+            var p = this.GetType().GetProperty(propertyName).GetCustomAttributes(typeof(DbFieldInfoAttribute), true).FirstOrDefault() as DbFieldInfoAttribute;
             if (p == null)
             {
-                throw new Exception(string.Format("Для свойства {0} не указан сопоставляемый тип.", propertyName));
+                throw new Exception(string.Format("Для свойства {0} не указано сопоставляемое поле.", propertyName));
             }
-            return p.Value;
+            return p.Type;
         }
 
         PropertyInfo GetPropertyInfo(string propertyName)
@@ -238,6 +236,65 @@ namespace Model.Astu
             {
                 _entityState = EntityState.Changed;
             }
+        }
+
+        /// <summary>
+        /// Возвращает автономную копию текущей сущности
+        /// </summary>
+        public object Clone()
+        {
+            // Создаем новый объект текущего типа
+            var type = GetType();
+            var obj = type.GetConstructor(new Type[] { }).Invoke(null);
+
+            // Пробегаем по свойствам текущего типа, соответсвующим полям в таблице БД
+            Dictionary<string, object> dbProperties = new Dictionary<string, object>();
+            var fields = type.GetProperties().Where(pi => pi.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).Count() > 0);
+            foreach (var f in fields)
+            {
+                dbProperties.Add(f.Name, f.GetValue(this, null));
+            }
+
+            // По каждому получаем значение и пишем его в соответствующее свойство нового объекта
+            foreach (var item in dbProperties)
+            {
+                type.GetProperty(item.Key).SetValue(obj, item.Value, null);
+            }
+
+            // Устанавливаем значение EntityState в новое
+            (obj as Entity).EntityState = EntityState.New;
+
+            return obj;
+        }
+
+        /// <summary>
+        /// Возвращает true, если связанные с БД свойства объекта равны аналогичным свойствам obj
+        /// </summary>
+        /// <param name="obj">Сравниваемый объект</param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            // если разные типы, то сразу неравные
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            // Пробегаем по свойствам текущего типа, соответсвующим полям в таблице БД
+            var type = GetType();
+            bool result = true;
+
+            var fields = type.GetProperties().Where(pi => pi.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).Count() > 0);
+            foreach (var f in fields)
+            {
+                var objValue = type.GetProperty(f.Name).GetValue(obj, null);
+                var selfValue = type.GetProperty(f.Name).GetValue(this, null);
+                if (!objValue.Equals(selfValue))
+                {
+                    result = false;
+                }
+            }
+            return result;
         }
 
         #endregion

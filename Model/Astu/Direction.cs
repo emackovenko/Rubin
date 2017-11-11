@@ -15,43 +15,37 @@ namespace Model.Astu
         /// Идентификатор
         /// </summary>
         [PrimaryKey]
-        [FieldName("SPC")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("SPC")]
         public string Id { get; set; }
 
         /// <summary>
         /// Наименование
         /// </summary>
-        [FieldName("NAME")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("NAME")]
         public string Name { get; set; }
 
         /// <summary>
         /// Краткое наименование
         /// </summary>
-        [FieldName("KN")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("KN")]
         public string ShortName { get; set; }
 
         /// <summary>
         /// Код по ФГОС
         /// </summary>
-        [FieldName("SHIFR")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("SHIFR")]
         public string Code { get; set; }
 
         /// <summary>
         /// Вид ФГОС
         /// </summary>
-        [FieldName("VIDS")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("VIDS")]
         public string EducationStandart { get; set; }
 
         /// <summary>
         /// Идентификатор вида образовательной программы
         /// </summary>
-        [FieldName("ID_VIDPROG")]
-        [FieldType(DatabaseFieldType.Integer)]
+        [DbFieldInfo("ID_VIDPROG", DbFieldType.Integer)]
         public int? EducationProgramTypeId { get; set; }
 
         /// <summary>

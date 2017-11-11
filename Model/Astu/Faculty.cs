@@ -15,36 +15,31 @@ namespace Model.Astu
         /// Идентификатор
         /// </summary>
         [PrimaryKey]
-        [FieldName("FAK")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("FAK")]
         public string Id { get; set; }
         
         /// <summary>
         /// Название
         /// </summary>
-        [FieldName("NAME")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("NAME")]
         public string Name { get; set; }
 
         /// <summary>
         /// Краткое название
         /// </summary>
-        [FieldName("KN")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("KN")]
         public string ShortName { get; set; }
 
         /// <summary>
         /// И.О. Фамилия декана
         /// </summary>
-        [FieldName("DECAN")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("DECAN")]
         public string DeanName { get; set; }
 
         /// <summary>
         /// Полное название факультета в родительном падеже
         /// </summary>
-        [FieldName("NAME_R")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("NAME_R")]
         public string GenitiveName { get; set; }
     }
 }

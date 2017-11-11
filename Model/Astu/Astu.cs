@@ -30,13 +30,18 @@ namespace Model.Astu
             ForeignLanguages = new EntitySet<ForeignLanguage>();
             StudentStatuses = new EntitySet<StudentStatus>();
             FinanceSources = new EntitySet<FinanceSource>();
-            Citizenships = new EntitySet<Citizenship>("SNG = 1");
-            GrantTypes = new EntitySet<GrantType>("POR_VIS <> 99");
-            GraduationDocumentTypes = new EntitySet<GraduationDocumentType>(@"VDO IN ('0001', '0009', '0052')");
+            Citizenships = new EntitySet<Citizenship>("WHERE SNG = 1");
+            GrantTypes = new EntitySet<GrantType>("WHERE POR_VIS <> 99");
+            GraduationDocumentTypes = new EntitySet<GraduationDocumentType>(@"WHERE VDO IN ('0001', '0009', '0052')");
+            AdmissionOrders = new EntitySet<AdmissionOrder>(@"WHERE TPR='0001' ORDER BY KOD, DAT");
         }
 
 
         #region Entity collections
+
+        public static EntitySet<AdmissionOrder> AdmissionOrders { get; set; }
+
+        public static EntitySet<OrderType> OrderTypes { get; set; }
 
         public static EntitySet<GraduationDocumentType> GraduationDocumentTypes { get; set; }
 
@@ -175,11 +180,6 @@ namespace Model.Astu
                 RemovedEntities.Clear();
             }
 
-            //string queryString = sb.ToString();
-            //var coder = Encoding.GetEncoding("Windows-1251");
-            //byte[] queryBytes = coder.GetBytes(queryString);
-            //string finalStr = coder.GetString(queryBytes);
-
             // выполняем команду
             if (sb.Length > 0)
             {
@@ -209,11 +209,27 @@ namespace Model.Astu
                 {
                     // Кидаем в их события метод AddToRemovedEntities()
                     var currentCollection = col.GetValue(type, null);
-                    ((IEntitySet)currentCollection).EntityRemoving += AddToRemovedEntities;
+                    ((IEntitySet)currentCollection).OnEntityRemoving += AddToRemovedEntities;
                 }
             }
         }
 
-        public static event ModelSaveChangesHandler OnSaveChanges;
+
+        static void ResetAll()
+        {
+            // Получаем все коллекции сущностей
+            var type = typeof(Astu);
+            var collections = type.GetProperties();
+
+            foreach (var col in collections)
+            {
+                if (col.PropertyType.GetInterfaces().Contains(typeof(IEntitySet)))
+                {
+                    // Вызываем их метод Reset
+                    var currentCollection = col.GetValue(type, null) as IEntitySet;
+                    currentCollection.Reset();
+                }
+            }
+        }
     }
 }

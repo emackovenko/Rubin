@@ -15,29 +15,25 @@ namespace Model.Astu
         /// Идентификатор
         /// </summary>
         [PrimaryKey]
-        [FieldName("GRP")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("GRP")]
         public string Id { get; set; }
 
         /// <summary>
         /// Название
         /// </summary>
-        [FieldName("Name")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("Name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Идентификатор учебного плана, по которому обучается группа
         /// </summary>
-        [FieldName("ID_UCH")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("ID_UCH")]
         public string EducationPlanId { get; set; }
 
         /// <summary>
         /// Флаг окончания обучения группой
         /// </summary>
-        [FieldName("END_OB")]
-        [FieldType(DatabaseFieldType.Boolean)]
+        [DbFieldInfo("END_OB", DbFieldType.Boolean)]
         public bool IsGraduated { get; set; }
 
         /// <summary>

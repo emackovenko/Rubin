@@ -14,13 +14,12 @@ namespace Model.Astu
 		Deleted
 	}	
     
-    public enum DatabaseFieldType
+    public enum DbFieldType
     {
         String,
         Integer,
         Double,
         DateTime,
-        Boolean,
-        OracleDateTime
+        Boolean
     }
 }

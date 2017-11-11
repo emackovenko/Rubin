@@ -6,16 +6,16 @@ using System.Text;
 namespace Model.Astu
 {
     /// <summary>
-    /// Фома обучения
+    /// Тип приказа
     /// </summary>
-    [TableName("FRMSPR")]
-    public class EducationForm: Entity
+    [TableName("TPRSPR")]
+    public class OrderType: Entity
     {
+
         /// <summary>
         /// Идентификатор
         /// </summary>
-        [PrimaryKey]
-        [DbFieldInfo("FRM")]
+        [DbFieldInfo("TPR")]
         public string Id { get; set; }
 
         /// <summary>
@@ -23,11 +23,5 @@ namespace Model.Astu
         /// </summary>
         [DbFieldInfo("NAME")]
         public string Name { get; set; }
-
-        /// <summary>
-        /// Наименование в родительном падеже
-        /// </summary>
-        [DbFieldInfo("NAME_R")]
-        public string GenitiveName { get; set; }
     }
 }

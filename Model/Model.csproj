@@ -338,12 +338,11 @@
     <Compile Include="Admission\WorkspacePermission.cs">
       <DependentUpon>AdmissionModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Astu\AdmissionOrder.cs" />
     <Compile Include="Astu\Astu.cs" />
     <Compile Include="Astu\Backend\Entity.cs" />
     <Compile Include="Astu\Backend\EntitySet.cs" />
     <Compile Include="Astu\Backend\Enums.cs" />
-    <Compile Include="Astu\Backend\FieldNameAttribute.cs" />
-    <Compile Include="Astu\Backend\FieldTypeAttribute.cs" />
     <Compile Include="Astu\Backend\IEntitySet.cs" />
     <Compile Include="Astu\Backend\KindOfMagic.cs" />
     <Compile Include="Astu\Backend\PrimaryKeyAttribute.cs" />
@@ -355,12 +354,17 @@
     <Compile Include="Astu\EducationPlan.cs" />
     <Compile Include="Astu\EducationProgramType.cs" />
     <Compile Include="Astu\Faculty.cs" />
+    <Compile Include="Astu\Backend\DbFieldInfoAttribute.cs" />
     <Compile Include="Astu\FinanceSource.cs" />
     <Compile Include="Astu\ForeignLanguage.cs" />
     <Compile Include="Astu\GraduationDocumentType.cs" />
     <Compile Include="Astu\GrantType.cs" />
     <Compile Include="Astu\Group.cs" />
+    <Compile Include="Astu\Order.cs" />
+    <Compile Include="Astu\OrderItem.cs" />
+    <Compile Include="Astu\OrderType.cs" />
     <Compile Include="Astu\QuotaType.cs" />
+    <Compile Include="Astu\StudentOrderBase.cs" />
     <Compile Include="Astu\StudentStatus.cs" />
     <Compile Include="Astu\Student.cs" />
     <Compile Include="ExportData\Application.cs" />

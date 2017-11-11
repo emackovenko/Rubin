@@ -11,15 +11,13 @@ namespace Model.Astu
         /// <summary>
         /// Идентификатор
         /// </summary>
-        [FieldName("VDO")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("VDO")]
         public string Id { get; set; }
 
         /// <summary>
         /// Наименование
         /// </summary>
-        [FieldName("NAME_VDO")]
-        [FieldType(DatabaseFieldType.String)]
+        [DbFieldInfo("NAME_VDO")]
         public string Name { get; set; }
     }
 }
