@@ -90,11 +90,11 @@ namespace Contingent.ViewModel.Workspaces.Students
             }
         }
 
-        public ObservableCollection<GraduationDocumentType> GraduationDocumentTypes
+        public ObservableCollection<EducationDocumentType> GraduationDocumentTypes
         {
             get
             {
-                return new ObservableCollection<GraduationDocumentType>(Astu.GraduationDocumentTypes);
+                return new ObservableCollection<EducationDocumentType>(Astu.EducationDocumentTypes);
             }
         }
 

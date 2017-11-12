@@ -5,19 +5,23 @@ using System.Text;
 
 namespace Model.Astu
 {
-    [TableName("adm.VDOSPR")]
-    public class GraduationDocumentType: Entity
+    /// <summary>
+    /// Тип документа
+    /// </summary>
+    [TableName("adm.DOCUMENTTYPE")]
+    public class DocumentType: Entity
     {
         /// <summary>
         /// Идентификатор
         /// </summary>
-        [DbFieldInfo("VDO")]
-        public string Id { get; set; }
+        [PrimaryKey]
+        [DbFieldInfo("ID_DOCUMENTTYPE", DbFieldType.Integer)]
+        public int Id { get; set; }
 
         /// <summary>
         /// Наименование
         /// </summary>
-        [DbFieldInfo("NAME_VDO")]
+        [DbFieldInfo("NAME_DOCUMENTTYPE")]
         public string Name { get; set; }
     }
 }

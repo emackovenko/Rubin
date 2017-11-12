@@ -338,7 +338,12 @@
     <Compile Include="Admission\WorkspacePermission.cs">
       <DependentUpon>AdmissionModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Astu\AdmissionOrder.cs" />
+    <Compile Include="Astu\AcademicVacationExitOrder.cs" />
+    <Compile Include="Astu\AcademicVacationOrder.cs" />
+    <Compile Include="Astu\AcademicVacationReason.cs" />
+    <Compile Include="Astu\DocumentType.cs" />
+    <Compile Include="Astu\EducationDocument.cs" />
+    <Compile Include="Astu\EnrollmentOrder.cs" />
     <Compile Include="Astu\Astu.cs" />
     <Compile Include="Astu\Backend\Entity.cs" />
     <Compile Include="Astu\Backend\EntitySet.cs" />
@@ -357,16 +362,23 @@
     <Compile Include="Astu\Backend\DbFieldInfoAttribute.cs" />
     <Compile Include="Astu\FinanceSource.cs" />
     <Compile Include="Astu\ForeignLanguage.cs" />
-    <Compile Include="Astu\GraduationDocumentType.cs" />
+    <Compile Include="Astu\EducationDocumentType.cs" />
     <Compile Include="Astu\GrantType.cs" />
     <Compile Include="Astu\Group.cs" />
+    <Compile Include="Astu\IdentityDocument.cs" />
+    <Compile Include="Astu\IdentityDocumentType.cs" />
+    <Compile Include="Astu\NextCourseTransferOrder.cs" />
     <Compile Include="Astu\Order.cs" />
     <Compile Include="Astu\OrderItem.cs" />
     <Compile Include="Astu\OrderType.cs" />
     <Compile Include="Astu\QuotaType.cs" />
+    <Compile Include="Astu\ReinstatementOrder.cs" />
+    <Compile Include="Astu\StudentDocumentBase.cs" />
     <Compile Include="Astu\StudentOrderBase.cs" />
     <Compile Include="Astu\StudentStatus.cs" />
     <Compile Include="Astu\Student.cs" />
+    <Compile Include="Astu\UnenrollmentOrder.cs" />
+    <Compile Include="Astu\UnenrollmentReason.cs" />
     <Compile Include="ExportData\Application.cs" />
     <Compile Include="ExportData\ApplicationCommonBenefits.cs" />
     <Compile Include="ExportData\ApplicationDocuments.cs" />

@@ -8,12 +8,13 @@ namespace Model.Astu
     /// <summary>
     /// Приказ о зачислении из приёмной комиссии
     /// </summary>
-    public class AdmissionOrder: StudentOrderBase
+    public class EnrollmentOrder: StudentOrderBase
     {
-        public AdmissionOrder()
+        public EnrollmentOrder()
             : base ()
         {
             OrderTypeId = "0001";
+            Comment = "Зачислен на ";
         }
 
         /// <summary>

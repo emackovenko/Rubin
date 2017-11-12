@@ -32,19 +32,52 @@ namespace Model.Astu
             FinanceSources = new EntitySet<FinanceSource>();
             Citizenships = new EntitySet<Citizenship>("WHERE SNG = 1");
             GrantTypes = new EntitySet<GrantType>("WHERE POR_VIS <> 99");
-            GraduationDocumentTypes = new EntitySet<GraduationDocumentType>(@"WHERE VDO IN ('0001', '0009', '0052')");
+            EducationDocumentTypes = new EntitySet<EducationDocumentType>(@"WHERE VDO IN ('0001', '0009', '0052')");
             OrderTypes = new EntitySet<OrderType>();
-            AdmissionOrders = new EntitySet<AdmissionOrder>(@"WHERE TPR='0001' ORDER BY KOD, DAT");
+            UnenrollmentReasons = new EntitySet<UnenrollmentReason>();
+            AcademicVacationReasons = new EntitySet<AcademicVacationReason>();
+            EnrollmentOrders = new EntitySet<EnrollmentOrder>(@"WHERE TPR='0001' ORDER BY KOD, DAT");
+            UnenrollmentOrders = new EntitySet<UnenrollmentOrder>(@"WHERE TPR='0003' ORDER BY KOD, DAT");
+            AcademicVacationOrders = new EntitySet<AcademicVacationOrder>(@"WHERE TPR='0002' ORDER BY KOD, DAT");
+            ReinstatementOrders = new EntitySet<ReinstatementOrder>(@"WHERE TPR='0006' ORDER BY KOD, DAT");
+            AcademicVacationExitOrders = new EntitySet<AcademicVacationExitOrder>(@"WHERE TPR='0007' ORDER BY KOD, DAT");
+            NextCourseTransferOrders = new EntitySet<NextCourseTransferOrder>(@"WHERE TPR='0030' ORDER BY KOD,DAT");
+            DocumentTypes = new EntitySet<DocumentType>();
+            IdentityDocumentTypes = new EntitySet<IdentityDocumentType>();
+            IdentityDocuments = new EntitySet<IdentityDocument>(@"WHERE ID_DOCUMENTTYPE = 1 ORDER BY KOD, DOC_DAT");
+            EducationDocuments = new EntitySet<EducationDocument>(@"WHERE ID_DOCUMENTTYPE IN (3,4,5) ORDER BY KOD, DOC_DAT");
         }
 
 
         #region Entity collections
 
-        public static EntitySet<AdmissionOrder> AdmissionOrders { get; set; }
+        public static EntitySet<EducationDocument> EducationDocuments { get; set; }
+
+        public static EntitySet<IdentityDocument> IdentityDocuments { get; set; }
+
+        public static EntitySet<IdentityDocumentType> IdentityDocumentTypes { get; set; }
+
+        public static EntitySet<DocumentType> DocumentTypes { get; set; }
+
+        public static EntitySet<NextCourseTransferOrder> NextCourseTransferOrders { get; set; }
+
+        public static EntitySet<ReinstatementOrder> ReinstatementOrders { get; set; }
+
+        public static EntitySet<AcademicVacationReason> AcademicVacationReasons { get; set; }
+
+        public static EntitySet<AcademicVacationOrder> AcademicVacationOrders { get; set; }
+
+        public static EntitySet<AcademicVacationExitOrder> AcademicVacationExitOrders { get; set; }
+
+        public static EntitySet<UnenrollmentOrder> UnenrollmentOrders { get; set; }
+
+        public static EntitySet<UnenrollmentReason> UnenrollmentReasons { get; set; }
+
+        public static EntitySet<EnrollmentOrder> EnrollmentOrders { get; set; }
 
         public static EntitySet<OrderType> OrderTypes { get; set; }
 
-        public static EntitySet<GraduationDocumentType> GraduationDocumentTypes { get; set; }
+        public static EntitySet<EducationDocumentType> EducationDocumentTypes { get; set; }
 
         public static EntitySet<GrantType> GrantTypes { get; set; }
 
@@ -71,6 +104,7 @@ namespace Model.Astu
         public static EntitySet<FinanceSource> FinanceSources { get; set; }
 
         public static EntitySet<Citizenship> Citizenships { get; set; }
+
         #endregion
 
 

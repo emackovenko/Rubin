@@ -84,7 +84,7 @@ namespace Model.Astu
         ///// <summary>
         ///// Место рождения
         ///// </summary>
-        //[DbFieldInfo("PASP_MST_ROJ",         //DatabaseFieldType.String)]
+        //[DbFieldInfo("PASP_MST_ROJ")]
         //public string BirthPlace { get; set; }
 
         /// <summary>
@@ -104,8 +104,7 @@ namespace Model.Astu
         /// </summary>
         [DbFieldInfo("ATT_DATE", DbFieldType.DateTime)]
         public DateTime? GraduationDocumentDate { get; set; }
-
-
+        
 
         /// <summary>
         /// Идентификатор группы
@@ -177,7 +176,7 @@ namespace Model.Astu
         /// Идентификатор вида документа об образовании
         /// </summary>
         [DbFieldInfo("VDO")]
-        public string GraduationDocumentTypeId { get; set; }
+        public string EducationDocumentTypeId { get; set; }
 
         #endregion
 
@@ -362,21 +361,21 @@ namespace Model.Astu
         /// <summary>
         /// Вид документа об образовании
         /// </summary>
-        public GraduationDocumentType GraduationDocumentType
+        public EducationDocumentType EducationDocumentType
         {
             get
             {
-                return Astu.GraduationDocumentTypes.FirstOrDefault(gdt => gdt.Id == GraduationDocumentTypeId);
+                return Astu.EducationDocumentTypes.FirstOrDefault(gdt => gdt.Id == EducationDocumentTypeId);
             }
             set
             {
                 if (value != null)
                 {
-                    GraduationDocumentTypeId = value.Id;
+                    EducationDocumentTypeId = value.Id;
                 }
                 else
                 {
-                    GraduationDocumentTypeId = null;
+                    EducationDocumentTypeId = null;
                 }
             }
         }
@@ -408,16 +407,34 @@ namespace Model.Astu
 
         #region Navigation collections
 
+        /// <summary>
+        /// Приказы по студенту (ANK_HIST)
+        /// </summary>
         public IEnumerable<StudentOrderBase> Orders
         {
             get
             {
                 var list = new List<StudentOrderBase>();
-                var ao = Astu.AdmissionOrders.Where(o => o.StudentId == Id);
-                foreach (var item in ao)
-                {
-                    list.Add(item);
-                }
+                list.AddRange(Astu.EnrollmentOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
+                list.AddRange(Astu.UnenrollmentOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
+                list.AddRange(Astu.AcademicVacationOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
+                list.AddRange(Astu.ReinstatementOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
+                list.AddRange(Astu.AcademicVacationExitOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
+                list.AddRange(Astu.NextCourseTransferOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// Документы
+        /// </summary>
+        public IEnumerable<StudentDocumentBase> Documents
+        {
+            get
+            {
+                var list = new List<StudentDocumentBase>();
+                list.AddRange(Astu.IdentityDocuments.Where(d => d.StudentId == Id).Cast<StudentDocumentBase>());
+                list.AddRange(Astu.EducationDocuments.Where(d => d.StudentId == Id).Cast<StudentDocumentBase>());
                 return list;
             }
         }
