@@ -343,6 +343,7 @@
     <Compile Include="Astu\AcademicVacationReason.cs" />
     <Compile Include="Astu\DocumentType.cs" />
     <Compile Include="Astu\EducationDocument.cs" />
+    <Compile Include="Astu\EnrollmentByUniversityTransferOrder.cs" />
     <Compile Include="Astu\EnrollmentOrder.cs" />
     <Compile Include="Astu\Astu.cs" />
     <Compile Include="Astu\Backend\Entity.cs" />

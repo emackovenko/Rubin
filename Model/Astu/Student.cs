@@ -410,7 +410,7 @@ namespace Model.Astu
         /// <summary>
         /// Приказы по студенту (ANK_HIST)
         /// </summary>
-        public IEnumerable<StudentOrderBase> Orders
+        public ICollection<StudentOrderBase> Orders
         {
             get
             {
@@ -421,7 +421,8 @@ namespace Model.Astu
                 list.AddRange(Astu.ReinstatementOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
                 list.AddRange(Astu.AcademicVacationExitOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
                 list.AddRange(Astu.NextCourseTransferOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
-                return list;
+                list.AddRange(Astu.EnrollmentByUniversityTransferOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
+                return new List<StudentOrderBase>(list.OrderBy(o => o.Date));
             }
         }
 

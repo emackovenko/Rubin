@@ -46,10 +46,13 @@ namespace Model.Astu
             IdentityDocumentTypes = new EntitySet<IdentityDocumentType>();
             IdentityDocuments = new EntitySet<IdentityDocument>(@"WHERE ID_DOCUMENTTYPE = 1 ORDER BY KOD, DOC_DATE");
             EducationDocuments = new EntitySet<EducationDocument>(@"WHERE ID_DOCUMENTTYPE IN (3,4,5) ORDER BY KOD, DOC_DATE");
+            EnrollmentByUniversityTransferOrders = new EntitySet<EnrollmentByUniversityTransferOrder>(@"WHERE TPR='0015'");
         }
 
 
         #region Entity collections
+
+        public static EntitySet<EnrollmentByUniversityTransferOrder> EnrollmentByUniversityTransferOrders { get; set; }
 
         public static EntitySet<EducationDocument> EducationDocuments { get; set; }
 
