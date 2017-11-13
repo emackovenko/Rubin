@@ -39,7 +39,7 @@ namespace Model.Astu
         /// <summary>
         /// Номер
         /// </summary>
-        [DbFieldInfo("DOC_NUMBER")]
+        [DbFieldInfo("DOC_NUM")]
         public string Number { get; set; }
 
         /// <summary>

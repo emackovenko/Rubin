@@ -122,7 +122,7 @@ namespace Model.Astu
         /// Текущий курс студента
         /// </summary>
         [DbFieldInfo("KURS", DbFieldType.Integer)]
-        public int Course { get; set; }
+        public int? Course { get; set; }
 
         /// <summary>
         /// Год приёма

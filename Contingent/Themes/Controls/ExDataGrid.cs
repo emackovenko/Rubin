@@ -44,10 +44,6 @@ namespace Contingent.Themes.Controls
             if (dg.SelectedItem == null)
                 return;
             dg.ScrollIntoView(dg.SelectedItem);
-            var dgRow = (DataGridRow)dg.ItemContainerGenerator.ContainerFromItem(dg.SelectedItem);
-            if (dgRow == null)
-                return;
-            dgRow.Focus();
         }
 
         protected override void OnPreviewTextInput(TextCompositionEventArgs e)

@@ -30,7 +30,7 @@ namespace Model.Astu
             ForeignLanguages = new EntitySet<ForeignLanguage>();
             StudentStatuses = new EntitySet<StudentStatus>();
             FinanceSources = new EntitySet<FinanceSource>();
-            Citizenships = new EntitySet<Citizenship>("WHERE SNG = 1");
+            Citizenships = new EntitySet<Citizenship>("ORDER BY GOS");
             GrantTypes = new EntitySet<GrantType>("WHERE POR_VIS <> 99");
             EducationDocumentTypes = new EntitySet<EducationDocumentType>(@"WHERE VDO IN ('0001', '0009', '0052')");
             OrderTypes = new EntitySet<OrderType>();
@@ -44,8 +44,8 @@ namespace Model.Astu
             NextCourseTransferOrders = new EntitySet<NextCourseTransferOrder>(@"WHERE TPR='0030' ORDER BY KOD,DAT");
             DocumentTypes = new EntitySet<DocumentType>();
             IdentityDocumentTypes = new EntitySet<IdentityDocumentType>();
-            IdentityDocuments = new EntitySet<IdentityDocument>(@"WHERE ID_DOCUMENTTYPE = 1 ORDER BY KOD, DOC_DAT");
-            EducationDocuments = new EntitySet<EducationDocument>(@"WHERE ID_DOCUMENTTYPE IN (3,4,5) ORDER BY KOD, DOC_DAT");
+            IdentityDocuments = new EntitySet<IdentityDocument>(@"WHERE ID_DOCUMENTTYPE = 1 ORDER BY KOD, DOC_DATE");
+            EducationDocuments = new EntitySet<EducationDocument>(@"WHERE ID_DOCUMENTTYPE IN (3,4,5) ORDER BY KOD, DOC_DATE");
         }
 
 
@@ -215,12 +215,45 @@ namespace Model.Astu
                 RemovedEntities.Clear();
             }
 
-            // выполняем команду
+            // выполняем команду, предварительно обернув в безопасную транзакцию
             if (sb.Length > 0)
             {
+                var transaction = DbConnection.BeginTransaction();
                 var cmd = _dbConnection.CreateCommand();
+                cmd.Transaction = transaction;
                 cmd.CommandText = sb.ToString();
-                cmd.ExecuteNonQuery();
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    transaction.Rollback();
+                    string errorMessage = string.Format("При сохранении данных произошла ошибка. Подробности во внутреннем исключении.\n\nТекст ошибки:\n{0}",
+                        e.Message);
+                    var exception = new DataException(errorMessage, e);
+                    throw exception;
+                }
+                                                
+            }
+
+            // У сущностей выставляем EntityState.Default
+            foreach (var col in collections)
+            {
+                if (col.PropertyType.GetInterfaces().Contains(typeof(IEntitySet)))
+                {
+                    var currentCollection = (IEnumerable<Entity>)col.GetValue(type, null);
+
+                    // Все объекты, у которых свойства имеют статус, отличный от EntityState.Default
+                    var filteredCollection = currentCollection.Where(e => e.EntityState != EntityState.Default);
+
+                    // От каждого получаем SQL-команду на изменение в БД
+                    foreach (var enitity in filteredCollection)
+                    {
+                        enitity.EntityState = EntityState.Default;
+                    }
+                }
             }
         }
 

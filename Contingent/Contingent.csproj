@@ -146,6 +146,10 @@
     <Compile Include="DialogService\Editor.xaml.cs">
       <DependentUpon>Editor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DialogService\EditorInvoker.cs" />
+    <Compile Include="DialogService\EntityEditor.xaml.cs">
+      <DependentUpon>EntityEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DialogService\Enums.cs" />
     <Compile Include="DialogService\Messenger.cs" />
     <Compile Include="DialogService\ViewInvoker.cs" />
@@ -155,6 +159,7 @@
       <DependentUpon>WorkspaceMenuItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Converters\DateConverter.cs" />
+    <Compile Include="Themes\Selectors\StudentOrderTemplateSelector.cs" />
     <Compile Include="ViewModel\LogWriter.cs" />
     <Compile Include="ViewModel\Windows\AuthViewModel.cs" />
     <Compile Include="ViewModel\Windows\ConnectionSettingsViewModel.cs" />
@@ -220,6 +225,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="DialogService\EntityEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Controls\ExDataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -227,6 +236,10 @@
     <Page Include="Themes\Controls\WorkspaceMenuItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\DataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>

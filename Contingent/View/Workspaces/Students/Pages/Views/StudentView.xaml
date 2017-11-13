@@ -7,6 +7,8 @@
              xmlns:control="clr-namespace:Contingent.Themes.Controls"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:vm="clr-namespace:Contingent.ViewModel.Workspaces.Students"
+             xmlns:selector="clr-namespace:Contingent.Themes.Selectors"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
              mc:Ignorable="d" 
              Width="840"
              Height="460">
@@ -612,11 +614,20 @@
                 <StackPanel
                     Grid.Row="0"
                     Orientation="Horizontal">
-                    <Button
-                        Style="{StaticResource ToolButton}"
-                        ToolTip="Добавить запись">
+                    <xctk:DropDownButton
+                        ToolTip="Добавить приказ"
+                        BorderBrush="{StaticResource ResourceKey=ToolButtonBorder}"
+                        Background="{x:Null}">  
+                        <xctk:DropDownButton.DropDownContent>
+                            <StackPanel
+                                Orientation="Vertical">
+                                <MenuItem
+                                    Header="Приказ о зачислении"
+                                    Command=""/>
+                            </StackPanel>
+                        </xctk:DropDownButton.DropDownContent>
                         <Image Style="{StaticResource PictureAdd}"/>
-                    </Button>
+                    </xctk:DropDownButton>
                     <Button
                         Style="{StaticResource ToolButton}"
                         ToolTip="Редактировать запись">
@@ -629,20 +640,27 @@
                     </Button>
                 </StackPanel>
                 <control:ExDataGrid
-                    Grid.Row="1">
+                    Grid.Row="1"
+                    ItemsSource="{Binding Path=Student.Orders}"
+                    SelectedItem="{Binding Path=SelectedOrder}">
+                    <DataGrid.RowDetailsTemplateSelector>
+                        <selector:StudentOrderTemplateSelector
+                            EnrollmentOrderDataTemplate="{StaticResource EnrollmentOrderDataTemplate}"
+                            DefaultOrderDataTemplate="{StaticResource DefaultOrderDataTemplate}"/>
+                    </DataGrid.RowDetailsTemplateSelector>
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Header="Номер"
-                            Binding="{Binding Path=TODO}"/>
+                            Binding="{Binding Path=Number}"/>
                         <DataGridTextColumn
                             Header="Дата"
-                            Binding="{Binding Path=TODO}"/>
+                            Binding="{Binding Path=Date, Converter={StaticResource DateConverter}}"/>
                         <DataGridTextColumn
                             Header="Тип приказа"
-                            Binding="{Binding Path=TODO}"/>
+                            Binding="{Binding Path=OrderType.Name}"/>
                         <DataGridTextColumn
                             Header="Комментарий"
-                            Binding="{Binding Path=TODO}"/>
+                            Binding="{Binding Path=Comment}"/>
                     </DataGrid.Columns>                    
                 </control:ExDataGrid>
             </Grid>

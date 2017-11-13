@@ -15,6 +15,7 @@ namespace Model.Astu
         /// <summary>
         /// Идентификатор
         /// </summary>
+        [PrimaryKey]
         [DbFieldInfo("TPR")]
         public string Id { get; set; }
 

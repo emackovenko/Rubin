@@ -8,20 +8,20 @@ namespace Model.Astu
     /// <summary>
     /// Тип документа, удостоверяющего личность
     /// </summary>
-    [TableName("adm.IDENTITYDOCUMENTTYPE")]
+    [TableName("adm.IDENTYDOCUMENTTYPE")]
     public class IdentityDocumentType: Entity
     {
         /// <summary>
         /// Идентификатор
         /// </summary>
         [PrimaryKey]
-        [DbFieldInfo("ID_IDENTITYDOCUMENTTYPE", DbFieldType.Integer)]
+        [DbFieldInfo("ID_IDENTYDOCUMENTTYPE", DbFieldType.Integer)]
         public int Id { get; set; }
 
         /// <summary>
         /// Наименование
         /// </summary>
-        [DbFieldInfo("NAME_IDENTITYDOCUMENTTYPE")]
+        [DbFieldInfo("NAME_IDENTYDOCUMENTTYPE")]
         public string Name { get; set; }
     }
 }

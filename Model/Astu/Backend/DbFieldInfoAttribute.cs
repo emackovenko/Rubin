@@ -33,7 +33,7 @@ namespace Model.Astu
         public DbFieldInfoAttribute(string fieldName, DbFieldType fieldType)
             : this(fieldName)
         {
-            Type = Type;
+            Type = fieldType;
         }
     }
 }

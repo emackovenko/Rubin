@@ -20,7 +20,7 @@ namespace Model.Astu
         /// <summary>
         /// Идентификатор типа документа, удостоверяющего личность
         /// </summary>
-        [DbFieldInfo("ID_IDENTITYDOCUMENTTYPE", DbFieldType.Integer)]
+        [DbFieldInfo("ID_IDENTYDOCUMENTTYPE", DbFieldType.Integer)]
         public int? IdentityDocumentTypeId { get; set; }
 
         /// <summary>

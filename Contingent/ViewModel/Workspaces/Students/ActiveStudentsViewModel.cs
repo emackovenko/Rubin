@@ -80,11 +80,7 @@ namespace Contingent.ViewModel.Workspaces.Students
 
         void EditStudent()
         {
-            var vm = new StudentViewViewModel(SelectedStudent);
-            if (ViewInvoker.ShowEditor(EditingContent.StudentView, vm))
-            {
-                Astu.Save();
-            }
+            EditorInvoker.ShowEditor(SelectedStudent);
         }
 
         #endregion

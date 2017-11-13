@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -19,7 +20,7 @@ namespace Model.Astu
         }
 
         #region Служебные поля
-
+        
         EntityState _entityState = EntityState.New;
 
         [NoMagic]
@@ -83,6 +84,35 @@ namespace Model.Astu
 
         #region Sql методы
 
+        /// <summary>
+        /// Сохраняет текущее состояние сущности в базе данных
+        /// </summary>
+        public void Save()
+        {
+            if (EntityState == EntityState.Default)
+            {
+                return;
+            }
+
+            var transaction = Astu.DbConnection.BeginTransaction();
+            var cmd = Astu.DbConnection.CreateCommand();
+            cmd.Transaction = transaction;
+            cmd.CommandText = GetSaveQuery();
+            try
+            {
+                cmd.ExecuteNonQuery();
+                EntityState = EntityState.Default;
+                transaction.Commit();
+            }
+            catch (Exception e)
+            {
+                string errorMessage = string.Format("При сохранении сущности произошла ошибка. Подробности во внутреннем исключении.\nТекст SQL:\n{0}\n\nТекст ошибки:\n{1}",
+                    cmd.CommandText, e.Message);
+                throw new DataException(errorMessage, e);
+                transaction.Rollback();
+            }
+        }
+
         internal string GetSaveQuery()
         {
             string str = string.Empty;
@@ -103,12 +133,6 @@ namespace Model.Astu
                     throw new InvalidEnumArgumentException("Unknown entity state");
             }
 
-            //Encoding utf8 = Encoding.UTF8;
-            //Encoding cp1251 = Encoding.GetEncoding("Windows-1251");
-            //byte[] utf8Bytes, cp1251Bytes;
-            //utf8Bytes = utf8.GetBytes(str);
-            //cp1251Bytes = Encoding.Convert(utf8, cp1251, utf8Bytes);
-            //string finalQuery = cp1251.GetString(cp1251Bytes);
             return str;
         }
         
@@ -120,6 +144,17 @@ namespace Model.Astu
 
         string InsertQuery()
         {
+            // Если идентификатор пустой, то проставляем ему значение
+            var primProp = GetType().GetProperties().Where(p => p.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).Count() > 0).FirstOrDefault();
+            if (primProp == null)
+            {
+                throw new ArgumentNullException("Primary key not found");
+            }
+            if (primProp.GetValue(this, null) == null)
+            {
+                primProp.SetValue(this, GenerateId(), null);
+            }
+
             var sb = new StringBuilder();
 
             sb.AppendFormat("INSERT INTO {0} ", TableName);
@@ -262,7 +297,7 @@ namespace Model.Astu
             }
 
             // Устанавливаем значение EntityState в новое
-            (obj as Entity).EntityState = EntityState.New;
+            (obj as Entity).EntityState = EntityState;
 
             return obj;
         }
@@ -289,14 +324,65 @@ namespace Model.Astu
             {
                 var objValue = type.GetProperty(f.Name).GetValue(obj, null);
                 var selfValue = type.GetProperty(f.Name).GetValue(this, null);
-                if (!objValue.Equals(selfValue))
+                if (objValue != null && selfValue != null)
                 {
-                    result = false;
+                    if (!objValue.Equals(selfValue))
+                    {
+                        result = false;
+                    }
                 }
             }
             return result;
         }
 
+        /// <summary>
+        /// Восстанавливает состояние сущности из резервной копии
+        /// </summary>
+        /// <param name="backupEntity"></param>
+        public void RestoreFromBackup(Entity backupEntity)
+        {
+            // Пробегаем по свойствам текущего типа, соответсвующим полям в таблице БД
+            var fields = GetType().GetProperties().Where(pi => pi.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).Count() > 0);
+            foreach (var f in fields)
+            {
+                object backupValue = f.GetValue(backupEntity, null);
+                f.SetValue(this, backupValue, null);
+            }
+            EntityState = backupEntity.EntityState;
+        }
+
         #endregion
+
+        /// <summary>
+        /// Если значение поля первичного ключа непустое, возвращает новый идентификатор
+        /// </summary>
+        /// <returns></returns>
+        public object GenerateId()
+        {
+            string primaryFieldName = string.Empty;
+            var props = GetType().GetProperties();
+            foreach (var prop in props)
+            {
+                if (prop.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).Count() > 0)
+                {
+                    if (prop.GetValue(this, null) != null)
+                    {
+                        return prop.GetValue(this, null);
+                    }
+                    primaryFieldName = prop.Name;
+                    break;
+                }
+            }
+
+            // Составляем запрос для получения максимального ид
+            string query = string.Format("SELECT MAX({0}) + 1 FROM {1}", 
+                PrimaryFieldName, TableName);
+
+            var cmd = Astu.DbConnection.CreateCommand();
+            cmd.CommandText = query;
+            return cmd.ExecuteScalar();
+        }
+
+
     }	
 }
