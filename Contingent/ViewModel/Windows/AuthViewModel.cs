@@ -63,6 +63,9 @@ namespace Contingent.ViewModel.Windows
         
         void TryAuth()
         {
+            var test = new DisabilityTicket();
+            test.DisabilityType = null;
+            return;
             // загружаем параметры из настроек
             string dbHost = Settings.Default.DbHost;
             int dbPort = Settings.Default.DbPort;

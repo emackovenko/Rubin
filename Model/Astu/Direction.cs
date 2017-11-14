@@ -74,7 +74,7 @@ namespace Model.Astu
         {
             get
             {
-                return string.Format("{0} ({1)}",
+                return string.Format("{0} ({1})",
                     Name, EducationStandart);
             }
         }
