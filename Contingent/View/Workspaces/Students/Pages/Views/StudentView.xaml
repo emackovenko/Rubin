@@ -623,7 +623,10 @@
                                 Orientation="Vertical">
                                 <MenuItem
                                     Header="Приказ о зачислении"
-                                    Command=""/>
+                                    Command="{Binding Path=AddEnrollmentOrderCommand}"/>
+                                <MenuItem
+                                    Header="Приказ о зачислении в порядке перевода из другого ВУЗа"
+                                    Command="{Binding Path=AddEnrollmentByUniversityTransferOrderCommand}"/>
                             </StackPanel>
                         </xctk:DropDownButton.DropDownContent>
                         <Image Style="{StaticResource PictureAdd}"/>

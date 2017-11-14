@@ -103,6 +103,14 @@ namespace Contingent.DialogService
             {
                 return new View.Workspaces.Students.Pages.Views.StudentView();
             }
+            if (entityType == typeof(EnrollmentByUniversityTransferOrder))
+            {
+                return new View.Workspaces.Students.Pages.Views.EnrollmentByUniversityTransferOrderView();
+            }
+            if (entityType == typeof(EnrollmentOrder))
+            {
+                return new View.Workspaces.Students.Pages.Views.EnrollmentOrderView();
+            }
 
             throw new NotImplementedException("Функционал для редактирования данной сущности не предусмотрен.");
         }
@@ -119,6 +127,15 @@ namespace Contingent.DialogService
             {
                 return new ViewModel.Workspaces.Students.StudentViewViewModel(entity as Student);
             }
+            if (entityType == typeof(EnrollmentByUniversityTransferOrder))
+            {
+                return new ViewModel.Workspaces.Students.EnrollmentByUniversityTransferOrderViewModel(entity as EnrollmentByUniversityTransferOrder);
+            }
+            if (entityType == typeof(EnrollmentOrder))
+            {
+                return new ViewModel.Workspaces.Students.EnrollmentOrderViewModel(entity as EnrollmentOrder);
+            }
+
             throw new NotImplementedException("Функционал для редактирования данной сущности не предусмотрен.");
         }
 

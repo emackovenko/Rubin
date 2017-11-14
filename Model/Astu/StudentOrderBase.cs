@@ -11,6 +11,12 @@ namespace Model.Astu
     [TableName("ANK_HIST")]
     public abstract class StudentOrderBase: Entity
     {
+        public StudentOrderBase()
+            : base ()
+        {
+            Date = DateTime.Now;
+        }
+
         /// <summary>
         /// Идентификатор
         /// </summary>

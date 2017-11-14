@@ -7,6 +7,7 @@ using Model.Astu;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MoreLinq;
+using Contingent.DialogService;
 
 
 namespace Contingent.ViewModel.Workspaces.Students
@@ -50,20 +51,73 @@ namespace Contingent.ViewModel.Workspaces.Students
 
 
         #region Commands
-
-
+        
+        public RelayCommand AddEnrollmentOrderCommand
+        {
+            get
+            {
+                return new RelayCommand(AddEnrollmentOrder, AddOrderCanExecute);
+            }
+        }
+        
+        public RelayCommand AddEnrollmentByUniversityTransferOrderCommand
+        {
+            get
+            {
+                return new RelayCommand(AddEnrollmentByUniversityTransferOrder, AddOrderCanExecute);
+            }
+        }
 
         #endregion
 
         #region Methods
 
+        void AddEnrollmentOrder()
+        {
+            var order = new EnrollmentOrder()
+            {
+                StudentId = Student.Id,
+                GroupId = Student.GroupId,
+                FacultyId = Student.FacultyId,
+                DirectionId = Student.DirectionId,
+                FinanceSourceId = Student.FinanceSourceId
+            };
 
+            if (EditorInvoker.ShowEditor(order))
+            {
+                Student.Orders.Add(order);
+                Astu.EnrollmentOrders.Add(order);
+            }
+            RaisePropertyChanged("Student");
+        }
+
+        void AddEnrollmentByUniversityTransferOrder()
+        {
+            var order = new EnrollmentByUniversityTransferOrder()
+            {
+                StudentId = Student.Id,
+                GroupId = Student.GroupId,
+                FacultyId = Student.FacultyId,
+                DirectionId = Student.DirectionId,
+                FinanceSourceId = Student.FinanceSourceId
+            };
+
+            if (EditorInvoker.ShowEditor(order))
+            {
+                Student.Orders.Add(order);
+                Astu.EnrollmentByUniversityTransferOrders.Add(order);
+            }
+            RaisePropertyChanged("Student");
+        }
 
         #endregion
 
         #region Checks
 
-
+        bool AddOrderCanExecute()
+        {
+            return Student.EntityState != EntityState.New;
+        }
 
         #endregion
 

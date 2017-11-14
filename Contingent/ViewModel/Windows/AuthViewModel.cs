@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Data.OracleClient;
+using System.Windows;
 
 namespace Contingent.ViewModel.Windows
 {
@@ -59,7 +60,7 @@ namespace Contingent.ViewModel.Windows
                 return new RelayCommand(Exit);
             }
         }
-
+        
         void TryAuth()
         {
             // загружаем параметры из настроек

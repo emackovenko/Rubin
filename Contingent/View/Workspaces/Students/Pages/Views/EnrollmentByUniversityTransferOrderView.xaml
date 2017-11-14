@@ -1,0 +1,181 @@
+﻿<UserControl x:Class="Contingent.View.Workspaces.Students.Pages.Views.EnrollmentByUniversityTransferOrderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Contingent.View.Workspaces.Students.Pages.Views"
+             mc:Ignorable="d">
+    <Grid
+        Background="Beige">
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="32"/>
+            <RowDefinition
+                Height="32"/>
+            <RowDefinition
+                Height="32"/>
+            <RowDefinition
+                Height="32"/>
+            <RowDefinition
+                Height="32"/>
+            <RowDefinition
+                Height="32"/>
+            <RowDefinition
+                Height="32"/>
+            <RowDefinition
+                Height="32"/>
+            <RowDefinition
+                Height="32"/>
+            <RowDefinition
+                Height="32"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="Auto"/>
+            <ColumnDefinition
+                Width="3"/>
+            <ColumnDefinition
+                Width="Auto"/>
+            <ColumnDefinition
+                Width="10"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Номер"/>
+        <TextBox
+            Grid.Row="0"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Width="100"
+            Text="{Binding Path=Order.Number, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Дата"/>
+        <DatePicker
+            Grid.Row="1"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Width="100"
+            SelectedDate="{Binding Path=Order.Date, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Группа"/>
+        <ComboBox
+            Grid.Row="2"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Width="200" 
+            ItemsSource="{Binding Path=Groups}"
+            SelectedItem="{Binding Path=Order.Group, UpdateSourceTrigger=PropertyChanged}"
+            DisplayMemberPath="Name"/>
+        <TextBlock
+            Grid.Row="3"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Специальность"/>
+        <ComboBox
+            Grid.Row="3"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Width="250"
+            ItemsSource="{Binding Path=Directions}"
+            SelectedItem="{Binding Path=Order.Direction, UpdateSourceTrigger=PropertyChanged}"
+            DisplayMemberPath="DisplayName" />
+        <TextBlock
+            Grid.Row="4"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Факультет"/>
+        <ComboBox
+            Grid.Row="4"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Width="200" 
+            ItemsSource="{Binding Path=Faculties}"
+            SelectedItem="{Binding Path=Order.Faculty, UpdateSourceTrigger=PropertyChanged}"
+            DisplayMemberPath="ShortName"/>
+        <TextBlock
+            Grid.Row="5"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Категория обучения"/>
+        <ComboBox
+            Grid.Row="5"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Width="150"
+            ItemsSource="{Binding Path=FinanceSources}"
+            SelectedItem="{Binding Path=Order.FinanceSource, UpdateSourceTrigger=PropertyChanged}"
+            DisplayMemberPath="Name"/>
+        <TextBlock
+            Grid.Row="6"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Дата начала обучения"/>
+        <DatePicker
+            Grid.Row="6"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Width="100"
+            SelectedDate="{Binding Path=Order.StartDate, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock
+            Grid.Row="7"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Название предыдущего ВУЗа"/>
+        <TextBox
+            Grid.Row="7"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Width="350"
+            Text="{Binding Path=Order.OldUniversityName, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock
+            Grid.Row="8"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Сокр. название предыдущего ВУЗа"/>
+        <TextBox
+            Grid.Row="8"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Width="200"
+            Text="{Binding Path=Order.OldUniversityShortName, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock
+            Grid.Row="9"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Комментарий к приказу"/>
+        <TextBox
+            Grid.Row="9"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Width="400"
+            Text="{Binding Path=Order.Comment, UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
+</UserControl>

@@ -143,16 +143,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DialogService\Editor.xaml.cs">
-      <DependentUpon>Editor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="DialogService\EditorInvoker.cs" />
     <Compile Include="DialogService\EntityEditor.xaml.cs">
       <DependentUpon>EntityEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DialogService\Enums.cs" />
     <Compile Include="DialogService\Messenger.cs" />
-    <Compile Include="DialogService\ViewInvoker.cs" />
     <Compile Include="Themes\Behaviors\PasswordBehavior.cs" />
     <Compile Include="Themes\Controls\ExDataGrid.cs" />
     <Compile Include="Themes\Controls\WorkspaceMenuItem.xaml.cs">
@@ -164,6 +159,8 @@
     <Compile Include="ViewModel\Windows\AuthViewModel.cs" />
     <Compile Include="ViewModel\Windows\ConnectionSettingsViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Students\ActiveStudentsViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Students\EnrollmentOrderViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Students\EnrollmentByUniversityTransferOrderViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Students\StudentViewViewModel.cs" />
     <Compile Include="View\Windows\AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
@@ -176,6 +173,12 @@
     </Compile>
     <Compile Include="View\Workspaces\Students\Pages\ActiveStudents.xaml.cs">
       <DependentUpon>ActiveStudents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Students\Pages\Views\EnrollmentOrderView.xaml.cs">
+      <DependentUpon>EnrollmentOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Students\Pages\Views\EnrollmentByUniversityTransferOrderView.xaml.cs">
+      <DependentUpon>EnrollmentByUniversityTransferOrderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Workspaces\Students\Pages\Views\StudentView.xaml.cs">
       <DependentUpon>StudentView.xaml</DependentUpon>
@@ -221,10 +224,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Page Include="DialogService\Editor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="DialogService\EntityEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -262,6 +261,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Workspaces\Students\Pages\ActiveStudents.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Students\Pages\Views\EnrollmentOrderView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Workspaces\Students\Pages\Views\EnrollmentByUniversityTransferOrderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

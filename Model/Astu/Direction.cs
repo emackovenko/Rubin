@@ -69,5 +69,14 @@ namespace Model.Astu
                 }
             }
         }
+
+        public string DisplayName
+        {
+            get
+            {
+                return string.Format("{0} ({1)}",
+                    Name, EducationStandart);
+            }
+        }
     }
 }

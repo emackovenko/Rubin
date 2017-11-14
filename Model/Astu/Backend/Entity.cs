@@ -18,8 +18,7 @@ namespace Model.Astu
         {
             PropertyChanged += OnPropertyChanged;
         }
-
-        #region Служебные поля
+        
         
         EntityState _entityState = EntityState.New;
 
@@ -79,10 +78,6 @@ namespace Model.Astu
                 throw new InvalidOperationException("Для таблицы не указано поле первичного ключа");
             }
         }
-        
-        #endregion
-
-        #region Sql методы
 
         /// <summary>
         /// Сохраняет текущее состояние сущности в базе данных
@@ -94,22 +89,24 @@ namespace Model.Astu
                 return;
             }
 
-            var transaction = Astu.DbConnection.BeginTransaction();
             var cmd = Astu.DbConnection.CreateCommand();
-            cmd.Transaction = transaction;
             cmd.CommandText = GetSaveQuery();
-            try
+            using (var transaction = Astu.DbConnection.BeginTransaction())
             {
-                cmd.ExecuteNonQuery();
-                EntityState = EntityState.Default;
-                transaction.Commit();
-            }
-            catch (Exception e)
-            {
-                string errorMessage = string.Format("При сохранении сущности произошла ошибка. Подробности во внутреннем исключении.\nТекст SQL:\n{0}\n\nТекст ошибки:\n{1}",
-                    cmd.CommandText, e.Message);
-                throw new DataException(errorMessage, e);
-                transaction.Rollback();
+                try
+                {
+                    cmd.Transaction = transaction;
+                    cmd.ExecuteNonQuery();
+                    EntityState = EntityState.Default;
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    string errorMessage = string.Format("При сохранении сущности произошла ошибка. Подробности во внутреннем исключении.\nТекст SQL:\n{0}\n\nТекст ошибки:\n{1}",
+                        cmd.CommandText, e.Message);
+                    transaction.Rollback();
+                    throw new DataException(errorMessage, e);
+                }
             }
         }
 
@@ -152,7 +149,7 @@ namespace Model.Astu
             }
             if (primProp.GetValue(this, null) == null)
             {
-                primProp.SetValue(this, GenerateId(), null);
+                primProp.SetValue(this, Convert.ChangeType(GenerateId(), primProp.PropertyType), null);
             }
 
             var sb = new StringBuilder();
@@ -176,7 +173,7 @@ namespace Model.Astu
             }
 
             sb.Remove(sb.Length - 1, 1);
-            sb.Append(");");
+            sb.Append(")");
 
             return sb.ToString();
         }
@@ -212,9 +209,7 @@ namespace Model.Astu
             return sb.ToString();
         }
         
-        #endregion
-
-        #region Служебные и вспомогательные методы
+        
 
         /// <summary>
         /// Возвращает строковое представление объекта в формате SQL выражения
@@ -350,8 +345,7 @@ namespace Model.Astu
             }
             EntityState = backupEntity.EntityState;
         }
-
-        #endregion
+        
 
         /// <summary>
         /// Если значение поля первичного ключа пустое, возвращает новый идентификатор
@@ -378,9 +372,15 @@ namespace Model.Astu
             string query = string.Format("SELECT MAX({0}) + 1 FROM {1}", 
                 PrimaryFieldName, TableName);
 
-            var cmd = Astu.DbConnection.CreateCommand();
-            cmd.CommandText = query;
-            return cmd.ExecuteScalar();
+            object id = null;
+            using (var transaction = Astu.DbConnection.BeginTransaction())
+            {
+                var cmd = Astu.DbConnection.CreateCommand();
+                cmd.Transaction = transaction;
+                cmd.CommandText = query;
+                id = cmd.ExecuteScalar();
+            }
+            return id;
         }
 
 
