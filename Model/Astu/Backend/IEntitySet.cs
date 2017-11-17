@@ -19,5 +19,7 @@ namespace Model.Astu
         event EntityRemovingHandler OnEntityRemoving;
 
         void Reset();
+
+        Type GetItemType();
     }
 }

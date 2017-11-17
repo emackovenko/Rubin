@@ -193,14 +193,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    GroupId = value.Id;
-                }
-                else
-                {
-                    GroupId = null;
-                }
+                GroupId = value?.Id;
             }
         }
 
@@ -215,14 +208,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    StatusId = value.Id;
-                }
-                else
-                {
-                    StatusId = null;
-                }
+                StatusId = value?.Id;
             }
         }
 
@@ -237,14 +223,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    FinanceSourceId = value.Id;
-                }
-                else
-                {
-                    FinanceSourceId = null;
-                }
+                FinanceSourceId = value?.Id;
             }
         }
 
@@ -259,14 +238,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    EducationFormId = value.Id;
-                }
-                else
-                {
-                    EducationFormId = null;
-                }
+                EducationFormId = value?.Id;
             }
         }
 
@@ -281,14 +253,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    FacultyId = value.Id;
-                }
-                else
-                {
-                    FacultyId = null;
-                }
+                FacultyId = value?.Id;
             }
         }
 
@@ -303,14 +268,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    DirectionId = value.Id;
-                }
-                else
-                {
-                    DirectionId = null;
-                }
+                DirectionId = value?.Id;
             }
         }
 
@@ -325,14 +283,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    CitizenshipId = value.Id;
-                }
-                else
-                {
-                    CitizenshipId = null;
-                }
+                CitizenshipId = value.Id;
             }
         }
 
@@ -347,14 +298,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    GrantTypeId = value.Id;
-                }
-                else
-                {
-                    GrantTypeId = null;
-                }
+                GrantTypeId = value.Id;
             }
         }
 
@@ -369,14 +313,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    EducationDocumentTypeId = value.Id;
-                }
-                else
-                {
-                    EducationDocumentTypeId = null;
-                }
+                EducationDocumentTypeId = value.Id;
             }
         }
 
@@ -391,19 +328,57 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    ForeignLanguageId = value.Id;
-                }
-                else
-                {
-                    ForeignLanguageId = null;
-                }
+                ForeignLanguageId = value.Id;
             }
         }
 
         #endregion
 
+
+        #region CalculatedProperties
+
+        /// <summary>
+        /// Фамилия
+        /// </summary>
+        public string LastName
+        {
+            get
+            {
+                return Name.Split(' ')[0];
+            }
+        }
+
+        /// <summary>
+        /// Имя
+        /// </summary>
+        public string FirstName
+        {
+            get
+            {
+                return Name.Split(' ')[1];
+            }
+        }
+
+        /// <summary>
+        /// Отчество
+        /// </summary>
+        public string Patronimyc
+        {
+            get
+            {
+                if (Name.Split(' ').Count() > 2)
+                {
+                    string name = Name;
+                    return name.Remove(0, FirstName.Length + LastName.Length + 2);
+                }
+                return null;
+            }
+        }
+
+
+
+
+        #endregion
 
         #region Navigation collections
 
@@ -427,16 +402,29 @@ namespace Model.Astu
         }
 
         /// <summary>
+        /// Документы, удостоверяющие личность
+        /// </summary>
+        public ICollection<IdentityDocument> IdentityDocuments
+        {
+            get
+            {
+                return new List<IdentityDocument>(Astu.IdentityDocuments.Where(d => d.StudentId == Id));
+            }
+        }
+
+        /// <summary>
         /// Документы
         /// </summary>
-        public IEnumerable<StudentDocumentBase> Documents
+        public ICollection<StudentDocumentBase> Documents
         {
             get
             {
                 var list = new List<StudentDocumentBase>();
-                list.AddRange(Astu.IdentityDocuments.Where(d => d.StudentId == Id).Cast<StudentDocumentBase>());
+                list.AddRange(IdentityDocuments.Cast<StudentDocumentBase>());
                 list.AddRange(Astu.EducationDocuments.Where(d => d.StudentId == Id).Cast<StudentDocumentBase>());
-                return list;
+                list.AddRange(Astu.OrphanTickets.Where(d => d.StudentId == Id).Cast<StudentDocumentBase>());
+                list.AddRange(Astu.DisabilityTickets.Where(d => d.StudentId == Id).Cast<StudentDocumentBase>());
+                return new List<StudentDocumentBase>(list.OrderBy(d => d.Date));
             }
         }
 

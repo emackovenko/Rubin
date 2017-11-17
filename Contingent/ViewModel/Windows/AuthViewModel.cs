@@ -7,8 +7,6 @@ using Contingent.Properties;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using System.Data.OracleClient;
-using System.Windows;
 
 namespace Contingent.ViewModel.Windows
 {
@@ -63,24 +61,9 @@ namespace Contingent.ViewModel.Windows
         
         void TryAuth()
         {
-            var test = new DisabilityTicket();
-            test.DisabilityType = null;
-            return;
-            // загружаем параметры из настроек
-            string dbHost = Settings.Default.DbHost;
-            int dbPort = Settings.Default.DbPort;
-            string dbServiceName = Settings.Default.DbServiceName;
-
-            string connectionString = string.Format("Data Source={0};User Id={1};Password={2};Unicode=True;",
-                dbServiceName, Username, _password);
-
-            // создаем коннект и пытаемся инициализировать модель
-            var connection = new OracleConnection(connectionString.ToString());
-            connection.Open();
-
             // если получилось
-            if (Astu.Auth(connection))
-            {
+            if (Session.GetInstance().Auth(Username, Password))
+            {                
                 // сохраняем настройки
                 Settings.Default.Save();
                 // шлем сообщение об успешной авторизации

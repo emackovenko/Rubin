@@ -26,7 +26,8 @@
             Orientation="Horizontal">
             <Button
                 ToolTip="Добавить запись"
-                Style="{StaticResource ToolButton}">
+                Style="{StaticResource ToolButton}"
+                Command="{Binding Path=AddStudentCommand}">
                 <Image
                     Style="{StaticResource PictureAdd}"/>
             </Button>
@@ -38,14 +39,9 @@
                     Style="{StaticResource PictureEdit}"/>
             </Button>
             <Button
-                ToolTip="Удалить запись"
-                Style="{StaticResource ToolButton}">
-                <Image
-                    Style="{StaticResource PictureDelete}"/>
-            </Button>
-            <Button
                 ToolTip="Обновить список"
-                Style="{StaticResource ToolButton}">
+                Style="{StaticResource ToolButton}"
+                Command="{Binding Path=RefreshListCommand}">
                 <Image
                     Style="{StaticResource PictureRefresh}"/>
             </Button>

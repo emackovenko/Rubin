@@ -1,17 +1,51 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Contingent.Themes"
-                    xmlns:model="clr-namespace:Model.Astu;assembly=Model">
+                    xmlns:model="clr-namespace:Model.Astu;assembly=Model"
+                    xmlns:control="clr-namespace:Contingent.Themes.Controls">
+
+    <Style x:Key="ExpanderInfo"
+           TargetType="Expander">
+        <Setter
+            Property="BorderBrush"
+            Value="ForestGreen"/>
+        <Setter
+            Property="Background"
+            Value="#FFD5FFA3"/>
+        <Setter
+            Property="ExpandDirection"
+            Value="Down"/>
+        <Setter
+            Property="IsExpanded"
+            Value="True"/>
+        <Setter
+            Property="Header"
+            Value="Информация"/>
+        <Setter
+            Property="MaxWidth">
+            <Setter.Value>
+                <Binding Path="ActualWidth" Mode="OneWay">
+                    <Binding.RelativeSource>
+                        <RelativeSource
+                            Mode="FindAncestor"
+                            AncestorType="{x:Type control:ExDataGrid}"/>
+                    </Binding.RelativeSource>
+                </Binding>                
+            </Setter.Value>
+        </Setter>
+        <Setter
+            Property="HorizontalAlignment"
+            Value="Left"/>
+        <Setter
+            Property="VerticalAlignment"
+            Value="Top"/>
+    </Style>
 
     <DataTemplate x:Key="EnrollmentOrderDataTemplate"
             DataType="{x:Type model:EnrollmentOrder}">
         <Grid>
             <Expander
-                BorderBrush="ForestGreen"
-                Background="#FFD5FFA3"
-                ExpandDirection="Down"
-                IsExpanded="True"
-                Header="Информация">
+                Style="{StaticResource ResourceKey=ExpanderInfo}">
                 <Grid 
                 Background="#FFD5FFA3">
                     <Grid.RowDefinitions>
@@ -65,11 +99,7 @@
     <DataTemplate x:Key="DefaultOrderDataTemplate">
         <Grid>
             <Expander
-                BorderBrush="ForestGreen"
-                Background="#FFD5FFA3"
-                ExpandDirection="Down"
-                IsExpanded="True"
-                Header="Информация">
+                Style="{StaticResource ResourceKey=ExpanderInfo}">
                 <Grid 
                 Background="#FFD5FFA3">
                     <Grid.RowDefinitions>
@@ -112,4 +142,156 @@
         </Grid>
     </DataTemplate>
     
+    
+    <!--  ДОКУМЕНТЫ  -->
+
+
+    <DataTemplate x:Key="DefaultDocumentTemplate">
+        <Grid>
+            <Expander
+                Style="{StaticResource ResourceKey=ExpanderInfo}">
+                <Grid 
+                Background="#FFD5FFA3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+                        Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <WrapPanel
+                    Grid.Row="0"
+                    Orientation="Horizontal">
+                        <TextBlock
+                            Text="Название документа:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=Name}"/>
+                        <TextBlock
+                            Text="Выдан:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=Organization}"/>
+                        <TextBlock
+                            Text="Государство:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=Citizenship.Name}"/>
+                    </WrapPanel>
+                </Grid>
+            </Expander>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="IdentityDocumentTemplate">
+        <Grid>
+            <Expander
+                Style="{StaticResource ResourceKey=ExpanderInfo}">
+                <Grid 
+                Background="#FFD5FFA3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+                        Height="Auto"/>
+                        <RowDefinition
+                        Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <WrapPanel
+                    Grid.Row="0"
+                    Orientation="Horizontal">
+                        <TextBlock
+                            Text="Название документа:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=Name}"/>
+                        <TextBlock
+                            Text="Выдан:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=Organization}"/>
+                        <TextBlock
+                            Text="Государство:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=Citizenship.Name}"/>
+                        <TextBlock
+                            Text="Тип удостоверения:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=IdentityDocumentType.Name}"/>
+                    </WrapPanel>
+                    <WrapPanel
+                        Grid.Row="1">
+                        <TextBlock
+                            Text="Фамилия:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=LastName}"/>
+                        <TextBlock
+                            Text="Имя:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=FirstName}"/>
+                        <TextBlock
+                            Text="Отчество:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=Patronimyc}"/>
+                        <TextBlock
+                            Text="Дата рождения:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=BirthDate, Converter={StaticResource DateConverter}}"/>
+                        <TextBlock
+                            Text="Место рождения:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=BirthPlace}"/>                        
+                    </WrapPanel>
+                </Grid>
+            </Expander>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="EducationDocumentTemplate">
+        <Grid>
+            <Expander
+                Style="{StaticResource ResourceKey=ExpanderInfo}">
+                <Grid 
+                Background="#FFD5FFA3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition
+                        Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <WrapPanel
+                    Grid.Row="0"
+                    Orientation="Horizontal">
+                        <TextBlock
+                            Text="Название документа:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=Name}"/>
+                        <TextBlock
+                            Text="Выдан:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=Organization}"/>
+                        <TextBlock
+                            Text="Государство:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=Citizenship.Name}"/>
+                        <TextBlock
+                            Text="Тип документа:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=EducationDocumentType.Name}"/>
+                        <TextBlock
+                            Text="Год окончания:"/>
+                        <TextBlock
+                            Style="{StaticResource AuxularyInfoTextBox}"
+                            Text="{Binding Path=GraduationYear}"/>
+                    </WrapPanel>
+                </Grid>
+            </Expander>
+        </Grid>
+    </DataTemplate>
+
+
 </ResourceDictionary>

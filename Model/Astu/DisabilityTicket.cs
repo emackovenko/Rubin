@@ -10,11 +10,15 @@ namespace Model.Astu
     /// </summary>
     public class DisabilityTicket: StudentDocumentBase
     {
+
+        const int DOCUMENT_TYPE_ID = 30;
+        const string DOCUMENT_NAME = "Справка об установлении инвалидности";
+
         public DisabilityTicket()
             : base ()
         {
-            DocumentTypeId = 11;
-            Name = "Справка об установлении инвалидности";
+            DocumentTypeId = DOCUMENT_TYPE_ID;
+            Name = DOCUMENT_NAME;
         }
 
         /// <summary>
@@ -23,6 +27,9 @@ namespace Model.Astu
         [DbFieldInfo("ID_DISABILITYTYPE", DbFieldType.Integer)]
         public int? DisabilityTypeId { get; set; }
 
+        /// <summary>
+        /// Группа инвалидности
+        /// </summary>
         public DisabilityType DisabilityType
         {
             get

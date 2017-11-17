@@ -23,13 +23,14 @@
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
+    <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <TargetCulture>ru-RU</TargetCulture>
     <ProductName>Контингент студентов</ProductName>
     <PublisherName>Рубцовский индустриальный институт</PublisherName>
     <SuiteName>Информационно-технический отдел</SuiteName>
-    <ApplicationRevision>4</ApplicationRevision>
+    <MinimumRequiredVersion>1.0.0.50</MinimumRequiredVersion>
+    <ApplicationRevision>54</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -96,6 +97,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Printing" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\portable-net40+sl4+win8+wp8\System.ValueTuple.dll</HintPath>
@@ -153,14 +155,19 @@
     <Compile Include="Themes\Controls\WorkspaceMenuItem.xaml.cs">
       <DependentUpon>WorkspaceMenuItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Themes\Converters\DateConverter.cs" />
+    <Compile Include="Themes\Selectors\StudentDocumentTemplateSelector.cs" />
     <Compile Include="Themes\Selectors\StudentOrderTemplateSelector.cs" />
     <Compile Include="ViewModel\LogWriter.cs" />
+    <Compile Include="ViewModel\Session.cs" />
     <Compile Include="ViewModel\Windows\AuthViewModel.cs" />
     <Compile Include="ViewModel\Windows\ConnectionSettingsViewModel.cs" />
+    <Compile Include="ViewModel\Windows\DesktopViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Students\ActiveStudentsViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Students\EnrollmentOrderViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Students\EnrollmentByUniversityTransferOrderViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Students\IdentityDocumentViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Students\StudentViewViewModel.cs" />
     <Compile Include="View\Windows\AuthWindow.xaml.cs">
       <DependentUpon>AuthWindow.xaml</DependentUpon>
@@ -179,6 +186,9 @@
     </Compile>
     <Compile Include="View\Workspaces\Students\Pages\Views\EnrollmentByUniversityTransferOrderView.xaml.cs">
       <DependentUpon>EnrollmentByUniversityTransferOrderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Students\Pages\Views\IdentityDocumentView.xaml.cs">
+      <DependentUpon>IdentityDocumentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Workspaces\Students\Pages\Views\StudentView.xaml.cs">
       <DependentUpon>StudentView.xaml</DependentUpon>
@@ -269,6 +279,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Workspaces\Students\Pages\Views\EnrollmentByUniversityTransferOrderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Students\Pages\Views\IdentityDocumentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

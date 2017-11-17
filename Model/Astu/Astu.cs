@@ -49,10 +49,16 @@ namespace Model.Astu
             EnrollmentByUniversityTransferOrders = new EntitySet<EnrollmentByUniversityTransferOrder>(@"WHERE TPR='0015'");
             DisabilityTickets = new EntitySet<DisabilityTicket>(@"WHERE ID_DOCUMENTTYPE = 11");
             DisabilityTypes = new EntitySet<DisabilityType>();
+            OrphanCategories = new EntitySet<OrphanCategory>();
+            OrphanTickets = new EntitySet<OrphanTicket>(@"WHERE ID_DOCUMENTTYPE = 30");
         }
 
 
         #region Entity collections
+
+        public static EntitySet<OrphanCategory> OrphanCategories { get; set; }
+
+        public static EntitySet<OrphanTicket> OrphanTickets { get; set; }
 
         public static EntitySet<DisabilityType> DisabilityTypes { get; set; }
 
@@ -178,7 +184,7 @@ namespace Model.Astu
 
         static List<Entity> _removedEntities;
 
-        static ICollection<Entity> RemovedEntities
+        internal static ICollection<Entity> RemovedEntities
         {
             get
             {
@@ -210,7 +216,7 @@ namespace Model.Astu
                     // От каждого получаем SQL-команду на изменение в БД
                     foreach (var enitity in filteredCollection)
                     {
-                        sb.Append(enitity.GetSaveQuery());
+                        sb.AppendFormat("{0};", enitity.GetSaveQuery());
                     }
                 }
             }
@@ -219,9 +225,15 @@ namespace Model.Astu
             {
                 foreach (var entity in RemovedEntities)
                 {
-                    sb.Append(entity.GetSaveQuery());
+                    sb.AppendFormat("{0};", entity.GetSaveQuery());
                 }
                 RemovedEntities.Clear();
+            }
+
+            // Костыль специально для великого и ужасного оракла: если запрос один единственный, он ругнется на символ ";"
+            if (sb.Length == 1)
+            {
+                sb.Replace(";", "", sb.ToString().Length - 1, 1);
             }
 
             // выполняем команду, предварительно обернув в безопасную транзакцию

@@ -23,6 +23,7 @@ namespace Contingent.DialogService
         Action<Entity> _saveAction;
         Entity _editedEntity;
         Entity _backupEntity;
+        bool _ignoreSaving;
 
         public EntityEditor(Entity entity, UserControl editingContent, ViewModelBase vm, Action<Entity> saveAction)
         {
@@ -31,6 +32,16 @@ namespace Contingent.DialogService
             _backupEntity = _editedEntity.Clone() as Entity;
             DataContext = vm;
             _saveAction = saveAction;
+            EditingContentGrid.Children.Add(editingContent);
+        }
+
+        public EntityEditor(Entity entity, UserControl editingContent, ViewModelBase vm, bool ignoreSaving)
+        {
+            InitializeComponent();
+            _ignoreSaving = ignoreSaving;
+            _editedEntity = entity;
+            _backupEntity = _editedEntity.Clone() as Entity;
+            DataContext = vm;
             EditingContentGrid.Children.Add(editingContent);
         }
 
@@ -43,13 +54,16 @@ namespace Contingent.DialogService
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_saveAction != null)
+            if (!_ignoreSaving)
             {
-                _saveAction(_editedEntity);
-            }
-            else
-            {
-                _editedEntity.Save();
+                if (_saveAction != null)
+                {
+                    _saveAction(_editedEntity);
+                }
+                else
+                {
+                    _editedEntity.Save();
+                }
             }
 
             DialogResult = true;

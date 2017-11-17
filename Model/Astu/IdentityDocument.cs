@@ -50,7 +50,7 @@ namespace Model.Astu
         /// <summary>
         /// Дата рождения
         /// </summary>
-        [DbFieldInfo("DATR")]
+        [DbFieldInfo("DATR", DbFieldType.DateTime)]
         public DateTime? BirthDate { get; set; }
 
         /// <summary>

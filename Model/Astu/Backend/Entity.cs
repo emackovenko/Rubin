@@ -95,10 +95,22 @@ namespace Model.Astu
             {
                 try
                 {
+                    // выполняем команду
                     cmd.Transaction = transaction;
                     cmd.ExecuteNonQuery();
-                    EntityState = EntityState.Default;
                     transaction.Commit();
+
+                    // Костылим: удаляем елемент из коллекции удаляемых элементов контекста
+                    if (EntityState == EntityState.Deleted)
+                    {
+                        if (Astu.RemovedEntities.Contains(this))
+                        {
+                            Astu.RemovedEntities.Remove(this);
+                        }
+                    }
+
+                    // Помечаем сущность как дефолтную
+                    EntityState = EntityState.Default;
                 }
                 catch (Exception e)
                 {
@@ -108,6 +120,28 @@ namespace Model.Astu
                     throw new DataException(errorMessage, e);
                 }
             }
+        }
+
+        /// <summary>
+        /// Производит удаление сущности из контекста и помечает сущность как удаленную.
+        /// </summary>
+        public void Delete()
+        {
+            // Ищем коллекцию, содержащую наш тип
+            var contextType = typeof(Astu);    
+            var entitySetType = typeof(EntitySet<>);
+            var searchedType = entitySetType.MakeGenericType(GetType());     
+            var parentalCollectionPropertyInfo = contextType.GetProperties().FirstOrDefault(pi => pi.PropertyType == searchedType);
+
+            if (parentalCollectionPropertyInfo == null)
+            {
+                throw new MissingFieldException("Данный тип не был загружен контекстом.", searchedType.Name);
+            }
+
+            // получаем коллекцию и вызываем метод удаления
+            var collection = parentalCollectionPropertyInfo.GetValue(contextType, null);
+            var method = collection.GetType().GetMethod("Remove", new Type[] { GetType() });
+            method.Invoke(collection, new object[] { this });
         }
 
         internal string GetSaveQuery()
@@ -135,7 +169,7 @@ namespace Model.Astu
         
         string DeleteQuery()
         {
-            return string.Format("DELETE FROM {0} WHERE {1}={2};", 
+            return string.Format("DELETE FROM {0} WHERE {1}={2}", 
                 TableName, PrimaryFieldName, ConvertObjectToExpression(GetDatabaseFieldType("Id"), GetPropertyInfo("Id").GetValue(this, null)));
         }
 
@@ -208,7 +242,6 @@ namespace Model.Astu
                 ConvertObjectToExpression(GetDatabaseFieldType(primaryKey.Name), GetPropertyInfo(primaryKey.Name).GetValue(this, null)));
             return sb.ToString();
         }
-        
         
 
         /// <summary>

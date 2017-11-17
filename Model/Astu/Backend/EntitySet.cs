@@ -25,8 +25,8 @@ namespace Model.Astu
         public EntitySet(string sqlOption = null)
         {
             _sqlOption = sqlOption;
-            Reset();
-        }
+            Reset();            
+        }        
 
         /// <summary>
         /// Очищает текущую коллекцию и заново подгружает все элементы из БД
@@ -133,6 +133,15 @@ namespace Model.Astu
             base.Remove(item);
             item.EntityState = EntityState.Deleted;
             OnEntityRemoving(item);
+        }
+
+        /// <summary>
+        /// Возвращает тип элемента коллекции
+        /// </summary>
+        /// <returns></returns>
+        public Type GetItemType()
+        {
+            return typeof(TEntity);
         }
     }
 }

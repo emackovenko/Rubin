@@ -11,6 +11,21 @@ namespace Model.Astu
     [TableName("ANKETA_DOCUM")]
     public abstract class StudentDocumentBase: Entity
     {
+        public StudentDocumentBase()
+            : base ()
+        {
+            IsArchival = false;
+            PropertyChanged += StudentDocumentBase_PropertyChanged;
+        }
+
+        private void StudentDocumentBase_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "DocumentTypeId")
+            {
+                Name = DocumentType.Name;                
+            }
+        }
+
         /// <summary>
         /// Идентификатор
         /// </summary>
@@ -45,7 +60,7 @@ namespace Model.Astu
         /// <summary>
         /// Дата выдачи
         /// </summary>
-        [DbFieldInfo("DOC_DATE")]
+        [DbFieldInfo("DOC_DATE", DbFieldType.DateTime)]
         public DateTime? Date { get; set; }
 
         /// <summary>
@@ -63,7 +78,7 @@ namespace Model.Astu
         /// <summary>
         /// Флаг - документ в архиве
         /// </summary>
-        [DbFieldInfo("ARH")]
+        [DbFieldInfo("ARH", DbFieldType.Boolean)]
         public bool IsArchival { get; set; }
 
         /// <summary>
@@ -83,14 +98,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    StudentId = value.Id;
-                }
-                else
-                {
-                    StudentId = null;
-                }
+                StudentId = value?.Id;
             }
         }
 
@@ -105,15 +113,23 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    DocumentTypeId = value.Id;
-                    Name = value.Name;
-                }
-                else
-                {
-                    DocumentTypeId = null;
-                }
+                DocumentTypeId = value?.Id;
+                Name = value?.Name;
+            }
+        }
+
+        /// <summary>
+        /// Государство
+        /// </summary>
+        public Citizenship Citizenship
+        {
+            get
+            {
+                return Astu.Citizenships.FirstOrDefault(c => c.Id == CitizenshipId);
+            }
+            set
+            {
+                CitizenshipId = value?.Id;
             }
         }
 

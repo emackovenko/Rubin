@@ -374,6 +374,8 @@
     <Compile Include="Astu\Order.cs" />
     <Compile Include="Astu\OrderItem.cs" />
     <Compile Include="Astu\OrderType.cs" />
+    <Compile Include="Astu\OrphanCategory.cs" />
+    <Compile Include="Astu\OrphanTicket.cs" />
     <Compile Include="Astu\QuotaType.cs" />
     <Compile Include="Astu\ReinstatementOrder.cs" />
     <Compile Include="Astu\StudentDocumentBase.cs" />

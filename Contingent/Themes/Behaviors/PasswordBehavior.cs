@@ -35,6 +35,10 @@ namespace Contingent.Themes.Behaviors
 		{
 			base.OnPropertyChanged(e);
 
+            if (e == null || AssociatedObject == null)
+            {
+                return;
+            }
 			if (e.Property == PasswordProperty)
 			{
 				if (!_skipUpdate)

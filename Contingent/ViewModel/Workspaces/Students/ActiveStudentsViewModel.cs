@@ -44,18 +44,9 @@ namespace Contingent.ViewModel.Workspaces.Students
         {
             get
             {
-                if (_students == null)
-                {
-                    var activeStatuses = new string[] {"0001", "0002", "0007", "0008"};
-                    var students = Astu.Students.Where(s => activeStatuses.Contains(s.StatusId)).OrderBy(s => s.Course).OrderBy(s => s.Name).OrderBy(s => s.Group?.Name);
-                    _students = new ObservableCollection<Student>(students);
-                }
-                return _students;
-            }
-            set
-            {
-                _students = value;
-                RaisePropertyChanged("Students");
+                var activeStatuses = new string[] {"0001", "0002", "0007", "0008"};
+                var students = Astu.Students.Where(s => activeStatuses.Contains(s.StatusId)).OrderBy(s => s.Course).OrderBy(s => s.Name).OrderBy(s => s.Group?.Name);
+                return new ObservableCollection<Student>(students);
             }
         }
 
@@ -66,6 +57,14 @@ namespace Contingent.ViewModel.Workspaces.Students
 
         #region Commands
 
+        public RelayCommand AddStudentCommand
+        {
+            get
+            {
+                return new RelayCommand(AddStudent);
+            }
+        }
+
         public RelayCommand EditStudentCommand
         {
             get
@@ -74,13 +73,42 @@ namespace Contingent.ViewModel.Workspaces.Students
             }
         }
 
+        public RelayCommand RefreshListCommand
+        {
+            get
+            {
+                return new RelayCommand(RefreshList);
+            }
+        }
+
         #endregion
 
         #region Methods
 
+        void AddStudent()
+        {
+            var student = new Student();
+            var vm = new StudentViewViewModel(student);
+            EditorInvoker.ShowEditor(student, StudentChangesSaving);
+        }
+
+        void StudentChangesSaving(Entity student)
+        {
+            Astu.Students.Add(student as Student);
+            Astu.Save();
+            RaisePropertyChanged("Students");
+            SelectedStudent = student as Student;
+        }
+
         void EditStudent()
         {
-            EditorInvoker.ShowEditor(SelectedStudent);
+            EditorInvoker.ShowEditor(SelectedStudent, StudentChangesSaving);
+        }
+
+        void RefreshList()
+        {
+            Astu.Students.Reset();
+            RaisePropertyChanged("Students");
         }
 
         #endregion

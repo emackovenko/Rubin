@@ -134,17 +134,23 @@
         TargetType="{x:Type Image}">
         <Setter Property="Source" Value="/ResourceLibrary;component/Images/Buttons/params.png"/>
     </Style>
-    
-    
+
+    <Style 
+        x:Key="PictureUpdate"
+        TargetType="{x:Type Image}">
+        <Setter Property="Source" Value="/ResourceLibrary;component/Images/Buttons/arrow_down_red.png"/>
+    </Style>
+
+
     <!-- END Preloaded images -->
-    
+
     <!-- ********** Converters ********* -->
 
     <converter:DateConverter x:Key="DateConverter"/>
 
     <!-- END Converters -->
-    
-    
+
+
     <!-- CheckBox triggers -->
 
     <Style

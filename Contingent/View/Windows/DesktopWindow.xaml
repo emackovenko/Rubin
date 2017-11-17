@@ -10,8 +10,70 @@
         Height="400" 
         Width="640"
         WindowState="Maximized"
-        WindowStartupLocation="CenterScreen" Icon="/Contingent;component/id_card.ico">
+        WindowStartupLocation="CenterScreen" Icon="/Contingent;component/id_card.ico"
+        xmlns:vm="clr-namespace:Contingent.ViewModel.Windows">
+    <Window.DataContext>
+        <vm:DesktopViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="ContentControl">
+            <Style.Triggers>
+                <DataTrigger
+                        Binding="{Binding Path=IsExistsNewVersion}"
+                        Value="True">
+                    <Setter
+                        Property="Visibility"
+                        Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger
+                        Binding="{Binding Path=IsExistsNewVersion}"
+                        Value="False">
+                    <Setter
+                        Property="Visibility"
+                        Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="*"/>
+            <RowDefinition
+                Height="25"/>
+        </Grid.RowDefinitions>
         <student:StudentList/>
+        <Border
+            Grid.Row="1"
+            BorderBrush="Gray"
+            BorderThickness="1">
+            <StackPanel
+                Orientation="Horizontal"
+                FlowDirection="RightToLeft">
+                <ContentControl
+                    Margin="10,0">
+                    <StackPanel
+                        Orientation="Horizontal"
+                        FlowDirection="LeftToRight">
+                        <Image Style="{StaticResource PictureUpdate}" Stretch="None"/>
+                        <TextBlock
+                            Foreground="Red"
+                            VerticalAlignment="Center"
+                            Text="Загружены новые обновления. Требуется перезапуск программы." 
+                            FontWeight="Bold"/>
+                    </StackPanel>
+                </ContentControl>
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Margin="5,0">
+                    <Hyperlink
+                        ToolTip="Проверить наличие обновлений"
+                        Command="{Binding Path=CheckUpdatesCommand, IsAsync=True}">
+                        <TextBlock
+                            Text="{Binding Path=BuildVersion, StringFormat=Версия {0}}"/>
+                    </Hyperlink>
+                </TextBlock>                
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

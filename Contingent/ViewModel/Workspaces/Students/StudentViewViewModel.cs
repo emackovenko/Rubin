@@ -51,12 +51,28 @@ namespace Contingent.ViewModel.Workspaces.Students
 
 
         #region Commands
+
+        public RelayCommand<Entity> RemoveChildEntityCommand
+        {
+            get
+            {
+                return new RelayCommand<Entity>(RemoveChildEntity, EditChildEntityCanExecute);
+            }
+        }
+
+        public RelayCommand<Entity> EditChildEntityCommand
+        {
+            get
+            {
+                return new RelayCommand<Entity>(EditChildEntity, EditChildEntityCanExecute);
+            }
+        }
         
         public RelayCommand AddEnrollmentOrderCommand
         {
             get
             {
-                return new RelayCommand(AddEnrollmentOrder, AddOrderCanExecute);
+                return new RelayCommand(AddEnrollmentOrder, AddChildEntityCanExecute);
             }
         }
         
@@ -64,13 +80,56 @@ namespace Contingent.ViewModel.Workspaces.Students
         {
             get
             {
-                return new RelayCommand(AddEnrollmentByUniversityTransferOrder, AddOrderCanExecute);
+                return new RelayCommand(AddEnrollmentByUniversityTransferOrder, AddChildEntityCanExecute);
+            }
+        }
+
+        public RelayCommand AddIdentityDocumentCommand
+        {
+            get
+            {
+                return new RelayCommand(AddIdentityDocument, AddChildEntityCanExecute);
             }
         }
 
         #endregion
 
         #region Methods
+
+        void RemoveChildEntity(Entity entity)
+        {
+            if (Messenger.RemoveQuestion())
+            {
+                entity.Delete();
+                RaisePropertyChanged("Student");
+            }
+        }
+
+        void EditChildEntity(Entity entity)
+        {
+            EditorInvoker.ShowEditor(entity);
+            RaisePropertyChanged("Student");
+        }
+
+        void AddIdentityDocument()
+        {
+            var doc = new IdentityDocument
+            {
+                StudentId = Student.Id,
+                FirstName = Student.FirstName,
+                LastName = Student.LastName,
+                Patronimyc = Student.Patronimyc,
+                BirthDate = Student.BirthDate,
+                Gender = Student.Gender,
+                CitizenshipId = Student.CitizenshipId
+            };
+            if (EditorInvoker.ShowEditorWithoutSaving(doc))
+            {
+                Student.IdentityDocuments.Add(doc);
+                Astu.IdentityDocuments.Add(doc);
+            }
+            RaisePropertyChanged("Student");
+        }
 
         void AddEnrollmentOrder()
         {
@@ -83,7 +142,7 @@ namespace Contingent.ViewModel.Workspaces.Students
                 FinanceSourceId = Student.FinanceSourceId
             };
 
-            if (EditorInvoker.ShowEditor(order))
+            if (EditorInvoker.ShowEditorWithoutSaving(order))
             {
                 Student.Orders.Add(order);
                 Astu.EnrollmentOrders.Add(order);
@@ -102,7 +161,7 @@ namespace Contingent.ViewModel.Workspaces.Students
                 FinanceSourceId = Student.FinanceSourceId
             };
 
-            if (EditorInvoker.ShowEditor(order))
+            if (EditorInvoker.ShowEditorWithoutSaving(order))
             {
                 Student.Orders.Add(order);
                 Astu.EnrollmentByUniversityTransferOrders.Add(order);
@@ -114,9 +173,14 @@ namespace Contingent.ViewModel.Workspaces.Students
 
         #region Checks
 
-        bool AddOrderCanExecute()
+        bool AddChildEntityCanExecute()
         {
             return Student.EntityState != EntityState.New;
+        }
+
+        bool EditChildEntityCanExecute(Entity entity)
+        {
+            return entity != null;
         }
 
         #endregion

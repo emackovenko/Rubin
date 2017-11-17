@@ -6,22 +6,22 @@ using System.Text;
 namespace Model.Astu
 {
     /// <summary>
-    /// Группа инвалидности
+    /// Категория сиротства
     /// </summary>
-    [TableName("adm.DISABILITYTYPE")]
-    public class DisabilityType: Entity
+    [TableName("adm.ORPHANCATEGORY")]
+    public class OrphanCategory: Entity
     {
         /// <summary>
         /// Идентификатор
         /// </summary>
         [PrimaryKey]
-        [DbFieldInfo("ID_DISABILITYTYPE", DbFieldType.Integer)]
+        [DbFieldInfo("ID_ORPHANCATEGORY", DbFieldType.Integer)]
         public int Id { get; set; }
 
         /// <summary>
         /// Наименование
         /// </summary>
-        [DbFieldInfo("NAME_DISABILITYTYPE")]
+        [DbFieldInfo("NAME_ORPHANCATEGORY")]
         public string Name { get; set; }
     }
 }

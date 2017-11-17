@@ -54,29 +54,13 @@ namespace Model.Astu
         [DbFieldInfo("TPR")]
         public string OrderTypeId { get; set; }
 
-        /// <summary>
-        /// Идентификатор источника финансирования
-        /// </summary>
-        [DbFieldInfo("KOB")]
-        public string FinanceSourceId { get; set; }
+        
 
         /// <summary>
         /// Идентификатор факультета
         /// </summary>
         [DbFieldInfo("FAK")]
         public string FacultyId { get; set; }
-
-        /// <summary>
-        /// Идентификатор направления подготовки
-        /// </summary>
-        [DbFieldInfo("SPC")]
-        public string DirectionId { get; set; }
-
-        /// <summary>
-        /// Идентификатор группы
-        /// </summary>
-        [DbFieldInfo("GRP")]
-        public string GroupId { get; set; }
 
         /// <summary>
         /// Студент
@@ -123,28 +107,6 @@ namespace Model.Astu
         }
 
         /// <summary>
-        /// Источник финансирования
-        /// </summary>
-        public FinanceSource FinanceSource
-        {
-            get
-            {
-                return Astu.FinanceSources.FirstOrDefault(fs => fs.Id == FinanceSourceId);
-            }
-            set
-            {
-                if (value != null)
-                {
-                    FinanceSourceId = value.Id;
-                }
-                else
-                {
-                    FinanceSourceId = null;
-                }
-            }
-        }
-
-        /// <summary>
         /// Факультет
         /// </summary>
         public Faculty Faculty
@@ -166,48 +128,5 @@ namespace Model.Astu
             }
         }
 
-        /// <summary>
-        /// Направление подготовки
-        /// </summary>
-        public Direction Direction
-        {
-            get
-            {
-                return Astu.Directions.FirstOrDefault(d => d.Id == DirectionId);
-            }
-            set
-            {
-                if (value != null)
-                {
-                    DirectionId = value.Id;
-                }
-                else
-                {
-                    Direction = null;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Студенческая группа
-        /// </summary>
-        public Group Group
-        {
-            get
-            {
-                return Astu.Groups.FirstOrDefault(g => g.Id == GroupId);
-            }
-            set
-            {
-                if (value != null)
-                {
-                    GroupId = value.Id;
-                }
-                else
-                {
-                    GroupId = null;
-                }
-            }
-        }
     }
 }

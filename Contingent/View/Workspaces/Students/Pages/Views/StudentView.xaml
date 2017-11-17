@@ -10,7 +10,7 @@
              xmlns:selector="clr-namespace:Contingent.Themes.Selectors"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
              mc:Ignorable="d" 
-             Width="840"
+             Width="1024"
              Height="460">
     <TabControl>
         <TabItem
@@ -670,6 +670,81 @@
         </TabItem>
         <TabItem 
             Header="Документы">
+            <Grid
+                Background="Beige">
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="32"/>
+                    <RowDefinition
+                        Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel
+                    Grid.Row="0"
+                    Orientation="Horizontal">
+                    <xctk:DropDownButton
+                        ToolTip="Добавить документ"
+                        BorderBrush="{StaticResource ResourceKey=ToolButtonBorder}"
+                        Background="{x:Null}">
+                        <xctk:DropDownButton.DropDownContent>
+                            <StackPanel
+                                Orientation="Vertical">
+                                <MenuItem
+                                    Header="Документ, удостоверяющий личность"
+                                    Command="{Binding Path=AddIdentityDocumentCommand}"/>
+                                <MenuItem
+                                    Header="Документ об образовании"
+                                    IsEnabled="False"
+                                    Command=""/>
+                                <MenuItem
+                                    Header="Документ, подтверждающий принадлежность к детям-сиротам"
+                                    IsEnabled="False"
+                                    Command=""/>
+                                <MenuItem
+                                    Header="Справка об установлении инвалидности"
+                                    IsEnabled="False"
+                                    Command=""/>
+                            </StackPanel>
+                        </xctk:DropDownButton.DropDownContent>
+                        <Image Style="{StaticResource PictureAdd}"/>
+                    </xctk:DropDownButton>
+                    <Button
+                        ToolTip="Редактировать документ"
+                        Command="{Binding Path=EditChildEntityCommand}"
+                        CommandParameter="{Binding Path=SelectedItem, ElementName=documentGrid}"
+                        Style="{StaticResource ToolButton}">
+                        <Image Style="{StaticResource PictureEdit}"/>
+                    </Button>
+                    <Button
+                        ToolTip="Удалить документ"
+                        Command="{Binding Path=RemoveChildEntityCommand}"
+                        CommandParameter="{Binding Path=SelectedItem, ElementName=documentGrid}"
+                        Style="{StaticResource ToolButton}">
+                        <Image Style="{StaticResource PictureDelete}"/>
+                    </Button>
+                </StackPanel>
+                <control:ExDataGrid
+                    x:Name="documentGrid"
+                    Grid.Row="1"
+                    ItemsSource="{Binding Path=Student.Documents}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Header="Тип документа"
+                            Binding="{Binding Path=DocumentType.Name}"/>
+                        <DataGridCheckBoxColumn
+                            Header="Архивный"
+                            Binding="{Binding Path=IsArchival}"/>
+                        <DataGridTextColumn
+                            Header="Серия"
+                            Binding="{Binding Path=Series}"/>
+                        <DataGridTextColumn
+                            Header="Номер"
+                            Binding="{Binding Path=Number}"/>
+                        <DataGridTextColumn
+                            Header="Дата выдачи"
+                            Binding="{Binding Path=Date, Converter={StaticResource DateConverter}}"/>
+                    </DataGrid.Columns>
+                </control:ExDataGrid>
+            </Grid>
         </TabItem>
         <TabItem 
             Header="Другая информация">
