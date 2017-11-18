@@ -67,8 +67,7 @@ namespace Contingent.ViewModel
                 return Astu.DbConnection;
             }
         }
-
-
+        
 
         /// <summary>
         /// Пытается авторизоваться и возвращает результат авторизации
@@ -107,5 +106,7 @@ namespace Contingent.ViewModel
                 return false;
             }
         }
+
+        
     }
 }

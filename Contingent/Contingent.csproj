@@ -46,6 +46,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>CS0618</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -55,6 +56,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>id_card.ico</ApplicationIcon>
@@ -152,6 +154,9 @@
     <Compile Include="DialogService\Messenger.cs" />
     <Compile Include="Themes\Behaviors\PasswordBehavior.cs" />
     <Compile Include="Themes\Controls\ExDataGrid.cs" />
+    <Compile Include="Themes\Controls\ProtectedTabItem.xaml.cs">
+      <DependentUpon>ProtectedTabItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Controls\WorkspaceMenuItem.xaml.cs">
       <DependentUpon>WorkspaceMenuItem.xaml</DependentUpon>
     </Compile>
@@ -241,6 +246,10 @@
     <Page Include="Themes\Controls\ExDataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\ProtectedTabItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\WorkspaceMenuItem.xaml">
       <Generator>MSBuild:Compile</Generator>

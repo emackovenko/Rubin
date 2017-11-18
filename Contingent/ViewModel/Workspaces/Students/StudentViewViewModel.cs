@@ -136,10 +136,7 @@ namespace Contingent.ViewModel.Workspaces.Students
             var order = new EnrollmentOrder()
             {
                 StudentId = Student.Id,
-                GroupId = Student.GroupId,
-                FacultyId = Student.FacultyId,
-                DirectionId = Student.DirectionId,
-                FinanceSourceId = Student.FinanceSourceId
+                FacultyId = Student.FacultyId
             };
 
             if (EditorInvoker.ShowEditorWithoutSaving(order))
@@ -155,10 +152,7 @@ namespace Contingent.ViewModel.Workspaces.Students
             var order = new EnrollmentByUniversityTransferOrder()
             {
                 StudentId = Student.Id,
-                GroupId = Student.GroupId,
-                FacultyId = Student.FacultyId,
-                DirectionId = Student.DirectionId,
-                FinanceSourceId = Student.FinanceSourceId
+                FacultyId = Student.FacultyId
             };
 
             if (EditorInvoker.ShowEditorWithoutSaving(order))

@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Contingent.View.Windows"
         xmlns:student="clr-namespace:Contingent.View.Workspaces.Students"
+        xmlns:control="clr-namespace:Contingent.Themes.Controls"
         mc:Ignorable="d"
         Title="Контингент" 
-        Height="400" 
-        Width="640"
+        Height="488.64" 
+        Width="1044.533"
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen" Icon="/Contingent;component/id_card.ico"
         xmlns:vm="clr-namespace:Contingent.ViewModel.Windows">
@@ -42,7 +43,50 @@
             <RowDefinition
                 Height="25"/>
         </Grid.RowDefinitions>
-        <student:StudentList/>
+        <TabControl>
+            <control:ProtectedTabItem
+                Title="Студенты"
+                Icon="/ResourceLibrary;component/Images/id_cards.png"
+                PermissionName="StudentsWorkspace">
+                <student:StudentList/>
+            </control:ProtectedTabItem>
+            <control:ProtectedTabItem
+                IsEnabled="False"
+                PermissionName="StudentOrdersWorkspace"
+                Title="Приказы"
+                Icon="/ResourceLibrary;component/Images/briefcase_document.png">    
+            </control:ProtectedTabItem>
+            <control:ProtectedTabItem
+                IsEnabled="False"
+                PermissionName="EducationWorkWorkspace"
+                Title="Учебная деятельность"
+                Icon="/ResourceLibrary;component/Images/graduation_hat.png">    
+            </control:ProtectedTabItem>
+            <control:ProtectedTabItem 
+                IsEnabled="False"
+                PermissionName="DictionariesWorkspace"
+                Title="Справочники"
+                Icon="/ResourceLibrary;component/Images/address_book.png">
+            </control:ProtectedTabItem>
+            <control:ProtectedTabItem 
+                IsEnabled="False"
+                PermissionName="ReportWorkspace"
+                Title="Отчётность" 
+                Icon="/ResourceLibrary;component/Images/chart_donut.png">
+            </control:ProtectedTabItem>
+            <control:ProtectedTabItem 
+                IsEnabled="False"
+                PermissionName="ContractWorkspace"
+                Title="Договоры об образовании"
+                Icon="/ResourceLibrary;component/Images/contract.png">
+            </control:ProtectedTabItem>
+            <control:ProtectedTabItem 
+                IsEnabled="False"
+                PermissionName="ServiceWorkspace"
+                Title="Сервис"
+                Icon="/ResourceLibrary;component/Images/crutch.png">
+            </control:ProtectedTabItem>
+        </TabControl>
         <Border
             Grid.Row="1"
             BorderBrush="Gray"
