@@ -25,6 +25,7 @@ namespace Model.Astu
         /// Идентификатор категории сиротства
         /// </summary>
         [DbFieldInfo("ID_ORPHANCATEGORY", DbFieldType.Integer)]
+        [NavigationProperty(typeof(OrphanCategory))]
         public int? OrphanCategoryId { get; set; }
 
         /// <summary>

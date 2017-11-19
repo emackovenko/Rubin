@@ -341,6 +341,9 @@
     <Compile Include="Astu\AcademicVacationExitOrder.cs" />
     <Compile Include="Astu\AcademicVacationOrder.cs" />
     <Compile Include="Astu\AcademicVacationReason.cs" />
+    <Compile Include="Astu\Backend\INavigatedCollection.cs" />
+    <Compile Include="Astu\Backend\NavigatedCollection.cs" />
+    <Compile Include="Astu\Backend\NavigationPropertyAttribute.cs" />
     <Compile Include="Astu\DisabilityTicket.cs" />
     <Compile Include="Astu\DisabilityType.cs" />
     <Compile Include="Astu\DocumentType.cs" />
@@ -371,8 +374,6 @@
     <Compile Include="Astu\IdentityDocument.cs" />
     <Compile Include="Astu\IdentityDocumentType.cs" />
     <Compile Include="Astu\NextCourseTransferOrder.cs" />
-    <Compile Include="Astu\Order.cs" />
-    <Compile Include="Astu\OrderItem.cs" />
     <Compile Include="Astu\OrderType.cs" />
     <Compile Include="Astu\OrphanCategory.cs" />
     <Compile Include="Astu\OrphanTicket.cs" />

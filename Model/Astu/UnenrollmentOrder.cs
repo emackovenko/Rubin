@@ -26,6 +26,7 @@ namespace Model.Astu
         /// Идентификатор причины отчисления
         /// </summary>
         [DbFieldInfo("POT")]
+        [NavigationProperty(typeof(UnenrollmentReason))]
         public string UnenrollmentReasonId { get; set; }
 
         /// <summary>
@@ -39,14 +40,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    UnenrollmentReasonId = value.Id;
-                }
-                else
-                {
-                    UnenrollmentReasonId = null;
-                }
+                UnenrollmentReasonId = value?.Id;
             }
         }
     }

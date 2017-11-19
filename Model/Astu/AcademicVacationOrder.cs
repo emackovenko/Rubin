@@ -32,6 +32,7 @@ namespace Model.Astu
         /// Идентификатор причины отпуска
         /// </summary>
         [DbFieldInfo("PAO")]
+        [NavigationProperty(typeof(AcademicVacationReason))]
         public string ReasonId { get; set; }
 
         /// <summary>
@@ -45,14 +46,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    ReasonId = value.Id;
-                }
-                else
-                {
-                    ReasonId = null;
-                }
+                ReasonId = value?.Id;
             }
         }
     }

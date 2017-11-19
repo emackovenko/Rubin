@@ -52,6 +52,7 @@ namespace Model.Astu
         /// Идентификатор типа приказа
         /// </summary>
         [DbFieldInfo("TPR")]
+        [NavigationProperty(typeof(OrderType))]
         public string OrderTypeId { get; set; }
 
         
@@ -60,6 +61,7 @@ namespace Model.Astu
         /// Идентификатор факультета
         /// </summary>
         [DbFieldInfo("FAK")]
+        [NavigationProperty(typeof(Faculty))]
         public string FacultyId { get; set; }
 
         /// <summary>
@@ -73,14 +75,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    StudentId = value.Id;
-                }
-                else
-                {
-                    StudentId = null;
-                }
+                StudentId = value?.Id;
             }
         }
 
@@ -95,14 +90,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    OrderTypeId = value.Id;
-                }
-                else
-                {
-                    OrderTypeId = null;
-                }
+                OrderTypeId = value?.Id;
             }
         }
 
@@ -117,14 +105,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    FacultyId = value.Id;
-                }
-                else
-                {
-                    FacultyId = null;
-                }
+                FacultyId = value?.Id;
             }
         }
 

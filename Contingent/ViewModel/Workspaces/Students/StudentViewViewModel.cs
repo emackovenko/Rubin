@@ -126,7 +126,6 @@ namespace Contingent.ViewModel.Workspaces.Students
             if (EditorInvoker.ShowEditorWithoutSaving(doc))
             {
                 Student.IdentityDocuments.Add(doc);
-                Astu.IdentityDocuments.Add(doc);
             }
             RaisePropertyChanged("Student");
         }
@@ -141,7 +140,6 @@ namespace Contingent.ViewModel.Workspaces.Students
 
             if (EditorInvoker.ShowEditorWithoutSaving(order))
             {
-                Student.Orders.Add(order);
                 Astu.EnrollmentOrders.Add(order);
             }
             RaisePropertyChanged("Student");
@@ -157,7 +155,6 @@ namespace Contingent.ViewModel.Workspaces.Students
 
             if (EditorInvoker.ShowEditorWithoutSaving(order))
             {
-                Student.Orders.Add(order);
                 Astu.EnrollmentByUniversityTransferOrders.Add(order);
             }
             RaisePropertyChanged("Student");

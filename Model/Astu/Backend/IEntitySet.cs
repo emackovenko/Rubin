@@ -21,5 +21,7 @@ namespace Model.Astu
         void Reset();
 
         Type GetItemType();
+
+        void InitializeNavigatedCollections();
     }
 }

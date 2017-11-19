@@ -143,5 +143,13 @@ namespace Model.Astu
         {
             return typeof(TEntity);
         }
+
+        public void InitializeNavigatedCollections()
+        {
+            foreach (var item in this)
+            {
+                item.InitializeNavigatedCollections();
+            }
+        }
     }
 }

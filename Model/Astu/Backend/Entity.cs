@@ -416,6 +416,18 @@ namespace Model.Astu
             return id;
         }
 
-
+        internal void InitializeNavigatedCollections()
+        {
+            var type = GetType();
+            var navProps = type.GetProperties().Where(pi => pi.PropertyType.GetInterfaces().Where(i => i == typeof(INavigatedCollection)).Count() > 0);
+            foreach (var np in navProps)
+            {
+                // получить конструктор
+                var cstr = np.PropertyType.GetConstructor(new Type[] { typeof(Entity) });
+                var obj = cstr.Invoke(new object[] { this });
+                // вызвать его
+                np.SetValue(this, obj, null);
+            }
+        }
     }	
 }

@@ -21,6 +21,7 @@ namespace Model.Astu
         /// Идентификатор типа документа, удостоверяющего личность
         /// </summary>
         [DbFieldInfo("ID_IDENTYDOCUMENTTYPE", DbFieldType.Integer)]
+        [NavigationProperty(typeof(IdentityDocumentType))]
         public int? IdentityDocumentTypeId { get; set; }
 
         /// <summary>
@@ -70,14 +71,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    IdentityDocumentTypeId = value.Id;
-                }
-                else
-                {
-                    IdentityDocumentTypeId = null;
-                }
+                IdentityDocumentTypeId = value?.Id;
             }
         }
 

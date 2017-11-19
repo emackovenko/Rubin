@@ -28,6 +28,7 @@ namespace Model.Astu
         /// Идентификатор учебного плана, по которому обучается группа
         /// </summary>
         [DbFieldInfo("ID_UCH")]
+        [NavigationProperty(typeof(EducationPlan))]
         public string EducationPlanId { get; set; }
 
         /// <summary>
@@ -47,14 +48,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    EducationPlanId = value.Id;
-                }
-                else
-                {
-                    EducationPlanId = null;
-                }
+                EducationPlanId = value?.Id;
             }
         }
     }

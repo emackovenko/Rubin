@@ -22,18 +22,21 @@ namespace Model.Astu
         /// Идентификатор факультета
         /// </summary>
         [DbFieldInfo("FAK")]
+        [NavigationProperty(typeof(Faculty))]
         public string FacultyId { get; set; }
 
         /// <summary>
         /// Идентификатор направления подготовки
         /// </summary>
         [DbFieldInfo("SPC")]
+        [NavigationProperty(typeof(Direction))]
         public string DirectionId { get; set; }
 
         /// <summary>
         /// Идентификатор формы обучения
         /// </summary>
         [DbFieldInfo("FRM")]
+        [NavigationProperty(typeof(EducationForm))]
         public string EducationFormId { get; set; }
 
         /// <summary>
@@ -53,14 +56,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    FacultyId = value.Id;
-                }
-                else
-                {
-                    FacultyId = null;
-                }
+                FacultyId = value?.Id;
             }
         }
 
@@ -75,14 +71,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    DirectionId = value.Id;
-                }
-                else
-                {
-                    DirectionId = null;
-                }
+                DirectionId = value?.Id;
             }
         }
 
@@ -97,10 +86,7 @@ namespace Model.Astu
             }
             set
             {
-                if (value != null)
-                {
-                    EducationFormId = value.Id;
-                }
+                EducationFormId = value?.Id;
             }
         }
     }

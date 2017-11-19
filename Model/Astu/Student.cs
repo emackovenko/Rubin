@@ -110,12 +110,14 @@ namespace Model.Astu
         /// Идентификатор группы
         /// </summary>
         [DbFieldInfo("GRP")]
+        [NavigationProperty(typeof(Group))]
         public string GroupId { get; set; }
 
         /// <summary>
         /// Идентификатор статуса студента
         /// </summary>
         [DbFieldInfo("ID_STAT")]
+        [NavigationProperty(typeof(StudentStatus))]
         public string StatusId { get; set; }
 
         /// <summary>
@@ -134,48 +136,56 @@ namespace Model.Astu
         /// Идентификатор источника финансирования
         /// </summary>
         [DbFieldInfo("KOB")]
+        [NavigationProperty(typeof(FinanceSource))]
         public string FinanceSourceId { get; set; }
 
         /// <summary>
         /// Идентификатор формы обучения
         /// </summary>
         [DbFieldInfo("FRM")]
+        [NavigationProperty(typeof(EducationForm))]
         public string EducationFormId { get; set; }
 
         /// <summary>
         /// Идентификатор факультета
         /// </summary>
         [DbFieldInfo("FAK")]
+        [NavigationProperty(typeof(Faculty))]
         public string FacultyId { get; set; }
 
         /// <summary>
         /// Идентификатор направления подготовки
         /// </summary>
         [DbFieldInfo("SPC")]
+        [NavigationProperty(typeof(Direction))]
         public string DirectionId { get; set; }
 
         /// <summary>
         /// Идентификатор гражданства
         /// </summary>
         [DbFieldInfo("GOS")]
+        [NavigationProperty(typeof(Citizenship))]
         public string CitizenshipId { get; set; }
 
         /// <summary>
         /// Идентификатор изучаемого иностранного языка
         /// </summary>
         [DbFieldInfo("LNG")]
+        [NavigationProperty(typeof(ForeignLanguage))]
         public string ForeignLanguageId { get; set; }
 
         /// <summary>
         /// Идентификатор вида стипендии
         /// </summary>
         [DbFieldInfo("VST")]
+        [NavigationProperty(typeof(GrantType))]
         public string GrantTypeId { get; set; }
 
         /// <summary>
         /// Идентификатор вида документа об образовании
         /// </summary>
         [DbFieldInfo("VDO")]
+        [NavigationProperty(typeof(EducationDocumentType))]
         public string EducationDocumentTypeId { get; set; }
 
         #endregion
@@ -283,7 +293,7 @@ namespace Model.Astu
             }
             set
             {
-                CitizenshipId = value.Id;
+                CitizenshipId = value?.Id;
             }
         }
 
@@ -298,7 +308,7 @@ namespace Model.Astu
             }
             set
             {
-                GrantTypeId = value.Id;
+                GrantTypeId = value?.Id;
             }
         }
 
@@ -313,7 +323,7 @@ namespace Model.Astu
             }
             set
             {
-                EducationDocumentTypeId = value.Id;
+                EducationDocumentTypeId = value?.Id;
             }
         }
 
@@ -328,7 +338,7 @@ namespace Model.Astu
             }
             set
             {
-                ForeignLanguageId = value.Id;
+                ForeignLanguageId = value?.Id;
             }
         }
 
@@ -368,8 +378,7 @@ namespace Model.Astu
             {
                 if (Name.Split(' ').Count() > 2)
                 {
-                    string name = Name;
-                    return name.Remove(0, FirstName.Length + LastName.Length + 2);
+                    return Name.Remove(0, FirstName.Length + LastName.Length + 2);
                 }
                 return null;
             }
@@ -385,7 +394,7 @@ namespace Model.Astu
         /// <summary>
         /// Приказы по студенту (ANK_HIST)
         /// </summary>
-        public ICollection<StudentOrderBase> Orders
+        public IEnumerable<StudentOrderBase> Orders
         {
             get
             {
@@ -397,25 +406,19 @@ namespace Model.Astu
                 list.AddRange(Astu.AcademicVacationExitOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
                 list.AddRange(Astu.NextCourseTransferOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
                 list.AddRange(Astu.EnrollmentByUniversityTransferOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
-                return new List<StudentOrderBase>(list.OrderBy(o => o.Date));
+                return list.OrderBy(o => o.Date);
             }
         }
 
         /// <summary>
         /// Документы, удостоверяющие личность
         /// </summary>
-        public ICollection<IdentityDocument> IdentityDocuments
-        {
-            get
-            {
-                return new List<IdentityDocument>(Astu.IdentityDocuments.Where(d => d.StudentId == Id));
-            }
-        }
+        public NavigatedCollection<IdentityDocument> IdentityDocuments { get; set; }
 
         /// <summary>
         /// Документы
         /// </summary>
-        public ICollection<StudentDocumentBase> Documents
+        public IEnumerable<StudentDocumentBase> Documents
         {
             get
             {
@@ -424,7 +427,7 @@ namespace Model.Astu
                 list.AddRange(Astu.EducationDocuments.Where(d => d.StudentId == Id).Cast<StudentDocumentBase>());
                 list.AddRange(Astu.OrphanTickets.Where(d => d.StudentId == Id).Cast<StudentDocumentBase>());
                 list.AddRange(Astu.DisabilityTickets.Where(d => d.StudentId == Id).Cast<StudentDocumentBase>());
-                return new List<StudentDocumentBase>(list.OrderBy(d => d.Date));
+                return list.OrderBy(d => d.Date);
             }
         }
 

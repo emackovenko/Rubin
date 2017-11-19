@@ -36,21 +36,7 @@ namespace Model.Astu
         /// <summary>
         /// Направления подготовки образовательной программы
         /// </summary>
-        public ObservableCollection<Direction> Directions
-        {
-            get
-            {
-                if (_directions == null)
-                {
-                    _directions = new ObservableCollection<Direction>(Astu.Directions.Where(d => d.EducationProgramTypeId == Id));
-                }
-                return _directions;
-            }
-            set
-            {
-                _directions = value;
-            }
-        }
+        public NavigatedCollection<Direction> Directions { get; set; }
 
     }
 }
