@@ -14,15 +14,13 @@ namespace Model.Astu
     /// <typeparam name="TEntity">Тип загружаемой сущности</typeparam>
     public class EntitySet<TEntity>: List<TEntity>, IEntitySet where TEntity: Entity
     {
-        string _sqlOption;
-
-        public event EntityRemovingHandler OnEntityRemoving;
+        string _sqlOption;        
         
         /// <summary>
         /// Инициализирует коллекцию и загружает ее из БД
         /// </summary>
         /// <param name="sqlOption">Опция будет дописана в финальный запрос "SELECT {Fields} FROM {TableName}"</param>
-        public EntitySet(string sqlOption = null)
+        public EntitySet(string sqlOption = null) : base ()
         {
             _sqlOption = sqlOption;
             Reset();            
@@ -35,40 +33,16 @@ namespace Model.Astu
         {
             Clear();
             var dbConnection = Astu.DbConnection;
-            var type = typeof(TEntity);
-
-            // Получаем коллекцию загружаемых полей объекта
-            var fields = type.GetProperties().Where(pi => pi.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).Count() > 0);
-
-            // Составляем строку запроса
-            var sb = new StringBuilder();
-            sb.Append("SELECT ");
-            foreach (var f in fields)
-            {
-                if (f.PropertyType == typeof(string))
-                {
-                    sb.AppendFormat("TRIM({0})",
-                        (f.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).First() as DbFieldInfoAttribute).Name);
-                }
-                else
-                {
-                    sb.Append((f.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).First() as DbFieldInfoAttribute).Name);
-                }
-                sb.Append(",");
-            }
-            sb.Remove(sb.Length - 1, 1);
-
-            var tableName = (type.GetCustomAttributes(typeof(TableNameAttribute), true).First() as TableNameAttribute).Value;
-            sb.AppendFormat(" FROM {0}", tableName);
-            // докидывем условие, если оно есть
-            if (!string.IsNullOrWhiteSpace(_sqlOption))
-            {
-                sb.AppendFormat(" {0}", _sqlOption);
-            }
+            var type = typeof(TEntity);            
 
             // Создаем SQL команду для выполнения запроса и загрузки данных
             var dbCommand = dbConnection.CreateCommand();
-            dbCommand.CommandText = sb.ToString();
+            dbCommand.CommandText = QueryProvider.GetSelectQuery(type, _sqlOption);
+
+            // Получаем коллекцию загружаемых полей объекта
+            var fields = type.GetProperties().Where(pi => pi.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).Count() > 0).OrderBy(pi => pi.Name);
+
+            // Выполняем запрос и отображаем реляционные данные в объекты
             using (var reader = dbCommand.ExecuteReader())
             {
                 if (reader.HasRows)
@@ -83,7 +57,7 @@ namespace Model.Astu
                         {
                             object value = reader.GetValue(i);
 
-                            // КОСТЫЛЬ: проверка типов
+                            // SCRUTCH: проверка типов
                             if (value.GetType() == typeof(DBNull))
                             {
                                 value = null;
@@ -130,25 +104,26 @@ namespace Model.Astu
         /// <param name="item">Удаляемый элемент</param>
         public new void Remove(TEntity item)
         {
-            base.Remove(item);
-            item.EntityState = EntityState.Deleted;
-            OnEntityRemoving(item);
+            item.Delete();
         }
 
         /// <summary>
-        /// Возвращает тип элемента коллекции
+        /// Вызывается при автономном удалении сущности
         /// </summary>
-        /// <returns></returns>
-        public Type GetItemType()
+        /// <param name="item">Удаляемая сущность</param>
+        internal void AutonomosRemove(TEntity item)
         {
-            return typeof(TEntity);
+            base.Remove(item);
         }
 
-        public void InitializeNavigatedCollections()
+        /// <summary>
+        /// Постзагрузочная инициализация функционала всех сущностей коллекции
+        /// </summary>
+        internal void PostLoadInitialize()
         {
             foreach (var item in this)
             {
-                item.InitializeNavigatedCollections();
+                item.PostLoadInitialize();
             }
         }
     }

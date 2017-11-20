@@ -16,9 +16,10 @@ namespace Model.Astu
 	{
         public Entity()
         {
-            PropertyChanged += OnPropertyChanged;
+
         }
-        
+
+        private Entity _backup;
         
         EntityState _entityState = EntityState.New;
 
@@ -37,48 +38,7 @@ namespace Model.Astu
                 _entityState = value;
             }
         }
-		
-        /// <summary>
-        /// Возвращает имя таблицы в БД, соответствующей данной сущности
-        /// </summary>
-        string TableName
-        {
-            get
-            {
-                var attributeList = this.GetType().GetCustomAttributes(typeof(TableNameAttribute), true);
-                if (attributeList.Count() == 0)
-                {
-                    throw new Exception();
-                }
-                var p = attributeList.First() as TableNameAttribute;
-                return p.Value;
-            }
-        }
-
-        /// <summary>
-        /// Имя поля первичного ключа
-        /// </summary>
-        string PrimaryFieldName
-        {
-            get
-            {
-                var props = GetType().GetProperties();
-                foreach (var prop in props)
-                {
-                    if (prop.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).Count() > 0)
-                    {
-                        var fieldName = prop.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).FirstOrDefault() as DbFieldInfoAttribute;
-                        if (fieldName == null)
-                        {
-                            throw new ArgumentNullException(string.Format("Для свойства {0} не указан сопоставляемый тип", prop.Name));
-                        }
-                        return fieldName.Name;
-                    }
-                }
-                throw new InvalidOperationException("Для таблицы не указано поле первичного ключа");
-            }
-        }
-
+        
         /// <summary>
         /// Сохраняет текущее состояние сущности в базе данных
         /// </summary>
@@ -90,7 +50,7 @@ namespace Model.Astu
             }
 
             var cmd = Astu.DbConnection.CreateCommand();
-            cmd.CommandText = GetSaveQuery();
+            cmd.CommandText = QueryProvider.GetSaveQuery(this);
             using (var transaction = Astu.DbConnection.BeginTransaction())
             {
                 try
@@ -99,16 +59,7 @@ namespace Model.Astu
                     cmd.Transaction = transaction;
                     cmd.ExecuteNonQuery();
                     transaction.Commit();
-
-                    // Костылим: удаляем елемент из коллекции удаляемых элементов контекста
-                    if (EntityState == EntityState.Deleted)
-                    {
-                        if (Astu.RemovedEntities.Contains(this))
-                        {
-                            Astu.RemovedEntities.Remove(this);
-                        }
-                    }
-
+                    
                     // Помечаем сущность как дефолтную
                     EntityState = EntityState.Default;
                 }
@@ -128,9 +79,9 @@ namespace Model.Astu
         public void Delete()
         {
             // Ищем коллекцию, содержащую наш тип
-            var contextType = typeof(Astu);    
+            var contextType = typeof(Astu);
             var entitySetType = typeof(EntitySet<>);
-            var searchedType = entitySetType.MakeGenericType(GetType());     
+            var searchedType = entitySetType.MakeGenericType(GetType());
             var parentalCollectionPropertyInfo = contextType.GetProperties().FirstOrDefault(pi => pi.PropertyType == searchedType);
 
             if (parentalCollectionPropertyInfo == null)
@@ -140,164 +91,28 @@ namespace Model.Astu
 
             // получаем коллекцию и вызываем метод удаления
             var collection = parentalCollectionPropertyInfo.GetValue(contextType, null);
-            var method = collection.GetType().GetMethod("Remove", new Type[] { GetType() });
+            var method = collection.GetType().GetMethod("AutonomosRemove", new Type[] { GetType() });
             method.Invoke(collection, new object[] { this });
         }
 
-        internal string GetSaveQuery()
-        {
-            string str = string.Empty;
-            switch (EntityState)
-            {
-                case EntityState.Default:
-                    break;
-                case EntityState.New:
-                    str = InsertQuery();
-                    break;
-                case EntityState.Changed:
-                    str = UpdateQuery();
-                    break;
-                case EntityState.Deleted:
-                    str = DeleteQuery();
-                    break;
-                default:
-                    throw new InvalidEnumArgumentException("Unknown entity state");
-            }
-
-            return str;
-        }
-        
-        string DeleteQuery()
-        {
-            return string.Format("DELETE FROM {0} WHERE {1}={2}", 
-                TableName, PrimaryFieldName, ConvertObjectToExpression(GetDatabaseFieldType("Id"), GetPropertyInfo("Id").GetValue(this, null)));
-        }
-
-        string InsertQuery()
-        {
-            // Если идентификатор пустой, то проставляем ему значение
-            var primProp = GetType().GetProperties().Where(p => p.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).Count() > 0).FirstOrDefault();
-            if (primProp == null)
-            {
-                throw new ArgumentNullException("Primary key not found");
-            }
-            if (primProp.GetValue(this, null) == null)
-            {
-                primProp.SetValue(this, Convert.ChangeType(GenerateId(), primProp.PropertyType), null);
-            }
-
-            var sb = new StringBuilder();
-
-            sb.AppendFormat("INSERT INTO {0} ", TableName);
-            sb.Append("(");
-
-            // Получаем набор свойств с аттрибутом FieldName
-            var props = this.GetType().GetProperties().Where(pi => pi.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).Count() > 0);
-            foreach (var prop in props)
-            {
-                var fieldName = prop.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).First() as DbFieldInfoAttribute;
-                sb.AppendFormat("{0},", fieldName.Name);
-            }
-            sb.Remove(sb.Length - 1, 1);
-            sb.Append(") VALUES (");
-
-            foreach (var prop in props)
-            {
-                sb.AppendFormat("{0},",ConvertObjectToExpression(GetDatabaseFieldType(prop.Name), GetPropertyInfo(prop.Name).GetValue(this, null)));
-            }
-
-            sb.Remove(sb.Length - 1, 1);
-            sb.Append(")");
-
-            return sb.ToString();
-        }
-
-        string UpdateQuery()
-        {
-            var primaryKey = this.GetType().GetProperties().Where(p => p.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).Count() > 0).FirstOrDefault();
-            if (primaryKey == null)
-            {
-                throw new InvalidOperationException("Не указано поле первичного ключа");
-            }
-
-            var sb = new StringBuilder();
-            sb.AppendFormat("UPDATE {0} ", TableName);
-            sb.Append("SET ");
-            // Получаем набор свойств с аттрибутом FieldName 
-            var props = this.GetType().GetProperties().Where(pi => 
-            (pi.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).Count() > 0 && 
-            pi.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).Count() == 0));
-
-            foreach (var prop in props)
-            {
-                var fieldName = prop.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).First() as DbFieldInfoAttribute;
-                sb.AppendFormat("{0}={1},", 
-                    fieldName.Name, 
-                    ConvertObjectToExpression(GetDatabaseFieldType(prop.Name), 
-                    GetPropertyInfo(prop.Name).GetValue(this, null)));
-            }
-            sb.Remove(sb.Length - 1, 1);
-            sb.AppendFormat(" WHERE {0}={1}",
-                PrimaryFieldName, 
-                ConvertObjectToExpression(GetDatabaseFieldType(primaryKey.Name), GetPropertyInfo(primaryKey.Name).GetValue(this, null)));
-            return sb.ToString();
-        }
-        
-
         /// <summary>
-        /// Возвращает строковое представление объекта в формате SQL выражения
+        /// Обработчик изменения состояния сущности
         /// </summary>
-        /// <param name="databaseFieldType">Тип поля объекта в БД</param>
-        /// <param name="value">Сам объект</param>
-        /// <returns></returns>
-        string ConvertObjectToExpression(DbFieldType databaseFieldType, object value)
-        {
-            if (value == null)
-            {
-                return "NULL";
-            }
-            switch (databaseFieldType)
-            {
-                case DbFieldType.String:
-                    return string.Format(@"'{0}'", value.ToString());
-                case DbFieldType.Integer:
-                    return value.ToString();
-                case DbFieldType.Double:
-                    return value.ToString();
-                case DbFieldType.DateTime:
-                    return string.Format(@"TO_DATE('{0}', 'YYYYMMDD')", ((DateTime)value).ToString("yyyyMMdd"));
-                case DbFieldType.Boolean:
-                    return ((bool)value) == true ? "1" : "0";
-                default:
-                    throw new InvalidOperationException("Non-registered field type.");
-            }
-        }
-
-        /// <summary>
-        /// Возвращает сопоставляемый тип поля в таблице базы данных для указанного свойства
-        /// </summary>
-        /// <param name="propertyName">Имя заданного свойства</param>
-        /// <returns></returns>
-        DbFieldType GetDatabaseFieldType(string propertyName)
-        {
-            var p = this.GetType().GetProperty(propertyName).GetCustomAttributes(typeof(DbFieldInfoAttribute), true).FirstOrDefault() as DbFieldInfoAttribute;
-            if (p == null)
-            {
-                throw new Exception(string.Format("Для свойства {0} не указано сопоставляемое поле.", propertyName));
-            }
-            return p.Type;
-        }
-
-        PropertyInfo GetPropertyInfo(string propertyName)
-        {
-            return this.GetType().GetProperty(propertyName);
-        }
-
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (_entityState == EntityState.Default)
             {
-                _entityState = EntityState.Changed;
+                if (_backup != null)
+                {
+                    var selfValue = GetType().GetProperty(e.PropertyName).GetValue(this, null);
+                    var backupValue = GetType().GetProperty(e.PropertyName).GetValue(_backup, null);
+                    if (selfValue?.Equals(backupValue) ?? false)
+                    {
+                        _entityState = EntityState.Changed;
+                    }
+                }
             }
         }
 
@@ -379,45 +194,12 @@ namespace Model.Astu
             EntityState = backupEntity.EntityState;
         }
         
-
         /// <summary>
-        /// Если значение поля первичного ключа пустое, возвращает новый идентификатор
+        /// Постзагрузочная инициализация функционала сущности
         /// </summary>
-        /// <returns></returns>
-        public object GenerateId()
+        internal void PostLoadInitialize()
         {
-            string primaryFieldName = string.Empty;
-            var props = GetType().GetProperties();
-            foreach (var prop in props)
-            {
-                if (prop.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).Count() > 0)
-                {
-                    if (prop.GetValue(this, null) != null)
-                    {
-                        return prop.GetValue(this, null);
-                    }
-                    primaryFieldName = prop.Name;
-                    break;
-                }
-            }
-
-            // Составляем запрос для получения максимального ид
-            string query = string.Format("SELECT MAX({0}) + 1 FROM {1}", 
-                PrimaryFieldName, TableName);
-
-            object id = null;
-            using (var transaction = Astu.DbConnection.BeginTransaction())
-            {
-                var cmd = Astu.DbConnection.CreateCommand();
-                cmd.Transaction = transaction;
-                cmd.CommandText = query;
-                id = cmd.ExecuteScalar();
-            }
-            return id;
-        }
-
-        internal void InitializeNavigatedCollections()
-        {
+            // инициализируем навигационные коллекции
             var type = GetType();
             var navProps = type.GetProperties().Where(pi => pi.PropertyType.GetInterfaces().Where(i => i == typeof(INavigatedCollection)).Count() > 0);
             foreach (var np in navProps)
@@ -428,6 +210,12 @@ namespace Model.Astu
                 // вызвать его
                 np.SetValue(this, obj, null);
             }
+
+            // создаем бэкап
+            _backup = Clone() as Entity;
+
+            // Подписываемся на изменение свойств
+            PropertyChanged += OnPropertyChanged;
         }
     }	
 }

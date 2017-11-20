@@ -344,6 +344,7 @@
     <Compile Include="Astu\Backend\INavigatedCollection.cs" />
     <Compile Include="Astu\Backend\NavigatedCollection.cs" />
     <Compile Include="Astu\Backend\NavigationPropertyAttribute.cs" />
+    <Compile Include="Astu\Backend\QueryProvider.cs" />
     <Compile Include="Astu\DisabilityTicket.cs" />
     <Compile Include="Astu\DisabilityType.cs" />
     <Compile Include="Astu\DocumentType.cs" />

@@ -16,8 +16,6 @@ namespace Contingent.ViewModel.Workspaces.Students
 
         Student _selectedStudent;
 
-        ObservableCollection<Student> _students;
-
         #endregion
 
 
@@ -89,13 +87,13 @@ namespace Contingent.ViewModel.Workspaces.Students
         {
             var student = new Student();
             var vm = new StudentViewViewModel(student);
+            Astu.Students.Add(student);
             EditorInvoker.ShowEditor(student, StudentChangesSaving);
         }
 
         void StudentChangesSaving(Entity student)
         {
-            Astu.Students.Add(student as Student);
-            Astu.Save();
+            student.Save();
             RaisePropertyChanged("Students");
             SelectedStudent = student as Student;
         }

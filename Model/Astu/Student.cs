@@ -414,6 +414,7 @@ namespace Model.Astu
         /// Документы, удостоверяющие личность
         /// </summary>
         public NavigatedCollection<IdentityDocument> IdentityDocuments { get; set; }
+        
 
         /// <summary>
         /// Документы

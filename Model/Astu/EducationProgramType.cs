@@ -31,8 +31,6 @@ namespace Model.Astu
         [DbFieldInfo("FOLDER_OMKO")]
         public string ShortName { get; set; }
 
-        ObservableCollection<Direction> _directions;
-
         /// <summary>
         /// Направления подготовки образовательной программы
         /// </summary>

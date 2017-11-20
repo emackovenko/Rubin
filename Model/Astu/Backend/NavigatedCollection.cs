@@ -36,7 +36,7 @@ namespace Model.Astu
 
             if (parentPrimaryKeyProperty.GetValue(_parentEntity, null) == null)
             {
-                parentPrimaryKeyProperty.SetValue(_parentEntity, _parentEntity.GenerateId(), null);
+                parentPrimaryKeyProperty.SetValue(_parentEntity, QueryProvider.GetNewGeneratedId(parentType), null);
             }
 
             _parentPrimaryValue = parentPrimaryKeyProperty.GetValue(_parentEntity, null);

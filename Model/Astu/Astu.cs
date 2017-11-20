@@ -149,13 +149,16 @@ namespace Model.Astu
             DbConnection = dbConnection;
 
             InitializeContext();
-            SignToRemoving();
+            PostLoadInitialize();
 
             return true;
         }
 
         static DbConnection _dbConnection;
 
+        /// <summary>
+        /// Возвращает открытое соединение с базой данных
+        /// </summary>
         public static DbConnection DbConnection
         {
             get
@@ -181,134 +184,11 @@ namespace Model.Astu
                 }
             }
         }
-
-        static List<Entity> _removedEntities;
-
-        internal static ICollection<Entity> RemovedEntities
-        {
-            get
-            {
-                if (_removedEntities == null)
-                {
-                    _removedEntities = new List<Entity>();
-                }
-                return _removedEntities;
-            }
-        }
         
-        public static void Save()
-        {
-            var sb = new StringBuilder();
-            // Получить все коллекции сущностей
-            var type = typeof(Astu);
-            var collections = type.GetProperties();
-
-            // По каждой коллекции прогоняем следующий трекер:
-            foreach (var col in collections)
-            {
-                if (col.PropertyType.GetInterfaces().Contains(typeof(IEntitySet)))
-                {
-                    var currentCollection = (IEnumerable<Entity>)col.GetValue(type, null);
-
-                    // Все объекты, у которых свойства имеют статус, отличный от EntityState.Default
-                    var filteredCollection = currentCollection.Where(e => e.EntityState != EntityState.Default);
-
-                    // От каждого получаем SQL-команду на изменение в БД
-                    foreach (var enitity in filteredCollection)
-                    {
-                        sb.AppendFormat("{0};", enitity.GetSaveQuery());
-                    }
-                }
-            }
-
-            if (RemovedEntities.Count > 0)
-            {
-                foreach (var entity in RemovedEntities)
-                {
-                    sb.AppendFormat("{0};", entity.GetSaveQuery());
-                }
-                RemovedEntities.Clear();
-            }
-
-            // Костыль специально для великого и ужасного оракла: если запрос один единственный, он ругнется на символ ";"
-            if (sb.Length == 1)
-            {
-                sb.Replace(";", "", sb.ToString().Length - 1, 1);
-            }
-
-            // выполняем команду, предварительно обернув в безопасную транзакцию
-            if (sb.Length > 0)
-            {
-                using (var transaction = DbConnection.BeginTransaction())
-                {
-                    var cmd = _dbConnection.CreateCommand();
-                    cmd.Transaction = transaction;
-                    cmd.CommandText = sb.ToString();
-                    try
-                    {
-                        cmd.ExecuteNonQuery();
-
-                        // У сущностей выставляем EntityState.Default
-                        foreach (var col in collections)
-                        {
-                            if (col.PropertyType.GetInterfaces().Contains(typeof(IEntitySet)))
-                            {
-                                var currentCollection = (IEnumerable<Entity>)col.GetValue(type, null);
-
-                                // Все объекты, у которых свойства имеют статус, отличный от EntityState.Default
-                                var filteredCollection = currentCollection.Where(e => e.EntityState != EntityState.Default);
-
-                                // От каждого получаем SQL-команду на изменение в БД
-                                foreach (var enitity in filteredCollection)
-                                {
-                                    enitity.EntityState = EntityState.Default;
-                                }
-                            }
-                        }
-
-                        transaction.Commit();
-                    }
-                    catch (Exception e)
-                    {
-                        transaction.Rollback();
-                        string errorMessage = string.Format("При сохранении данных произошла ошибка. Подробности во внутреннем исключении.\n\nТекст ошибки:\n{0}",
-                            e.Message);
-                        var exception = new DataException(errorMessage, e);
-                        throw exception;
-                    }
-
-                }
-                                                
-            }
-        }
-
-        static void AddToRemovedEntities(Entity entity)
-        {
-            RemovedEntities.Add(entity);
-        }
-
         /// <summary>
-        /// Подписка на события удаления элементов из коллекций
+        /// Постзагрузочная инициализация сущностей
         /// </summary>
-        static void SignToRemoving()
-        {
-            // Получаем все коллекции сущностей
-            var type = typeof(Astu);
-            var collections = type.GetProperties();
-
-            foreach (var col in collections)
-            {
-                if (col.PropertyType.GetInterfaces().Contains(typeof(IEntitySet)))
-                {
-                    // Кидаем в их события метод AddToRemovedEntities()
-                    var currentCollection = col.GetValue(type, null);
-                    ((IEntitySet)currentCollection).OnEntityRemoving += AddToRemovedEntities;
-                }
-            }
-        }
-
-
-        static void ResetAll()
+        static void PostLoadInitialize()
         {
             // Получаем все коллекции сущностей
             var type = typeof(Astu);
@@ -319,8 +199,9 @@ namespace Model.Astu
                 if (col.PropertyType.GetInterfaces().Contains(typeof(IEntitySet)))
                 {
                     // Вызываем их метод Reset
-                    var currentCollection = col.GetValue(type, null) as IEntitySet;
-                    currentCollection.Reset();
+                    var currentCollection = col.GetValue(type, null);
+                    var methodRef = col.PropertyType.GetMethod("PostLoadInitialize");
+                    methodRef.Invoke(currentCollection, null);
                 }
             }
         }
