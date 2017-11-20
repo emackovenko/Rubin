@@ -87,8 +87,11 @@ namespace Contingent.ViewModel.Workspaces.Students
         {
             var student = new Student();
             var vm = new StudentViewViewModel(student);
-            Astu.Students.Add(student);
-            EditorInvoker.ShowEditor(student, StudentChangesSaving);
+            if(EditorInvoker.ShowEditorWithoutSaving(student, vm))
+            {
+                Astu.Students.Add(student);
+                StudentChangesSaving(student);
+            }
         }
 
         void StudentChangesSaving(Entity student)

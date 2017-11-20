@@ -32,6 +32,7 @@ namespace Contingent.DialogService
             _backupEntity = _editedEntity.Clone() as Entity;
             DataContext = vm;
             _saveAction = saveAction;
+            _ignoreSaving = false;
             EditingContentGrid.Children.Add(editingContent);
         }
 

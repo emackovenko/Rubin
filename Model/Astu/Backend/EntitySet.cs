@@ -119,7 +119,7 @@ namespace Model.Astu
         /// <summary>
         /// Постзагрузочная инициализация функционала всех сущностей коллекции
         /// </summary>
-        internal void PostLoadInitialize()
+        public void PostLoadInitialize()
         {
             foreach (var item in this)
             {

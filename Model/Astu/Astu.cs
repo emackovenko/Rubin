@@ -52,8 +52,7 @@ namespace Model.Astu
             OrphanCategories = new EntitySet<OrphanCategory>();
             OrphanTickets = new EntitySet<OrphanTicket>(@"WHERE ID_DOCUMENTTYPE = 30");
         }
-
-
+        
         #region Entity collections
 
         public static EntitySet<OrphanCategory> OrphanCategories { get; set; }
@@ -121,8 +120,7 @@ namespace Model.Astu
         public static EntitySet<Citizenship> Citizenships { get; set; }
 
         #endregion
-
-
+        
         /// <summary>
         /// Точка инициализации контекста
         /// </summary>
@@ -198,7 +196,7 @@ namespace Model.Astu
             {
                 if (col.PropertyType.GetInterfaces().Contains(typeof(IEntitySet)))
                 {
-                    // Вызываем их метод Reset
+                    // Вызываем их метод PostLoadInitialize
                     var currentCollection = col.GetValue(type, null);
                     var methodRef = col.PropertyType.GetMethod("PostLoadInitialize");
                     methodRef.Invoke(currentCollection, null);

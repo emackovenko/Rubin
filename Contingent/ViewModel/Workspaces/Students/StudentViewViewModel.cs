@@ -101,6 +101,7 @@ namespace Contingent.ViewModel.Workspaces.Students
             if (Messenger.RemoveQuestion())
             {
                 entity.Delete();
+                entity.Save();
                 RaisePropertyChanged("Student");
             }
         }

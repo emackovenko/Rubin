@@ -201,7 +201,7 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
             Width="60"
-            Text="{Binding Path=Document.Gender, UpdateSourceTrigger=PropertyChanged}">
+            SelectedItem="{Binding Path=Document.Gender, UpdateSourceTrigger=PropertyChanged}">
             <ComboBox.Items>
                 <sys:String>М</sys:String>
                 <sys:String>Ж</sys:String>

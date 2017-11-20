@@ -596,6 +596,19 @@
                                 HorizontalAlignment="Left"
                                 Width="100"
                                 Text="{Binding Path=Student.AdmissionYear, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock
+                                Grid.Row="8"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Text="Рег. номер"/>
+                            <TextBox
+                                Grid.Row="8"
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Width="100"
+                                Text="{Binding Path=Student.RegistrationNumber, UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
                     </GroupBox>
                 </Grid>
@@ -616,6 +629,7 @@
                     Orientation="Horizontal">
                     <xctk:DropDownButton
                         ToolTip="Добавить приказ"
+                        IsEnabled="False"
                         BorderBrush="{StaticResource ResourceKey=ToolButtonBorder}"
                         Background="{x:Null}">  
                         <xctk:DropDownButton.DropDownContent>

@@ -16,8 +16,11 @@ namespace Model.Astu
 	{
         public Entity()
         {
-
+            IsLoaded = false;
+            PostLoadInitialize();
         }
+
+        internal bool IsLoaded { get; set; }
 
         private Entity _backup;
         
@@ -108,7 +111,7 @@ namespace Model.Astu
                 {
                     var selfValue = GetType().GetProperty(e.PropertyName).GetValue(this, null);
                     var backupValue = GetType().GetProperty(e.PropertyName).GetValue(_backup, null);
-                    if (selfValue?.Equals(backupValue) ?? false)
+                    if (!selfValue?.Equals(backupValue) ?? false)
                     {
                         _entityState = EntityState.Changed;
                     }
@@ -199,23 +202,27 @@ namespace Model.Astu
         /// </summary>
         internal void PostLoadInitialize()
         {
-            // инициализируем навигационные коллекции
-            var type = GetType();
-            var navProps = type.GetProperties().Where(pi => pi.PropertyType.GetInterfaces().Where(i => i == typeof(INavigatedCollection)).Count() > 0);
-            foreach (var np in navProps)
+            if (IsLoaded)
             {
-                // получить конструктор
-                var cstr = np.PropertyType.GetConstructor(new Type[] { typeof(Entity) });
-                var obj = cstr.Invoke(new object[] { this });
-                // вызвать его
-                np.SetValue(this, obj, null);
+                // инициализируем навигационные коллекции
+                var type = GetType();
+                var navProps = type.GetProperties().Where(pi => pi.PropertyType.GetInterfaces().Where(i => i == typeof(INavigatedCollection)).Count() > 0);
+                foreach (var np in navProps)
+                {
+                    // получить конструктор
+                    var cstr = np.PropertyType.GetConstructor(new Type[] { typeof(Entity) });
+                    var obj = cstr.Invoke(new object[] { this });
+                    // вызвать его
+                    np.SetValue(this, obj, null);
+                }
+
+                // создаем бэкап
+                _backup = Clone() as Entity;
+
+                // Подписываемся на изменение свойств
+                PropertyChanged += OnPropertyChanged;
             }
-
-            // создаем бэкап
-            _backup = Clone() as Entity;
-
-            // Подписываемся на изменение свойств
-            PropertyChanged += OnPropertyChanged;
+            IsLoaded = true;
         }
     }	
 }
