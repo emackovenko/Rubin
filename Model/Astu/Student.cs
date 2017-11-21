@@ -25,7 +25,7 @@ namespace Model.Astu
         /// Ф.И.О.
         /// </summary>
         [DbFieldInfo("FIO")]
-        public string Name { get; set; }
+        public string FullName { get; set; }
 
         /// <summary>
         /// Регистрационный номер студента
@@ -354,7 +354,7 @@ namespace Model.Astu
         {
             get
             {
-                return Name?.Split(' ')[0] ?? null;
+                return FullName?.Split(' ')[0] ?? null;
             }
         }
 
@@ -365,7 +365,7 @@ namespace Model.Astu
         {
             get
             {
-                return Name?.Split(' ')[1] ?? null;
+                return FullName?.Split(' ')[1] ?? null;
             }
         }
 
@@ -376,9 +376,9 @@ namespace Model.Astu
         {
             get
             {
-                if (Name?.Split(' ').Count() > 2)
+                if (FullName?.Split(' ').Count() > 2)
                 {
-                    return Name.Remove(0, FirstName.Length + LastName.Length + 2);
+                    return FullName.Remove(0, FirstName.Length + LastName.Length + 2);
                 }
                 return null;
             }

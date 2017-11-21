@@ -8,13 +8,14 @@ namespace Model.Astu
     /// <summary>
     /// Приказ о зачислении переводом из другого ВУЗа
     /// </summary>
-    public class EnrollmentByUniversityTransferOrder: StudentOrderBase
+    public class EnrollmentByUniversityTransferOrder: EnrollmentOrder
     {
         public EnrollmentByUniversityTransferOrder()
             : base ()
         {
             OrderTypeId = "0015";
             Comment = "Зачислен переводом из ";
+            IsFromAdmission = false;
         }
 
         /// <summary>
@@ -28,11 +29,5 @@ namespace Model.Astu
         /// </summary>
         [DbFieldInfo("OLD_KR_VUZ")]
         public string OldUniversityShortName { get; set; }
-
-        /// <summary>
-        /// Дата начала обучения
-        /// </summary>
-        [DbFieldInfo("DAT_START", DbFieldType.DateTime)]
-        public DateTime? StartDate { get; set; }
     }
 }

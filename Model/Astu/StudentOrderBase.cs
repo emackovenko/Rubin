@@ -54,9 +54,7 @@ namespace Model.Astu
         [DbFieldInfo("TPR")]
         [NavigationProperty(typeof(OrderType))]
         public string OrderTypeId { get; set; }
-
         
-
         /// <summary>
         /// Идентификатор факультета
         /// </summary>

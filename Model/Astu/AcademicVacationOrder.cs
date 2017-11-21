@@ -49,5 +49,6 @@ namespace Model.Astu
                 ReasonId = value?.Id;
             }
         }
+
     }
 }

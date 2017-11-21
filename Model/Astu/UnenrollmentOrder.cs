@@ -14,6 +14,7 @@ namespace Model.Astu
             : base ()
         {
             OrderTypeId = "0003";
+            Comment = "Отчислен ";
         }
 
         /// <summary>

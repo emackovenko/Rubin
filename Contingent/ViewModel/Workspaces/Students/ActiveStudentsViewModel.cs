@@ -43,7 +43,7 @@ namespace Contingent.ViewModel.Workspaces.Students
             get
             {
                 var activeStatuses = new string[] {"0001", "0002", "0007", "0008"};
-                var students = Astu.Students.Where(s => activeStatuses.Contains(s.StatusId)).OrderBy(s => s.Course).OrderBy(s => s.Name).OrderBy(s => s.Group?.Name);
+                var students = Astu.Students.Where(s => activeStatuses.Contains(s.StatusId)).OrderBy(s => s.Course).OrderBy(s => s.FullName).OrderBy(s => s.Group?.Name);
                 return new ObservableCollection<Student>(students);
             }
         }

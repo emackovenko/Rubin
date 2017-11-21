@@ -71,7 +71,7 @@
                         Binding="{Binding Path=RegistrationNumber}"/>
                     <DataGridTextColumn
                         Header="Ф.И.О."
-                        Binding="{Binding Path=Name}"/>
+                        Binding="{Binding Path=FullName}"/>
                     <DataGridTextColumn
                         Header="Статус"
                         Binding="{Binding Path=Status.Name}"/>

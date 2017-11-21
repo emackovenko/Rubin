@@ -111,7 +111,7 @@
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Width="270"
-                            Text="{Binding Path=Student.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                            Text="{Binding Path=Student.FullName, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="0"

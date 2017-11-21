@@ -63,8 +63,9 @@ namespace Model.Astu
                     cmd.ExecuteNonQuery();
                     transaction.Commit();
                     
-                    // Помечаем сущность как дефолтную
+                    // Помечаем сущность как дефолтную и пересоздаем бэкап
                     EntityState = EntityState.Default;
+                    _backup = Clone() as Entity;
                 }
                 catch (Exception e)
                 {
