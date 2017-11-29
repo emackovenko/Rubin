@@ -169,11 +169,17 @@
   <data name="InventoryList" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Documents\InventoryList.dotx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="LearningTicket" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Documents\LearningTicket.dotx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="MissingDocument" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Documents\MissingDocument.dotx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="PublicEntrantList" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Documents\PublicEntrantList.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="StudentErrorReport" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Documents\StudentErrorReport.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="TitlePage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Documents\TitlePage.dotx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

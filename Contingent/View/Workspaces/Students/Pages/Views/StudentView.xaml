@@ -629,7 +629,6 @@
                     Orientation="Horizontal">
                     <xctk:DropDownButton
                         ToolTip="Добавить приказ"
-                        IsEnabled="False"
                         BorderBrush="{StaticResource ResourceKey=ToolButtonBorder}"
                         Background="{x:Null}">  
                         <xctk:DropDownButton.DropDownContent>
@@ -639,6 +638,7 @@
                                     Header="Приказ о зачислении"
                                     Command="{Binding Path=AddEnrollmentOrderCommand}"/>
                                 <MenuItem
+                                    IsEnabled="False"
                                     Header="Приказ о зачислении в порядке перевода из другого ВУЗа"
                                     Command="{Binding Path=AddEnrollmentByUniversityTransferOrderCommand}"/>
                             </StackPanel>
@@ -662,8 +662,16 @@
                     SelectedItem="{Binding Path=SelectedOrder}">
                     <DataGrid.RowDetailsTemplateSelector>
                         <selector:StudentOrderTemplateSelector
+                            AcademicVacationOrderDataTemplate="{StaticResource AcademicVacationOrderDataTemplate}"
+                            ChildrenFussVacationOrderDataTemplate="{StaticResource ChildrenFussVacationOrderDataTemplate}"
+                            DefaultOrderDataTemplate="{StaticResource DefaultOrderDataTemplate}"
+                            DirectionChangingOrderDataTemplate="{StaticResource DirectionChangingOrderDataTemplate}"
                             EnrollmentOrderDataTemplate="{StaticResource EnrollmentOrderDataTemplate}"
-                            DefaultOrderDataTemplate="{StaticResource DefaultOrderDataTemplate}"/>
+                            FinanceSourceChangingOrderDataTemplate="{StaticResource FinanceSourceChangingOrderDataTemplate}"
+                            GroupTransferOrderDataTemplate="{StaticResource GroupTransferOrderDataTemplate}"
+                            NextCourseTransferOrderDataTemplate="{StaticResource NextCourseTransferOrderDataTemplate}"
+                            StudentNameChangingOrderDataTemplate="{StaticResource StudentNameChangingOrderDataTemplate}"
+                            UnenrollmentOrderDataTemplate="{StaticResource UnenrollmentOrderDataTemplate}"/>
                     </DataGrid.RowDetailsTemplateSelector>
                     <DataGrid.Columns>
                         <DataGridTextColumn

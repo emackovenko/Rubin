@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonMethods.TypeExtensions.exDateTime;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,16 @@ namespace Model.Astu
             Comment = "Переведен на другое направление подготовки";
         }
 
+
+        public override string DocumentLabel
+        {
+            get
+            {
+                return string.Format("Приказ о переводе на {0} курс {1} формы обучения по направлению бакалавриата {2} {3} {4} с {5} от {6} № {7}",
+                    NewCourse ?? 1, Student.EducationForm?.GenitiveName, Direction?.Code, Direction?.Name, Faculty?.GenitiveName, StartDate.Format() ?? Date.Format(), Date.Format(), Number);
+            }
+        }
+
         /// <summary>
         /// Дата начала обучения
         /// </summary>
@@ -26,7 +37,7 @@ namespace Model.Astu
         /// Курс, на который зачислен студент
         /// </summary>
         [DbFieldInfo("NEWKURS", DbFieldType.Integer)]
-        public int NewCourse { get; set; }
+        public int? NewCourse { get; set; }
         
         /// <summary>
         /// Идентификатор направления подготовки

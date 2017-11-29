@@ -7,6 +7,7 @@ using Model.Astu;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Contingent.DialogService;
+using Contingent.ViewModel.Documents;
 
 namespace Contingent.ViewModel.Workspaces.Students
 {
@@ -79,6 +80,8 @@ namespace Contingent.ViewModel.Workspaces.Students
             }
         }
 
+        public RelayCommand PrintLearningTicketCommand { get => new RelayCommand(PrintLearningTicket); }
+
         #endregion
 
         #region Methods
@@ -87,7 +90,7 @@ namespace Contingent.ViewModel.Workspaces.Students
         {
             var student = new Student();
             var vm = new StudentViewViewModel(student);
-            if(EditorInvoker.ShowEditorWithoutSaving(student, vm))
+            if(ViewInvoker.ShowEditorWithoutSaving(student, vm))
             {
                 Astu.Students.Add(student);
                 StudentChangesSaving(student);
@@ -103,13 +106,19 @@ namespace Contingent.ViewModel.Workspaces.Students
 
         void EditStudent()
         {
-            EditorInvoker.ShowEditor(SelectedStudent, StudentChangesSaving);
+            ViewInvoker.ShowEditor(SelectedStudent, StudentChangesSaving);
         }
 
         void RefreshList()
         {
             Astu.Students.Reset();
             RaisePropertyChanged("Students");
+        }
+
+        void PrintLearningTicket()
+        {
+            var doc = new LearningTicketDocument(SelectedStudent);
+            ViewInvoker.ShowDocument(doc);
         }
 
         #endregion

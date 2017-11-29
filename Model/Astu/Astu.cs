@@ -36,24 +36,72 @@ namespace Model.Astu
             OrderTypes = new EntitySet<OrderType>();
             UnenrollmentReasons = new EntitySet<UnenrollmentReason>();
             AcademicVacationReasons = new EntitySet<AcademicVacationReason>();
-            EnrollmentOrders = new EntitySet<EnrollmentOrder>(@"WHERE TPR='0001' ORDER BY KOD, DAT");
-            UnenrollmentOrders = new EntitySet<UnenrollmentOrder>(@"WHERE TPR='0003' ORDER BY KOD, DAT");
-            AcademicVacationOrders = new EntitySet<AcademicVacationOrder>(@"WHERE TPR='0002' ORDER BY KOD, DAT");
-            ReinstatementOrders = new EntitySet<ReinstatementOrder>(@"WHERE TPR='0006' ORDER BY KOD, DAT");
-            AcademicVacationExitOrders = new EntitySet<AcademicVacationExitOrder>(@"WHERE TPR='0007' ORDER BY KOD, DAT");
-            NextCourseTransferOrders = new EntitySet<NextCourseTransferOrder>(@"WHERE TPR='0030' ORDER BY KOD,DAT");
             DocumentTypes = new EntitySet<DocumentType>();
             IdentityDocumentTypes = new EntitySet<IdentityDocumentType>();
             IdentityDocuments = new EntitySet<IdentityDocument>(@"WHERE ID_DOCUMENTTYPE = 1 ORDER BY KOD, DOC_DATE");
             EducationDocuments = new EntitySet<EducationDocument>(@"WHERE ID_DOCUMENTTYPE IN (3,4,5) ORDER BY KOD, DOC_DATE");
-            EnrollmentByUniversityTransferOrders = new EntitySet<EnrollmentByUniversityTransferOrder>(@"WHERE TPR='0015'");
             DisabilityTickets = new EntitySet<DisabilityTicket>(@"WHERE ID_DOCUMENTTYPE = 11");
             DisabilityTypes = new EntitySet<DisabilityType>();
             OrphanCategories = new EntitySet<OrphanCategory>();
             OrphanTickets = new EntitySet<OrphanTicket>(@"WHERE ID_DOCUMENTTYPE = 30");
+            AcademicVacationExitOrders = new EntitySet<AcademicVacationExitOrder>(@"WHERE TPR='0007' ORDER BY KOD, DAT");
+            AcademicVacationOrders = new EntitySet<AcademicVacationOrder>(@"WHERE TPR='0002' ORDER BY KOD, DAT");
+            EnrollmentByUniversityTransferOrders = new EntitySet<EnrollmentByUniversityTransferOrder>(@"WHERE TPR='0015'");
+            EnrollmentOrders = new EntitySet<EnrollmentOrder>(@"WHERE TPR='0001' ORDER BY KOD, DAT");
+            NextCourseTransferOrders = new EntitySet<NextCourseTransferOrder>(@"WHERE TPR IN ('0030', '0033') ORDER BY KOD,DAT");
+            ReinstatementOrders = new EntitySet<ReinstatementOrder>(@"WHERE TPR='0006' ORDER BY KOD, DAT");
+            UnenrollmentOrders = new EntitySet<UnenrollmentOrder>(@"WHERE TPR='0003' ORDER BY KOD, DAT");
+            ChildrenFussVacationExitOrders = new EntitySet<ChildrenFussVacationExitOrder>(@"WHERE TPR='0029' ORDER BY KOD, DAT");
+            ChildrenFussVacationOrders = new EntitySet<ChildrenFussVacationOrder>(@"WHERE TPR IN ('0022', '0023', '0024', '0027', '0028') ORDER BY KOD, DAT");
+            DirectionChangingOrders = new EntitySet<DirectionChangingOrder>(@"WHERE TPR='0011' ORDER BY KOD, DAT");
+            EnrollToFullStateProvisionOrders = new EntitySet<EnrollToFullStateProvisionOrder>(@"WHERE TPR='0017' ORDER BY KOD, DAT");
+            FinanceSourceChangingOrders = new EntitySet<FinanceSourceChangingOrder>(@"WHERE TPR='0012' ORDER BY KOD, DAT");
+            GraduationOrders = new EntitySet<GraduationOrder>(@"WHERE TPR='0005' ORDER BY KOD, DAT");
+            GroupTransferOrders = new EntitySet<GroupTransferOrder>(@"WHERE TPR='0008' ORDER BY KOD, DAT");
+            StudentNameChangingOrders = new EntitySet<StudentNameChangingOrder>(@"WHERE TPR='0013' ORDER BY KOD, DAT");
+            OtherOrders = new EntitySet<OtherOrder>(@"WHERE TPR='0009' ORDER BY KOD, DAT");
+            TransferToAcceleratedEducationOrders = new EntitySet<TransferToAcceleratedEducationOrder>(@"WHERE TPR='0034' ORDER BY KOD, DAT");
         }
-        
+
         #region Entity collections
+
+        public static EntitySet<AcademicVacationExitOrder> AcademicVacationExitOrders { get; set; }
+
+        public static EntitySet<AcademicVacationOrder> AcademicVacationOrders { get; set; }
+
+        public static EntitySet<ChildrenFussVacationExitOrder> ChildrenFussVacationExitOrders { get; set; }
+
+        public static EntitySet<ChildrenFussVacationOrder> ChildrenFussVacationOrders { get; set; }
+
+        public static EntitySet<DirectionChangingOrder> DirectionChangingOrders { get; set; }
+
+        public static EntitySet<EnrollmentByUniversityTransferOrder> EnrollmentByUniversityTransferOrders { get; set; }
+
+        public static EntitySet<EnrollmentOrder> EnrollmentOrders { get; set; }
+
+        public static EntitySet<EnrollToFullStateProvisionOrder> EnrollToFullStateProvisionOrders { get; set; }
+
+        public static EntitySet<FinanceSourceChangingOrder> FinanceSourceChangingOrders { get; set; }
+
+        public static EntitySet<GraduationOrder> GraduationOrders { get; set; }
+
+        public static EntitySet<GroupTransferOrder> GroupTransferOrders { get; set; }
+
+        public static EntitySet<StudentNameChangingOrder> StudentNameChangingOrders { get; set; }
+
+        public static EntitySet<NextCourseTransferOrder> NextCourseTransferOrders { get; set; }
+
+        public static EntitySet<OtherOrder> OtherOrders { get; set; }
+
+        public static EntitySet<ReinstatementOrder> ReinstatementOrders { get; set; }
+
+        public static EntitySet<TransferToAcceleratedEducationOrder> TransferToAcceleratedEducationOrders { get; set; }
+
+        public static EntitySet<UnenrollmentOrder> UnenrollmentOrders { get; set; }
+
+        public static EntitySet<AcademicVacationReason> AcademicVacationReasons { get; set; }
+
+        public static EntitySet<UnenrollmentReason> UnenrollmentReasons { get; set; }
 
         public static EntitySet<OrphanCategory> OrphanCategories { get; set; }
 
@@ -63,8 +111,6 @@ namespace Model.Astu
 
         public static EntitySet<DisabilityTicket> DisabilityTickets { get; set; }
 
-        public static EntitySet<EnrollmentByUniversityTransferOrder> EnrollmentByUniversityTransferOrders { get; set; }
-
         public static EntitySet<EducationDocument> EducationDocuments { get; set; }
 
         public static EntitySet<IdentityDocument> IdentityDocuments { get; set; }
@@ -72,22 +118,6 @@ namespace Model.Astu
         public static EntitySet<IdentityDocumentType> IdentityDocumentTypes { get; set; }
 
         public static EntitySet<DocumentType> DocumentTypes { get; set; }
-
-        public static EntitySet<NextCourseTransferOrder> NextCourseTransferOrders { get; set; }
-
-        public static EntitySet<ReinstatementOrder> ReinstatementOrders { get; set; }
-
-        public static EntitySet<AcademicVacationReason> AcademicVacationReasons { get; set; }
-
-        public static EntitySet<AcademicVacationOrder> AcademicVacationOrders { get; set; }
-
-        public static EntitySet<AcademicVacationExitOrder> AcademicVacationExitOrders { get; set; }
-
-        public static EntitySet<UnenrollmentOrder> UnenrollmentOrders { get; set; }
-
-        public static EntitySet<UnenrollmentReason> UnenrollmentReasons { get; set; }
-
-        public static EntitySet<EnrollmentOrder> EnrollmentOrders { get; set; }
 
         public static EntitySet<OrderType> OrderTypes { get; set; }
 

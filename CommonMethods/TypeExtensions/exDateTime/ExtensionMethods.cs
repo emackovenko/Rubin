@@ -18,5 +18,25 @@ namespace CommonMethods.TypeExtensions.exDateTime
 		{
 			return date >= startRangeDate && date <= endRangeDate;
 		}
-	}
+
+
+        public static string Format(this DateTime? date)
+        {
+            if (!date.HasValue)
+            {
+                return null;
+            }
+            return ((DateTime)date).ToString("dd.MM.yyyy");
+        }
+
+        public static string Format(this DateTime? date, string format)
+        {
+            if (!date.HasValue)
+            {
+                return null;
+            }
+
+            return ((DateTime)date).ToString(format);
+        }
+    }
 }

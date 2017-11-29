@@ -22,6 +22,9 @@
             Property="Header"
             Value="Информация"/>
         <Setter
+            Property="MaxHeight"
+            Value="100"/>
+        <Setter
             Property="MaxWidth">
             <Setter.Value>
                 <Binding Path="ActualWidth" Mode="OneWay">
@@ -41,57 +44,49 @@
             Value="Top"/>
     </Style>
 
-    <DataTemplate x:Key="EnrollmentOrderDataTemplate"
-            DataType="{x:Type model:EnrollmentOrder}">
+    <Style
+        TargetType="WrapPanel">
+        <Setter
+            Property="ScrollViewer.VerticalScrollBarVisibility"
+            Value="Disabled"/>
+        <Setter
+            Property="Background"
+            Value="#FFD5FFA3"/>
+        <Setter
+            Property="Orientation"
+            Value="Vertical"/>
+        <Setter
+            Property="MaxHeight"
+            Value="100"/>
+    </Style>
+
+    <DataTemplate x:Key="EnrollmentOrderDataTemplate">
         <Grid>
             <Expander
                 Style="{StaticResource ResourceKey=ExpanderInfo}">
-                <Grid 
-                Background="#FFD5FFA3">
-                    <Grid.RowDefinitions>
-                        <RowDefinition
-                        Height="Auto"/>
-                        <RowDefinition
-                        Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <WrapPanel
-                    Grid.Row="0"
-                    Orientation="Horizontal">
-                        <TextBlock
-                        Text="Группа:"/>
-                        <TextBlock
-                        Style="{StaticResource AuxularyInfoTextBox}"
-                        Text="{Binding Path=Group.Name}"/>
-                        <TextBlock
-                        Text="Направление:"/>
-                        <TextBlock
-                        Style="{StaticResource AuxularyInfoTextBox}"
-                        Text="{Binding Path=Direction.ShortName}"/>
-                        <TextBlock
-                        Text="Факультет:"/>
-                        <TextBlock
-                        Style="{StaticResource AuxularyInfoTextBox}"
-                        Text="{Binding Path=Faculty.ShortName}"/>
-                        <TextBlock
-                        Text="Форма обучения:"/>
-                        <TextBlock
-                        Style="{StaticResource AuxularyInfoTextBox}"
-                        Text="{Binding Path=EducationForm.Name}"/>
-                        <TextBlock
-                        Text="Категория обучения:"/>
-                        <TextBlock
-                        Style="{StaticResource AuxularyInfoTextBox}"
-                        Text="{Binding Path=FinanceSource.Name}"/>
-                    </WrapPanel>
-                    <WrapPanel
-                        Grid.Row="1">
-                        <TextBlock
-                        Text="Дата начала обучения:"/>
-                        <TextBlock
-                        Style="{StaticResource AuxularyInfoTextBox}"
-                        Text="{Binding Path=StartDate, Converter={StaticResource DateConverter}}"/>
-                    </WrapPanel>
-                </Grid>
+                <WrapPanel>
+                    <control:EntityInfo
+                        Title="Группа"
+                        Value="{Binding Path=Group.Name}"/>
+                    <control:EntityInfo
+                        Title="Факультет"
+                        Value="{Binding Path=Faculty.ShortName}"/>
+                    <control:EntityInfo
+                        Title="Категория"
+                        Value="{Binding Path=FinanceSource.Name}" Background="{x:Null}"/>
+                    <control:EntityInfo
+                        Title="Направление"
+                        Value="{Binding Path=Direction.DisplayName}"/>
+                    <control:EntityInfo
+                        Title="Форма"
+                        Value="{Binding Path=EducationForm.Name}"/>
+                    <control:EntityInfo
+                        Title="Курс"
+                        Value="{Binding Path=NewCourse}"/>
+                    <control:EntityInfo
+                        Title="Дата начала обучения"
+                        Value="{Binding Path=StartDate, Converter={StaticResource DateConverter}}"/>
+                </WrapPanel>
             </Expander>
         </Grid>
     </DataTemplate>
@@ -100,49 +95,187 @@
         <Grid>
             <Expander
                 Style="{StaticResource ResourceKey=ExpanderInfo}">
-                <Grid 
-                Background="#FFD5FFA3">
-                    <Grid.RowDefinitions>
-                        <RowDefinition
-                        Height="Auto"/>
-                        <RowDefinition
-                        Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <WrapPanel
-                    Grid.Row="0"
-                    Orientation="Horizontal">
-                        <TextBlock
-                        Text="Группа:"/>
-                        <TextBlock
-                        Style="{StaticResource AuxularyInfoTextBox}"
-                        Text="{Binding Path=Group.Name}"/>
-                        <TextBlock
-                        Text="Направление:"/>
-                        <TextBlock
-                        Style="{StaticResource AuxularyInfoTextBox}"
-                        Text="{Binding Path=Direction.ShortName}"/>
-                        <TextBlock
-                        Text="Факультет:"/>
-                        <TextBlock
-                        Style="{StaticResource AuxularyInfoTextBox}"
-                        Text="{Binding Path=Faculty.ShortName}"/>
-                        <TextBlock
-                        Text="Форма обучения:"/>
-                        <TextBlock
-                        Style="{StaticResource AuxularyInfoTextBox}"
-                        Text="{Binding Path=EducationForm.Name}"/>
-                        <TextBlock
-                        Text="Категория обучения:"/>
-                        <TextBlock
-                        Style="{StaticResource AuxularyInfoTextBox}"
-                        Text="{Binding Path=FinanceSource.Name}"/>
-                    </WrapPanel>
-                </Grid>
+                <WrapPanel>
+                    <control:EntityInfo
+                        Title="Факультет"
+                        Value="{Binding Path=Faculty.ShortName}"/>
+                </WrapPanel>
+            </Expander>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ChildrenFussVacationOrderDataTemplate"
+        DataType="{x:Type model:ChildrenFussVacationOrder}">
+        <Grid>
+            <Expander
+                Style="{StaticResource ResourceKey=ExpanderInfo}">
+                <WrapPanel>
+                    <control:EntityInfo
+                        Title="Факультет"
+                        Value="{Binding Path=Faculty.ShortName}"/>
+                    <control:EntityInfo
+                        Title="Дата начала"
+                        Value="{Binding Path=StartDate, Converter={StaticResource DateConverter}}"/>
+                    <control:EntityInfo
+                        Title="Дата окончания"
+                        Value="{Binding Path=EndDate, Converter={StaticResource DateConverter}}"/>
+                </WrapPanel>
+            </Expander>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="AcademicVacationOrderDataTemplate"
+        DataType="{x:Type model:AcademicVacationOrder}">
+        <Grid>
+            <Expander
+                Style="{StaticResource ResourceKey=ExpanderInfo}">
+                <WrapPanel>
+                    <control:EntityInfo
+                        Title="Факультет"
+                        Value="{Binding Path=Faculty.ShortName}"/>
+                    <control:EntityInfo
+                        Title="Дата начала"
+                        Value="{Binding Path=StartDate, Converter={StaticResource DateConverter}}"/>
+                    <control:EntityInfo
+                        Title="Дата окончания"
+                        Value="{Binding Path=EndDate, Converter={StaticResource DateConverter}}"/>
+                    <control:EntityInfo
+                        Title="Причина"
+                        Value="{Binding Path=Reason.Name}"/>
+                </WrapPanel>
             </Expander>
         </Grid>
     </DataTemplate>
     
+    <DataTemplate x:Key="DirectionChangingOrderDataTemplate"
+            DataType="{x:Type model:DirectionChangingOrder}">
+        <Grid>
+            <Expander
+                Style="{StaticResource ResourceKey=ExpanderInfo}">
+                <WrapPanel>
+                    <control:EntityInfo
+                        Title="Группа"
+                        Value="{Binding Path=Group.Name}"/>
+                    <control:EntityInfo
+                        Title="Факультет"
+                        Value="{Binding Path=Faculty.ShortName}"/>
+                    <control:EntityInfo
+                        Title="Направление"
+                        Value="{Binding Path=Direction.DisplayName}"/>
+                    <control:EntityInfo
+                        Title="Курс"
+                        Value="{Binding Path=NewCourse}"/>
+                    <control:EntityInfo
+                        Title="Дата начала обучения"
+                        Value="{Binding Path=StartDate, Converter={StaticResource DateConverter}}"/>
+                </WrapPanel>
+            </Expander>
+        </Grid>
+    </DataTemplate>
     
+    <DataTemplate x:Key="FinanceSourceChangingOrderDataTemplate"
+            DataType="{x:Type model:FinanceSourceChangingOrder}">
+        <Grid>
+            <Expander
+                Style="{StaticResource ResourceKey=ExpanderInfo}">
+                <WrapPanel>
+                    <control:EntityInfo
+                        Title="Группа"
+                        Value="{Binding Path=FinanceSource.Name}"/>
+                    <control:EntityInfo
+                        Title="Факультет"
+                        Value="{Binding Path=Faculty.ShortName}"/>
+                    <control:EntityInfo
+                        Title="Дата начала обучения"
+                        Value="{Binding Path=StartDate, Converter={StaticResource DateConverter}}"/>
+                </WrapPanel>
+            </Expander>
+        </Grid>
+    </DataTemplate>
+     
+    <DataTemplate x:Key="GroupTransferOrderDataTemplate"
+            DataType="{x:Type model:GroupTransferOrder}">
+        <Grid>
+            <Expander
+                Style="{StaticResource ResourceKey=ExpanderInfo}">
+                <WrapPanel>
+                    <control:EntityInfo
+                        Title="Группа"
+                        Value="{Binding Path=Group.Name}"/>
+                    <control:EntityInfo
+                        Title="Факультет"
+                        Value="{Binding Path=Faculty.ShortName}"/>
+                    <control:EntityInfo
+                        Title="Курс"
+                        Value="{Binding Path=NewCourse}"/>
+                    <control:EntityInfo
+                        Title="Дата начала обучения"
+                        Value="{Binding Path=StartDate, Converter={StaticResource DateConverter}}"/>
+                </WrapPanel>
+            </Expander>
+        </Grid>
+    </DataTemplate>
+     
+    <DataTemplate x:Key="NextCourseTransferOrderDataTemplate"
+            DataType="{x:Type model:NextCourseTransferOrder}">
+        <Grid>
+            <Expander
+                Style="{StaticResource ResourceKey=ExpanderInfo}">
+                <WrapPanel>
+                    <control:EntityInfo
+                        Title="Факультет"
+                        Value="{Binding Path=Faculty.ShortName}"/>
+                    <control:EntityInfo
+                        Title="Дата начала обучения"
+                        Value="{Binding Path=StartDate, Converter={StaticResource DateConverter}}"/>
+                    <control:EntityInfo
+                        Title="Новый курс"
+                        Value="{Binding Path=NewCourse}"/>
+                    <control:EntityInfo
+                        Title="Старый курс"
+                        Value="{Binding Path=OldCourse}"/>
+                </WrapPanel>
+            </Expander>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="StudentNameChangingOrderDataTemplate"
+            DataType="{x:Type model:StudentNameChangingOrder}">
+        <Grid>
+            <Expander
+                Style="{StaticResource ResourceKey=ExpanderInfo}">
+                <WrapPanel>
+                    <control:EntityInfo
+                        Title="Старые Ф.И.О."
+                        Value="{Binding Path=OldFullName}"/>
+                    <control:EntityInfo
+                        Title="Дата начала обучения"
+                        Value="{Binding Path=StartDate, Converter={StaticResource DateConverter}}"/>
+                </WrapPanel>
+            </Expander>
+        </Grid>
+    </DataTemplate>
+    
+    <DataTemplate x:Key="UnenrollmentOrderDataTemplate"
+            DataType="{x:Type model:UnenrollmentOrder}">
+        <Grid>
+            <Expander
+                Style="{StaticResource ResourceKey=ExpanderInfo}">
+                <WrapPanel>
+                    <control:EntityInfo
+                        Title="Причина отчисления"
+                        Value="{Binding Path=UnenrollmentReason.Name}"/>
+                    <control:EntityInfo
+                        Title="Факультет"
+                        Value="{Binding Path=Faculty.ShortName}"/>
+                    <control:EntityInfo
+                        Title="Дата окончания обучения"
+                        Value="{Binding Path=EndDate, Converter={StaticResource DateConverter}}"/>
+                </WrapPanel>
+            </Expander>
+        </Grid>
+    </DataTemplate>
+
     <!--  ДОКУМЕНТЫ  -->
 
 

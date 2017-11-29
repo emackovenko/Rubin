@@ -86,9 +86,9 @@ namespace Contingent.ViewModel
 
             // создаем коннект и пытаемся инициализировать модель
             var connection = new OracleConnection(connectionString.ToString());
-            connection.Open();
 
             // если получилось
+           // var authResult = ModelAuthAsync(connection).GetAwaiter().GetResult();
             if (Astu.Auth(connection))
             {
                 // сохраняем параметры подключения

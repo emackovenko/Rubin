@@ -23,36 +23,40 @@ namespace Model.Astu
                 throw new ArgumentNullException("entityType");
             }
 
-            // Получаем коллекцию загружаемых полей объекта
-            var fields = entityType.GetProperties().Where(pi => pi.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).Count() > 0).OrderBy(pi => pi.Name);
-
-            // Составляем строку запроса
-            var sb = new StringBuilder();
-            sb.Append("SELECT ");
-            foreach (var f in fields)
+            if (!Cache.SelectQueries.TryGetValue(entityType, out string query))
             {
-                if (f.PropertyType == typeof(string))
-                {
-                    sb.AppendFormat("TRIM({0})",
-                        (f.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).First() as DbFieldInfoAttribute).Name);
-                }
-                else
-                {
-                    sb.Append((f.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).First() as DbFieldInfoAttribute).Name);
-                }
-                sb.Append(",");
-            }
-            sb.Remove(sb.Length - 1, 1);
+                // Получаем коллекцию загружаемых полей объекта
+                var fields = entityType.GetProperties().Where(pi => pi.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).Count() > 0).OrderBy(pi => pi.Name);
 
-            var tableName = (entityType.GetCustomAttributes(typeof(TableNameAttribute), true).First() as TableNameAttribute).Value;
-            sb.AppendFormat(" FROM {0}", tableName);
+                // Составляем строку запроса
+                var sb = new StringBuilder();
+                sb.Append("SELECT ");
+                foreach (var f in fields)
+                {
+                    if (f.PropertyType == typeof(string))
+                    {
+                        sb.AppendFormat("TRIM({0})",
+                            (f.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).First() as DbFieldInfoAttribute).Name);
+                    }
+                    else
+                    {
+                        sb.Append((f.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).First() as DbFieldInfoAttribute).Name);
+                    }
+                    sb.Append(",");
+                }
+                sb.Remove(sb.Length - 1, 1);
 
-            // докидывем условие, если оно есть
-            if (!string.IsNullOrWhiteSpace(sqlOption))
-            {
-                sb.AppendFormat(" {0}", sqlOption);
+                var tableName = (entityType.GetCustomAttributes(typeof(TableNameAttribute), true).First() as TableNameAttribute).Value;
+                sb.AppendFormat(" FROM {0}", tableName);
+
+                // докидывем условие, если оно есть
+                if (!string.IsNullOrWhiteSpace(sqlOption))
+                {
+                    sb.AppendFormat(" {0}", sqlOption);
+                }
+                query = sb.ToString();
             }
-            return sb.ToString();
+            return query;
         }
 
         /// <summary>
@@ -70,7 +74,7 @@ namespace Model.Astu
             var entityType = entity.GetType();
 
             // Если идентификатор пустой, то проставляем ему значение
-            var primProp = entityType.GetProperties().Where(p => p.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).Count() > 0).FirstOrDefault();
+            var primProp = GetPrimaryKeyPropertyInfo(entityType);
             if (primProp == null)
             {
                 throw new ArgumentNullException("Primary key not found");
@@ -180,7 +184,6 @@ namespace Model.Astu
 
             return str;
         }
-        
 
         /// <summary>
         /// Возвращает строковое представление объекта в формате SQL выражения
@@ -218,14 +221,20 @@ namespace Model.Astu
         /// <returns></returns>
         static string GetEntityTableName(Type entityType)
         {
-            var tableNameAttribute = entityType.GetCustomAttributes(typeof(TableNameAttribute), true).FirstOrDefault() as TableNameAttribute;
-
-            if (tableNameAttribute == null)
+            if (!Cache.TableNames.TryGetValue(entityType, out string result))
             {
-                throw new Exception(string.Format("Для сущности {0} не задана сопоставляемая таблица в БД.", entityType.Name));
-            }
+                var tableNameAttribute = entityType.GetCustomAttributes(typeof(TableNameAttribute), true).FirstOrDefault() as TableNameAttribute;
 
-            return tableNameAttribute.Value;
+                if (tableNameAttribute == null)
+                {
+                    throw new Exception(string.Format("Для сущности {0} не задана сопоставляемая таблица в БД.", entityType.Name));
+                }
+
+                result = tableNameAttribute.Value;
+                Cache.TableNames.Add(entityType, result);
+            }
+            
+            return result;
         }
 
         /// <summary>
@@ -251,13 +260,21 @@ namespace Model.Astu
         /// <returns></returns>
         internal static PropertyInfo GetPrimaryKeyPropertyInfo(Type entityType)
         {
-            var props = entityType.GetProperties();
-            foreach (var prop in props)
+            if (!Cache.PrimaryKeyProperties.TryGetValue(entityType, out PropertyInfo result))
             {
-                if (prop.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).Count() > 0)
+                var props = entityType.GetProperties();
+                foreach (var prop in props)
                 {
-                    return prop;
+                    if (prop.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).Count() > 0)
+                    {
+                        Cache.PrimaryKeyProperties.Add(entityType, prop);
+                        return prop;
+                    }
                 }
+            }
+            else
+            {
+                return result;
             }
             throw new InvalidOperationException("Для сущности не указано поле первичного ключа");
         }
@@ -269,20 +286,9 @@ namespace Model.Astu
         /// <returns></returns>
         static string GetPrimaryFieldName(Type entityType)
         {
-            var props = entityType.GetProperties();
-            foreach (var prop in props)
-            {
-                if (prop.GetCustomAttributes(typeof(PrimaryKeyAttribute), true).Count() > 0)
-                {
-                    var fieldName = prop.GetCustomAttributes(typeof(DbFieldInfoAttribute), true).FirstOrDefault() as DbFieldInfoAttribute;
-                    if (fieldName == null)
-                    {
-                        throw new ArgumentNullException(string.Format("Для свойства {0} не указан сопоставляемый тип", prop.Name));
-                    }
-                    return fieldName.Name;
-                }
-            }
-            throw new InvalidOperationException("Для сущности не указано поле первичного ключа");
+            var fieldName = GetPrimaryKeyPropertyInfo(entityType).GetCustomAttributes(typeof(DbFieldInfoAttribute), true).FirstOrDefault() as DbFieldInfoAttribute;
+            
+            return fieldName?.Name;
         }
 
         /// <summary>
@@ -298,6 +304,7 @@ namespace Model.Astu
                 GetPrimaryFieldName(entityType), GetEntityTableName(entityType));
 
             object id = null;
+
             using (var transaction = Astu.DbConnection.BeginTransaction())
             {
                 var cmd = Astu.DbConnection.CreateCommand();
@@ -305,7 +312,9 @@ namespace Model.Astu
                 cmd.CommandText = query;
                 id = cmd.ExecuteScalar();
             }
+
             return id;
         }
+
     }
 }

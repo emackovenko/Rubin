@@ -53,8 +53,8 @@
                     <StackPanel
                         Orientation="Vertical">
                         <MenuItem
-                            Header="Учебная карточка"
-                            Command=""/>
+                            Header="Справка об обучении"
+                            Command="{Binding Path=PrintLearningTicketCommand}"/>
                     </StackPanel>
                 </xctk:DropDownButton.DropDownContent>
                 <Image Style="{StaticResource PicturePrint}"/>

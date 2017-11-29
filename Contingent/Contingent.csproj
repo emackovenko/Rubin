@@ -30,7 +30,7 @@
     <PublisherName>Рубцовский индустриальный институт</PublisherName>
     <SuiteName>Информационно-технический отдел</SuiteName>
     <MinimumRequiredVersion>1.0.0.50</MinimumRequiredVersion>
-    <ApplicationRevision>55</ApplicationRevision>
+    <ApplicationRevision>58</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -100,6 +100,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Printing" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\portable-net40+sl4+win8+wp8\System.ValueTuple.dll</HintPath>
@@ -147,16 +148,39 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DialogService\EditorInvoker.cs" />
+    <Compile Include="DialogService\DocumentViewer.xaml.cs">
+      <DependentUpon>DocumentViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DialogService\ViewInvoker.cs" />
     <Compile Include="DialogService\EntityEditor.xaml.cs">
       <DependentUpon>EntityEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="DialogService\Messenger.cs" />
     <Compile Include="Themes\Behaviors\PasswordBehavior.cs" />
+    <Compile Include="Themes\Controls\EntityCheckBox.xaml.cs">
+      <DependentUpon>EntityCheckBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\EntityComboBox.xaml.cs">
+      <DependentUpon>EntityComboBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\EntityDatePicker.xaml.cs">
+      <DependentUpon>EntityDatePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\EntityInfo.xaml.cs">
+      <DependentUpon>EntityInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\EntityText.xaml.cs">
+      <DependentUpon>EntityText.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Controls\ExDataGrid.cs" />
+    <Compile Include="Themes\Controls\OpenXmlDocumentViewer.xaml.cs">
+      <DependentUpon>OpenXmlDocumentViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Controls\ProtectedTabItem.xaml.cs">
       <DependentUpon>ProtectedTabItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Controls\RaiseDocumentViewer.cs" />
+    <Compile Include="Themes\Controls\WaitIndicator.cs" />
     <Compile Include="Themes\Controls\WorkspaceMenuItem.xaml.cs">
       <DependentUpon>WorkspaceMenuItem.xaml</DependentUpon>
     </Compile>
@@ -164,11 +188,16 @@
     <Compile Include="Themes\Converters\DateConverter.cs" />
     <Compile Include="Themes\Selectors\StudentDocumentTemplateSelector.cs" />
     <Compile Include="Themes\Selectors\StudentOrderTemplateSelector.cs" />
+    <Compile Include="ViewModel\Documents\LearningTicketDocument.cs" />
+    <Compile Include="ViewModel\Documents\StudentErrorsReport.cs" />
     <Compile Include="ViewModel\LogWriter.cs" />
     <Compile Include="ViewModel\Session.cs" />
     <Compile Include="ViewModel\Windows\AuthViewModel.cs" />
     <Compile Include="ViewModel\Windows\ConnectionSettingsViewModel.cs" />
     <Compile Include="ViewModel\Windows\DesktopViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Service\ErrorHandling\ErrorReportItem.cs" />
+    <Compile Include="ViewModel\Workspaces\Service\ErrorHandling\ErrorReportViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Service\ScrutchViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Students\ActiveStudentsViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Students\EnrollmentOrderViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Students\EnrollmentByUniversityTransferOrderViewModel.cs" />
@@ -182,6 +211,15 @@
     </Compile>
     <Compile Include="View\Windows\DesktopWindow.xaml.cs">
       <DependentUpon>DesktopWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Service\Pages\ErrorReport.xaml.cs">
+      <DependentUpon>ErrorReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Service\Pages\ScrutchPage.xaml.cs">
+      <DependentUpon>ScrutchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Service\ServiceView.xaml.cs">
+      <DependentUpon>ServiceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Workspaces\Students\Pages\ActiveStudents.xaml.cs">
       <DependentUpon>ActiveStudents.xaml</DependentUpon>
@@ -239,11 +277,39 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="DialogService\DocumentViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DialogService\EntityEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Controls\EntityCheckBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\EntityComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\EntityDatePicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\EntityInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\EntityText.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Controls\ExDataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\OpenXmlDocumentViewer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -276,6 +342,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Windows\DesktopWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Service\Pages\ErrorReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Service\Pages\ScrutchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Service\ServiceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

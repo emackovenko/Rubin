@@ -390,7 +390,7 @@ namespace Model.Astu
         #endregion
 
         #region Navigation collections
-
+                
         /// <summary>
         /// Приказы по студенту (ANK_HIST)
         /// </summary>
@@ -399,23 +399,27 @@ namespace Model.Astu
             get
             {
                 var list = new List<StudentOrderBase>();
-                list.AddRange(Astu.EnrollmentOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
-                list.AddRange(Astu.UnenrollmentOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
-                list.AddRange(Astu.AcademicVacationOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
-                list.AddRange(Astu.ReinstatementOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
-                list.AddRange(Astu.AcademicVacationExitOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
-                list.AddRange(Astu.NextCourseTransferOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
-                list.AddRange(Astu.EnrollmentByUniversityTransferOrders.Where(o => o.StudentId == Id).Cast<StudentOrderBase>());
+                list.AddRange(Astu.AcademicVacationExitOrders.Where(o => o.StudentId == Id));
+                list.AddRange(Astu.AcademicVacationOrders.Where(o => o.StudentId == Id));
+                list.AddRange(Astu.ChildrenFussVacationExitOrders.Where(o => o.StudentId == Id));
+                list.AddRange(Astu.ChildrenFussVacationOrders.Where(o => o.StudentId == Id));
+                list.AddRange(Astu.DirectionChangingOrders.Where(o => o.StudentId == Id));
+                list.AddRange(Astu.EnrollmentByUniversityTransferOrders.Where(o => o.StudentId == Id));
+                list.AddRange(Astu.EnrollmentOrders.Where(o => o.StudentId == Id));
+                list.AddRange(Astu.EnrollToFullStateProvisionOrders.Where(o => o.StudentId == Id));
+                list.AddRange(Astu.FinanceSourceChangingOrders.Where(o => o.StudentId == Id));
+                list.AddRange(Astu.GraduationOrders.Where(o => o.StudentId == Id));
+                list.AddRange(Astu.GroupTransferOrders.Where(o => o.StudentId == Id));
+                list.AddRange(Astu.StudentNameChangingOrders.Where(o => o.StudentId == Id));
+                list.AddRange(Astu.NextCourseTransferOrders.Where(o => o.StudentId == Id));
+                list.AddRange(Astu.OtherOrders.Where(o => o.StudentId == Id));
+                list.AddRange(Astu.ReinstatementOrders.Where(o => o.StudentId == Id));
+                list.AddRange(Astu.TransferToAcceleratedEducationOrders.Where(o => o.StudentId == Id));
+                list.AddRange(Astu.UnenrollmentOrders.Where(o => o.StudentId == Id));
                 return list.OrderBy(o => o.Date);
             }
         }
-
-        /// <summary>
-        /// Документы, удостоверяющие личность
-        /// </summary>
-        public NavigatedCollection<IdentityDocument> IdentityDocuments { get; set; }
-        
-
+                
         /// <summary>
         /// Документы
         /// </summary>
@@ -424,7 +428,7 @@ namespace Model.Astu
             get
             {
                 var list = new List<StudentDocumentBase>();
-                list.AddRange(IdentityDocuments.Cast<StudentDocumentBase>());
+                list.AddRange(Astu.IdentityDocuments.Where(d => d.StudentId == Id).Cast<StudentDocumentBase>());
                 list.AddRange(Astu.EducationDocuments.Where(d => d.StudentId == Id).Cast<StudentDocumentBase>());
                 list.AddRange(Astu.OrphanTickets.Where(d => d.StudentId == Id).Cast<StudentDocumentBase>());
                 list.AddRange(Astu.DisabilityTickets.Where(d => d.StudentId == Id).Cast<StudentDocumentBase>());
@@ -433,6 +437,5 @@ namespace Model.Astu
         }
 
         #endregion
-
     }
 }

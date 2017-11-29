@@ -8,9 +8,9 @@ namespace Model.Astu
     /// <summary>
     /// Приказ о смене фамилии
     /// </summary>
-    public class LastNameChangingOrder: StudentOrderBase
+    public class StudentNameChangingOrder: StudentOrderBase
     {
-        public LastNameChangingOrder() : base ()
+        public StudentNameChangingOrder() : base ()
         {
             OrderTypeId = "0013";
             Comment = "Смена фамилии в связи с вступлением в брак";

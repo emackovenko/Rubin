@@ -233,6 +233,16 @@ namespace ResourceLibrary.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
+        public static byte[] LearningTicket {
+            get {
+                object obj = ResourceManager.GetObject("LearningTicket", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
         public static byte[] MissingDocument {
             get {
                 object obj = ResourceManager.GetObject("MissingDocument", resourceCulture);
@@ -246,6 +256,16 @@ namespace ResourceLibrary.Properties {
         public static byte[] PublicEntrantList {
             get {
                 object obj = ResourceManager.GetObject("PublicEntrantList", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        public static byte[] StudentErrorReport {
+            get {
+                object obj = ResourceManager.GetObject("StudentErrorReport", resourceCulture);
                 return ((byte[])(obj));
             }
         }

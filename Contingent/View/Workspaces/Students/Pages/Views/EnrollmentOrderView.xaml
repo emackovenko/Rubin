@@ -4,148 +4,71 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Contingent.View.Workspaces.Students.Pages.Views"
+             xmlns:c="clr-namespace:Contingent.Themes.Controls"
+             xmlns:vm="clr-namespace:Contingent.ViewModel.Workspaces.Students"
              mc:Ignorable="d">
-    <Grid
+    <UserControl.DataContext>
+        <vm:EnrollmentOrderViewModel/>
+    </UserControl.DataContext>
+    <StackPanel
+        Orientation="Vertical"
         Background="Beige">
-        <Grid.RowDefinitions>
-            <RowDefinition
-                Height="32"/>
-            <RowDefinition
-                Height="32"/>
-            <RowDefinition
-                Height="32"/>
-            <RowDefinition
-                Height="32"/>
-            <RowDefinition
-                Height="32"/>
-            <RowDefinition
-                Height="32"/>
-            <RowDefinition
-                Height="32"/>
-            <RowDefinition
-                Height="32"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition
-                Width="Auto"/>
-            <ColumnDefinition
-                Width="3"/>
-            <ColumnDefinition
-                Width="Auto"/>
-            <ColumnDefinition
-                Width="10"/>
-        </Grid.ColumnDefinitions>
-        <TextBlock
-            Grid.Row="0"
-            Grid.Column="0"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Right"
-            Text="Номер"/>
-        <TextBox
-            Grid.Row="0"
-            Grid.Column="2"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            Width="100"
-            Text="{Binding Path=Order.Number, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBlock
-            Grid.Row="1"
-            Grid.Column="0"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Right"
-            Text="Дата"/>
-        <DatePicker
-            Grid.Row="1"
-            Grid.Column="2"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            Width="100"
-            SelectedDate="{Binding Path=Order.Date, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBlock
-            Grid.Row="2"
-            Grid.Column="0"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Right"
-            Text="Группа"/>
-        <ComboBox
-            Grid.Row="2"
-            Grid.Column="2"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            Width="200" 
-            ItemsSource="{Binding Path=Groups}"
-            SelectedItem="{Binding Path=Order.Group, UpdateSourceTrigger=PropertyChanged}"
-            DisplayMemberPath="Name"/>
-        <TextBlock
-            Grid.Row="3"
-            Grid.Column="0"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Right"
-            Text="Специальность"/>
-        <ComboBox
-            Grid.Row="3"
-            Grid.Column="2"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            Width="250"
-            ItemsSource="{Binding Path=Directions}"
-            SelectedItem="{Binding Path=Order.Direction, UpdateSourceTrigger=PropertyChanged}"
-            DisplayMemberPath="DisplayName" />
-        <TextBlock
-            Grid.Row="4"
-            Grid.Column="0"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Right"
-            Text="Факультет"/>
-        <ComboBox
-            Grid.Row="4"
-            Grid.Column="2"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            Width="200" 
-            ItemsSource="{Binding Path=Faculties}"
-            SelectedItem="{Binding Path=Order.Faculty, UpdateSourceTrigger=PropertyChanged}"
-            DisplayMemberPath="ShortName"/>
-        <TextBlock
-            Grid.Row="5"
-            Grid.Column="0"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Right"
-            Text="Категория обучения"/>
-        <ComboBox
-            Grid.Row="5"
-            Grid.Column="2"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            Width="150"
-            ItemsSource="{Binding Path=FinanceSources}"
-            SelectedItem="{Binding Path=Order.FinanceSource, UpdateSourceTrigger=PropertyChanged}"
-            DisplayMemberPath="Name"/>
-        <TextBlock
-            Grid.Row="6"
-            Grid.Column="0"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Right"
-            Text="Дата начала обучения"/>
-        <DatePicker
-            Grid.Row="6"
-            Grid.Column="2"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            Width="100"
-            SelectedDate="{Binding Path=Order.StartDate, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBlock
-            Grid.Row="7"
-            Grid.Column="0"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Right"
-            Text="Комментарий к приказу"/>
-        <TextBox
-            Grid.Row="7"
-            Grid.Column="2"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            Width="400"
-            Text="{Binding Path=Order.Comment, UpdateSourceTrigger=PropertyChanged}"/>
-    </Grid>
+        <c:EntityText
+            Header="Номер"
+            Member="{Binding Path=Order.Number, UpdateSourceTrigger=PropertyChanged}"            
+            EditWidth="150"/>
+        
+        <c:EntityDatePicker
+            Header="Дата"
+            Member="{Binding Path=Order.Date, UpdateSourceTrigger=PropertyChanged}"/>
+        
+        <c:EntityComboBox
+            EditWidth="200"
+            Header="Факультет"
+            Member="{Binding Path=Order.Faculty, UpdateSourceTrigger=PropertyChanged}"            
+            Items="{Binding Path=Faculties}"
+            DisplayPath="ShortName"/>
+        
+        <c:EntityComboBox
+            EditWidth="150"
+            Header="Группа"
+            Member="{Binding Path=Order.Group, UpdateSourceTrigger=PropertyChanged}"            
+            Items="{Binding Path=Groups}"
+            DisplayPath="Name"/>
+        
+        <c:EntityComboBox
+            EditWidth="200"
+            Header="Категория обучения"
+            Member="{Binding Path=Order.FinanceSource, UpdateSourceTrigger=PropertyChanged}"            
+            Items="{Binding Path=FinanceSources}"
+            DisplayPath="Name"/>
+        
+        <c:EntityComboBox
+            EditWidth="400"
+            Header="Направление подготовки"
+            Member="{Binding Path=Order.Direction, UpdateSourceTrigger=PropertyChanged}"            
+            Items="{Binding Path=Directions}"
+            DisplayPath="DisplayName"/>
+
+        <c:EntityComboBox
+            EditWidth="200"
+            Header="Форма обучения"
+            Member="{Binding Path=Order.EducationForm, UpdateSourceTrigger=PropertyChanged}"            
+            Items="{Binding Path=EducationForms}"
+            DisplayPath="Name"/>
+        
+        <c:EntityText
+            Header="Курс"
+            Member="{Binding Path=Order.Number, UpdateSourceTrigger=PropertyChanged}"            
+            EditWidth="50"/>
+        
+        <c:EntityDatePicker
+            Header="Дата начала обучения"
+            Member="{Binding Path=Order.StartDate, UpdateSourceTrigger=PropertyChanged}"/>
+        
+        <c:EntityText
+            Header="Комментарий"
+            Member="{Binding Path=Order.Comment, UpdateSourceTrigger=PropertyChanged}"            
+            EditWidth="400"/>
+    </StackPanel>
 </UserControl>

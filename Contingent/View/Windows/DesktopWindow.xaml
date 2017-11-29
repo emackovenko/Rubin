@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Contingent.View.Windows"
-        xmlns:student="clr-namespace:Contingent.View.Workspaces.Students"
         xmlns:control="clr-namespace:Contingent.Themes.Controls"
+        xmlns:student="clr-namespace:Contingent.View.Workspaces.Students"
+        xmlns:service="clr-namespace:Contingent.View.Workspaces.Service"
         mc:Ignorable="d"
         Title="Контингент" 
         Height="488.64" 
@@ -81,10 +82,10 @@
                 Icon="/ResourceLibrary;component/Images/contract.png">
             </control:ProtectedTabItem>
             <control:ProtectedTabItem 
-                IsEnabled="False"
                 PermissionName="ServiceWorkspace"
                 Title="Сервис"
                 Icon="/ResourceLibrary;component/Images/crutch.png">
+                <service:ServiceView/>
             </control:ProtectedTabItem>
         </TabControl>
         <Border

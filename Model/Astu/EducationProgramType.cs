@@ -30,11 +30,7 @@ namespace Model.Astu
         /// </summary>
         [DbFieldInfo("FOLDER_OMKO")]
         public string ShortName { get; set; }
-
-        /// <summary>
-        /// Направления подготовки образовательной программы
-        /// </summary>
-        public NavigatedCollection<Direction> Directions { get; set; }
+        
 
     }
 }

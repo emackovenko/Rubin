@@ -22,5 +22,11 @@ namespace Model.Astu
         /// </summary>
         [DbFieldInfo("NAME")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Архивный
+        /// </summary>
+        [DbFieldInfo("ARH", DbFieldType.Boolean )]
+        public bool IsArchival { get; set; }
     }
 }

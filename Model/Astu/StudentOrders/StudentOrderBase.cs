@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CommonMethods.TypeExtensions.exDateTime;
 
 namespace Model.Astu
 {
@@ -18,6 +19,18 @@ namespace Model.Astu
         }
 
         /// <summary>
+        /// Как приказ будет описан в документе
+        /// </summary>
+        public virtual string DocumentLabel
+        {
+            get
+            {
+                return string.Format("Приказ {0} № {1} от {2} г.",
+                    OrderType?.Name, Number, Date.ToString());
+            }
+        }
+
+        /// <summary>
         /// Идентификатор
         /// </summary>
         [PrimaryKey]
@@ -28,6 +41,7 @@ namespace Model.Astu
         /// Идентификатор студента
         /// </summary>
         [DbFieldInfo("KOD")]
+        [NavigationProperty(typeof(Student))]
         public string StudentId { get; set; }
 
         /// <summary>

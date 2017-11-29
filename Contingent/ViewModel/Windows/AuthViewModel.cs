@@ -43,6 +43,18 @@ namespace Contingent.ViewModel.Windows
             }
         }
 
+        bool _isProcessed = false;
+
+        public bool IsProcessed
+        {
+            get => _isProcessed;
+            set
+            {
+                _isProcessed = value;
+                RaisePropertyChanged("IsProcessed");
+            }
+        }
+
         public RelayCommand TryAuthCommand
         {
             get
@@ -61,9 +73,14 @@ namespace Contingent.ViewModel.Windows
         
         void TryAuth()
         {
+            //var sw = new System.Diagnostics.Stopwatch();
+            //sw.Start();
             // если получилось
             if (Session.GetInstance().Auth(Username, Password))
-            {                
+            {
+                //sw.Stop();
+                //var ts = sw.Elapsed;
+                //System.Windows.MessageBox.Show(string.Format("MIN: {0:00}\nSEC: {1:00}\nMILLSEC: {2:00}", ts.Minutes, ts.Seconds, ts.Milliseconds / 10));
                 // сохраняем настройки
                 Settings.Default.Save();
                 // шлем сообщение об успешной авторизации
@@ -86,5 +103,7 @@ namespace Contingent.ViewModel.Windows
         {
             return !(string.IsNullOrWhiteSpace(Username) && string.IsNullOrWhiteSpace(_password));
         }
+        
+        
     }
 }

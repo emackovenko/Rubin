@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Contingent.Themes.Controls.EntityDatePicker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Contingent.Themes.Controls"
+             mc:Ignorable="d"
+             x:Name="parent"
+             VerticalAlignment="Center"
+             HorizontalAlignment="Left">
+    <StackPanel
+        Orientation="Horizontal"
+        Margin="5">
+        <TextBlock
+            Margin="0,0,3,0"
+            VerticalAlignment="Center"
+            Text="{Binding ElementName=parent, Path=Header, StringFormat={}{0}:, Mode=OneWay}"/>
+        <DatePicker
+            x:Name="date"
+            VerticalAlignment="Center"
+            SelectedDate="{Binding ElementName=parent, 
+                Path=Member, ValidatesOnDataErrors=True, 
+                ValidatesOnExceptions=True, Mode=TwoWay, 
+                UpdateSourceTrigger=PropertyChanged}">
+            <DatePicker.Style>
+
+                <Style
+                    TargetType="DatePicker">
+                    <Style.Triggers>
+                        <Trigger
+                            Property="SelectedDate"
+                            Value="{x:Null}">
+                            <Setter
+                                Property="BorderBrush"
+                                Value="#FFFF0017"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DatePicker.Style>
+        </DatePicker>
+    </StackPanel>
+</UserControl>

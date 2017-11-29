@@ -5,10 +5,11 @@ using System.Text;
 using Model.Astu;
 using GalaSoft.MvvmLight;
 using System.Windows.Controls;
+using CommonMethods.Documents;
 
 namespace Contingent.DialogService
 {
-    public static class EditorInvoker
+    public static class ViewInvoker
     {
         /// <summary>
         /// Открывает окно редактора для указанной сущности и возвращает результат модального закрытия
@@ -187,6 +188,12 @@ namespace Contingent.DialogService
             }
 
             throw new NotImplementedException("Функционал для редактирования данной сущности не предусмотрен.");
+        }
+
+
+        public static void ShowDocument(OpenXmlDocument document)
+        {
+            (new DocumentViewer(document)).Show();
         }
 
     }

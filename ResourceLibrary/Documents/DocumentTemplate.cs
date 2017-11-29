@@ -41,7 +41,9 @@ namespace ResourceLibrary.Documents
 			{"EntrantContract", Resources.EntrantContract },
 			{"EnrollmentDisagreementClaim", Resources.EnrollmentDisagreementClaim },
 			{"ExaminationStatementMiddleEducation", Resources.ExaminationStatementMiddleEducation },
-			{"ContractIndividualPlanAgreement", Resources.ContractIndividualPlanAgreement }
+			{"ContractIndividualPlanAgreement", Resources.ContractIndividualPlanAgreement },
+            {"StudentErrorReport", Resources.StudentErrorReport },
+            {"LearningTicket", Resources.LearningTicket }
 		};
 
         /// <summary>

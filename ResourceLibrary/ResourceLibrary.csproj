@@ -103,8 +103,10 @@
     <None Include="Documents\IndividualAchievementsProtocol.dotx" />
     <None Include="Documents\InnerExaminationCheckProtocol.xlsx" />
     <None Include="Documents\InventoryList.dotx" />
+    <None Include="Documents\LearningTicket.dotx" />
     <None Include="Documents\MissingDocument.dotx" />
     <None Include="Documents\PublicEntrantList.xlsx" />
+    <None Include="Documents\StudentErrorReport.xlsx" />
     <None Include="Documents\Voucher.dotx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

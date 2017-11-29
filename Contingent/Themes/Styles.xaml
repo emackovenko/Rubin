@@ -44,13 +44,9 @@
     
     
     <!--*********  Components  ***********-->
-    
-    <Style x:Key="ToolButton" TargetType="{x:Type Button}">
-        <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=ToolButtonBorder}"/>
-        <Setter Property="Background" Value="{x:Null}"/>
-        <Setter Property="Foreground" Value="{x:Null}"/>
-        <Setter Property="Height" Value="32"/>
-        <Setter Property="Width" Value="32"/>
+
+    <Style
+        TargetType="Button">
         <Style.Triggers>
             <Trigger
 				Property="IsEnabled"
@@ -61,21 +57,36 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
+    <Style x:Key="ToolButton" TargetType="{x:Type Button}">
+        <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=ToolButtonBorder}"/>
+        <Setter Property="Background" Value="{x:Null}"/>
+        <Setter Property="Foreground" Value="{x:Null}"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Width" Value="32"/>
+    </Style>
 
 
     <Style
         x:Key="AuxularyInfoTextBox"
         TargetType="{x:Type TextBlock}">
         <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontStyle" Value="Italic"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="Margin" Value="5,0"/>
         <Style.Triggers>
             <Trigger
                 Property="Text"
-                Value="{x:Null}">
+                Value="НЕТ">
                 <Setter
-                    Property="Width" Value="32"/>
+                    Property="Background"
+                    Value="#FFFF829E"/>
                 <Setter
-                    Property="Background" Value="#FFFF8E8E"/>
+                    Property="Width"
+                    Value="50"/>
+                <Setter
+                    Property="TextAlignment"
+                    Value="Center"/>
             </Trigger>
         </Style.Triggers>
     </Style>

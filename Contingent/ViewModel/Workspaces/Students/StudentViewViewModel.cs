@@ -108,7 +108,7 @@ namespace Contingent.ViewModel.Workspaces.Students
 
         void EditChildEntity(Entity entity)
         {
-            EditorInvoker.ShowEditor(entity);
+            ViewInvoker.ShowEditor(entity);
             RaisePropertyChanged("Student");
         }
 
@@ -124,9 +124,9 @@ namespace Contingent.ViewModel.Workspaces.Students
                 Gender = Student.Gender,
                 CitizenshipId = Student.CitizenshipId
             };
-            if (EditorInvoker.ShowEditorWithoutSaving(doc))
+            if (ViewInvoker.ShowEditor(doc))
             {
-                Student.IdentityDocuments.Add(doc);
+                Astu.IdentityDocuments.Add(doc);
             }
             RaisePropertyChanged("Student");
         }
@@ -139,9 +139,10 @@ namespace Contingent.ViewModel.Workspaces.Students
                 FacultyId = Student.FacultyId
             };
 
-            if (EditorInvoker.ShowEditorWithoutSaving(order))
+            if (ViewInvoker.ShowEditor(order))
             {
                 Astu.EnrollmentOrders.Add(order);
+                order.Save();
             }
             RaisePropertyChanged("Student");
         }
@@ -154,7 +155,7 @@ namespace Contingent.ViewModel.Workspaces.Students
                 FacultyId = Student.FacultyId
             };
 
-            if (EditorInvoker.ShowEditorWithoutSaving(order))
+            if (ViewInvoker.ShowEditorWithoutSaving(order))
             {
                 Astu.EnrollmentByUniversityTransferOrders.Add(order);
             }

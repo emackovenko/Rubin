@@ -1,0 +1,16 @@
+﻿<Window x:Class="Contingent.DialogService.DocumentViewer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Contingent.DialogService"
+        xmlns:control="clr-namespace:Contingent.Themes.Controls"
+        mc:Ignorable="d"
+        Title="Просмотр документа"
+        Height="320"
+        Width="480" WindowState="Maximized" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <control:OpenXmlDocumentViewer
+            x:Name="docArea"/>
+    </Grid>
+</Window>

@@ -338,13 +338,13 @@
     <Compile Include="Admission\WorkspacePermission.cs">
       <DependentUpon>AdmissionModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Astu\Backend\Cache.cs" />
+    <Compile Include="Astu\StudentOrders\FacultyTransferOrder.cs" />
     <Compile Include="Astu\StudentOrders\GraduationOrder.cs" />
     <Compile Include="Astu\StudentOrders\ChildrenFussVacationExitOrder.cs" />
     <Compile Include="Astu\StudentOrders\AcademicVacationExitOrder.cs" />
     <Compile Include="Astu\StudentOrders\AcademicVacationOrder.cs" />
     <Compile Include="Astu\StudentOrders\AcademicVacationReason.cs" />
-    <Compile Include="Astu\Backend\INavigatedCollection.cs" />
-    <Compile Include="Astu\Backend\NavigatedCollection.cs" />
     <Compile Include="Astu\Backend\NavigationPropertyAttribute.cs" />
     <Compile Include="Astu\Backend\QueryProvider.cs" />
     <Compile Include="Astu\StudentOrders\ChildrenFussVacationOrder.cs" />
@@ -381,7 +381,7 @@
     <Compile Include="Astu\StudentOrders\GroupTransferOrder.cs" />
     <Compile Include="Astu\StudentDocuments\IdentityDocument.cs" />
     <Compile Include="Astu\StudentDocuments\IdentityDocumentType.cs" />
-    <Compile Include="Astu\StudentOrders\LastNameChangingOrder.cs" />
+    <Compile Include="Astu\StudentOrders\StudentNameChangingOrder.cs" />
     <Compile Include="Astu\StudentOrders\NextCourseTransferOrder.cs" />
     <Compile Include="Astu\StudentOrders\OrderType.cs" />
     <Compile Include="Astu\StudentDocuments\OrphanCategory.cs" />
