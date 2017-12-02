@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using Model.Astu;
+using Model.Astu.Orders.History;
 
 namespace Contingent.Themes.Selectors
 {

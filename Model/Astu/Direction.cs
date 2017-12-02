@@ -46,7 +46,7 @@ namespace Model.Astu
         /// Идентификатор вида образовательной программы
         /// </summary>
         [DbFieldInfo("ID_VIDPROG", DbFieldType.Integer)]
-        [NavigationProperty(typeof(EducationProgramType))]
+        
         public int? EducationProgramTypeId { get; set; }
 
         /// <summary>

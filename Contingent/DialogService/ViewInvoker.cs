@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Model.Astu;
+using Model.Astu.Orders.History;
 using GalaSoft.MvvmLight;
 using System.Windows.Controls;
 using CommonMethods.Documents;

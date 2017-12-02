@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Contingent.Themes"
                     xmlns:model="clr-namespace:Model.Astu;assembly=Model"
+                    xmlns:oh="clr-namespace:Model.Astu.Orders.History;assembly=Model"
                     xmlns:control="clr-namespace:Contingent.Themes.Controls">
 
     <Style x:Key="ExpanderInfo"
@@ -105,7 +106,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="ChildrenFussVacationOrderDataTemplate"
-        DataType="{x:Type model:ChildrenFussVacationOrder}">
+        DataType="{x:Type oh:ChildrenFussVacationOrder}">
         <Grid>
             <Expander
                 Style="{StaticResource ResourceKey=ExpanderInfo}">
@@ -125,7 +126,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="AcademicVacationOrderDataTemplate"
-        DataType="{x:Type model:AcademicVacationOrder}">
+        DataType="{x:Type oh:AcademicVacationOrder}">
         <Grid>
             <Expander
                 Style="{StaticResource ResourceKey=ExpanderInfo}">
@@ -148,7 +149,7 @@
     </DataTemplate>
     
     <DataTemplate x:Key="DirectionChangingOrderDataTemplate"
-            DataType="{x:Type model:DirectionChangingOrder}">
+            DataType="{x:Type oh:DirectionChangingOrder}">
         <Grid>
             <Expander
                 Style="{StaticResource ResourceKey=ExpanderInfo}">
@@ -174,7 +175,7 @@
     </DataTemplate>
     
     <DataTemplate x:Key="FinanceSourceChangingOrderDataTemplate"
-            DataType="{x:Type model:FinanceSourceChangingOrder}">
+            DataType="{x:Type oh:FinanceSourceChangingOrder}">
         <Grid>
             <Expander
                 Style="{StaticResource ResourceKey=ExpanderInfo}">
@@ -194,7 +195,7 @@
     </DataTemplate>
      
     <DataTemplate x:Key="GroupTransferOrderDataTemplate"
-            DataType="{x:Type model:GroupTransferOrder}">
+            DataType="{x:Type oh:GroupTransferOrder}">
         <Grid>
             <Expander
                 Style="{StaticResource ResourceKey=ExpanderInfo}">
@@ -217,7 +218,7 @@
     </DataTemplate>
      
     <DataTemplate x:Key="NextCourseTransferOrderDataTemplate"
-            DataType="{x:Type model:NextCourseTransferOrder}">
+            DataType="{x:Type oh:NextCourseTransferOrder}">
         <Grid>
             <Expander
                 Style="{StaticResource ResourceKey=ExpanderInfo}">
@@ -240,7 +241,7 @@
     </DataTemplate>
 
     <DataTemplate x:Key="StudentNameChangingOrderDataTemplate"
-            DataType="{x:Type model:StudentNameChangingOrder}">
+            DataType="{x:Type oh:StudentNameChangingOrder}">
         <Grid>
             <Expander
                 Style="{StaticResource ResourceKey=ExpanderInfo}">
@@ -257,7 +258,7 @@
     </DataTemplate>
     
     <DataTemplate x:Key="UnenrollmentOrderDataTemplate"
-            DataType="{x:Type model:UnenrollmentOrder}">
+            DataType="{x:Type oh:UnenrollmentOrder}">
         <Grid>
             <Expander
                 Style="{StaticResource ResourceKey=ExpanderInfo}">

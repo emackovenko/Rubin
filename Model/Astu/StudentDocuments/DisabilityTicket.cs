@@ -25,7 +25,7 @@ namespace Model.Astu
         /// Идентификатор инвалидной группы
         /// </summary>
         [DbFieldInfo("ID_DISABILITYTYPE", DbFieldType.Integer)]
-        [NavigationProperty(typeof(DisabilityType))]
+        
         public int? DisabilityTypeId { get; set; }
 
         /// <summary>

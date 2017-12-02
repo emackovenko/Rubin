@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Model.Astu.Orders.History;
 
 namespace Model.Astu
 {
@@ -110,14 +111,14 @@ namespace Model.Astu
         /// Идентификатор группы
         /// </summary>
         [DbFieldInfo("GRP")]
-        [NavigationProperty(typeof(Group))]
+        
         public string GroupId { get; set; }
 
         /// <summary>
         /// Идентификатор статуса студента
         /// </summary>
         [DbFieldInfo("ID_STAT")]
-        [NavigationProperty(typeof(StudentStatus))]
+        
         public string StatusId { get; set; }
 
         /// <summary>
@@ -136,56 +137,56 @@ namespace Model.Astu
         /// Идентификатор источника финансирования
         /// </summary>
         [DbFieldInfo("KOB")]
-        [NavigationProperty(typeof(FinanceSource))]
+        
         public string FinanceSourceId { get; set; }
 
         /// <summary>
         /// Идентификатор формы обучения
         /// </summary>
         [DbFieldInfo("FRM")]
-        [NavigationProperty(typeof(EducationForm))]
+        
         public string EducationFormId { get; set; }
 
         /// <summary>
         /// Идентификатор факультета
         /// </summary>
         [DbFieldInfo("FAK")]
-        [NavigationProperty(typeof(Faculty))]
+        
         public string FacultyId { get; set; }
 
         /// <summary>
         /// Идентификатор направления подготовки
         /// </summary>
         [DbFieldInfo("SPC")]
-        [NavigationProperty(typeof(Direction))]
+        
         public string DirectionId { get; set; }
 
         /// <summary>
         /// Идентификатор гражданства
         /// </summary>
         [DbFieldInfo("GOS")]
-        [NavigationProperty(typeof(Citizenship))]
+        
         public string CitizenshipId { get; set; }
 
         /// <summary>
         /// Идентификатор изучаемого иностранного языка
         /// </summary>
         [DbFieldInfo("LNG")]
-        [NavigationProperty(typeof(ForeignLanguage))]
+        
         public string ForeignLanguageId { get; set; }
 
         /// <summary>
         /// Идентификатор вида стипендии
         /// </summary>
         [DbFieldInfo("VST")]
-        [NavigationProperty(typeof(GrantType))]
+        
         public string GrantTypeId { get; set; }
 
         /// <summary>
         /// Идентификатор вида документа об образовании
         /// </summary>
         [DbFieldInfo("VDO")]
-        [NavigationProperty(typeof(EducationDocumentType))]
+        
         public string EducationDocumentTypeId { get; set; }
 
         #endregion

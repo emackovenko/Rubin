@@ -37,14 +37,14 @@ namespace Model.Astu
         /// Идентификатор студента
         /// </summary>
         [DbFieldInfo("KOD")]
-        [NavigationProperty(typeof(Student))]
+        
         public string StudentId { get; set; }
 
         /// <summary>
         /// Идентификатор типа документа
         /// </summary>
         [DbFieldInfo("ID_DOCUMENTTYPE", DbFieldType.Integer)]
-        [NavigationProperty(typeof(DocumentType))]
+        
         public int? DocumentTypeId { get; set; }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Model.Astu
         /// Идентификатор гражданства или государства, выдавшего документ
         /// </summary>
         [DbFieldInfo("GOS")]
-        [NavigationProperty(typeof(Citizenship))]
+        
         public string CitizenshipId { get; set; }
 
         /// <summary>

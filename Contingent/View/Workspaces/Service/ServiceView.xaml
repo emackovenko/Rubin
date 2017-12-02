@@ -34,6 +34,9 @@
                     SelectedIndex="0"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <controls:WorkspaceMenuItem
+                        Title="Восстановление данных" 
+                        URL="/Contingent;component/View/Workspaces/Service/Pages/DataReinstatement.xaml"/>
+                    <controls:WorkspaceMenuItem
                         Title="Костыль" 
                         URL="/Contingent;component/View/Workspaces/Service/Pages/ScrutchPage.xaml"/>
                 </ListView>

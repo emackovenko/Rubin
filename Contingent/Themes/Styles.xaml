@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Contingent.Themes"
                     xmlns:control="clr-namespace:Contingent.Themes.Controls"
+                    xmlns:behavior="clr-namespace:Contingent.Themes.Behaviors"
                     xmlns:converter="clr-namespace:Contingent.Themes.Converters">
     
     <!--**********  Brushes  ***********-->
@@ -44,6 +45,36 @@
     
     
     <!--*********  Components  ***********-->
+
+
+    <Style
+		x:Key="LogTextBox"
+		TargetType="TextBox">
+        <Setter
+			Property="BorderBrush"
+			Value="{x:Null}" />
+        <Setter
+			Property="VerticalScrollBarVisibility"
+			Value="Auto" />
+        <Setter
+			Property="IsReadOnly"
+			Value="True" />
+        <Setter
+			Property="TextWrapping"
+			Value="Wrap" />
+        <Setter
+			Property="FontFamily"
+			Value="Courier New" />
+        <Setter
+			Property="FontSize"
+			Value="12" />
+        <Setter
+			Property="TextAlignment"
+			Value="Left" />
+        <Setter
+			Property="behavior:AutoScrollTextBoxBehavior.ScrollOnTextChanged"
+			Value="True" />
+    </Style>
 
     <Style
         TargetType="Button">

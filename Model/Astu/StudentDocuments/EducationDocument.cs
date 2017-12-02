@@ -17,7 +17,7 @@ namespace Model.Astu
         /// Идентификатор типа документа об образовании
         /// </summary>
         [DbFieldInfo("VDO")]
-        [NavigationProperty(typeof(EducationDocumentType))]
+        
         public string EducationDocumentTypeId { get; set; }
 
         /// <summary>

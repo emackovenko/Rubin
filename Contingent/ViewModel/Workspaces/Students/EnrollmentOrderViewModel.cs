@@ -6,6 +6,7 @@ using System.Text;
 using Model.Astu;
 using Contingent.DialogService;
 using GalaSoft.MvvmLight;
+using Model.Astu.Orders.History;
 
 namespace Contingent.ViewModel.Workspaces.Students
 {

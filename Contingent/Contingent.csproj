@@ -95,6 +95,7 @@
     <Reference Include="MoreLinq, Version=2.8.21218.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
       <HintPath>..\packages\morelinq.2.8.0\lib\net40\MoreLinq.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -156,6 +157,7 @@
       <DependentUpon>EntityEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="DialogService\Messenger.cs" />
+    <Compile Include="Themes\Behaviors\AutoScrollTextBoxBehavior.cs" />
     <Compile Include="Themes\Behaviors\PasswordBehavior.cs" />
     <Compile Include="Themes\Controls\EntityCheckBox.xaml.cs">
       <DependentUpon>EntityCheckBox.xaml</DependentUpon>
@@ -195,6 +197,7 @@
     <Compile Include="ViewModel\Windows\AuthViewModel.cs" />
     <Compile Include="ViewModel\Windows\ConnectionSettingsViewModel.cs" />
     <Compile Include="ViewModel\Windows\DesktopViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Service\DataReinstatement\DataReinstatementViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Service\ErrorHandling\ErrorReportItem.cs" />
     <Compile Include="ViewModel\Workspaces\Service\ErrorHandling\ErrorReportViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Service\ScrutchViewModel.cs" />
@@ -211,6 +214,9 @@
     </Compile>
     <Compile Include="View\Windows\DesktopWindow.xaml.cs">
       <DependentUpon>DesktopWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Service\Pages\DataReinstatement.xaml.cs">
+      <DependentUpon>DataReinstatement.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Workspaces\Service\Pages\ErrorReport.xaml.cs">
       <DependentUpon>ErrorReport.xaml</DependentUpon>
@@ -275,7 +281,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Page Include="DialogService\DocumentViewer.xaml">
       <SubType>Designer</SubType>
@@ -342,6 +347,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Windows\DesktopWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\Service\Pages\DataReinstatement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

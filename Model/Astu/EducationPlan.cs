@@ -22,21 +22,21 @@ namespace Model.Astu
         /// Идентификатор факультета
         /// </summary>
         [DbFieldInfo("FAK")]
-        [NavigationProperty(typeof(Faculty))]
+        
         public string FacultyId { get; set; }
 
         /// <summary>
         /// Идентификатор направления подготовки
         /// </summary>
         [DbFieldInfo("SPC")]
-        [NavigationProperty(typeof(Direction))]
+        
         public string DirectionId { get; set; }
 
         /// <summary>
         /// Идентификатор формы обучения
         /// </summary>
         [DbFieldInfo("FRM")]
-        [NavigationProperty(typeof(EducationForm))]
+        
         public string EducationFormId { get; set; }
 
         /// <summary>

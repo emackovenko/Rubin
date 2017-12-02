@@ -5,6 +5,8 @@ using System.Text;
 using System.Data.Common;
 using System.Reflection;
 using System.Data;
+using Model.Astu.Orders;
+using Model.Astu.Orders.History;
 
 namespace Model.Astu
 {
@@ -61,9 +63,60 @@ namespace Model.Astu
             StudentNameChangingOrders = new EntitySet<StudentNameChangingOrder>(@"WHERE TPR='0013' ORDER BY KOD, DAT");
             OtherOrders = new EntitySet<OtherOrder>(@"WHERE TPR='0009' ORDER BY KOD, DAT");
             TransferToAcceleratedEducationOrders = new EntitySet<TransferToAcceleratedEducationOrder>(@"WHERE TPR='0034' ORDER BY KOD, DAT");
+            Orders = new EntitySet<Order>();
+            AcademicVacationExitItems = new EntitySet<AcademicVacationExitItem>(@"WHERE TPR='0007'");
+            AcademicVacationItems = new EntitySet<AcademicVacationItem>(@"WHERE TPR='0002'");
+            EnrollmentByUniversityTransferItems = new EntitySet<EnrollmentByUniversityTransferItem>(@"WHERE TPR='0015'");
+            EnrollmentItems = new EntitySet<EnrollmentItem>(@"WHERE TPR='0001'");
+            ReinstatementItems = new EntitySet<ReinstatementItem>(@"WHERE TPR='0006'");
+            UnenrollmentItems = new EntitySet<UnenrollmentItem>(@"WHERE TPR='0003'");
+            ChildrenFussVacationExitItems = new EntitySet<ChildrenFussVacationExitItem>(@"WHERE TPR='0029'");
+            ChildrenFussVacationItems = new EntitySet<ChildrenFussVacationItem>(@"WHERE TPR IN ('0022', '0023', '0024', '0027', '0028')");
+            DirectionChangingItems = new EntitySet<DirectionChangingItem>(@"WHERE TPR='0011'");
+            EnrollToFullStateProvisionItems = new EntitySet<EnrollToFullStateProvisionItem>(@"WHERE TPR='0017'");
+            FinanceSourceChangingItems = new EntitySet<FinanceSourceChangingItem>(@"WHERE TPR='0012'");
+            GraduationItems = new EntitySet<GraduationItem>(@"WHERE TPR='0005'");
+            GroupTransferItems = new EntitySet<GroupTransferItem>(@"WHERE TPR='0008'");
+            StudentNameChangingItems = new EntitySet<StudentNameChangingItem>(@"WHERE TPR='0013'");
+            OtherItems = new EntitySet<OtherItem>(@"WHERE TPR='0009'");
+            TransferToAcceleratedEducationItems = new EntitySet<TransferToAcceleratedEducationItem>(@"WHERE TPR='0034'");
         }
 
         #region Entity collections
+
+        public static EntitySet<AcademicVacationExitItem> AcademicVacationExitItems { get; set; }
+
+        public static EntitySet<AcademicVacationItem> AcademicVacationItems { get; set; }
+
+        public static EntitySet<ChildrenFussVacationExitItem> ChildrenFussVacationExitItems { get; set; }
+
+        public static EntitySet<ChildrenFussVacationItem> ChildrenFussVacationItems { get; set; }
+
+        public static EntitySet<DirectionChangingItem> DirectionChangingItems { get; set; }
+
+        public static EntitySet<EnrollmentByUniversityTransferItem> EnrollmentByUniversityTransferItems { get; set; }
+
+        public static EntitySet<EnrollmentItem> EnrollmentItems { get; set; }
+
+        public static EntitySet<EnrollToFullStateProvisionItem> EnrollToFullStateProvisionItems { get; set; }
+
+        public static EntitySet<FinanceSourceChangingItem> FinanceSourceChangingItems { get; set; }
+
+        public static EntitySet<GraduationItem> GraduationItems { get; set; }
+
+        public static EntitySet<GroupTransferItem> GroupTransferItems { get; set; }
+
+        public static EntitySet<StudentNameChangingItem> StudentNameChangingItems { get; set; }
+
+        public static EntitySet<OtherItem> OtherItems { get; set; }
+
+        public static EntitySet<ReinstatementItem> ReinstatementItems { get; set; }
+
+        public static EntitySet<TransferToAcceleratedEducationItem> TransferToAcceleratedEducationItems { get; set; }
+
+        public static EntitySet<UnenrollmentItem> UnenrollmentItems { get; set; }
+
+        public static EntitySet<Order> Orders { get; set; }
 
         public static EntitySet<AcademicVacationExitOrder> AcademicVacationExitOrders { get; set; }
 

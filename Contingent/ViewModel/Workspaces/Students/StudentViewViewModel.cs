@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using Model.Astu;
+using Model.Astu.Orders.History;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MoreLinq;

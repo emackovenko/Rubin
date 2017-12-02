@@ -38,7 +38,7 @@ namespace Contingent.ViewModel.Documents
 
             foreach (var o in orders)
             {
-                str += o.DocumentLabel;
+               // str += o.DocumentLabel;
                 str += "\n";
             }
 
