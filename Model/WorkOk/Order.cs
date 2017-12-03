@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using A = Model.Astu.Orders.History; 
+using A = Model.Astu.Orders.History;
 
 namespace Model.WorkOk
 {
     [TableName("moves")]
-    public class Order: Entity
+    public class Order : Entity
     {
         [PrimaryKey]
         [DbFieldInfo("pin", DbFieldType.Integer)]
@@ -84,7 +84,7 @@ namespace Model.WorkOk
             get => Context.Students.FirstOrDefault(e => e.Id == StudentId);
             set => StudentId = value?.Id;
         }
-        
+
         public A.StudentOrderBase ToAstu()
         {
             int[] enrollment = new int[] { 1, 2, 3 };
@@ -99,8 +99,17 @@ namespace Model.WorkOk
                 return AstuEnrollmentByTransferOrder();
             }
 
+            int[] reinstatement = new int[] { 10, 11, 12, 13, 25 };
+            if (reinstatement.Contains(OrderTypeId.Value))
+            {
+                return AstuReinstatementOrder();
+            }
+
+
             return null;
         }
+
+
 
         A.EnrollmentOrder AstuEnrollmentOrder()
         {
@@ -122,6 +131,7 @@ namespace Model.WorkOk
             order.IsFromAdmission = true;
             order.FinanseSourceId = OrderType.FinanceSource.AstuId;
             order.DirectionId = Direction?.AstuId;
+            order.EducationFormId = EducationForm.AstuId;
 
             if (Group?.AstuId == null)
             {
@@ -132,14 +142,14 @@ namespace Model.WorkOk
             return order;
         }
 
-        A.EnrollmentOrder AstuEnrollmentByTransferOrder()
+        A.EnrollmentByUniversityTransferOrder AstuEnrollmentByTransferOrder()
         {
             var order = new A.EnrollmentByUniversityTransferOrder();
             order.Number = Number;
             order.Date = Date;
 
             string comment = string.Empty;
-            comment += OrderType?.Name;
+            comment += OrderType.Name;
             if (FactDate.HasValue)
             {
                 comment += string.Format(" с {0} г.", FactDate.Format());
@@ -155,7 +165,8 @@ namespace Model.WorkOk
             order.NewCourse = Course;
             order.IsFromAdmission = true;
             order.FinanseSourceId = OrderType.FinanceSource.AstuId;
-            order.DirectionId = Direction?.AstuId;
+            order.DirectionId = Direction.AstuId;
+            order.EducationFormId = EducationForm.AstuId;
 
             if (Group?.AstuId == null)
             {
@@ -165,5 +176,138 @@ namespace Model.WorkOk
 
             return order;
         }
+
+        A.ReinstatementOrder AstuReinstatementOrder()
+        {
+            var order = new A.ReinstatementOrder();
+            order.Number = Number;
+            order.Date = Date;
+
+            string comment = string.Empty;
+            comment += OrderType.Name;
+            if (FactDate.HasValue)
+            {
+                comment += string.Format(" с {0} г.", FactDate.Format());
+            }
+            order.Comment = comment;
+
+            order.FacultyId = Faculty.AstuId;
+            order.StartDate = FactDate;
+            order.NewCourse = Course;
+            order.FinanseSourceId = OrderType.FinanceSource.AstuId;
+            order.DirectionId = Direction?.AstuId;
+            order.EducationFormId = EducationForm.AstuId;
+
+            if (Group?.AstuId == null)
+            {
+                throw new Exception(string.Format("Группе {0} ({1}) не сопоставлена группа в асту", Group?.Name, Group?.Id));
+            }
+            order.GroupId = Group.AstuId;
+
+            return order;
+        }
+
+        A.AcademicVacationExitOrder AstuAcademicVacationExitOrder()
+        {
+            var order = new A.AcademicVacationExitOrder();
+            order.Number = Number;
+            order.Date = Date;
+
+            string comment = string.Empty;
+            comment += OrderType.Name;
+            if (FactDate.HasValue)
+            {
+                comment += string.Format(" с {0} г.", FactDate.Format());
+            }
+            order.Comment = comment;
+
+            order.FacultyId = Faculty.AstuId;
+            order.StartDate = FactDate;
+            order.NewCourse = Course;
+            order.FinanseSourceId = OrderType.FinanceSource.AstuId;
+            order.DirectionId = Direction?.AstuId;
+            order.EducationFormId = EducationForm.AstuId;
+
+            if (Group?.AstuId == null)
+            {
+                throw new Exception(string.Format("Группе {0} ({1}) не сопоставлена группа в асту", Group?.Name, Group?.Id));
+            }
+            order.GroupId = Group.AstuId;
+
+            return order;
+        }
+
+        A.ChildrenFussVacationExitOrder AstuChildrenFussVacationExitOrder()
+        {
+            var order = new A.ChildrenFussVacationExitOrder();
+            order.Number = Number;
+            order.Date = Date;
+
+            string comment = string.Empty;
+            comment += OrderType.Name;
+            if (FactDate.HasValue)
+            {
+                comment += string.Format(" с {0} г.", FactDate.Format());
+            }
+            order.Comment = comment;
+
+            order.FacultyId = Faculty.AstuId;
+            order.StartDate = FactDate;
+            order.NewCourse = Course;
+            order.FinanseSourceId = OrderType.FinanceSource.AstuId;
+            order.DirectionId = Direction?.AstuId;
+            order.EducationFormId = EducationForm.AstuId;
+
+            if (Group?.AstuId == null)
+            {
+                throw new Exception(string.Format("Группе {0} ({1}) не сопоставлена группа в асту", Group?.Name, Group?.Id));
+            }
+            order.GroupId = Group.AstuId;
+
+            return order;
+        }
+
+        A.ChildrenFussVacationOrder AstuChildrenFussVacationOrder()
+        {
+            var order = new A.ChildrenFussVacationOrder();
+            order.Number = Number;
+            order.Date = Date;
+
+            string comment = string.Empty;
+            comment += OrderType.Name;
+            if (FactDate.HasValue)
+            {
+                comment += string.Format(" с {0} г.", FactDate.Format());
+            }
+            order.Comment = comment;
+
+            order.FacultyId = Faculty.AstuId;
+            order.StartDate = FactDate;
+            order.OrderTypeId = OrderType.AstuId;
+
+            return order;
+        }
+        
+        A.DirectionChangingOrder AstuDirectionChangingOrder()
+        {
+            var order = new A.DirectionChangingOrder();
+            order.Number = Number;
+            order.Date = Date;
+
+            string comment = string.Empty;
+            comment += OrderType.Name;
+            if (FactDate.HasValue)
+            {
+                comment += string.Format(" с {0} г.", FactDate.Format());
+            }
+            order.Comment = comment;
+
+            order.FacultyId = Faculty.AstuId;
+            order.StartDate = FactDate;
+            order.OrderTypeId = OrderType.AstuId;
+
+            return order;
+        }
+
     }
 }

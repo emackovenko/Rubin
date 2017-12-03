@@ -21,6 +21,9 @@ namespace Model.WorkOk
         [DbFieldInfo("spstatus")]
         public int? FinanceSourceId { get; set; }
 
+        [DbFieldInfo("AstuReasonId")]
+        public string AstuReasonId { get; set; }
+
         public FinanceSource FinanceSource
         {
             get => Context.FinanceSources.FirstOrDefault(e => e.Id == FinanceSourceId);
