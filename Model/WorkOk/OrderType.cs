@@ -12,7 +12,7 @@ namespace Model.WorkOk
         [DbFieldInfo("pin", DbFieldType.Integer)]
         public int Id { get; set; }
 
-        [DbFieldInfo("name")]
+        [DbFieldInfo("ViewName")]
         public string Name { get; set; }
 
         [DbFieldInfo("ASTU_Code")]
@@ -21,7 +21,7 @@ namespace Model.WorkOk
         [DbFieldInfo("spstatus")]
         public int? FinanceSourceId { get; set; }
 
-        [DbFieldInfo("AstuReasonId")]
+        [DbFieldInfo("Reason_Code")]
         public string AstuReasonId { get; set; }
 
         public FinanceSource FinanceSource

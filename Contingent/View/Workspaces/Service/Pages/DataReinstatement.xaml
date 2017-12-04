@@ -24,6 +24,6 @@
         <TextBox
             Grid.Row="1"
             Style="{StaticResource LogTextBox}"
-            Text="{Binding Path=ConsoleText}"/>
+            Text="{Binding Path=ConsoleText, IsAsync=True, Mode=OneWay}"/>
     </Grid>
 </Page>
