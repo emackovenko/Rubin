@@ -34,8 +34,11 @@ namespace Contingent.ViewModel.Workspaces.Service.DataReinstatement
 
         void DoIt()
         {
-            var thread = new Thread(ReinstatementRun);
-            thread.Start();
+            //var thread = new Thread(ReinstatementRun);
+            //thread.Start();
+            var order = new Astu.Orders.History.OtherOrder();
+            order.Number = "ХУЙ";
+            
         }
 
         void ReinstatementRun()
@@ -71,8 +74,9 @@ namespace Contingent.ViewModel.Workspaces.Service.DataReinstatement
                     var aorder = FindOrderHistory(astudent, worder);
                     if (aorder == null)
                     {
-                        ConsoleText = "\t\tПриказ не был найден у студента в Astu.";
-                        continue;
+                        ConsoleText = "\t\tПриказ не был найден у студента в Astu. Добавляю новый.";
+                        var newOrder = worder.ToAstu();
+                        newOrder.StudentId = astudent.Id;
                     }
 
                     ConsoleText = string.Format("\t\tПриказ найден в Astu, ID:{0}", aorder.Id);
