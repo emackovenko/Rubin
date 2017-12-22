@@ -60,6 +60,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -460,12 +461,14 @@
     <Compile Include="WorkOk\Backend\PropertyChangedBase.cs" />
     <Compile Include="WorkOk\Backend\QueryProvider.cs" />
     <Compile Include="WorkOk\Backend\TableNameAttribute.cs" />
+    <Compile Include="WorkOk\Citizenship.cs" />
     <Compile Include="WorkOk\Context.cs" />
     <Compile Include="WorkOk\Direction.cs" />
     <Compile Include="WorkOk\EducationForm.cs" />
     <Compile Include="WorkOk\Faculty.cs" />
     <Compile Include="WorkOk\FinanceSource.cs" />
     <Compile Include="WorkOk\Group.cs" />
+    <Compile Include="WorkOk\IdentityDocumentType.cs" />
     <Compile Include="WorkOk\Order.cs" />
     <Compile Include="WorkOk\OrderType.cs" />
     <Compile Include="WorkOk\Status.cs" />

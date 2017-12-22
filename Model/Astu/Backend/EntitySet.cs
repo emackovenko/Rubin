@@ -14,6 +14,7 @@ namespace Model.Astu
     /// <typeparam name="TEntity">Тип загружаемой сущности</typeparam>
     public class EntitySet<TEntity>: List<TEntity>, IEntitySet where TEntity: Entity
     {
+
         string _sqlOption;        
         
         /// <summary>
@@ -104,17 +105,10 @@ namespace Model.Astu
         /// <param name="item">Удаляемый элемент</param>
         public new void Remove(TEntity item)
         {
-            item.Delete();
-        }
-
-        /// <summary>
-        /// Вызывается при автономном удалении сущности
-        /// </summary>
-        /// <param name="item">Удаляемая сущность</param>
-        internal void AutonomosRemove(TEntity item)
-        {
+            item.EntityState = EntityState.Deleted;
             base.Remove(item);
         }
+        
 
         /// <summary>
         /// Постзагрузочная инициализация функционала всех сущностей коллекции

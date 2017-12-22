@@ -26,10 +26,10 @@ namespace Model.Astu
         
         EntityState _entityState = EntityState.New;
 
-        [NoMagic]
         /// <summary>
         /// Физическое состояние сущности
         /// </summary>
+        [NoMagic]
         public EntityState EntityState
         {
             get
@@ -42,6 +42,11 @@ namespace Model.Astu
             }
         }
         
+        public string GetSaveQuery()
+        {
+            return string.Format("{0};", QueryProvider.GetSaveQuery(this));
+        }
+
         /// <summary>
         /// Сохраняет текущее состояние сущности в базе данных
         /// </summary>
@@ -69,7 +74,7 @@ namespace Model.Astu
                 }
                 catch (Exception e)
                 {
-                    string errorMessage = string.Format("При сохранении сущности произошла ошибка. Подробности во внутреннем исключении.\nТекст SQL:\n{0}\n\nТекст ошибки:\n{1}",
+                    string errorMessage = string.Format("При сохранении сущности произошла ошибка.\nТекст SQL:\n{0}\n\nТекст ошибки:\n{1}",
                         cmd.CommandText, e.Message);
                     transaction.Rollback();
                     throw new DataException(errorMessage, e);
@@ -95,7 +100,7 @@ namespace Model.Astu
 
             // получаем коллекцию и вызываем метод удаления
             var collection = parentalCollectionPropertyInfo.GetValue(contextType, null);
-            var method = collection.GetType().GetMethod("AutonomosRemove", new Type[] { GetType() });
+            var method = collection.GetType().GetMethod("Remove", new Type[] { GetType() });
             method.Invoke(collection, new object[] { this });
         }
 

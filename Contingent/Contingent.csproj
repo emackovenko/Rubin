@@ -30,7 +30,7 @@
     <PublisherName>Рубцовский индустриальный институт</PublisherName>
     <SuiteName>Информационно-технический отдел</SuiteName>
     <MinimumRequiredVersion>1.0.0.50</MinimumRequiredVersion>
-    <ApplicationRevision>60</ApplicationRevision>
+    <ApplicationRevision>61</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>

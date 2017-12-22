@@ -57,5 +57,13 @@ namespace Model.Astu
             return string.Format("{0} {1}", Name, EducationPlan?.Year);
         }
 
+        public IEnumerable<Student> Students
+        {
+            get
+            {
+                return Astu.Students.Where(s => s.GroupId == Id);
+            }
+        }
+
     }
 }

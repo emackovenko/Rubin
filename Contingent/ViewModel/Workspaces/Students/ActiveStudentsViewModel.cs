@@ -17,6 +17,8 @@ namespace Contingent.ViewModel.Workspaces.Students
 
         Student _selectedStudent;
 
+        bool _onlyActive = true;
+
         #endregion
 
 
@@ -39,13 +41,34 @@ namespace Contingent.ViewModel.Workspaces.Students
             }
         }
 
+        public bool OnlyActive
+        {
+            get
+            {
+                return _onlyActive;
+            }
+            set
+            {
+                _onlyActive = value;
+                RaisePropertyChanged("OnlyActive");
+                RaisePropertyChanged("Students");
+            }
+        }
+
         public ObservableCollection<Student> Students
         {
             get
             {
-                var activeStatuses = new string[] {"0001", "0002", "0007", "0008"};
-                var students = Astu.Students.Where(s => activeStatuses.Contains(s.StatusId)).OrderBy(s => s.Course).OrderBy(s => s.FullName).OrderBy(s => s.Group?.Name);
-                return new ObservableCollection<Student>(students);
+                if (OnlyActive)
+                {
+                    var activeStatuses = new string[] { "0001", "0002", "0007", "0008" };
+                    var students = Astu.Students.Where(s => activeStatuses.Contains(s.StatusId)).OrderBy(s => s.Course).OrderBy(s => s.FullName).OrderBy(s => s.Group?.Name);
+                    return new ObservableCollection<Student>(students);
+                }
+                else
+                {
+                    return new ObservableCollection<Student>(Astu.Students.OrderBy(s => s.Course).OrderBy(s => s.FullName).OrderBy(s => s.Group?.Name));
+                }                
             }
         }
 

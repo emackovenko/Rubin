@@ -28,8 +28,10 @@ namespace Model.WorkOk
             Statuses = new EntitySet<Status>();
             FinanceSources = new EntitySet<FinanceSource>();
             EducationForms = new EntitySet<EducationForm>();
-            Orders = new EntitySet<Order>("WHERE spfak IN (57,65,98)");
+            Orders = new EntitySet<Order>();
             OrderTypes = new EntitySet<OrderType>();
+            IdentityDocumentTypes = new EntitySet<IdentityDocumentType>();
+            Citizenships = new EntitySet<Citizenship>();
         }
 
         #region Entity collections
@@ -43,6 +45,8 @@ namespace Model.WorkOk
         public static EntitySet<Status> Statuses { get; set; }
         public static EntitySet<FinanceSource> FinanceSources { get; set; }
         public static EntitySet<EducationForm> EducationForms { get; set; }
+        public static EntitySet<IdentityDocumentType> IdentityDocumentTypes { get; set; }
+        public static EntitySet<Citizenship> Citizenships { get; set; }
 
         #endregion
 

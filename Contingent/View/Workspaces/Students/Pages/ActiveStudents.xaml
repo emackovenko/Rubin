@@ -59,6 +59,13 @@
                 </xctk:DropDownButton.DropDownContent>
                 <Image Style="{StaticResource PicturePrint}"/>
             </xctk:DropDownButton>
+            <StackPanel
+                Orientation="Horizontal"
+                FlowDirection="RightToLeft">
+                <CheckBox
+                    Content="Показать только активных студентов"
+                    IsChecked="{Binding Path=OnlyActive}"/>
+            </StackPanel>
         </StackPanel>
         <Grid
             Grid.Row="1">

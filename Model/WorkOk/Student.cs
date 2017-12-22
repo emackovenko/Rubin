@@ -88,8 +88,37 @@ namespace Model.WorkOk
 
         public string FullName { get => string.Format("{0} {1} {2}", LastName, FirstName, Patronimyc); }
 
-        //[DbFieldInfo("BirthDate", DbFieldType.DateTime)]
-        //public DateTime? BirthDate { get; set; }
+        [DbFieldInfo("IdentityDocumentSeries")]
+        public string IdentityDocumentSeries { get; set; }
 
+        [DbFieldInfo("IdentityDocumentNumber")]
+        public string IdentityDocumentNumber { get; set; }
+
+        [DbFieldInfo("IdentityDocumentDate", DbFieldType.DateTime)]
+        public DateTime? IdentityDocumentDate { get; set; }
+
+        [DbFieldInfo("IdentityDocumentOrganization")]
+        public string IdentityDocumentOrganization { get; set; }
+
+        [DbFieldInfo("IdentityDocumentTypeId", DbFieldType.Integer)]
+        public int? IdentityDocumentTypeId { get; set; }
+
+        [DbFieldInfo("CitizenshipId", DbFieldType.Integer)]
+        public int? CitizenshipId { get; set; }
+
+        public IdentityDocumentType IdentityDocumentType
+        {
+            get => Context.IdentityDocumentTypes.FirstOrDefault(e => e.Id == IdentityDocumentTypeId);
+            set => IdentityDocumentTypeId = value?.Id;
+        }
+
+        public Citizenship Citizenship
+        {
+            get => Context.Citizenships.FirstOrDefault(e => e.Id == CitizenshipId);
+            set => CitizenshipId = value?.Id;
+        }
+
+        [DbFieldInfo("BirthDate", DbFieldType.DateTime)]
+        public DateTime? BirthDate { get; set; }
     }
 }

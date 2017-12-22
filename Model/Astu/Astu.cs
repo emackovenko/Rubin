@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Data.Common;
@@ -7,6 +8,8 @@ using System.Reflection;
 using System.Data;
 using Model.Astu.Orders;
 using Model.Astu.Orders.History;
+using System.Collections;
+using System.Windows.Forms;
 
 namespace Model.Astu
 {
@@ -46,6 +49,7 @@ namespace Model.Astu
             DisabilityTypes = new EntitySet<DisabilityType>();
             OrphanCategories = new EntitySet<OrphanCategory>();
             OrphanTickets = new EntitySet<OrphanTicket>(@"WHERE ID_DOCUMENTTYPE = 30");
+
             AcademicVacationExitOrders = new EntitySet<AcademicVacationExitOrder>(@"WHERE TPR='0007' ORDER BY KOD, DAT");
             AcademicVacationOrders = new EntitySet<AcademicVacationOrder>(@"WHERE TPR='0002' ORDER BY KOD, DAT");
             EnrollmentByUniversityTransferOrders = new EntitySet<EnrollmentByUniversityTransferOrder>(@"WHERE TPR='0015'");
@@ -60,9 +64,10 @@ namespace Model.Astu
             FinanceSourceChangingOrders = new EntitySet<FinanceSourceChangingOrder>(@"WHERE TPR='0012' ORDER BY KOD, DAT");
             GraduationOrders = new EntitySet<GraduationOrder>(@"WHERE TPR='0005' ORDER BY KOD, DAT");
             GroupTransferOrders = new EntitySet<GroupTransferOrder>(@"WHERE TPR='0008' ORDER BY KOD, DAT");
-            StudentNameChangingOrders = new EntitySet<StudentNameChangingOrder>(@"WHERE TPR='0013' ORDER BY KOD, DAT");
+            //StudentNameChangingOrders = new EntitySet<StudentNameChangingOrder>(@"WHERE TPR='0013' ORDER BY KOD, DAT");
             OtherOrders = new EntitySet<OtherOrder>(@"WHERE TPR='0009' ORDER BY KOD, DAT");
             TransferToAcceleratedEducationOrders = new EntitySet<TransferToAcceleratedEducationOrder>(@"WHERE TPR='0034' ORDER BY KOD, DAT");
+
             Orders = new EntitySet<Order>();
             AcademicVacationExitItems = new EntitySet<AcademicVacationExitItem>(@"WHERE TPR='0007'");
             AcademicVacationItems = new EntitySet<AcademicVacationItem>(@"WHERE TPR='0002'");
@@ -140,7 +145,7 @@ namespace Model.Astu
 
         public static EntitySet<GroupTransferOrder> GroupTransferOrders { get; set; }
 
-        public static EntitySet<StudentNameChangingOrder> StudentNameChangingOrders { get; set; }
+       // public static EntitySet<StudentNameChangingOrder> StudentNameChangingOrders { get; set; }
 
         public static EntitySet<NextCourseTransferOrder> NextCourseTransferOrders { get; set; }
 

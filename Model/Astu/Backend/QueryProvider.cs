@@ -73,17 +73,6 @@ namespace Model.Astu
 
             var entityType = entity.GetType();
 
-            // Если идентификатор пустой, то проставляем ему значение
-            var primProp = GetPrimaryKeyPropertyInfo(entityType);
-            if (primProp == null)
-            {
-                throw new ArgumentNullException("Primary key not found");
-            }
-            if (primProp.GetValue(entity, null) == null)
-            {
-                primProp.SetValue(entity, Convert.ChangeType(GetNewGeneratedId(entityType), primProp.PropertyType), null);
-            }
-
             var sb = new StringBuilder();
 
             sb.AppendFormat("INSERT INTO {0} ", GetEntityTableName(entityType));
@@ -98,16 +87,21 @@ namespace Model.Astu
             }
 
             sb.Remove(sb.Length - 1, 1);
-            sb.Append(") VALUES (");
+            sb.Append(") SELECT ");
 
             foreach (var prop in props)
             {
+                if (prop == GetPrimaryKeyPropertyInfo(entityType))
+                {
+                    sb.AppendFormat("MAX({0}) + 1,", GetPrimaryFieldName(entityType));
+                    continue;
+                }
                 sb.AppendFormat("{0},", 
                     ConvertObjectToExpression(GetDatabaseFieldType(entityType, prop.Name), entityType.GetProperty(prop.Name).GetValue(entity, null)));
             }
 
             sb.Remove(sb.Length - 1, 1);
-            sb.Append(")");
+            sb.AppendFormat(" FROM {0}", GetEntityTableName(entityType));
 
             return sb.ToString();
         }

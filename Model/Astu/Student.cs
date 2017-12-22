@@ -411,7 +411,7 @@ namespace Model.Astu
                 list.AddRange(Astu.FinanceSourceChangingOrders.Where(o => o.StudentId == Id));
                 list.AddRange(Astu.GraduationOrders.Where(o => o.StudentId == Id));
                 list.AddRange(Astu.GroupTransferOrders.Where(o => o.StudentId == Id));
-                list.AddRange(Astu.StudentNameChangingOrders.Where(o => o.StudentId == Id));
+                //list.AddRange(Astu.StudentNameChangingOrders.Where(o => o.StudentId == Id));
                 list.AddRange(Astu.NextCourseTransferOrders.Where(o => o.StudentId == Id));
                 list.AddRange(Astu.OtherOrders.Where(o => o.StudentId == Id));
                 list.AddRange(Astu.ReinstatementOrders.Where(o => o.StudentId == Id));
@@ -434,6 +434,14 @@ namespace Model.Astu
                 list.AddRange(Astu.OrphanTickets.Where(d => d.StudentId == Id).Cast<StudentDocumentBase>());
                 list.AddRange(Astu.DisabilityTickets.Where(d => d.StudentId == Id).Cast<StudentDocumentBase>());
                 return list.OrderBy(d => d.Date);
+            }
+        }
+
+        public IEnumerable<NextCourseTransferOrder> NextCourseTransferOrders
+        {
+            get
+            {
+                return Astu.NextCourseTransferOrders.Where(o => o.StudentId == Id);
             }
         }
 

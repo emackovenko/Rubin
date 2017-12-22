@@ -149,7 +149,7 @@ namespace Model.WorkOk
                 return GetEnrollToFullStateProvisionOrder();
             }
 
-            int[] facultyTransfer = new int[] { 37, 38 };
+            int[] facultyTransfer = new int[] { /*37, 38*/ };
             if (facultyTransfer.Contains(OrderTypeId.Value))
             {
                 return GetFacultyTransferOrder();
