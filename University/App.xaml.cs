@@ -18,16 +18,15 @@ namespace University
         {
             base.OnStartup(e);
 
+            // Регистрация библиотек GemBox
+            GemBox.Document.ComponentInfo.SetLicense("DH5L-PTFV-SL2S-5PCN");
+            GemBox.Spreadsheet.SpreadsheetInfo.SetLicense("E43Y-75J1-FTBX-2T9U");
+
             using (var model = new UniversityModel())
             {
                 model.Database.EnsureDeleted();
                 model.Database.EnsureCreated();
-                var a = new Country();
-                a.Name = "Россия";
-                model.Countries.Add(a);
-                model.SaveChanges();
             }
-
             var desktop = new MainWindow();
             desktop.ShowDialog();
             App.Current.Shutdown();

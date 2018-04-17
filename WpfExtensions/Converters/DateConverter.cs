@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace University.Themes.Converters
+namespace WpfExtensions.Converters
 {
     [ValueConversion(typeof(DateTime), typeof(string))]
     public class DateConverter : IValueConverter

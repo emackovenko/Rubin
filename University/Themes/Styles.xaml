@@ -1,12 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:University.Themes"
-                    xmlns:control="clr-namespace:University.Themes.Controls"
-                    xmlns:behavior="clr-namespace:University.Themes.Behaviors"
-                    xmlns:converter="clr-namespace:University.Themes.Converters">
-    
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:behavior="clr-namespace:WpfExtensions.Behaviors;assembly=WpfExtensions"
+                    xmlns:converter="clr-namespace:WpfExtensions.Converters;assembly=WpfExtensions">
+
     <!--**********  Brushes  ***********-->
-    
+
     <LinearGradientBrush
 		x:Key="ToolButtonBorderGradient"
 		EndPoint="0.5,1"
@@ -18,11 +18,11 @@
 			Color="White"
 			Offset="1" />
     </LinearGradientBrush>
-    
+
     <SolidColorBrush
 		x:Key="AccentColorBrush"
 		Color="#CC119EDA" />
-    
+
     <LinearGradientBrush 
         x:Key="ToolButtonBorder" 
         EndPoint="0.5,1" 
@@ -34,16 +34,16 @@
             Color="White" 
             Offset="1"/>
     </LinearGradientBrush>
-    
+
     <BlurEffect
 		x:Key="NotAvailableEffect"
 		KernelType="Box"
 		Radius="5" />
-    
+
     <!-- END Brushes -->
 
-    
-    
+
+
     <!--*********  Components  ***********-->
 
 
@@ -88,7 +88,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
     <Style x:Key="ToolButton" TargetType="{x:Type Button}">
         <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=ToolButtonBorder}"/>
         <Setter Property="Background" Value="{x:Null}"/>
@@ -121,7 +121,11 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-        
+
+    <Style
+        TargetType="{x:Type PasswordBox}">
+    </Style>
+
 
     <!-- END Components -->
 
@@ -186,36 +190,15 @@
 
     <!-- END Preloaded images -->
 
+
+
     <!-- ********** Converters ********* -->
 
     <converter:DateConverter x:Key="DateConverter"/>
 
     <!-- END Converters -->
-
-
-    <!-- CheckBox triggers -->
-
-    <Style
-        TargetType="CheckBox"
-        x:Key="HostelNeedingCheckBox">
-        <Style.Triggers>
-            <Trigger                                    
-                Property="IsChecked"
-                Value="True">
-                <Setter
-                    Property="Content"
-                    Value="Нуждается в общежитии"/>
-            </Trigger>
-            <Trigger                                    
-                Property="IsChecked"
-                Value="False">
-                <Setter
-                    Property="Content"
-                    Value="Не нуждается в общежитии"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
     
-    <!-- END CheckBox triggers -->
+    
+    
 
 </ResourceDictionary>
