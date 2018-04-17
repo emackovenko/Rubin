@@ -55,6 +55,9 @@
                         <MenuItem
                             Header="Справка об обучении"
                             Command="{Binding Path=PrintLearningTicketCommand}"/>
+                        <MenuItem
+                            Header="Экзаменационная ведомость"
+                            Command="{Binding Path=PrintExaminationStatementCommand}"/>
                     </StackPanel>
                 </xctk:DropDownButton.DropDownContent>
                 <Image Style="{StaticResource PicturePrint}"/>

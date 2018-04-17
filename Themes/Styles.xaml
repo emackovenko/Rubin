@@ -1,0 +1,221 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:University.Themes"
+                    xmlns:control="clr-namespace:University.Themes.Controls"
+                    xmlns:behavior="clr-namespace:University.Themes.Behaviors"
+                    xmlns:converter="clr-namespace:University.Themes.Converters">
+    
+    <!--**********  Brushes  ***********-->
+    
+    <LinearGradientBrush
+		x:Key="ToolButtonBorderGradient"
+		EndPoint="0.5,1"
+		StartPoint="0.5,0">
+        <GradientStop
+			Color="#FF6DC0F9"
+			Offset="0" />
+        <GradientStop
+			Color="White"
+			Offset="1" />
+    </LinearGradientBrush>
+    
+    <SolidColorBrush
+		x:Key="AccentColorBrush"
+		Color="#CC119EDA" />
+    
+    <LinearGradientBrush 
+        x:Key="ToolButtonBorder" 
+        EndPoint="0.5,1" 
+        StartPoint="0.5,0">
+        <GradientStop 
+            Color="#FF515151" 
+            Offset="0"/>
+        <GradientStop 
+            Color="White" 
+            Offset="1"/>
+    </LinearGradientBrush>
+    
+    <BlurEffect
+		x:Key="NotAvailableEffect"
+		KernelType="Box"
+		Radius="5" />
+    
+    <!-- END Brushes -->
+
+    
+    
+    <!--*********  Components  ***********-->
+
+
+    <Style
+		x:Key="LogTextBox"
+		TargetType="TextBox">
+        <Setter
+			Property="BorderBrush"
+			Value="{x:Null}" />
+        <Setter
+			Property="VerticalScrollBarVisibility"
+			Value="Auto" />
+        <Setter
+			Property="IsReadOnly"
+			Value="True" />
+        <Setter
+			Property="TextWrapping"
+			Value="Wrap" />
+        <Setter
+			Property="FontFamily"
+			Value="Courier New" />
+        <Setter
+			Property="FontSize"
+			Value="12" />
+        <Setter
+			Property="TextAlignment"
+			Value="Left" />
+        <Setter
+			Property="behavior:AutoScrollTextBoxBehavior.ScrollOnTextChanged"
+			Value="True" />
+    </Style>
+
+    <Style
+        TargetType="Button">
+        <Style.Triggers>
+            <Trigger
+				Property="IsEnabled"
+				Value="False">
+                <Setter
+					Property="Effect"
+					Value="{StaticResource NotAvailableEffect}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="ToolButton" TargetType="{x:Type Button}">
+        <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=ToolButtonBorder}"/>
+        <Setter Property="Background" Value="{x:Null}"/>
+        <Setter Property="Foreground" Value="{x:Null}"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Width" Value="32"/>
+    </Style>
+
+
+    <Style
+        x:Key="AuxularyInfoTextBox"
+        TargetType="{x:Type TextBlock}">
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontStyle" Value="Italic"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Margin" Value="5,0"/>
+        <Style.Triggers>
+            <Trigger
+                Property="Text"
+                Value="НЕТ">
+                <Setter
+                    Property="Background"
+                    Value="#FFFF829E"/>
+                <Setter
+                    Property="Width"
+                    Value="50"/>
+                <Setter
+                    Property="TextAlignment"
+                    Value="Center"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+        
+
+    <!-- END Components -->
+
+
+
+    <!--***********  Preloaded images ***********-->
+
+    <Style 
+        x:Key="PictureAdd"
+        TargetType="{x:Type Image}">
+        <Setter Property="Source" Value="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+    </Style>
+
+    <Style 
+        x:Key="PictureDelete"
+        TargetType="{x:Type Image}">
+        <Setter Property="Source" Value="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+    </Style>
+
+    <Style 
+        x:Key="PictureEdit"
+        TargetType="{x:Type Image}">
+        <Setter Property="Source" Value="/ResourceLibrary;component/Images/Buttons/pencil.png"/>
+    </Style>
+
+    <Style 
+        x:Key="PictureInfo"
+        TargetType="{x:Type Image}">
+        <Setter Property="Source" Value="/ResourceLibrary;component/Images/Buttons/about.png"/>
+    </Style>
+
+    <Style 
+        x:Key="PicturePrint"
+        TargetType="{x:Type Image}">
+        <Setter Property="Source" Value="/ResourceLibrary;component/Images/Buttons/printer.png"/>
+    </Style>
+
+    <Style 
+        x:Key="PictureRefresh"
+        TargetType="{x:Type Image}">
+        <Setter Property="Source" Value="/ResourceLibrary;component/Images/Buttons/recycle.png"/>
+    </Style>
+
+    <Style 
+        x:Key="PictureSearch"
+        TargetType="{x:Type Image}">
+        <Setter Property="Source" Value="/ResourceLibrary;component/Images/Buttons/view.png"/>
+    </Style>
+
+    <Style 
+        x:Key="PictureParams"
+        TargetType="{x:Type Image}">
+        <Setter Property="Source" Value="/ResourceLibrary;component/Images/Buttons/params.png"/>
+    </Style>
+
+    <Style 
+        x:Key="PictureUpdate"
+        TargetType="{x:Type Image}">
+        <Setter Property="Source" Value="/ResourceLibrary;component/Images/Buttons/arrow_down_red.png"/>
+    </Style>
+
+
+    <!-- END Preloaded images -->
+
+    <!-- ********** Converters ********* -->
+
+    <converter:DateConverter x:Key="DateConverter"/>
+
+    <!-- END Converters -->
+
+
+    <!-- CheckBox triggers -->
+
+    <Style
+        TargetType="CheckBox"
+        x:Key="HostelNeedingCheckBox">
+        <Style.Triggers>
+            <Trigger                                    
+                Property="IsChecked"
+                Value="True">
+                <Setter
+                    Property="Content"
+                    Value="Нуждается в общежитии"/>
+            </Trigger>
+            <Trigger                                    
+                Property="IsChecked"
+                Value="False">
+                <Setter
+                    Property="Content"
+                    Value="Не нуждается в общежитии"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!-- END CheckBox triggers -->
+
+</ResourceDictionary>

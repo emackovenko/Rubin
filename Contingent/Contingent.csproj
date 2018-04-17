@@ -190,6 +190,7 @@
     <Compile Include="Themes\Converters\DateConverter.cs" />
     <Compile Include="Themes\Selectors\StudentDocumentTemplateSelector.cs" />
     <Compile Include="Themes\Selectors\StudentOrderTemplateSelector.cs" />
+    <Compile Include="ViewModel\Documents\ExaminationStatementDocument.cs" />
     <Compile Include="ViewModel\Documents\LearningTicketDocument.cs" />
     <Compile Include="ViewModel\Documents\StudentErrorsReport.cs" />
     <Compile Include="ViewModel\LogWriter.cs" />

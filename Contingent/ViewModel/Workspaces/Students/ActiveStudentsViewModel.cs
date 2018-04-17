@@ -105,9 +105,17 @@ namespace Contingent.ViewModel.Workspaces.Students
 
         public RelayCommand PrintLearningTicketCommand { get => new RelayCommand(PrintLearningTicket); }
 
+        public RelayCommand PrintExaminationStatementCommand { get => new RelayCommand(PrintExaminationStatement); }
+
         #endregion
 
         #region Methods
+
+        void PrintExaminationStatement()
+        {
+            var doc = new ExaminationStatementDocument(SelectedStudent.Group);
+            ViewInvoker.ShowDocument(doc);
+        }
 
         void AddStudent()
         {

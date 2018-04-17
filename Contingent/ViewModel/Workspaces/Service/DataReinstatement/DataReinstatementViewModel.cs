@@ -34,8 +34,77 @@ namespace Contingent.ViewModel.Workspaces.Service.DataReinstatement
         
         void DoIt()
         {
-            var thread = new Thread(CourseTransfer);
+            var thread = new Thread(SendGraduateOrders);
             thread.Start();            
+        }
+
+        void SendGraduateOrders()
+        {
+            if (AuthInWorkOk())
+            {
+                ConsoleText = "Авторизация и загрузка данных из work_ok прошла успешно.";
+            }
+            // Выбрать приказы об отчислении в связи с получением образования за 2018 год
+            _consoleText.Clear();
+            var sbQuery = new StringBuilder();
+            var workGraduateOrders = WorkOk.Context.Orders
+                .Where(o => o.OrderTypeId == 67)
+                .Where(o => o.Date != null)
+                .Where(o => o.Date.Value.Year == 2018);
+
+            // По всем приказам
+            foreach (var wOrder in workGraduateOrders)
+            {
+                // найти студента в асту
+                var aStudent = GetAstuActiveStudent(wOrder.Student);
+                if (aStudent == null)
+                {
+                    ConsoleText = string.Format("Студент {0} не найден в АСТУ.", wOrder.Student.FullName);
+                    continue;
+                }
+
+                ConsoleText = string.Format("Студент {0} найден в АСТУ: {1}", wOrder.Student.FullName, aStudent.Id);
+
+                // ебануть ему такой же приказ
+
+                var aorder = FindOrderHistory(aStudent, wOrder);
+                if (aorder == null)
+                {
+                    ConsoleText = "\t\tПриказ не был найден у студента в Astu. Добавляю новый.";
+                    try
+                    {
+                        var newOrder = wOrder.ToAstu();
+
+                        if (newOrder == null)
+                        {
+                            ConsoleText = "\t\tОбработка этого типа приказов еще не реализована.\n";
+                            continue;
+                        }
+
+                        newOrder.StudentId = aStudent.Id;
+                        ConsoleText = string.Format("\t\t\tСоздан новый приказ: № {0} от {1} г. - {2} (Комментарий: {3});\n",
+                            newOrder.Number, newOrder.Date.Format(), newOrder.OrderType.Name, newOrder.Comment);
+                        sbQuery.AppendLine(newOrder.GetSaveQuery());
+
+                    }
+                    catch (Exception e)
+                    {
+                        ConsoleText = string.Format("\t\t\tПри обработке приказа произошла ошибка: {0}\n.", e.Message);
+                    }
+                }
+
+                // поменять статус студента
+                if (aStudent.StatusId != wOrder.Student.Status.AstuId)
+                {
+                    ConsoleText = string.Format("Статус студента {0} изменен с {1} на {2}.",
+                        aStudent.FullName, aStudent.Status.Name, Astu.Astu.StudentStatuses.FirstOrDefault(s => s.Id == wOrder.Student.Status.AstuId).Name);
+                    aStudent.StatusId = wOrder.Student.Status.AstuId;
+                    sbQuery.AppendLine(aStudent.GetSaveQuery());
+                }
+            }
+
+            ConsoleText = "\n\n\n\n";
+            ConsoleText = sbQuery.ToString();
         }
 
         void CourseTransfer()
@@ -325,6 +394,24 @@ namespace Contingent.ViewModel.Workspaces.Service.DataReinstatement
             return WorkOk.Context.Auth(connection);
         }
 
+        Astu.Student GetAstuActiveStudent(WorkOk.Student workStudent)
+        {
+            var filteredCollection = Astu.Astu.Students.Where(s => s.StatusId != null && s.StatusId == "0001");
+            // Фильтруем по ФИО
+            filteredCollection = filteredCollection.Where(s => s.FullName == workStudent.FullName);
+            if (filteredCollection.Count() == 1)
+            {
+                return filteredCollection.First();
+            }
+
+            // фильтр по году приёма
+            filteredCollection = filteredCollection.Where(s => s.AdmissionYear == workStudent.AdmissionYear);
+            if (filteredCollection.Count() > 0)
+            {
+                return filteredCollection.First();
+            }
+            return null;
+        }
 
         WorkOk.Student GetWorkOkStudent(Astu.Student astuStudent)
         {
