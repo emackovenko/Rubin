@@ -31,9 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GemBox.Document, Version=25.3.30.1297, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL" />
-    <Reference Include="GemBox.Spreadsheet, Version=41.3.30.1101, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="DocumentFormat.OpenXml">
+      <HintPath>..\Other files\Additional packages\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="GemBox.Document">
+      <HintPath>..\Other files\Additional packages\GemBox.Document.dll</HintPath>
+    </Reference>
+    <Reference Include="GemBox.Spreadsheet">
       <HintPath>..\Other files\Additional packages\GemBox.Spreadsheet.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
