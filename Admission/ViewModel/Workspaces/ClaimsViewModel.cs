@@ -114,7 +114,8 @@ namespace Admission.ViewModel.Workspaces
 			var entrant = new Entrant()
 			{
 				Address = address,
-				Gender = Session.DataModel.Genders.First()
+				Gender = Session.DataModel.Genders.First(),
+                MarritalStatus = Session.DataModel.MarritalStatuses.First()
 			};
 
 			var ord = new OtherRequiredDocument
@@ -124,8 +125,7 @@ namespace Admission.ViewModel.Workspaces
 				Photos = false,
 				MedicinePermission = false
 			};
-
-			var identityDocument = new IdentityDocument();
+            
 
 			var claim = new Claim()
 			{
@@ -137,12 +137,10 @@ namespace Admission.ViewModel.Workspaces
 
 			claim.Entrants.Add(entrant);
 			claim.OtherRequiredDocuments.Add(ord);
-			claim.IdentityDocuments.Add(identityDocument);
 
 			Session.DataModel.OtherRequiredDocuments.Add(ord);
 			Session.DataModel.Addresses.Add(address);
 			Session.DataModel.Entrants.Add(entrant);
-			Session.DataModel.IdentityDocuments.Add(identityDocument);
 			Session.DataModel.Claims.Add(claim);
 
 			var vm = new ClaimEditorViewModel(claim);

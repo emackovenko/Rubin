@@ -8,9 +8,9 @@
              mc:Ignorable="d" 
              Height="300" 
              Width="490">
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <vm:IdentityDocumentEditorViewModel/>
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
     <Grid Background="#FFD6D6D6">
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
@@ -95,7 +95,7 @@
         <ComboBox
             Grid.Row="0"
             Grid.Column="2"
-            SelectedItem="{Binding Path=Document.IdentityDocumentType}"
+            SelectedItem="{Binding Path=Document.IdentityDocumentType, UpdateSourceTrigger=PropertyChanged}"
             ItemsSource="{Binding Path=DocumentTypes}"
             Height="23"
             Width="250"
@@ -107,7 +107,7 @@
             Grid.Column="2"
             Height="23"
             Width="150"
-            Text="{Binding Path=Document.Series}"
+            Text="{Binding Path=Document.Series, UpdateSourceTrigger=PropertyChanged}"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"/>
         <TextBox
@@ -115,7 +115,7 @@
             Grid.Column="2"
             Height="23"
             Width="150"
-            Text="{Binding Path=Document.Number}"
+            Text="{Binding Path=Document.Number, UpdateSourceTrigger=PropertyChanged}"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"/>
         <DatePicker
@@ -123,27 +123,27 @@
             Grid.Column="2"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            SelectedDate="{Binding Path=Document.Date}"
-            DisplayDate="{Binding Path=Document.Date}"/>
+            SelectedDate="{Binding Path=Document.Date, UpdateSourceTrigger=PropertyChanged}"
+            DisplayDate="{Binding Path=Document.Date, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox
             Grid.Row="4"
             Grid.Column="2"
             Height="23"
             Margin="0,0,10,0"
-            Text="{Binding Path=Document.Organization}"
+            Text="{Binding Path=Document.Organization, UpdateSourceTrigger=PropertyChanged}"
             VerticalAlignment="Center"/>
         <TextBox
             Grid.Row="5"
             Grid.Column="2"
             Height="23"
             Width="150"
-            Text="{Binding Path=Document.SubdivisionCode}"
+            Text="{Binding Path=Document.SubdivisionCode, UpdateSourceTrigger=PropertyChanged}"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"/>
         <ComboBox
             Grid.Row="6"
             Grid.Column="2"
-            SelectedItem="{Binding Path=Document.Citizenship}"
+            SelectedItem="{Binding Path=Document.Citizenship, UpdateSourceTrigger=PropertyChanged}"
             ItemsSource="{Binding Path=Citizenships}"
             Height="23"
             Width="250"
@@ -155,14 +155,14 @@
             Grid.Column="2"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            SelectedDate="{Binding Path=Document.BirthDate}"
+            SelectedDate="{Binding Path=Document.BirthDate, UpdateSourceTrigger=PropertyChanged}"
             DisplayDate="{Binding Path=Document.BirthDate}"/>
         <TextBox
             Grid.Row="8"
             Grid.Column="2"
             Height="23"
             ToolTip="позже сделаю, чобы выбиралось как с адресом"
-            Text="{Binding Path=Document.BirthPlace}"
+            Text="{Binding Path=Document.BirthPlace, UpdateSourceTrigger=PropertyChanged}"
             Margin="0,0,10,0"
             VerticalAlignment="Center"/>
     </Grid>

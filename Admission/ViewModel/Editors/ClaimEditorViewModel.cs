@@ -89,28 +89,7 @@ namespace Admission.ViewModel.Editors
 				_entrant = value;
 				RaisePropertyChanged("EditedEntrant");
 			}
-		}
-
-
-		IdentityDocument _identityDocument;
-		public IdentityDocument IdentityDocument
-		{
-			get
-			{
-				if (_identityDocument == null)
-				{
-					_identityDocument = EditedClaim.IdentityDocuments.FirstOrDefault();
-				}
-				return _identityDocument;
-			}
-			set
-			{
-				_identityDocument = value;
-				RaisePropertyChanged("IdentityDocument");
-
-			}
-		}
-				   
+		}	   
 
 		#endregion
 
@@ -196,7 +175,6 @@ namespace Admission.ViewModel.Editors
 
 			if (DialogLayer.ShowEditor(EditingContent.AddressSelector, vm))
 			{
-				IdentityDocument.BirthPlace = address.ViewAddress;
 				RaisePropertyChanged("IdentityDocument");
 			}
 		}							   
@@ -210,15 +188,36 @@ namespace Admission.ViewModel.Editors
 			}
 		}
 
-		#endregion
+        #endregion
 
-		#endregion
+        #endregion
 
-		#endregion
+        #endregion
 
-		#region Additional logic
+        #region Identity Documents
 
-		public RelayCommand AddIdentityDocumentCommand
+        public IdentityDocument SelectedIdentityDocument { get; set; }
+
+        ObservableCollection<IdentityDocument> _identityDocuments;
+
+        public ObservableCollection<IdentityDocument> IdentityDocuments
+        {
+            get
+            {
+                if (_identityDocuments == null)
+                {
+                    _identityDocuments = new ObservableCollection<IdentityDocument>(EditedClaim.IdentityDocuments.ToList());
+                }
+                return _identityDocuments;
+            }
+            set
+            {
+                EditedClaim.IdentityDocuments = value;
+                RaisePropertyChanged("IdentityDocuments");
+            }
+        }
+
+        public RelayCommand AddIdentityDocumentCommand
 		{
 			get
 			{
@@ -228,26 +227,47 @@ namespace Admission.ViewModel.Editors
 
 		void AddIdentityDocument()
 		{
-			var doc = new IdentityDocument
-			{
-				BirthPlace = IdentityDocument.BirthPlace,
-				BirthDate = IdentityDocument.BirthDate,
-				Organization = IdentityDocument.Organization
-			};
+            var doc = new IdentityDocument();
 			var vm = new IdentityDocumentEditorViewModel(doc);
 			if (DialogLayer.ShowEditor(EditingContent.IdentityDocumentEditor, vm))
 			{
-				EditedClaim.IdentityDocuments.Add(doc);
+				IdentityDocuments.Add(doc);
+                SelectedIdentityDocument = doc;
+                RaisePropertyChanged("SelectedIdentityDocument");
+                RaisePropertyChanged("SelectedIdentityDocument");
 			}
 		}
 
-		#endregion
+        public RelayCommand EditIdentityDocumentCommand { get => new RelayCommand(EditIdentityDocument); }
 
-		#region ClaimConditions
+        void EditIdentityDocument()
+        {
+            
+			var vm = new IdentityDocumentEditorViewModel(SelectedIdentityDocument);
+			if (DialogLayer.ShowEditor(EditingContent.IdentityDocumentEditor, vm))
+			{
+                RaisePropertyChanged("IdentityDocuments");
+                RaisePropertyChanged("SelectedIdentityDocument");
+			}
+        }
 
-		#region Entities
+        public RelayCommand DeleteIdentityDocumentCommand { get => new RelayCommand(DeleteIdentityDocument); }
 
-		ClaimCondition _selectedClaimCondition;
+        void DeleteIdentityDocument()
+        {
+            if (Messenger.RemoveQuestion())
+            {
+                IdentityDocuments.Remove(SelectedIdentityDocument);
+            }
+        }
+
+        #endregion
+
+        #region ClaimConditions
+
+        #region Entities
+
+        ClaimCondition _selectedClaimCondition;
 
 		public ClaimCondition SelectedClaimCondition
 		{
@@ -1170,6 +1190,11 @@ namespace Admission.ViewModel.Editors
 				return new ObservableCollection<ClaimStatus>(Session.DataModel.ClaimStatuses.ToList());
 			}	 
 		}
+
+        public ObservableCollection<MarritalStatus> MarritalStatuses
+        {
+            get => new ObservableCollection<MarritalStatus>(Session.DataModel.MarritalStatuses.ToList());
+        }
 
 							  
 		#endregion

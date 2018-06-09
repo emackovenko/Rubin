@@ -199,7 +199,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Личные данные">
-               <Grid 
+                <Grid 
                     Margin="5"
                     Background="#FFFFFFCF">
                     <Grid.RowDefinitions>
@@ -224,11 +224,11 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition
-                            Width="Auto"/> 
+                            Width="Auto"/>
                         <ColumnDefinition
                             Width="3"/>
                         <ColumnDefinition
-                            Width="350"/>   
+                            Width="350"/>
                         <ColumnDefinition
                             Width="3"/>
                         <ColumnDefinition
@@ -283,7 +283,7 @@
                        Grid.Column="0"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
-                       Text="Пол:"/> 
+                       Text="Пол:"/>
                     <ComboBox
                         Grid.Row="3"
                         Grid.Column="2"
@@ -341,112 +341,75 @@
                         Grid.Row="0"
                         Grid.Column="4"
                         Grid.ColumnSpan="2"
-                        Grid.RowSpan="5">
+                        Grid.RowSpan="8">
                         <Grid
                             Margin="5">
                             <Grid.RowDefinitions>
                                 <RowDefinition
                                     Height="32"/>
                                 <RowDefinition
-                                    Height="32"/>
-                                <RowDefinition
-                                    Height="32"/>
-                                <RowDefinition
-                                    Height="32"/>
-                                <RowDefinition
-                                    Height="32"/>
+                                    Height="*"/>
                             </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition
-                                    Width="Auto"/>
-                                <ColumnDefinition
-                                    Width="3"/>
-                                <ColumnDefinition
-                                    Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Text="Тип документа:"/>
-                            <ComboBox
-                                Grid.Row="0"
-                                Grid.Column="2"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left"
-                                Height="21"
-                                Width="400"
-                                ItemsSource="{Binding Path=IdentityDocumentTypes}"
-                                DisplayMemberPath="Name"
-                                SelectedItem="{Binding Path=IdentityDocument.IdentityDocumentType}"/>
-                            <TextBlock
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Text="Серия:"/>
                             <StackPanel
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Grid.ColumnSpan="2"
+                                Grid.Row="0"
                                 Orientation="Horizontal">
-                                <TextBox
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Left"
-                                    Height="21"
-                                    Width="100"
-                                    Text="{Binding Path=IdentityDocument.Series, UpdateSourceTrigger=PropertyChanged}"/>
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Left"
-                                    Margin="5"
-                                    Text="Номер:"/>
-                                <TextBox
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Left"
-                                    Height="21"
-                                    Width="100"
-                                    Text="{Binding Path=IdentityDocument.Number, UpdateSourceTrigger=PropertyChanged}"/>  
+                                <Button
+                                    Style="{StaticResource ToolButton}"
+                                    Command="{Binding Path=AddIdentityDocumentCommand}">
+                                    <Image
+                                        Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
+                                </Button>
+                                <Button
+                                    Style="{StaticResource ToolButton}"
+                                    Command="{Binding Path=EditIdentityDocumentCommand}">
+                                    <Image
+                                        Source="/ResourceLibrary;component/Images/Buttons/pencil.png"/>
+                                </Button>
+                                <Button
+                                    Style="{StaticResource ToolButton}"
+                                    Command="{Binding Path=DeleteIdentityDocumentCommand}">
+                                    <Image
+                                        Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+                                </Button>
                             </StackPanel>
-                            <TextBlock
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Text="Дата выдачи:"/>
-                            <DatePicker
-                                Grid.Row="2"
-                                Grid.Column="2"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Height="25"
-                                Width="150"
-                                SelectedDate="{Binding Path=IdentityDocument.Date, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBlock
-                                Grid.Row="3"
-                                Grid.Column="0"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Text="Организация:"/>
-                            <ComboBox
-                                Grid.Row="3"
-                                Grid.Column="2"
-                                VerticalAlignment="Center"
-                                IsEditable="True"
-                                Text="{Binding Path=IdentityDocument.Organization, UpdateSourceTrigger=PropertyChanged}"
-                                ItemsSource="{Binding Path=IdentityDocumentIssuingOrganizations}"/>
-							<Button 
-								Content="+" 
-								Padding="5,0"
-								Grid.Column="2" 
-								ToolTip="Добавить еще один документ"
-								Command="{Binding Path=AddIdentityDocumentCommand}"
-								HorizontalAlignment="Left" 
-								Margin="405,5,0,0" 
-								VerticalAlignment="Top"/>
-						</Grid>
+                            <ListView
+                                Grid.Row="1"
+                                SelectedItem="{Binding Path=SelectedIdentityDocument}"
+                                ItemsSource="{Binding Path=IdentityDocuments}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn
+                                            Header="Вид"
+                                            DisplayMemberBinding="{Binding Path=IdentityDocumentType.Name}"/>
+                                        <GridViewColumn
+                                            Header="Серия"
+                                            DisplayMemberBinding="{Binding Path=Series}"/>
+                                        <GridViewColumn
+                                            Header="Номер"
+                                            DisplayMemberBinding="{Binding Path=Number}"/>
+                                        <GridViewColumn
+                                            Header="Дата"
+                                            DisplayMemberBinding="{Binding Path=Date, Converter={StaticResource DateConverter}}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
                     </GroupBox>
+                    <TextBlock
+                       Grid.Row="8"
+                       Grid.Column="4"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right"
+                       Text="Семейное положение"/>
+                    <ComboBox
+                       Grid.Row="8"
+                       Grid.Column="6"
+                       VerticalAlignment="Center"
+                       Width="200"
+                       HorizontalAlignment="Left"
+                       ItemsSource="{Binding Path=MarritalStatuses}"
+                       DisplayMemberPath="Name"
+                       SelectedItem="{Binding Path=EditedEntrant.MarritalStatus}"/>
                     <TextBlock
                        Grid.Row="7"
                        Grid.Column="0"
@@ -464,13 +427,13 @@
                         DisplayMemberPath="Name"
                         SelectedItem="{Binding Path=EditedEntrant.ForeignLanguage, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBlock
-                        Grid.Row="5"
+                        Grid.Row="9"
                         Grid.Column="4"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Text="Гражданство:"/>
                     <ComboBox
-                        Grid.Row="5"
+                        Grid.Row="9"
                         Grid.Column="6"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
@@ -480,20 +443,20 @@
                         DisplayMemberPath="Name"
                         SelectedItem="{Binding Path=IdentityDocument.Citizenship, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBlock
-                       Grid.Row="6"
+                       Grid.Row="10"
                        Grid.Column="4"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        Text="Место рождения:"/>
                     <StackPanel
                        Orientation="Horizontal"
-                       Grid.Row="6"
+                       Grid.Row="10"
                        Grid.Column="6">
                         <TextBox
-                            Width="550"
+                            Width="525"
                             Height="21"
                             IsReadOnly="True"
-                            Text="{Binding Path=IdentityDocument.BirthPlace}"/>
+                            Text="{Binding Path=IdentityDocument.BirthPlace}" Margin="0,6,0,5.8"/>
                         <Button
                             Height="21"
                             Width="21"
@@ -503,20 +466,20 @@
                             Command="{Binding Path=EditBirthPlaceCommand}"/>
                     </StackPanel>
                     <TextBlock
-                       Grid.Row="7"
+                       Grid.Row="11"
                        Grid.Column="4"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        Text="Адрес:"/>
                     <StackPanel
                        Orientation="Horizontal"
-                       Grid.Row="7"
+                       Grid.Row="11"
                        Grid.Column="6">
                         <TextBox
-                            Width="550"
+                            Width="524"
                             Height="21"
                             IsReadOnly="True"
-                            Text="{Binding Path=EditedEntrant.Address.ViewAddress, Mode=OneWay}"/>
+                            Text="{Binding Path=EditedEntrant.Address.ViewAddress, Mode=OneWay}" Margin="0,6,0,5.8"/>
                         <Button
                             Height="21"
                             Width="21"
@@ -662,7 +625,7 @@
                     </GroupBox>
                     <GroupBox Header="Сведения о работе"
                         BorderBrush="DarkBlue"
-                        Grid.Row="8"
+                        Grid.Row="12"
                         Grid.Column="3"
                         Grid.ColumnSpan="3"
                         Grid.RowSpan="4">
@@ -728,7 +691,7 @@
                                 Text="{Binding Path=EditedEntrant.JobStage, UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
                     </GroupBox>
-                </Grid> 
+                </Grid>
             </TabItem>
             <TabItem Header="Документы">
                 <Grid 
@@ -746,7 +709,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="3"/>
                     </Grid.ColumnDefinitions>
-                 <!--   <GroupBox Header="Документы, удостоверяющие личность"
+                    <!--   <GroupBox Header="Документы, удостоверяющие личность"
                               BorderBrush="DarkBlue"
                               Grid.Row="0"
                               Grid.Column="0">
@@ -1090,7 +1053,7 @@
                                                         <TextBlock        
                                                             Text="{Binding Path=Series, 
                                                                 StringFormat=Серия: {0}}"
-                                                            FontSize="10"/>  
+                                                            FontSize="10"/>
                                                         <TextBlock        
                                                             Text="{Binding Path=Number, 
                                                                 StringFormat=Номер: {0}}"
@@ -1303,32 +1266,32 @@
                                                     MinWidth="200"
                                                     ItemsSource="{Binding Path=AvailableTests, Mode=OneWay}"
                                                     SelectedItem="{Binding Path=EntranceTest}"/>
-											</StackPanel>
-											<StackPanel
+                                            </StackPanel>
+                                            <StackPanel
                                                 Orientation="Horizontal"
                                                 Margin="3">
-												<TextBlock
+                                                <TextBlock
                                                     Text="Балл:"
                                                     Margin="0,0,3,0"/>
-												<TextBox
+                                                <TextBox
                                                     BorderBrush="Black"
                                                     Height="21"
                                                     Width="40"
                                                     Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
-											</StackPanel>
-											<StackPanel
+                                            </StackPanel>
+                                            <StackPanel
                                                 Orientation="Horizontal"
                                                 Margin="3">
-												<TextBlock
+                                                <TextBlock
                                                     Text="Первичный балл:"
                                                     Margin="0,0,3,0"/>
-												<TextBox
+                                                <TextBox
                                                     BorderBrush="Black"
                                                     Height="21"
                                                     Width="40"
                                                     Text="{Binding Path=PrimaryMark, UpdateSourceTrigger=PropertyChanged}"/>
-											</StackPanel>
-										</StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>

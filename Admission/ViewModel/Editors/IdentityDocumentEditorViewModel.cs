@@ -14,11 +14,6 @@ namespace Admission.ViewModel.Editors
 		{
 			_document = document;
 		}
-			  
-		public IdentityDocumentEditorViewModel()
-			:this(new IdentityDocument())
-		{  			
-		}
 
 		IdentityDocument _document;
 		public IdentityDocument Document
