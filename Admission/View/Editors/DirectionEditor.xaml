@@ -7,7 +7,7 @@
              Height="64"
              Width="360">
     <Grid
-        Background="#CCCCCC">
+        Background="#FFFFFFCF">
         <Grid.ColumnDefinitions>
             <ColumnDefinition
                 Width="Auto"/>

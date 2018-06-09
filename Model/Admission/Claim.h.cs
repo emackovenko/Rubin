@@ -264,6 +264,18 @@ namespace Model.Admission
 			}
 		}
 
+        public Campaign Campaign
+        {
+            get
+            {
+                if (ClaimConditions.Where(c => c.Priority == 1).Count() > 0)
+                {
+                    return ClaimConditions.Where(c => c.Priority == 1).First().CompetitiveGroup.Campaign;
+                }
+                return null;
+            }
+        }
+
 		#region InnerLogic
 
 		/// <summary>

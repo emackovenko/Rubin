@@ -12,7 +12,7 @@
         <vm:EgeResultEditorViewModel/>
     </UserControl.DataContext>
     <Grid
-        Background="#CCCCCC">
+        Background="#FFFFFFCF">
         <Grid.RowDefinitions>
             <RowDefinition
                 Height="32"/>

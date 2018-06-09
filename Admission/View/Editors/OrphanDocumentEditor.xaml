@@ -23,7 +23,7 @@
         </Style>
     </UserControl.Resources>
     <Grid
-        Background="#CCCCCC">
+        Background="#FFFFFFCF">
         <Grid.RowDefinitions>
             <RowDefinition
                 Height="32"/>

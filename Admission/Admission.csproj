@@ -14,7 +14,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>\\192.168.0.220\shared\Distributions\Admission\</PublishUrl>
+    <PublishUrl>\\192.168.0.209\work\Admission\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -32,7 +32,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>76</ApplicationRevision>
+    <ApplicationRevision>77</ApplicationRevision>
     <ApplicationVersion>1.0.45.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -312,6 +312,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Workspaces\AccessControl\Pages\ScratchService.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Workspaces\ContractForming\ContractForming.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -468,6 +472,7 @@
       <DependentUpon>ItemSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="DialogService\Messenger.cs" />
+    <Compile Include="ViewModel\Administration\ScratchServiceViewModel.cs" />
     <Compile Include="ViewModel\Documents\AdmissionStatistic.cs" />
     <Compile Include="ViewModel\Documents\DocumentClaimMiddleEducation.cs" />
     <Compile Include="ViewModel\Documents\DocumentClaim.cs" />
@@ -625,6 +630,9 @@
     </Compile>
     <Compile Include="View\Windows\Wizards\ExaminationSeating\Pages\Welcome.xaml.cs">
       <DependentUpon>Welcome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\AccessControl\Pages\ScratchService.xaml.cs">
+      <DependentUpon>ScratchService.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Workspaces\ContractForming\ContractForming.xaml.cs">
       <DependentUpon>ContractForming.xaml</DependentUpon>

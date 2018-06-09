@@ -39,7 +39,7 @@
             <TabItem Header="Заявление">
                 <Grid 
                     Margin="5"
-                    Background="#CCCCCC">
+                    Background="#FFFFFFCF">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="32"/>
                         <RowDefinition Height="32"/>
@@ -201,7 +201,7 @@
             <TabItem Header="Личные данные">
                <Grid 
                     Margin="5"
-                    Background="#CCCCCC">
+                    Background="#FFFFFFCF">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="32"/>
                         <RowDefinition Height="32"/>
@@ -733,7 +733,7 @@
             <TabItem Header="Документы">
                 <Grid 
                     Margin="5"
-                    Background="#CCCCCC">
+                    Background="#FFFFFFCF">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="3"/>
@@ -942,7 +942,7 @@
             <TabItem Header="Образование">
                 <Grid 
                     Margin="5"
-                    Background="#CCCCCC">
+                    Background="#FFFFFFCF">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="3"/>
@@ -1202,7 +1202,7 @@
             <TabItem Header="Вступительные испытания">
                 <Grid 
                     Margin="5"
-                    Background="#CCCCCC">
+                    Background="#FFFFFFCF">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="3"/>

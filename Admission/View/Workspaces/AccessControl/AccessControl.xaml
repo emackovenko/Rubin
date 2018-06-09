@@ -35,6 +35,8 @@
                     SelectedIndex="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <controls:WorkspaceMenuItem
                         Title="Роли" URL="/Admission;component/View/Workspaces/AccessControl/Pages/RoleList.xaml"/>
+                    <controls:WorkspaceMenuItem
+                        Title="Костыль" URL="/Admission;component/View/Workspaces/AccessControl/Pages/ScratchService.xaml"/>
                 </ListView>
             </Expander>
         </Border>

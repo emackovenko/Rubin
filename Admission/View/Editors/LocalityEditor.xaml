@@ -11,7 +11,7 @@
              Height="192"
              Width="400">
     <Grid
-        Background="#CCCCCC">
+        Background="#FFFFFFCF">
         <Grid.RowDefinitions>
             <RowDefinition
                 Height="32"/>

@@ -11,7 +11,7 @@
         <vm:ClaimEditorViewModel/>
     </UserControl.DataContext>
     <Grid
-        Background="#CCCCCC">
+        Background="#FFFFFFCF">
         <ComboBox
             Margin="15"
             ItemsSource="{Binding Path=AvailableIndividualAchievements}"

@@ -354,26 +354,6 @@
     <Compile Include="Admission\WorkspacePermission.cs">
       <DependentUpon>AdmissionModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Astu\Astu.cs" />
-    <Compile Include="Astu\Backend\Entity.cs" />
-    <Compile Include="Astu\Backend\EntitySet.cs" />
-    <Compile Include="Astu\Backend\Enums.cs" />
-    <Compile Include="Astu\Backend\FieldNameAttribute.cs" />
-    <Compile Include="Astu\Backend\FieldTypeAttribute.cs" />
-    <Compile Include="Astu\Backend\IEntitySet.cs" />
-    <Compile Include="Astu\Backend\KindOfMagic.cs" />
-    <Compile Include="Astu\Backend\PrimaryKeyAttribute.cs" />
-    <Compile Include="Astu\Backend\PropertyChangedBase.cs" />
-    <Compile Include="Astu\Backend\TableNameAttribute.cs" />
-    <Compile Include="Astu\Direction.cs" />
-    <Compile Include="Astu\EducationForm.cs" />
-    <Compile Include="Astu\EducationPlan.cs" />
-    <Compile Include="Astu\EducationProgramType.cs" />
-    <Compile Include="Astu\Faculty.cs" />
-    <Compile Include="Astu\ForeignLanguage.cs" />
-    <Compile Include="Astu\Group.cs" />
-    <Compile Include="Astu\QuotaType.cs" />
-    <Compile Include="Astu\Student.cs" />
     <Compile Include="ExportData\Application.cs" />
     <Compile Include="ExportData\ApplicationCommonBenefits.cs" />
     <Compile Include="ExportData\ApplicationDocuments.cs" />

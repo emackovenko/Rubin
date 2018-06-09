@@ -49,7 +49,8 @@ namespace Admission.ViewModel.Workspaces
                 if (_claimList == null)
                 {
                     _claimList = new ObservableCollection<Claim>(from claim in Session.DataModel.Claims
-                                                                 where claim.ClaimStatusId == 1 || claim.ClaimStatusId == 2 || claim.ClaimStatusId == 3
+                                                                 where (claim.ClaimStatusId == 1 || claim.ClaimStatusId == 2 || claim.ClaimStatusId == 3)
+                                                                 && claim.Campaign.CampaignStatusId == 2
                                                                  orderby claim.RegistrationDate, claim.Id
                                                                  select claim);
                 }

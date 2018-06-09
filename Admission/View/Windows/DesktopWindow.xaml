@@ -32,7 +32,7 @@
                 Icon="/ResourceLibrary;component/Images/id_cards.png">
                 <claim:EntrantClaims/>
             </controls:ProtectedTabItem>
-            <controls:ProtectedTabItem
+            <!--<controls:ProtectedTabItem
                 x:Name="admissionItem"
                 PermissionName="AdmissionCampaign"
                 Title="Приёмная кампания" 
@@ -44,19 +44,19 @@
                 Title="Вступительные испытания"
                 Icon="/ResourceLibrary;component/Images/blackboard.png">
                 <exam:Examinations/>
-            </controls:ProtectedTabItem>
+            </controls:ProtectedTabItem>-->
             <controls:ProtectedTabItem   
                 PermissionName="Enrollment"
                 Title="Зачисление в студенты"
                 Icon="/ResourceLibrary;component/Images/graduation_hat2.png">
                 <enroll:Enrollment/>
             </controls:ProtectedTabItem>
-            <controls:ProtectedTabItem 
+            <!--<controls:ProtectedTabItem 
                 PermissionName="Dictionaries"
                 Title="Справочники"
                 Icon="/ResourceLibrary;component/Images/address_book.png">
                 <dicationary:Dictionaries/>
-            </controls:ProtectedTabItem>
+            </controls:ProtectedTabItem>-->
             <controls:ProtectedTabItem 
                 PermissionName="ReportGeneration"
                 Title="Отчётность" 

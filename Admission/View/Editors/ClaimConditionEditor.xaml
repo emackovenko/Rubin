@@ -10,7 +10,7 @@
              x:Class="Admission.View.Editors.ClaimConditionEditor"
              xmlns:vm="clr-namespace:Admission.ViewModel.Editors"
              mc:Ignorable="d" Height="160" Width="465">
-    <Grid Background="#CCCCCC">
+    <Grid Background="#FFFFFFCF">
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
             <RowDefinition Height="32"/>

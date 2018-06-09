@@ -9,7 +9,7 @@
              Height="128"
              Width="405">
     <Grid
-        Background="#CCCCCC">
+        Background="#FFFFFFCF">
         <Grid.RowDefinitions>
             <RowDefinition
                 Height="32"/>
