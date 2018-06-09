@@ -30,6 +30,7 @@ namespace Model.Admission
         public string EnrollmentReason { get; set; }
         public Nullable<int> WorkOkId { get; set; }
         public string AstuId { get; set; }
+        public string AstuIdKob { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CompetitiveGroup> CompetitiveGroups { get; set; }

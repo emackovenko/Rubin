@@ -41,6 +41,7 @@ namespace Model.Admission
         public string JobOrganization { get; set; }
         public Nullable<decimal> JobStage { get; set; }
         public Nullable<int> ForeignLanguageId { get; set; }
+        public Nullable<int> MarritalStatusId { get; set; }
     
         public virtual Address Address { get; set; }
         public virtual Claim Claim { get; set; }
@@ -48,5 +49,6 @@ namespace Model.Admission
         public virtual ForeignLanguage ForeignLanguage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EntrantContract> EntrantContracts { get; set; }
+        public virtual MarritalStatus MarritalStatus { get; set; }
     }
 }

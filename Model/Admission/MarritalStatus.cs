@@ -12,19 +12,18 @@ namespace Model.Admission
     using System;
     using System.Collections.Generic;
     
-    public partial class Country
+    public partial class MarritalStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Country()
+        public MarritalStatus()
         {
-            this.Addresses = new HashSet<Address>();
+            this.Entrants = new HashSet<Entrant>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public string AstuId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<Entrant> Entrants { get; set; }
     }
 }

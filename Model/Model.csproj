@@ -186,6 +186,9 @@
       <DependentUpon>AdmissionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Admission\Direction.h.cs" />
+    <Compile Include="Admission\DirectionProfile.cs">
+      <DependentUpon>AdmissionModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Admission\DistributedAdmissionVolume.cs">
       <DependentUpon>AdmissionModel.tt</DependentUpon>
     </Compile>
@@ -304,6 +307,9 @@
     </Compile>
     <Compile Include="Admission\Locality.h.cs" />
     <Compile Include="Admission\Log.cs">
+      <DependentUpon>AdmissionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Admission\MarritalStatus.cs">
       <DependentUpon>AdmissionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Admission\MiddleEducationDiplomaDocument.cs">

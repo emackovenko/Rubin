@@ -19,6 +19,7 @@ namespace Model.Admission
         {
             this.AdmissionVolumes = new HashSet<AdmissionVolume>();
             this.CompetitiveGroups = new HashSet<CompetitiveGroup>();
+            this.DirectionProfiles = new HashSet<DirectionProfile>();
         }
     
         public int Id { get; set; }
@@ -33,5 +34,7 @@ namespace Model.Admission
         public virtual ICollection<AdmissionVolume> AdmissionVolumes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CompetitiveGroup> CompetitiveGroups { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DirectionProfile> DirectionProfiles { get; set; }
     }
 }

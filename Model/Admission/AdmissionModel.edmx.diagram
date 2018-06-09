@@ -169,6 +169,10 @@
         <AssociationConnector Association="AdmissionModel.FK_EnrollmentProtocols_Faculties_Id" />
         <EntityTypeShape EntityType="AdmissionModel.ContractIndividualPlanAuxAgreement" Width="1.5" PointX="15.75" PointY="36.5" />
         <AssociationConnector Association="AdmissionModel.FK_ContractIndividualPlanAuxAg" />
+        <EntityTypeShape EntityType="AdmissionModel.DirectionProfile" Width="1.5" PointX="6" PointY="71.125" />
+        <EntityTypeShape EntityType="AdmissionModel.MarritalStatus" Width="1.5" PointX="13.375" PointY="13.875" />
+        <AssociationConnector Association="AdmissionModel.FK_DirectionProfiles_Directions_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_Entrants_MarritalStatuses_Id" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
