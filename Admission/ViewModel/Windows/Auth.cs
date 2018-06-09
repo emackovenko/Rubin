@@ -84,6 +84,10 @@ namespace Admission.ViewModel.Windows
 			}
 		}	
 
+        void DoScratch()
+        {
+        }
+
 		void Login()
 		{
 			if (_username == null || _password == null)
@@ -93,6 +97,7 @@ namespace Admission.ViewModel.Windows
 			System.Windows.Input.Mouse.OverrideCursor = System.Windows.Input.Cursors.AppStarting;
 			if (Session.Initialize(_username, _password))
 			{
+                DoScratch();
 				Admission.Properties.Settings.Default.LocalUsername = _username;
 				Admission.Properties.Settings.Default.Save();
 				SuccessAuth();
