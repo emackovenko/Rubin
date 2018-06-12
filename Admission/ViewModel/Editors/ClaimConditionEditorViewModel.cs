@@ -49,7 +49,7 @@ namespace Admission.ViewModel.Editors
 					Direction != null)
 			{
 				Condition.CompetitiveGroup =
-				(from cg in Session.DataModel.CompetitiveGroups
+				(from cg in Session.DataModel.CompetitiveGroups.Where(cg => cg.Campaign.CampaignStatusId == 2)
 				 where cg.EducationFormId == EducationForm.Id &&
 					cg.FinanceSourceId == FinanceSource.Id &&
 					cg.DirectionId == Direction.Id
@@ -64,6 +64,7 @@ namespace Admission.ViewModel.Editors
 		EducationForm _educationForm;
 		FinanceSource _financeSource;
 		Direction _direction;
+        DirectionProfile _directionProfile;
 
 		public EducationForm EducationForm
 		{
@@ -125,6 +126,7 @@ namespace Admission.ViewModel.Editors
 
 				if (value != null)
 				{
+                    RefreshDirectionProfiles();
 					SetClaimCondition();
 				}
 
@@ -132,13 +134,24 @@ namespace Admission.ViewModel.Editors
 			}
 		}
 
+        public DirectionProfile DirectionProfile
+        {
+            get => _directionProfile;
+            set
+            {
+                _directionProfile = value;
+                RaisePropertyChanged("DirectionProfile");
+            }
+        }
+
 		#endregion
 
 		#region FilteredCollections
 
 		ObservableCollection<EducationForm> _educationForms;
 		ObservableCollection<FinanceSource> _financeSources;
-		ObservableCollection<Direction> _directions; 
+		ObservableCollection<Direction> _directions;
+        ObservableCollection<DirectionProfile> _directionProfiles;
 
 		public ObservableCollection<EducationForm> EducationForms
 		{
@@ -197,6 +210,23 @@ namespace Admission.ViewModel.Editors
 			}
 		}
 
+        public ObservableCollection<DirectionProfile> DirectionProfiles
+        {
+            get
+            {
+                if (_directionProfiles == null)
+                {
+                    _directionProfiles = new ObservableCollection<DirectionProfile>();
+                }
+                return _directionProfiles;
+            }
+            set
+            {
+                _directionProfiles = value;
+                RaisePropertyChanged("DirectionProfiles");
+            }
+        }
+
 		#endregion
 						 
 		#region FilterMethods
@@ -244,6 +274,19 @@ namespace Admission.ViewModel.Editors
 				Direction = null;
 			}
 		}
+
+        void RefreshDirectionProfiles()
+        {
+            if (Direction != null)
+            {
+                DirectionProfiles = new ObservableCollection<DirectionProfile>(Session.DataModel.DirectionProfiles.Where(dp => dp.DirectionId == Direction.Id));
+                DirectionProfile = DirectionProfiles.FirstOrDefault();
+            }
+            else
+            {
+                DirectionProfiles = new ObservableCollection<DirectionProfile>();
+            }
+        }
 
 		#endregion	   
 

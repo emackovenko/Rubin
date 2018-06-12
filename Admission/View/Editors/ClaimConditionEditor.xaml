@@ -48,6 +48,12 @@
         <TextBlock
             Grid.Row="3"
             Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Профиль:"/>
+        <TextBlock
+            Grid.Row="4"
+            Grid.Column="0"
             Text="Приоритет"
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
@@ -73,9 +79,17 @@
             VerticalAlignment="Center"
             ItemsSource="{Binding Path=Directions}"
             SelectedItem="{Binding Path=Direction}"/>
+        <ComboBox
+            Grid.Row="3"
+            Grid.Column="2"
+            Height="23"
+            VerticalAlignment="Center"
+            ItemsSource="{Binding Path=DirectionProfiles}"
+            SelectedItem="{Binding Path=DirectionProfile}"
+            DisplayMemberPath="Name"/>
         <xctk:SingleUpDown 
             Grid.Column="2"           
-            Grid.Row="3"
+            Grid.Row="4"
             HorizontalAlignment="Left"  
             VerticalAlignment="Center" 
             BorderBrush="#FF747474" 

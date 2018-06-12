@@ -93,7 +93,7 @@ namespace Admission.ViewModel.Administration
                 group.FinanceSourceId = Session.DataModel.FinanceSources.FirstOrDefault(el => el.ExportCode == exportCode)?.Id;
                 exportCode = node.SelectSingleNode("DirectionID").InnerText;
                 group.DirectionId = Session.DataModel.Directions.FirstOrDefault(el => el.ExportCode == exportCode)?.Id;
-                group.RegistrationNumberMemberPart = "TEST";
+                group.RegistrationNumberMemberPart = "1";
                 group.EducationProgramTypeId = 1;
                 int placeCount = int.Parse(node.SelectSingleNode("CompetitiveGroupItem").SelectSingleNode("Number").InnerText);
                 group.PlaceCount = placeCount;

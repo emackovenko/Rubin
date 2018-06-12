@@ -282,7 +282,7 @@ namespace Admission.ViewModel.Workspaces
 			if (SelectedClaim.ClaimConditions.First().CompetitiveGroup.EducationLevel.Id == 1)
 			{
 				var doc = new DocumentClaim(SelectedClaim);
-				doc.Show();
+                DialogLayer.ShowDocument(doc);
 			}
 			//если на спо
 			else

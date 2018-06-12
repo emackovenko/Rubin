@@ -225,7 +225,7 @@
                             DisplayMemberBinding="{Binding Path=RegistrationDate, Converter={StaticResource DateConverter}}"/>
                         <GridViewColumn
                             Header="Ф.И.О."
-                            DisplayMemberBinding="{Binding Path=Entrants, Converter={StaticResource ResourceKey=EntrantToStringConverter}}"/>
+                            DisplayMemberBinding="{Binding Path=Person.FullName}"/>
                         <GridViewColumn
                             Header="Гражданство"
                             DisplayMemberBinding="{Binding Path=Citizenship, Mode=OneWay}"/>

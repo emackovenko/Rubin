@@ -18,5 +18,14 @@ namespace CommonMethods.TypeExtensions.exDateTime
 		{
 			return date >= startRangeDate && date <= endRangeDate;
 		}
+
+        public static string Format(this DateTime? date, string format = "dd.MM.yyyy г.")
+        {
+            if (date.HasValue)
+            {
+                return date.Value.ToString(format);
+            }
+            return "нет даты";
+        }
 	}
 }

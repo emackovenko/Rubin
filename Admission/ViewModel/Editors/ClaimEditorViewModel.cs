@@ -198,17 +198,11 @@ namespace Admission.ViewModel.Editors
 
         public IdentityDocument SelectedIdentityDocument { get; set; }
 
-        ObservableCollection<IdentityDocument> _identityDocuments;
-
         public ObservableCollection<IdentityDocument> IdentityDocuments
         {
             get
             {
-                if (_identityDocuments == null)
-                {
-                    _identityDocuments = new ObservableCollection<IdentityDocument>(EditedClaim.IdentityDocuments.ToList());
-                }
-                return _identityDocuments;
+                return new ObservableCollection<IdentityDocument>(EditedClaim.IdentityDocuments);
             }
             set
             {
@@ -231,10 +225,10 @@ namespace Admission.ViewModel.Editors
 			var vm = new IdentityDocumentEditorViewModel(doc);
 			if (DialogLayer.ShowEditor(EditingContent.IdentityDocumentEditor, vm))
 			{
-				IdentityDocuments.Add(doc);
+				EditedClaim.IdentityDocuments.Add(doc);
                 SelectedIdentityDocument = doc;
                 RaisePropertyChanged("SelectedIdentityDocument");
-                RaisePropertyChanged("SelectedIdentityDocument");
+                RaisePropertyChanged("IdentityDocuments");
 			}
 		}
 
@@ -340,7 +334,7 @@ namespace Admission.ViewModel.Editors
 		void NewClaimCondition()
 		{
 			var newClaimCondition = new ClaimCondition();
-			newClaimCondition.CompetitiveGroup = Session.DataModel.CompetitiveGroups.FirstOrDefault();
+			newClaimCondition.CompetitiveGroup = Session.DataModel.CompetitiveGroups.FirstOrDefault(cg => cg.Campaign.CampaignStatusId == 2);
 			newClaimCondition.Priority = GetClaimConditionPriority();
 			if (DialogLayer.ShowEditor(EditingContent.ClaimConditionEditor, 
 				new ClaimConditionEditorViewModel(newClaimCondition)))
@@ -401,9 +395,7 @@ namespace Admission.ViewModel.Editors
 			CompetitiveGroup compGroup = null;
 			try
 			{
-				compGroup = (from condition in EditedClaim.ClaimConditions
-							 where condition.Priority == 1
-							 select condition.CompetitiveGroup).Single();
+                compGroup = EditedClaim.GetCompetitiveGroupByPriority(1);
 			}
 			catch (Exception)
 			{
@@ -442,7 +434,10 @@ namespace Admission.ViewModel.Editors
 		}
 
 		int GetClaimConditionPriority()
-		//крайней ебанутости методы я умею писать - ПЕРЕПИСАТЬ
+		//TODO крайней ебанутости методы я умею писать - ПЕРЕПИСАТЬ
+
+        //UPD Прошел год, так и не переписал. Нахуя я это писал, что эта залупа делает
+        // и кому это нужно - теперь уже не узнать. Оставлю пока как есть.
 		{
 			if (EditedClaim.ClaimConditions.Count > 0)
 			{

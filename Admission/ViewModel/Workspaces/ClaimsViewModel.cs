@@ -13,6 +13,7 @@ using Admission.DialogService;
 using Admission.ViewModel.Documents;
 using System.Threading;
 using Admission.ViewModel.ValidationRules.Validators;
+using MoreLinq;
 
 namespace Admission.ViewModel.Workspaces
 {
@@ -48,11 +49,12 @@ namespace Admission.ViewModel.Workspaces
 			{
                 if (_claimList == null)
                 {
-                    _claimList = new ObservableCollection<Claim>(from claim in Session.DataModel.Claims
+                    var list = new List<Claim>(from claim in Session.DataModel.Claims
                                                                  where (claim.ClaimStatusId == 1 || claim.ClaimStatusId == 2 || claim.ClaimStatusId == 3)
-                                                                 && claim.Campaign.CampaignStatusId == 2
                                                                  orderby claim.RegistrationDate, claim.Id
                                                                  select claim);
+
+                    _claimList = new ObservableCollection<Claim>(list.Where(c => c.Campaign.CampaignStatusId == 2));
                 }
 				return _claimList;
 			}
@@ -141,6 +143,7 @@ namespace Admission.ViewModel.Workspaces
 			Session.DataModel.OtherRequiredDocuments.Add(ord);
 			Session.DataModel.Addresses.Add(address);
 			Session.DataModel.Entrants.Add(entrant);
+            ClaimList.Add(claim);
 			Session.DataModel.Claims.Add(claim);
 
 			var vm = new ClaimEditorViewModel(claim);
@@ -150,7 +153,9 @@ namespace Admission.ViewModel.Workspaces
 			if (DialogLayer.ShowEditor(EditingContent.ClaimEditor, vm, validator))
 			{
 				Session.DataModel.SaveChanges();
-				RaisePropertyChanged("ClaimList");
+                Session.RefreshEntityItem<Claim>(claim);
+                ClaimList = null;
+                SelectedClaim = claim;
 			}
 			else
 			{
@@ -172,7 +177,7 @@ namespace Admission.ViewModel.Workspaces
 
 		void Refresh()
 		{
-			Session.RefreshAll();
+            Session.RefreshAll();
             _claimList = null;
 			RaisePropertyChanged("ClaimList");
 		}
@@ -289,7 +294,7 @@ namespace Admission.ViewModel.Workspaces
 			if (SelectedClaim.ClaimConditions.First().CompetitiveGroup.EducationLevel.Id == 1)
 			{
 				var doc = new DocumentClaim(SelectedClaim);
-				doc.Show();
+                DialogLayer.ShowDocument(doc);
 			}
 			//если на спо
 			else

@@ -2,459 +2,342 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ResourceLibrary.Documents;
 using Model.Admission;
+using GemBox.Document;
 using CommonMethods.Documents;
+using ResourceLibrary.Documents;
+using CommonMethods.TypeExtensions.exGemBox;
+using CommonMethods.TypeExtensions.exDateTime;
 
 namespace Admission.ViewModel.Documents
 {
-	internal class DocumentClaim : WordDocument
-	{						 
+    internal class DocumentClaim : OpenXmlDocument
+    {
+        public DocumentClaim(Claim claim)
+        {
+            _claim = claim;
+            DocumentType = OpenXmlDocumentType.Document;
+        }
 
-		public DocumentClaim(Claim claim) 
-			: base("EntrantClaim")
-		{	
-			#region EduDocs
+        Claim _claim;
 
-			int? graduationYear = DateTime.Now.Year;
-			string eduDocType = null;
-			string eduDocInfo = null;
-			string bachelour = "Подтверждаю, что не имею";
+        public override void CreatePackage(string fileName)
+        {
+            // загружаем документ 
+            var doc = DocumentModel.Load(DocumentTemplate.ExtractDoc("EntrantClaim"));
 
-			if (claim.SchoolCertificateDocuments.Count > 0)
-			{
-				graduationYear = claim.SchoolCertificateDocuments.First().GraduationYear;
-				eduDocType = "Аттестат о СОО";
-				eduDocInfo = string.Format("{0} {1}",
-						claim.SchoolCertificateDocuments.First().Series,
-						claim.SchoolCertificateDocuments.First().Number);
-			}
-			else
-			{
-				if (claim.MiddleEducationDiplomaDocuments.Count > 0)
-				{
-					graduationYear = claim.MiddleEducationDiplomaDocuments.First().GraduationYear;
-					eduDocType = "Диплом о СПО";
-					eduDocInfo = string.Format("{0} {1}",
-							claim.MiddleEducationDiplomaDocuments.First().Series,
-							claim.MiddleEducationDiplomaDocuments.First().Number);
-				}
-				else
-				{
-					if (claim.HighEducationDiplomaDocuments.Count > 0)
-					{
-						graduationYear = claim.HighEducationDiplomaDocuments.First().GraduationYear;
-						eduDocType = "Диплом о ВО";
-						eduDocInfo = string.Format("{0} {1}",
-								claim.HighEducationDiplomaDocuments.First().Series,
-								claim.HighEducationDiplomaDocuments.First().Number);
-						bachelour = "Сообщаю, что имею";
-					}
-				}
-			}
-
-            #endregion
-
-            #region conditions	
-
-            string quotaDirection = string.Empty;
-            string quotaDocs = string.Empty;
-
-            // Получаем условия приёма (конкурсные группы) на льготные места
-            var quotaConditions = (from condition in claim.ClaimConditions
-                                   where condition.CompetitiveGroup.FinanceSource.Id == 3 &&
-                                    condition.Priority == 1
-                                   orderby condition.Priority
-                                   select condition.CompetitiveGroup);
-
-            // Если таковые есть, то херачим в квоту данные об них
-            if (quotaConditions.Count() > 0)
+            // подготовка стилей
+            var boldChar = new CharacterFormat
             {
-                // Указываем направления подготовки, разделяя их точкой с запятой
-                foreach (var competitiveGroup in quotaConditions)
-                {
-                    quotaDirection += string.Format("{0} {1}, {2}, {3}; ", competitiveGroup.Direction.Code, 
-                        competitiveGroup.Direction.Name, competitiveGroup.EducationProgramType.Name, 
-                        competitiveGroup.EducationForm.Name);
-                }
+                FontName = "Times New Roman",
+                Size = 10.0,
+                Bold = true,
+                FontColor = Color.Black
+            };
 
-                // Указываем сведения о документах, подтверждающих такое право 
-                if (claim.OrphanDocuments.Count > 0)
-                {
-                    var doc = claim.OrphanDocuments.First();
-                    quotaDocs += string.Format("{0} - №{1} {2}, выдано {3}, {4}",
-                        doc.OrphanDocumentType.Name, doc.Series, doc.Number,
-                        doc.Organization, ((DateTime)doc.Date).ToString("dd.MM.yyyy г."));
-                }                
+            var simpleChar = new CharacterFormat
+            {
+                FontName = "Times New Roman",
+                Size = 10.0,
+                Bold = false,
+                FontColor = Color.Black
+            };
+            var uboldChar = new CharacterFormat
+            {
+                FontName = "Times New Roman",
+                Size = 10.0,
+                Bold = true,
+                FontColor = Color.Black,
+                UnderlineColor = Color.Black
+            };
+
+            var usimpleChar = new CharacterFormat
+            {
+                FontName = "Times New Roman",
+                Size = 10.0,
+                Bold = false,
+                FontColor = Color.Black,
+                UnderlineColor = Color.Black
+            };
+
+            // вставляем текст на закладки
+            doc.InsertToBookmark("Number", _claim.Number, boldChar);
+            doc.InsertToBookmark("EntrantName", _claim.Person.FullName, boldChar);
+
+            var idDoc = _claim.IdentityDocuments.First();
+
+            doc.InsertToBookmark("BirthDate", idDoc.BirthDate.Format(), boldChar);
+            doc.InsertToBookmark("Citizenship", idDoc.Citizenship.Name, boldChar);
+            doc.InsertToBookmark("IdentityDocumentRequisites"
+                , string.Format("{0} {1} №{2}", idDoc.IdentityDocumentType.Name, idDoc.Series, idDoc.Number)
+                , boldChar);
+            doc.InsertToBookmark("IdentityDocumentIssueData"
+                , string.Format("{0} {1}", idDoc.Organization, idDoc.Date.Format())
+                , boldChar);
+            doc.InsertToBookmark("Address", _claim.Person.Address.MailString, boldChar);
+
+            string eduDocRequsites = string.Empty;
+            if (_claim.SchoolCertificateDocuments.Count > 0)
+            {
+                var eduDoc = _claim.SchoolCertificateDocuments.First();
+                eduDocRequsites = string.Format("аттестат о среднем (полном) образовании {0} №{1}, дата выдачи: {2}",
+                    eduDoc.Series, eduDoc.Number, eduDoc.Date.Format());
             }
-            											
+            if (_claim.MiddleEducationDiplomaDocuments.Count > 0)
+            {
+                var eduDoc = _claim.MiddleEducationDiplomaDocuments.First();
+                eduDocRequsites = string.Format("диплом о среднем профессиональном образовании {0} №{1}, дата выдачи: {2}",
+                    eduDoc.Series, eduDoc.Number, eduDoc.Date.Format());
+            }
+            if (_claim.HighEducationDiplomaDocuments.Count > 0)
+            {
+                var eduDoc = _claim.HighEducationDiplomaDocuments.First();
+                eduDocRequsites = string.Format("диплом о высшем образовании {0} №{1}, дата выдачи: {2}",
+                    eduDoc.Series, eduDoc.Number, eduDoc.Date.Format());
+            }
 
-			string cond1 = null;
-			try
-			{
-				var conditions = (from cond in claim.ClaimConditions
-                                  where cond.CompetitiveGroup.FinanceSource.Id != 3 
-                                  orderby cond.Priority                         
-							 select cond);
-                foreach (var condition in conditions)
-                {
-                    cond1 += string.Format("{0} {1}, {3}, {2}; ", condition.CompetitiveGroup.Direction.Code,
-										                    condition.CompetitiveGroup.Direction.Name,
-										                    condition.CompetitiveGroup.EducationProgramType.Name,
-										                    condition.CompetitiveGroup.EducationForm.Name);
-                }
-				
-			}
-			catch (Exception)
-			{
-				cond1 = null;
-			}
 
-			#endregion
-
-			#region ege				
-
-			string egeSubj1 = null;
-			string egeMark1 = null;
-
-			string egeSubj2 = null;
-			string egeMark2 = null;
-
-			string egeSubj3 = null;
-			string egeMark3 = null;
-			try
-			{
-				List<string> egeSubjects = new List<string>();
-				List<string> egeMarks = new List<string>();
-				foreach (var doc in claim.EgeDocuments)
-				{
-					foreach (var egeResult in doc.EgeResults)
-					{
-						egeSubjects.Add(egeResult.ExamSubject.Name);
-						egeMarks.Add(egeResult.Value.ToString());
-					}
-				}
-
-				if (egeSubjects.Count > 0)
-				{
-					egeSubj1 = egeSubjects[0];
-					egeMark1 = egeMarks[0];
-					if (egeSubjects.Count > 1)
-					{
-						egeSubj2 = egeSubjects[1];
-						egeMark2 = egeMarks[1];
-						if (egeSubjects.Count > 2)
-						{
-							egeSubj3 = egeSubjects[2];
-							egeMark3 = egeMarks[2];
-						}
-					}
-				}
-			}
-			catch (Exception)
-			{				
-			}
-
-			#endregion
-
-			#region indAchs
-											 
-			string individualAchievements = null;
-			try
-			{
-				foreach (var item in claim.EntranceIndividualAchievements)
-				{
-					individualAchievements += item.CampaignIndividualAchievement.Name;
-					individualAchievements = individualAchievements.Insert(individualAchievements.Length, "; ");
-				}
-				individualAchievements = individualAchievements.Remove(individualAchievements.Length - 2);
-			}
-			catch (Exception)
-			{	  
-			}
-
-			#endregion
-
-			#region entrancetests
-
-			string entranceTestsReason = null;
-			string entranceTestSubjects = null;
-
-			try
-			{
-				if (claim.EntranceTestResults.Count > 0)
-				{
-					if (claim.IdentityDocuments.FirstOrDefault().CitizenshipId != 1)
-					{
-						entranceTestsReason = "иностранным гражданам";
-					}
-					else
-					{
-						if (claim.MiddleEducationDiplomaDocuments.Count > 0 || claim.HighEducationDiplomaDocuments.Count > 0)
-						{
-							entranceTestsReason = "лицам, получившим ранее профессиональное образование";
-						}
-						else
-						{
-							entranceTestsReason = "лицам, прошедшим ГИА не в форме ЕГЭ";
-						}
-					}
-
-					foreach (var item in claim.EntranceTestResults)
-					{
-						entranceTestSubjects += item.EntranceTest.ExamSubject.Name;
-						entranceTestSubjects = entranceTestSubjects.Insert(entranceTestSubjects.Length, ", ");
-					}
-					entranceTestSubjects = entranceTestSubjects.Remove(entranceTestSubjects.Length - 2);
-
-				}
-			}
-			catch (Exception)
-			{	   
-			}
-
-            #endregion
-
-            #region fieldsFilling
-
-            BookmarkFields.Add(
-                new DocumentField
-                {
-                    Name = "QuotaDirection",
-                    Value = quotaDirection
-                });
-
-            BookmarkFields.Add(
-                new DocumentField
-                {
-                    Name = "QuotaDocs",
-                    Value = quotaDocs
-                });
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "Number",
-					Value = claim.Number
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "EntrantName",
-					Value = string.Format("{0} {1} {2}", claim.Entrants.First().LastName, 
-						claim.Entrants.First().FirstName, 
-						claim.Entrants.First().Patronymic)
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "BirthDate",
-					Value = ((DateTime)claim.IdentityDocuments.First().BirthDate).ToString("dd.MM.yyyy")
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "Citizenship",
-					Value = claim.IdentityDocuments.First().Citizenship.Name
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "IdentityDocumentType",
-					Value = claim.IdentityDocuments.FirstOrDefault().IdentityDocumentType.NameInDocument
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "IdentityDocumentSeries",
-					Value = claim.IdentityDocuments.FirstOrDefault().Series
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "IdentityDocumentNumber",
-					Value = claim.IdentityDocuments.FirstOrDefault().Number
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "IdentityDocumentIssued",
-					Value = string.Format("{0}, {1}", claim.IdentityDocuments.FirstOrDefault().Organization,
-						((DateTime)claim.IdentityDocuments.FirstOrDefault().Date).ToString("dd.MM.yyyy"))
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "MailAddress",
-					Value = claim.Entrants.First().Address.MailString
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "Email",
-					Value = claim.Entrants.First().Email
-				});
-					  
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "GraduationYear",
-					Value = graduationYear.ToString()
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "EducationDocumentType",
-					Value = eduDocType
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "EdcationDocumentInfo",
-					Value = eduDocInfo
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "Conditions",
-					Value = cond1
-				});
+            // здесь запутанно добавляю условия приема
+            var range = doc.Bookmarks.FirstOrDefault(b => b.Name == "ContestItems").GetContent(false);
             
+            if (_claim.FinanceSource?.Id == 3)
+            {
+                // формирую строки
+                string str1 = "Прошу допустить к участию в конкурсе";
+                string str11 = " по направлению подготовки (специальности) ";
 
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "EgeSubjectFirst",
-					Value = egeSubj1
-				});
+                string directionView = string.Format("{0}, программа бакалавриата, \"{1}\", {2} форма обучения ",
+                    _claim.ClaimConditions.First(cc => cc.Priority == 1).CompetitiveGroup.Direction.Name,
+                    _claim.ClaimConditions.First(cc => cc.Priority == 1).CompetitiveGroup.Direction.DirectionProfiles.FirstOrDefault().Name,
+                    _claim.ClaimConditions.First(cc => cc.Priority == 1).CompetitiveGroup.EducationForm.Name);
 
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "EgeMarkFirst",
-					Value = egeMark1
-				});
+                string str2 = "в рамках особой квоты на основании следующих документов: ";
 
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "EgeSubjectSecond",
-					Value = egeSubj2
-				});
+                string reasonView = string.Format("{0} {1} №{2} от {3}.",
+                    _claim.OrphanDocuments.FirstOrDefault()?.OrphanDocumentType.Name,
+                    _claim.OrphanDocuments.FirstOrDefault()?.Series,
+                    _claim.OrphanDocuments.FirstOrDefault()?.Number,
+                    _claim.OrphanDocuments.FirstOrDefault()?.Date);
 
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "EgeMarkSecond",
-					Value = egeMark2
-				});
+                string finalString = string.Format("{0}{1}{2}{3}",
+                    str1, directionView, str2, reasonView);
+                
+                var paragraph = new Paragraph(doc,
+                    new SpecialCharacter(doc, SpecialCharacterType.Tab),
+                    new Run(doc, str1)
+                    {
+                        CharacterFormat = boldChar.Clone()
+                    },
+                    new Run(doc, str11)
+                    {
+                        CharacterFormat = simpleChar.Clone()
+                    },
+                    new Run(doc, directionView)
+                    {
+                        CharacterFormat = boldChar.Clone()
+                    },
+                    new Run(doc, str2)
+                    {
+                        CharacterFormat = simpleChar.Clone()
+                    },
+                    new Run(doc, reasonView)
+                    {
+                        CharacterFormat = boldChar.Clone()
+                    }
+                    );
+                paragraph.ParagraphFormat = new ParagraphFormat
+                {
+                    Alignment = HorizontalAlignment.Justify
+                };
+                range.Start.InsertRange(paragraph.Content);
+            }
+            else
+            {
+                string str1 = "Прошу допустить к участию в общем конкурсе ";
+                string str2 = "по следующим направлениям подготовки (специальностям):";
+                var paragraph1 = new Paragraph(doc,
+                    new SpecialCharacter(doc, SpecialCharacterType.Tab),
+                    new Run(doc, str1)
+                    {
+                        CharacterFormat = boldChar.Clone()
+                    },
+                    new Run(doc, str2)
+                    {
+                        CharacterFormat = simpleChar.Clone()
+                    })
+                {
+                    ParagraphFormat = new ParagraphFormat
+                    {
+                        Alignment = HorizontalAlignment.Justify,
+                        SpaceBefore = 0.0,
+                        SpaceAfter = 0.0,
+                        NoSpaceBetweenParagraphsOfSameStyle = true
+                    }
+                };
+                range.Start.InsertRange(paragraph1.Content);
+                
+                foreach (var cond in _claim.ClaimConditions)
+                {
+                    string str = string.Format("{0}, программа бакалавриата, \"{1}\", {2} форма обучения;",
+                       cond.CompetitiveGroup.Direction.Name,
+                       cond.CompetitiveGroup.Direction.DirectionProfiles.FirstOrDefault().Name,
+                       cond.CompetitiveGroup.EducationForm.Name);
+                    var p = new Paragraph(doc,
+                        new SpecialCharacter(doc, SpecialCharacterType.Tab),
+                        new Run(doc, str)
+                        {
+                            CharacterFormat = boldChar.Clone()
+                        })
+                    {
+                        ParagraphFormat = new ParagraphFormat
+                        {
+                            Alignment = HorizontalAlignment.Left,
+                            SpaceBefore = 0.0,
+                            SpaceAfter = 0.0,
+                            NoSpaceBetweenParagraphsOfSameStyle = true
+                        }
+                    };
+                    range.End.InsertRange(p.Content);
+                }
 
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "EgeSubjectThird",
-					Value = egeSubj3
-				});
+                string str3 = "на места, финансируемые за счет средств федерального бюджета. ";
+                string str4 = "В случае непрохождения по конкурсу (либо в случае отсутствия мест, финансируемых за счёт средств федерального бюджета) на указанные направления подготовки (специальности) прошу допустить к участию в конкурсе на места по договорам с оплатой стоимости обучения юридическими и (или) физическими лицами.";
 
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "EgeMarkThird",
-					Value = egeMark3
-				});
+                var paragraph3 = new Paragraph(doc,
+                    new Run(doc, str3)
+                    {
+                        CharacterFormat = boldChar.Clone()
+                    },
+                    new Run(doc, str4)
+                    {
+                        CharacterFormat = simpleChar.Clone()
+                    })
+                {
+                    ParagraphFormat = new ParagraphFormat
+                    {
+                        Alignment = HorizontalAlignment.Justify,
+                        SpaceBefore = 0.0,
+                        SpaceAfter = 0.0,
+                        NoSpaceBetweenParagraphsOfSameStyle = true,
+                        
+                    }
+                };
+                range.End.InsertRange(paragraph3.Content);
+            }
 
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "EntranceTestReason",
-					Value = entranceTestsReason
-				});
+            var testsData = doc.Bookmarks.FirstOrDefault(b => b.Name == "TestResultData").GetContent(false);
+            if (_claim.EntranceTestResults.Count > 0)
+            {
+                string str1 = "На основании того, что отношусь к ";
+                string str2 = "лицам, получившим ранее СПО/НПО/ВО, прошу допустить к следующим общеобразовательным вступительным испытаниям, проводимым РИИ АлтГТУ самостоятельно:";
+                string str3 = string.Empty;
+                foreach (var etr in _claim.EntranceTestResults)
+                {
+                    str3 += string.Format("{0}, ", etr.EntranceTest.ExamSubject.Name);
+                }
+                str3 = str3.Remove(str3.Length - 1, 1) + ".";
+                var p1 = new Paragraph(doc,
+                        new SpecialCharacter(doc, SpecialCharacterType.Tab),
+                        new Run(doc, str1)
+                        {
+                            CharacterFormat = simpleChar.Clone()
+                        },
+                        new Run(doc, str2)
+                        {
+                            CharacterFormat = boldChar.Clone()
+                        })
+                {
+                    ParagraphFormat = new ParagraphFormat
+                    {
+                        Alignment = HorizontalAlignment.Justify,
+                        SpaceBefore = 0.0,
+                        SpaceAfter = 0.0,
+                        NoSpaceBetweenParagraphsOfSameStyle = true
+                    }
+                };
+                testsData.Start.InsertRange(p1.Content);
+                var p2 = new Paragraph(doc,
+                        new SpecialCharacter(doc, SpecialCharacterType.Tab),
+                        new Run(doc, str3)
+                        {
+                            CharacterFormat = boldChar.Clone()
+                        })
+                {
+                    ParagraphFormat = new ParagraphFormat
+                    {
+                        Alignment = HorizontalAlignment.Left,
+                        SpaceBefore = 0.0,
+                        SpaceAfter = 0.0,
+                        NoSpaceBetweenParagraphsOfSameStyle = true
+                    }
+                };
+                testsData.End.InsertRange(p2.Content);
+            }
+            if (_claim.EgeDocuments.Count > 0)
+            {
+                string str1 = "Прошу зачесть результаты ЕГЭ в качестве результатов следующих вступительных испытаний:";
+               
+                string str3 = string.Empty;
+                foreach (var ed in _claim.EgeDocuments)
+                {
+                    foreach (var er in ed.EgeResults)
+                    {
+                        str3 += string.Format("{0} - {1} баллов; ", er.ExamSubject, er.Value);
+                    }
+                }
+                str3 = str3.Remove(str3.Length - 1, 1) + ".";
+                var p1 = new Paragraph(doc,
+                        new SpecialCharacter(doc, SpecialCharacterType.Tab),
+                        new Run(doc, str1)
+                        {
+                            CharacterFormat = boldChar.Clone()
+                        })
+                {
+                    ParagraphFormat = new ParagraphFormat
+                    {
+                        Alignment = HorizontalAlignment.Justify,
+                        SpaceBefore = 0.0,
+                        SpaceAfter = 0.0,
+                        NoSpaceBetweenParagraphsOfSameStyle = true
+                    }
+                };
+                testsData.Start.InsertRange(p1.Content);
+                var p2 = new Paragraph(doc,
+                        new SpecialCharacter(doc, SpecialCharacterType.Tab),
+                        new Run(doc, str3)
+                        {
+                            CharacterFormat = boldChar.Clone()
+                        })
+                {
+                    ParagraphFormat = new ParagraphFormat
+                    {
+                        Alignment = HorizontalAlignment.Left,
+                        SpaceBefore = 0.0,
+                        SpaceAfter = 0.0,
+                        NoSpaceBetweenParagraphsOfSameStyle = true
+                    }
+                };
+                testsData.End.InsertRange(p2.Content);
+            }
 
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "EntranceTestSubjects",
-					Value = entranceTestSubjects
-				});
+            doc.InsertToBookmark("EducationDocumentRequisites", eduDocRequsites, boldChar);
 
-			string hostelNeed = "не нуждаюсь";
-			if (claim.IsHostelNeed ?? false)
-			{
-				hostelNeed = "нуждаюсь";
-			}
+            string prerogativeRight = _claim.FinanceSource.Id == 3 ? "имею" : "не имею";        
+            doc.InsertToBookmark("PrerogativeRight", prerogativeRight, boldChar);
 
-			string personalReturning = "по почте";
-			if (claim.PersonalReturning ?? false)
-			{
-				personalReturning = "лично";
-			}
+            string hostelNeeding = _claim.IsHostelNeed.Value ? "нуждаюсь" : "не нуждаюсь";
+            doc.InsertToBookmark("HostelNeeding", hostelNeeding, boldChar);
+            doc.InsertToBookmark("IndividualAchievements", "отсутствуют", boldChar);
+            doc.InsertToBookmark("DocumentsReturning", _claim.DocumentsReturningType, boldChar);
+            doc.InsertToBookmark("OperatorName",
+                string.Format("{0} {1}.{2}.", 
+                Session.CurrentUser.LastName,
+                Session.CurrentUser.FirstName[0], Session.CurrentUser.Patronymic[0])
+                , usimpleChar);
+            doc.InsertToBookmark("Date", _claim.RegistrationDate.Format(), uboldChar);
 
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "HostelNeed",
-					Value = hostelNeed
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "PersonalReturning",
-					Value = personalReturning
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "CurrentUser",
-					Value = string.Format("{0} {1}.{2}.", Session.CurrentUser.LastName,
-						Session.CurrentUser.FirstName[0], 
-						Session.CurrentUser.Patronymic[0])
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "RegistrationDate",
-					Value = ((DateTime)claim.RegistrationDate).ToString("dd MMMM yyyy г.")
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "AdvantageRight",
-					Value = null
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "IndividualAchievements",
-					Value = individualAchievements
-				});
-
-			BookmarkFields.Add(
-				new DocumentField
-				{
-					Name = "IsBachelour",
-					Value = bachelour
-				});
-
-			#endregion
-
-			FillByBookmarks();		   
-		}	   
-	}
+            // сохраняем документ
+            doc.Save(fileName);
+        }
+    }
 }

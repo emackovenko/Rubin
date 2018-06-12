@@ -400,7 +400,7 @@
                        Grid.Column="4"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Right"
-                       Text="Семейное положение"/>
+                       Text="Семейное положение:"/>
                     <ComboBox
                        Grid.Row="8"
                        Grid.Column="6"
@@ -427,30 +427,14 @@
                         DisplayMemberPath="Name"
                         SelectedItem="{Binding Path=EditedEntrant.ForeignLanguage, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBlock
-                        Grid.Row="9"
-                        Grid.Column="4"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Text="Гражданство:"/>
-                    <ComboBox
-                        Grid.Row="9"
-                        Grid.Column="6"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                        Height="21"
-                        Width="300"
-                        ItemsSource="{Binding Path=Citizenships}"
-                        DisplayMemberPath="Name"
-                        SelectedItem="{Binding Path=IdentityDocument.Citizenship, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock
-                       Grid.Row="10"
+                       Grid.Row="9"
                        Grid.Column="4"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        Text="Место рождения:"/>
                     <StackPanel
                        Orientation="Horizontal"
-                       Grid.Row="10"
+                       Grid.Row="9"
                        Grid.Column="6">
                         <TextBox
                             Width="525"
@@ -466,14 +450,14 @@
                             Command="{Binding Path=EditBirthPlaceCommand}"/>
                     </StackPanel>
                     <TextBlock
-                       Grid.Row="11"
+                       Grid.Row="10"
                        Grid.Column="4"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center"
                        Text="Адрес:"/>
                     <StackPanel
                        Orientation="Horizontal"
-                       Grid.Row="11"
+                       Grid.Row="10"
                        Grid.Column="6">
                         <TextBox
                             Width="524"
@@ -625,7 +609,7 @@
                     </GroupBox>
                     <GroupBox Header="Сведения о работе"
                         BorderBrush="DarkBlue"
-                        Grid.Row="12"
+                        Grid.Row="11"
                         Grid.Column="3"
                         Grid.ColumnSpan="3"
                         Grid.RowSpan="4">
