@@ -24,8 +24,9 @@ namespace Model.Admission
         public string Organization { get; set; }
         public Nullable<int> IdenityDocumentTypeId { get; set; }
         public Nullable<int> CitizenshipId { get; set; }
-        public Nullable<System.DateTime> BirthDate { get; set; }
-        public string BirthPlace { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string Patronymic { get; set; }
     
         public virtual Citizenship Citizenship { get; set; }
         public virtual Claim Claim { get; set; }

@@ -538,6 +538,8 @@
           <Property Name="JobStage" Type="decimal" Precision="3" Scale="1" />
           <Property Name="ForeignLanguageId" Type="int" />
           <Property Name="MarritalStatusId" Type="int" />
+          <Property Name="BirthDate" Type="date" />
+          <Property Name="BirthPlace" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="ExaminationsLocations">
           <Key>
@@ -630,6 +632,9 @@
           <Property Name="CitizenshipId" Type="int" />
           <Property Name="BirthDate" Type="date" />
           <Property Name="BirthPlace" Type="varchar" MaxLength="255" />
+          <Property Name="LastName" Type="varchar" MaxLength="255" />
+          <Property Name="FirstName" Type="varchar" MaxLength="255" />
+          <Property Name="Patronymic" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="IdentityDocumentTypes">
           <Key>
@@ -3356,6 +3361,8 @@
           <NavigationProperty Name="EntrantContracts" Relationship="AdmissionModel.FK_EntrantContracts_Entrants_Id" FromRole="Entrant" ToRole="EntrantContracts" />
           <Property Name="MarritalStatusId" Type="Int32" />
           <NavigationProperty Name="MarritalStatus" Relationship="AdmissionModel.FK_Entrants_MarritalStatuses_Id" FromRole="Entrant" ToRole="MarritalStatus" />
+          <Property Name="BirthDate" Type="DateTime" />
+          <Property Name="BirthPlace" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ExamSubject">
           <Key>
@@ -3425,11 +3432,12 @@
           <Property Name="Organization" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="IdenityDocumentTypeId" Type="Int32" />
           <Property Name="CitizenshipId" Type="Int32" />
-          <Property Name="BirthDate" Type="DateTime" />
-          <Property Name="BirthPlace" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Citizenship" Relationship="AdmissionModel.FK_IdentityDocuments_Citizenships_Id" FromRole="IdentityDocuments" ToRole="Citizenships" />
           <NavigationProperty Name="Claim" Relationship="AdmissionModel.FK_IdentityDocuments_Claims_Id" FromRole="IdentityDocuments" ToRole="Claims" />
           <NavigationProperty Name="IdentityDocumentType" Relationship="AdmissionModel.FK_IdentityDocuments_IdentityDocumentTypes_Id" FromRole="IdentityDocuments" ToRole="IdentityDocumentTypes" />
+          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="IdentityDocumentType">
           <Key>
@@ -5413,6 +5421,8 @@
           <EntitySetMapping Name="Entrants">
             <EntityTypeMapping TypeName="AdmissionModel.Entrant">
               <MappingFragment StoreEntitySet="Entrants">
+                <ScalarProperty Name="BirthPlace" ColumnName="BirthPlace" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
                 <ScalarProperty Name="MarritalStatusId" ColumnName="MarritalStatusId" />
                 <ScalarProperty Name="ForeignLanguageId" ColumnName="ForeignLanguageId" />
                 <ScalarProperty Name="JobStage" ColumnName="JobStage" />
@@ -5491,8 +5501,9 @@
           <EntitySetMapping Name="IdentityDocuments">
             <EntityTypeMapping TypeName="AdmissionModel.IdentityDocument">
               <MappingFragment StoreEntitySet="IdentityDocuments">
-                <ScalarProperty Name="BirthPlace" ColumnName="BirthPlace" />
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="CitizenshipId" ColumnName="CitizenshipId" />
                 <ScalarProperty Name="IdenityDocumentTypeId" ColumnName="IdenityDocumentTypeId" />
                 <ScalarProperty Name="Organization" ColumnName="Organization" />

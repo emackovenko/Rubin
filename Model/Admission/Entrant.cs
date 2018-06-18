@@ -42,6 +42,8 @@ namespace Model.Admission
         public Nullable<decimal> JobStage { get; set; }
         public Nullable<int> ForeignLanguageId { get; set; }
         public Nullable<int> MarritalStatusId { get; set; }
+        public Nullable<System.DateTime> BirthDate { get; set; }
+        public string BirthPlace { get; set; }
     
         public virtual Address Address { get; set; }
         public virtual Claim Claim { get; set; }
