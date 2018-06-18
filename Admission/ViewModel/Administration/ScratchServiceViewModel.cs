@@ -9,6 +9,7 @@ using System.Xml;
 using System.Xml.XPath;
 using System.Xml.Linq;
 using Microsoft.Win32;
+using Admission.ViewModel.Export;
 
 namespace Admission.ViewModel.Administration
 {
@@ -33,11 +34,16 @@ namespace Admission.ViewModel.Administration
             }
         }
 
-        public RelayCommand OpenFileCommand { get => new RelayCommand(OpenFile); }
+        public RelayCommand OpenFileCommand { get => new RelayCommand(ExportPackage); }
 
         public RelayCommand ImportCommand { get => new RelayCommand(Import, CanImport); }
 
         public RelayCommand SaveCommand { get => new RelayCommand(Save, CanSave); }
+
+        void ExportPackage()
+        {
+            Exporter.GeneratePackage();
+        }
 
         void OpenFile()
         {

@@ -68,14 +68,14 @@ namespace Admission.ViewModel.Export
 
 			context.Claims.Load();
 
-			//var collection = (from claim in context.Claims
-			//				  where claim.ClaimStatus.Id == 1 || claim.ClaimStatus.Id == 2 || claim.ClaimStatus.Id == 4
-			//				  select claim).ToList();
+            var collection = (from claim in context.Claims
+                              where claim.ClaimStatus.Id == 1 || claim.ClaimStatus.Id == 2 || claim.ClaimStatus.Id == 4
+                              select claim).ToList();
 
-			var collection = (from ec in context.EnrollmentClaims
-							  where ec.EnrollmentProtocol.EnrollmentOrder.Number == "1057" &&
-							  ec.Claim != null
-							  select ec.Claim).ToList();
+         //   var collection = (from ec in context.EnrollmentClaims
+							  //where ec.EnrollmentProtocol.EnrollmentOrder.Number == "1057" &&
+							  //ec.Claim != null
+							  //select ec.Claim).ToList();
 
 			foreach (var claim in collection)
 			{

@@ -86,6 +86,7 @@ namespace Admission.ViewModel.Windows
 
         void DoScratch()
         {
+            Admission.ViewModel.Export.Exporter.GeneratePackage();
         }
 
 		void Login()
@@ -97,7 +98,6 @@ namespace Admission.ViewModel.Windows
 			System.Windows.Input.Mouse.OverrideCursor = System.Windows.Input.Cursors.AppStarting;
 			if (Session.Initialize(_username, _password))
 			{
-                DoScratch();
 				Admission.Properties.Settings.Default.LocalUsername = _username;
 				Admission.Properties.Settings.Default.Save();
 				SuccessAuth();

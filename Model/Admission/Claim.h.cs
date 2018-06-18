@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
@@ -273,6 +274,18 @@ namespace Model.Admission
                     return ClaimConditions.Where(c => c.Priority == 1).First().CompetitiveGroup.Campaign;
                 }
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [NotMapped]
+        public bool IsCurrentCampaign
+        {
+            get
+            {
+                return Campaign?.YearStart == DateTime.Now.Year;
             }
         }
 
