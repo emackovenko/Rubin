@@ -64,7 +64,7 @@ namespace Admission.ViewModel.Workspaces.ContractForming.Editors
 					DocumentNumber = Contract.Entrant.Claim.IdentityDocuments.First().Number,
 					DocumentDate = Contract.Entrant.Claim.IdentityDocuments.First().Date,
 					DocumentOrganization = Contract.Entrant.Claim.IdentityDocuments.First().Organization,
-					BirthDate = Contract.Entrant.Claim.IdentityDocuments.First().BirthDate,
+					BirthDate = Contract.Entrant.BirthDate,
 					IdentityDocumentType = Contract.Entrant.Claim.IdentityDocuments.First().IdentityDocumentType
 				};
 				Contract.ContragentPerson = agent;

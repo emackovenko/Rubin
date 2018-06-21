@@ -11,7 +11,6 @@ namespace Model.Admission
 		{
 			OriginalReceivedDate = DateTime.Now;
 			Date = DateTime.Now;
-			BirthDate = DateTime.Now;
 		}
 
 		public bool IsOriginal
@@ -19,10 +18,6 @@ namespace Model.Admission
 			get
 			{
 				return OriginalReceivedDate != null;
-			}
-			set
-			{
-
 			}
 		}
 	}

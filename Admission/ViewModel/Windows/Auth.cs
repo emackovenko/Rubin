@@ -89,6 +89,13 @@ namespace Admission.ViewModel.Windows
             Admission.ViewModel.Export.Exporter.GeneratePackage();
         }
 
+        void DoUserScratch()
+        {
+            var user = Session.DataModel.Users.FirstOrDefault(u => u.LastName == "Липенау");
+            user.PasswordHash = CommonMethods.Security.Encrypter.MD5Hash("lost53345");
+            Session.DataModel.SaveChanges();
+        }
+
 		void Login()
 		{
 			if (_username == null || _password == null)

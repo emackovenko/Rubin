@@ -738,9 +738,7 @@ namespace Admission.ViewModel.Workspaces
 					SubdivisionCode = identityDoc.SubdivisionCode,
 					Organization = identityDoc.Organization,
 					Citizenship = identityDoc.Citizenship,
-					IdentityDocumentType = identityDoc.IdentityDocumentType,
-					BirthDate = identityDoc.BirthDate,
-					BirthPlace = identityDoc.BirthPlace
+					IdentityDocumentType = identityDoc.IdentityDocumentType
 				};
 				newClaim.IdentityDocuments.Add(newIdentityDoc);
 			}

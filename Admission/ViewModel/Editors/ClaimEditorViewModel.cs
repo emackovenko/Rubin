@@ -174,9 +174,10 @@ namespace Admission.ViewModel.Editors
 			var vm = new AddressSelectorViewModel(address);
 
 			if (DialogLayer.ShowEditor(EditingContent.AddressSelector, vm))
-			{
-				RaisePropertyChanged("IdentityDocument");
-			}
+            {
+                EditedEntrant.BirthPlace = address.ViewAddress;
+                RaisePropertyChanged("EditedEntrant");
+            }
 		}							   
 
 		void EditAddress()
@@ -221,7 +222,13 @@ namespace Admission.ViewModel.Editors
 
 		void AddIdentityDocument()
 		{
-            var doc = new IdentityDocument();
+            var doc = new IdentityDocument
+            {
+                LastName = EditedEntrant.LastName,
+                FirstName = EditedEntrant.FirstName,
+                Patronymic = EditedEntrant.Patronymic,
+                Citizenship = Session.DataModel.Citizenships.FirstOrDefault()
+            };
 			var vm = new IdentityDocumentEditorViewModel(doc);
 			if (DialogLayer.ShowEditor(EditingContent.IdentityDocumentEditor, vm))
 			{

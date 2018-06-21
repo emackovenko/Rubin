@@ -111,7 +111,7 @@ namespace Admission.ViewModel.Documents
 				((DateTime)entrant.Claim.IdentityDocuments.First().Date).ToString("dd.MM.yyyy г."),
 				entrant.Claim.IdentityDocuments.First().IdentityDocumentType.Name);
 			string str = string.Format("{0}\n{1}\nАдрес: {2}\n\n{3}\nТелефон:{4}",
-				entrant.FullName, ((DateTime)entrant.Claim.IdentityDocuments.First().BirthDate).ToString("dd.MM.yyyy г."), 
+				entrant.FullName, ((DateTime)entrant.BirthDate).ToString("dd.MM.yyyy г."), 
 				entrant.Address.MailString, 
 				doc, entrant.Phone);
 			if (!string.IsNullOrWhiteSpace(entrant.Email))

@@ -70,7 +70,7 @@ namespace Admission.ViewModel.Documents
 				new DocumentField
 				{
 					Name = "Birthdate",
-					Value = ((DateTime)claim.IdentityDocuments.First().BirthDate).ToString("dd.MM.yyyy")
+					Value = ((DateTime)claim.Person.BirthDate).ToString("dd.MM.yyyy")
 				});
 
 			BookmarkFields.Add(

@@ -28,11 +28,11 @@
     <ProductName>Приёмная комиссия</ProductName>
     <PublisherName>Рубцовский индустриальный институт</PublisherName>
     <SuiteName>Информационно-технический отдел</SuiteName>
-    <MinimumRequiredVersion>1.0.45.20</MinimumRequiredVersion>
+    <MinimumRequiredVersion>1.0.45.84</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>83</ApplicationRevision>
+    <ApplicationRevision>88</ApplicationRevision>
     <ApplicationVersion>1.0.45.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

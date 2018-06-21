@@ -58,7 +58,7 @@ namespace Admission.ViewModel.Documents
 					FontName = "Times New Roman",
 					FontColor = Color.Black
 				});
-			document.InsertToBookmark("BirthDate", ((DateTime)_claim.IdentityDocuments.First().BirthDate).ToString("dd.MM.yyyy г."));
+			document.InsertToBookmark("BirthDate", ((DateTime)_claim.Person.BirthDate).ToString("dd.MM.yyyy г."));
 			document.InsertToBookmark("Citizenship", _claim.IdentityDocuments.First().Citizenship.Name);
 			document.InsertToBookmark("CurrentUser", string.Format("{0} {1}.{2}.",
 				Session.CurrentUser.LastName, Session.CurrentUser.FirstName[0], Session.CurrentUser.Patronymic[0]));

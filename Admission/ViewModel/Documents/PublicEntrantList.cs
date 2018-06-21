@@ -81,8 +81,7 @@ namespace Admission.ViewModel.Documents
 						currentRow.Cells[2].Value = condition.Claim.Number;
 						currentRow.Cells[3].Value = condition.Claim.IsOriginal ? "оригинал" : "копия";
 						currentRow.Cells[4].Value = condition.CompetitiveGroup.FinanceSource.Name;
-						currentRow.Cells[5].Value = condition.Priority;
-						currentRow.Cells[6].Value = condition.Claim.TotalScore;
+						currentRow.Cells[5].Value = condition.Claim.TotalScore > 10 ? condition.Claim.TotalScore.ToString() : "—";
 						i++;
 						j++;
 					}

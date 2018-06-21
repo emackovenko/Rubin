@@ -771,8 +771,9 @@ namespace Admission.ViewModel.Workspaces
 					Organization = identityDoc.Organization,
 					Citizenship = identityDoc.Citizenship,
 					IdentityDocumentType = identityDoc.IdentityDocumentType,
-					BirthDate = identityDoc.BirthDate,
-					BirthPlace = identityDoc.BirthPlace
+                    LastName = identityDoc.LastName,
+                    FirstName = identityDoc.FirstName,
+                    Patronymic = identityDoc.Patronymic
 				};
 				newClaim.IdentityDocuments.Add(newIdentityDoc);
 			}

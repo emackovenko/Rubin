@@ -72,6 +72,8 @@ namespace Admission.ViewModel.Export
                               where claim.ClaimStatus.Id == 1 || claim.ClaimStatus.Id == 2 || claim.ClaimStatus.Id == 4
                               select claim).ToList();
 
+            collection = collection.Where(c => c.Campaign.CampaignStatusId == 2).ToList();
+
          //   var collection = (from ec in context.EnrollmentClaims
 							  //where ec.EnrollmentProtocol.EnrollmentOrder.Number == "1057" &&
 							  //ec.Claim != null
@@ -233,8 +235,8 @@ namespace Admission.ViewModel.Export
 					FirstName = entrantFis.FirstName,
 					MiddleName = entrantFis.MiddleName,
 					GenderID = entrantFis.GenderID,
-					BirthDate = ConvertDate(claim.IdentityDocuments.First().BirthDate),
-					BirthPlace = claim.IdentityDocuments.First().BirthPlace
+					BirthDate = ConvertDate(claim.Person.BirthDate),
+					BirthPlace = claim.Person.BirthPlace
 				};
 
 				docs.IdentityDocument = idDoc;
@@ -264,8 +266,8 @@ namespace Admission.ViewModel.Export
 							FirstName = entrantFis.FirstName,
 							MiddleName = entrantFis.MiddleName,
 							GenderID = entrantFis.GenderID,
-							BirthDate = ConvertDate(claim.IdentityDocuments.First().BirthDate),
-							BirthPlace = claim.IdentityDocuments.First().BirthPlace
+							BirthDate = ConvertDate(claim.Person.BirthDate),
+							BirthPlace = claim.Person.BirthPlace
 						};
 						docs.OtherIdentityDocuments.Add(eOIdDoc);
 					}
@@ -649,8 +651,8 @@ namespace Admission.ViewModel.Export
 					FirstName = entrantFis.FirstName,
 					MiddleName = entrantFis.MiddleName,
 					GenderID = entrantFis.GenderID,
-					BirthDate = ConvertDate(claim.IdentityDocuments.First().BirthDate),
-					BirthPlace = claim.IdentityDocuments.First().BirthPlace
+					BirthDate = ConvertDate(claim.Person.BirthDate),
+					BirthPlace = claim.Person.BirthPlace
 				};
 
 				docs.IdentityDocument = idDoc;
@@ -1090,8 +1092,8 @@ namespace Admission.ViewModel.Export
 					FirstName = entrantFis.FirstName,
 					MiddleName = entrantFis.MiddleName,
 					GenderID = entrantFis.GenderID,
-					BirthDate = ConvertDate(claim.IdentityDocuments.First().BirthDate),
-					BirthPlace = claim.IdentityDocuments.First().BirthPlace
+					BirthDate = ConvertDate(claim.Person.BirthDate),
+					BirthPlace = claim.Person.BirthPlace
 				};
 
 				docs.IdentityDocument = idDoc;

@@ -75,6 +75,17 @@ namespace Admission.ViewModel.Editors
 			}
 		}
 
+        public ObservableCollection<string> DocumentOrgs
+        {
+            get
+            {
+                return new ObservableCollection<string>(Session.DataModel.IdentityDocuments
+                    .Where(id => !string.IsNullOrWhiteSpace(id.Organization))
+                    .Select(id => id.Organization)
+                    .OrderBy(s => s));
+            }
+        }
+
 		#endregion
 
 	}

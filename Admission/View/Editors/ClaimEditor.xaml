@@ -307,7 +307,7 @@
                         VerticalAlignment="Center"
                         Height="25"
                         Width="150"
-                        SelectedDate="{Binding Path=IdentityDocument.BirthDate, UpdateSourceTrigger=PropertyChanged}"/>
+                        SelectedDate="{Binding Path=EditedEntrant.BirthDate, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBlock
                        Grid.Row="5"
                        Grid.Column="0"
@@ -440,7 +440,7 @@
                             Width="525"
                             Height="21"
                             IsReadOnly="True"
-                            Text="{Binding Path=IdentityDocument.BirthPlace}" Margin="0,6,0,5.8"/>
+                            Text="{Binding Path=EditedEntrant.BirthPlace}" Margin="0,6,0,5.8"/>
                         <Button
                             Height="21"
                             Width="21"

@@ -139,7 +139,7 @@ namespace Admission.ViewModel.ValidationRules.Validators
 
 		bool CheckEntrantBirthDate()
 		{
-			DateTime birthdate = (DateTime)_claim.IdentityDocuments.First().BirthDate;
+			DateTime birthdate = (DateTime)_claim.Person.BirthDate;
 			if (birthdate < DateTime.Parse("1950-01-01") && birthdate > DateTime.Parse("2005-01-01"))
 			{
 				_errorList.Add("Дата рождения не входит в диапазон от 01.01.1950 до 01.01.2005.");

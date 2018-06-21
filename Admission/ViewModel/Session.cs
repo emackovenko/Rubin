@@ -64,7 +64,7 @@ namespace Admission.ViewModel
 			{               
                 password = Encrypter.MD5Hash(password);
                 var context = new AdmissionDatabase();
-                var result = (from user in _data.Users
+                var result = (from user in context.Users
                               where user.Username == username && user.PasswordHash == password
                               select user).Single();
                 _currentUser = result;

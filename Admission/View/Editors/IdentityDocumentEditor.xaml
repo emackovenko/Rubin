@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Admission.View.Editors" 
              xmlns:vm="clr-namespace:Admission.ViewModel.Editors"
-             mc:Ignorable="d" 
-             Height="300" 
+             mc:Ignorable="d"
+             Height="Auto"
              Width="490">
     <!--<UserControl.DataContext>
         <vm:IdentityDocumentEditorViewModel/>
@@ -78,20 +78,6 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Margin="10,0,0,0"/>
-        <TextBlock
-            Grid.Row="7"
-            Grid.Column="0"
-            Text="Дата рождения"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Margin="10,0,0,0"/>
-        <TextBlock
-            Grid.Row="8"
-            Grid.Column="0"
-            Text="Место рождения"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Margin="10,0,0,0"/>
         <ComboBox
             Grid.Row="0"
             Grid.Column="2"
@@ -150,20 +136,44 @@
             IsEditable="False"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"/>
-        <DatePicker
+        <TextBlock
+            Grid.Row="7"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Фамилия:"/>
+        <TextBox
             Grid.Row="7"
             Grid.Column="2"
-            HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            SelectedDate="{Binding Path=Document.BirthDate, UpdateSourceTrigger=PropertyChanged}"
-            DisplayDate="{Binding Path=Document.BirthDate}"/>
+            HorizontalAlignment="Left"
+            Width="200"
+            Text="{Binding Path=Document.LastName, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock
+            Grid.Row="8"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Имя:"/>
         <TextBox
             Grid.Row="8"
             Grid.Column="2"
-            Height="23"
-            ToolTip="позже сделаю, чобы выбиралось как с адресом"
-            Text="{Binding Path=Document.BirthPlace, UpdateSourceTrigger=PropertyChanged}"
-            Margin="0,0,10,0"
-            VerticalAlignment="Center"/>
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Width="200"
+            Text="{Binding Path=Document.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock
+            Grid.Row="9"
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            Text="Отчество:"/>
+        <TextBox
+            Grid.Row="9"
+            Grid.Column="2"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Width="200"
+            Text="{Binding Path=Document.Patronymic, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </UserControl>
