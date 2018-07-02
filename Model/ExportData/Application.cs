@@ -35,7 +35,14 @@ namespace Model.ExportData
         public bool NeedHostel { get; set; }
 
 
-		public string StatusID { get; set; }
+        /// <summary>
+        /// Дата возврата документов (когда отзывают заявление)
+        /// </summary>
+        public string ReturnDocumentsDate { get; set; }
+
+        public int? ReturnDocumentsTypeId { get; set; }
+        
+        public string StatusID { get; set; }
 
 		/// <summary>
 		/// Комментарий к статусу заявления

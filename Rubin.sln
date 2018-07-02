@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admission", "Admission\Admission.csproj", "{16CBB707-552E-40C1-9DF8-5A8B8145C250}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{0560A8DA-69ED-4810-B450-02DC02F0EF85}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonMethods", "CommonMethods\CommonMethods.csproj", "{E41820C5-0C01-4C5E-B9D5-B2EA7BCDC050}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FisExporter", "FisExporter\FisExporter.csproj", "{D56F2E08-4739-409C-852B-9A1BC04AFD08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,14 @@ Global
 		{E41820C5-0C01-4C5E-B9D5-B2EA7BCDC050}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E41820C5-0C01-4C5E-B9D5-B2EA7BCDC050}.Release|x64.ActiveCfg = Release|Any CPU
 		{E41820C5-0C01-4C5E-B9D5-B2EA7BCDC050}.Release|x64.Build.0 = Release|Any CPU
+		{D56F2E08-4739-409C-852B-9A1BC04AFD08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D56F2E08-4739-409C-852B-9A1BC04AFD08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D56F2E08-4739-409C-852B-9A1BC04AFD08}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D56F2E08-4739-409C-852B-9A1BC04AFD08}.Debug|x64.Build.0 = Debug|Any CPU
+		{D56F2E08-4739-409C-852B-9A1BC04AFD08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D56F2E08-4739-409C-852B-9A1BC04AFD08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D56F2E08-4739-409C-852B-9A1BC04AFD08}.Release|x64.ActiveCfg = Release|Any CPU
+		{D56F2E08-4739-409C-852B-9A1BC04AFD08}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

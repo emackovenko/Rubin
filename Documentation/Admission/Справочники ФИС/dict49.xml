@@ -1,0 +1,18 @@
+<DictionaryData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Code>49</Code>
+	<Name>Способ возврата документов абитуриенту</Name>
+	<DictionaryItems>
+		<DictionaryItem>
+			<ID>1</ID>
+			<Name>Передача лично или через доверенное лицо</Name>
+		</DictionaryItem>
+		<DictionaryItem>
+			<ID>2</ID>
+			<Name>Направление через операторов почтовой связи</Name>
+		</DictionaryItem>
+		<DictionaryItem>
+			<ID>3</ID>
+			<Name>Направление в электронной форме</Name>
+		</DictionaryItem>
+	</DictionaryItems>
+</DictionaryData>

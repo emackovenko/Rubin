@@ -85,6 +85,12 @@ namespace Admission.ViewModel.Export
 					StatusID = claim.ClaimStatus.ExportCode
 				};
 
+                if (claim.ClaimStatusId == 4)
+                {
+                    app.ReturnDocumentsDate = ConvertDate(claim.ReturnDate);
+                    app.ReturnDocumentsTypeId = claim.PersonalReturning == true ? 1 : 2;
+                }
+
 				#region абитуриент
 
 				var entrant = claim.Entrants.First();
@@ -216,7 +222,7 @@ namespace Admission.ViewModel.Export
 
 				#region удостоверение личности
 
-				var idDoc = new Model.ExportData.IdentityDocument()
+				 var idDoc = new Model.ExportData.IdentityDocument()
 				{
 					UID = string.Format("RiiIdentityDocument_{0}", claim.IdentityDocuments.First().Id),
 					DocumentSeries = claim.IdentityDocuments.First().Series,

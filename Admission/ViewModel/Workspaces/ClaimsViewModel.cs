@@ -754,7 +754,10 @@ namespace Admission.ViewModel.Workspaces
 				JobPost = oldEntrant.JobPost,
 				JobOrganization = oldEntrant.JobOrganization,
 				JobStage = oldEntrant.JobStage,
-				ForeignLanguage = oldEntrant.ForeignLanguage
+				ForeignLanguage = oldEntrant.ForeignLanguage,
+                MarritalStatus = oldEntrant.MarritalStatus,
+                BirthDate = oldEntrant.BirthDate,
+                BirthPlace = oldEntrant.BirthPlace
 			};
 			newClaim.Entrants.Add(newEntrant);
 
