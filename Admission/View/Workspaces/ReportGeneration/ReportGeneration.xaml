@@ -52,7 +52,7 @@
 						URL="{x:Null}" />
 					<controls:WorkspaceMenuItem
 						Title="Мониторинг приёмной кампании"
-						URL="{x:Null}" />
+						URL="Pages/CampaignMonitoringView.xaml" />
 				</ListView>
 			</Expander>
 		</Border>

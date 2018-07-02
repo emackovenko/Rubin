@@ -90,6 +90,7 @@
     <Resource Include="Documents\HostelClaim.dotx" />
     <Resource Include="Documents\TitlePage.dotx" />
     <None Include="Documents\AdmissionStatistic.xlsx" />
+    <None Include="Documents\CampaignMonitoring.xlsx" />
     <None Include="Documents\ContractIndividualPlanAgreement.dotx" />
     <None Include="Documents\EnrollmentDisagreementClaim.dotx" />
     <None Include="Documents\EnrollmentOrder.dotx" />

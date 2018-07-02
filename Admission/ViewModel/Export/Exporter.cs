@@ -34,7 +34,7 @@ namespace Admission.ViewModel.Export
 				using (Stream saver = new FileStream(fileName, FileMode.Create, FileAccess.Write))
 				{
 					XmlSerializer serializer = new XmlSerializer(typeof(Root));
-					serializer.Serialize(saver, root);
+                    serializer.Serialize(saver, root);
 				}
 			}
 		}
@@ -73,11 +73,6 @@ namespace Admission.ViewModel.Export
                               select claim).ToList();
 
             collection = collection.Where(c => c.Campaign.CampaignStatusId == 2).ToList();
-
-         //   var collection = (from ec in context.EnrollmentClaims
-							  //where ec.EnrollmentProtocol.EnrollmentOrder.Number == "1057" &&
-							  //ec.Claim != null
-							  //select ec.Claim).ToList();
 
 			foreach (var claim in collection)
 			{

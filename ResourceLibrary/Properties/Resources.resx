@@ -121,6 +121,9 @@
   <data name="AdmissionStatistic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Documents\AdmissionStatistic.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="CampaignMonitoring" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Documents\CampaignMonitoring.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="ContractIndividualPlanAgreement" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Documents\ContractIndividualPlanAgreement.dotx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

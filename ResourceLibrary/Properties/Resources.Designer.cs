@@ -73,6 +73,16 @@ namespace ResourceLibrary.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
+        public static byte[] CampaignMonitoring {
+            get {
+                object obj = ResourceManager.GetObject("CampaignMonitoring", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
         public static byte[] ContractIndividualPlanAgreement {
             get {
                 object obj = ResourceManager.GetObject("ContractIndividualPlanAgreement", resourceCulture);

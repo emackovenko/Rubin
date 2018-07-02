@@ -32,7 +32,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>88</ApplicationRevision>
+    <ApplicationRevision>90</ApplicationRevision>
     <ApplicationVersion>1.0.45.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -432,6 +432,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Workspaces\ReportGeneration\Pages\CampaignMonitoringView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Workspaces\ReportGeneration\Pages\GeneralizedEntrantList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -474,6 +478,7 @@
     <Compile Include="DialogService\Messenger.cs" />
     <Compile Include="ViewModel\Administration\ScratchServiceViewModel.cs" />
     <Compile Include="ViewModel\Documents\AdmissionStatistic.cs" />
+    <Compile Include="ViewModel\Documents\CampaignMonitoring.cs" />
     <Compile Include="ViewModel\Documents\DocumentClaimMiddleEducation.cs" />
     <Compile Include="ViewModel\Documents\DocumentClaim.cs" />
     <Compile Include="ViewModel\Documents\DocumentEnrollAgreementClaim.cs" />
@@ -543,6 +548,7 @@
     <Compile Include="ViewModel\Workspaces\Examinations\EntranceExaminationsProtocolsViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Examinations\EntranceTestResultConvertingViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\ReportGeneration\AdmissionStatisticViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\ReportGeneration\CampaignMonitoringViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\ReportGeneration\PublicEntrantListViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\ReportGeneration\GeneralizedEntrantListViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\RolesViewModel.cs" />
@@ -725,6 +731,9 @@
     </Compile>
     <Compile Include="View\Workspaces\ReportGeneration\Pages\AdmissionStatistic.xaml.cs">
       <DependentUpon>AdmissionStatistic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\ReportGeneration\Pages\CampaignMonitoringView.xaml.cs">
+      <DependentUpon>CampaignMonitoringView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Workspaces\ReportGeneration\Pages\GeneralizedEntrantList.xaml.cs">
       <DependentUpon>GeneralizedEntrantList.xaml</DependentUpon>
