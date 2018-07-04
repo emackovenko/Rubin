@@ -87,7 +87,7 @@ namespace Admission.ViewModel.Export
 
                 if (claim.ClaimStatusId == 4)
                 {
-                    app.ReturnDocumentsDate = ConvertDate(claim.ReturnDate);
+                    app.ReturnDocumentsDate = ConvertDateTime(claim.ReturnDate);
                     app.ReturnDocumentsTypeId = claim.PersonalReturning == true ? 1 : 2;
                 }
 

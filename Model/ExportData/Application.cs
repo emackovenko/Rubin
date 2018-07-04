@@ -40,7 +40,7 @@ namespace Model.ExportData
         /// </summary>
         public string ReturnDocumentsDate { get; set; }
 
-        public int? ReturnDocumentsTypeId { get; set; }
+        public int ReturnDocumentsTypeId { get; set; }
         
         public string StatusID { get; set; }
 
