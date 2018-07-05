@@ -74,7 +74,7 @@ namespace Admission.ViewModel.Editors
 			{
 				if (_selectedResult == null)
 				{
-					_selectedResult = SelectedDocument.EgeResults.FirstOrDefault();
+					_selectedResult = SelectedDocument?.EgeResults.FirstOrDefault();
 				}
 				return _selectedResult;
 			}	   

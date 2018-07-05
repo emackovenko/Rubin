@@ -33,7 +33,7 @@
                     SelectionMode="Single"
                     SelectedIndex="0"
 					ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-					<controls:WorkspaceMenuItem
+					<!--<controls:WorkspaceMenuItem
 						Title="Конвертирование первичных баллов внутренних вступительных испытаний в основные"
 						URL="Pages/EntranceTestResultConverting.xaml" />
 					<controls:WorkspaceMenuItem
@@ -41,7 +41,10 @@
 						URL="Pages/EgeResultChecking.xaml" />
 					<controls:WorkspaceMenuItem
 						Title="Протоколы проверки результатов вступительных испытаний"
-						URL="Pages/EntranceExaminationsProtocols.xaml" />
+						URL="Pages/EntranceExaminationsProtocols.xaml" />-->       
+					<controls:WorkspaceMenuItem
+						Title="Список лиц, сдающих внутренний экзамен"
+						URL="Pages/ExaminatedEntrantsList.xaml" />
 				</ListView>
             </Expander>
         </Border>

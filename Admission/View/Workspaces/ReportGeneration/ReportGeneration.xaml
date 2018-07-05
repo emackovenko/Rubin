@@ -49,7 +49,7 @@
 						URL="Pages/GeneralizedEntrantList.xaml" />
 					<controls:WorkspaceMenuItem
 						Title="Динамика приёма"
-						URL="{x:Null}" />
+						URL="Pages/AdmissionDynamic.xaml" />
 					<controls:WorkspaceMenuItem
 						Title="Мониторинг приёмной кампании"
 						URL="Pages/CampaignMonitoringView.xaml" />

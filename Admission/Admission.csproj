@@ -428,6 +428,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Workspaces\Examinations\Pages\ExaminatedEntrantsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Workspaces\ReportGeneration\Pages\AdmissionDynamic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Workspaces\ReportGeneration\Pages\AdmissionStatistic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -547,6 +555,7 @@
     <Compile Include="ViewModel\Workspaces\Examinations\EgeResultCheckingViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Examinations\EntranceExaminationsProtocolsViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Examinations\EntranceTestResultConvertingViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\ReportGeneration\AdmissionDynamicViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\ReportGeneration\AdmissionStatisticViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\ReportGeneration\CampaignMonitoringViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\ReportGeneration\PublicEntrantListViewModel.cs" />
@@ -708,6 +717,7 @@
     <Compile Include="View\Workspaces\EntrantClaims\EntrantClaims.xaml.cs">
       <DependentUpon>EntrantClaims.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\Workspaces\Examinations\ExaminatedEntrantListViewModel.cs" />
     <Compile Include="View\Workspaces\Examinations\Examinations.xaml.cs">
       <DependentUpon>Examinations.xaml</DependentUpon>
     </Compile>
@@ -728,6 +738,12 @@
     </Compile>
     <Compile Include="View\Workspaces\Examinations\Pages\EntranceTestResultConverting.xaml.cs">
       <DependentUpon>EntranceTestResultConverting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\Examinations\Pages\ExaminatedEntrantsList.xaml.cs">
+      <DependentUpon>ExaminatedEntrantsList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Workspaces\ReportGeneration\Pages\AdmissionDynamic.xaml.cs">
+      <DependentUpon>AdmissionDynamic.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Workspaces\ReportGeneration\Pages\AdmissionStatistic.xaml.cs">
       <DependentUpon>AdmissionStatistic.xaml</DependentUpon>

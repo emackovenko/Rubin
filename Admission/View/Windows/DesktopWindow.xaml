@@ -38,13 +38,13 @@
                 Title="Приёмная кампания" 
                 Icon="/ResourceLibrary;component/Images/school.png">
                 <capmaign:AdmissionCampaign/>
-            </controls:ProtectedTabItem>
+            </controls:ProtectedTabItem>-->
             <controls:ProtectedTabItem     
                 PermissionName="Examinations"
                 Title="Вступительные испытания"
                 Icon="/ResourceLibrary;component/Images/blackboard.png">
                 <exam:Examinations/>
-            </controls:ProtectedTabItem>-->
+            </controls:ProtectedTabItem>
             <controls:ProtectedTabItem   
                 PermissionName="Enrollment"
                 Title="Зачисление в студенты"
