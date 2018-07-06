@@ -72,7 +72,10 @@ namespace Admission.ViewModel.Export
                               where claim.ClaimStatus.Id == 1 || claim.ClaimStatus.Id == 2 || claim.ClaimStatus.Id == 4
                               select claim).ToList();
 
-            collection = collection.Where(c => c.Campaign.CampaignStatusId == 2).ToList();
+            collection = collection
+                .Where(c => c.Campaign.CampaignStatusId == 2)
+                .Where(c => c.Person.LastName?.Length > 0)
+                .ToList();
 
 			foreach (var claim in collection)
 			{
