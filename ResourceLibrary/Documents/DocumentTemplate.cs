@@ -42,7 +42,8 @@ namespace ResourceLibrary.Documents
 			{"EnrollmentDisagreementClaim", Resources.EnrollmentDisagreementClaim },
 			{"ExaminationStatementMiddleEducation", Resources.ExaminationStatementMiddleEducation },
 			{"ContractIndividualPlanAgreement", Resources.ContractIndividualPlanAgreement },
-            {"CampaignMonitoring", Resources.CampaignMonitoring }
+            {"CampaignMonitoring", Resources.CampaignMonitoring },
+            {"ExaminatedEntrantList", Resources.ExaminatedEntrantList }
 		};
 
         /// <summary>

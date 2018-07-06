@@ -154,6 +154,9 @@
   <data name="EntrantList" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Documents\EntrantList.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="ExaminatedEntrantList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Documents\ExaminatedEntrantList.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="ExaminationStatement" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Documents\ExaminationStatement.dotx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

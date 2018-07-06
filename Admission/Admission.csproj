@@ -501,6 +501,7 @@
     <Compile Include="ViewModel\Documents\EnrollmentOrderStatement.cs" />
     <Compile Include="ViewModel\Documents\ContractIndividualPlanAgreementDocument.cs" />
     <Compile Include="ViewModel\Documents\EntrantContractDocument.cs" />
+    <Compile Include="ViewModel\Documents\ExaminatedEntrantList.cs" />
     <Compile Include="ViewModel\Documents\ExaminationStatement.cs" />
     <Compile Include="ViewModel\Documents\ExaminationStatementMiddleEducationDocument.cs" />
     <Compile Include="ViewModel\Documents\GeneralizedEntrantList.cs" />

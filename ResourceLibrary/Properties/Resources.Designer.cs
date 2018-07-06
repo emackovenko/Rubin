@@ -183,6 +183,16 @@ namespace ResourceLibrary.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
+        public static byte[] ExaminatedEntrantList {
+            get {
+                object obj = ResourceManager.GetObject("ExaminatedEntrantList", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
         public static byte[] ExaminationStatement {
             get {
                 object obj = ResourceManager.GetObject("ExaminationStatement", resourceCulture);

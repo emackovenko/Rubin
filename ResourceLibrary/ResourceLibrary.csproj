@@ -99,6 +99,7 @@
     <None Include="Documents\EntrantClaimMiddleEducation.dotx" />
     <None Include="Documents\EntrantContract.dotx" />
     <None Include="Documents\EntrantList.xlsx" />
+    <None Include="Documents\ExaminatedEntrantList.xlsx" />
     <None Include="Documents\ExaminationStatement.dotx" />
     <None Include="Documents\ExaminationStatementMiddleEducation.dotx.docx" />
     <None Include="Documents\IndividualAchievementsProtocol.dotx" />

@@ -5,11 +5,58 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Admission.View.Workspaces.Examinations.Pages"
       xmlns:vm="clr-namespace:Admission.ViewModel.Workspaces.Examinations"
+      xmlns:controls="clr-namespace:Admission.View.Theme.Controls"
       mc:Ignorable="d" 
       Title="ExaminatedEntrantsList">
     <Page.DataContext>
         <vm:ExaminatedEntrantListViewModel/>
     </Page.DataContext>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="Auto"/>
+            <RowDefinition
+                Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid
+            Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="32"/>
+                <RowDefinition
+                    Height="32"/>
+            </Grid.RowDefinitions>
+            <StackPanel
+                Grid.Row="0"
+                Orientation="Horizontal">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Margin="10 0"
+                    Text="Предмет"/>
+                <ComboBox
+                    VerticalAlignment="Center"
+                    Width="200"
+                    ItemsSource="{Binding Path=Subjects}"
+                    SelectedItem="{Binding Path=SelectedSubject, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Margin="10 0"
+                    Text="Дата экзамена"/>
+                <DatePicker
+                    VerticalAlignment="Center"
+                    SelectedDate="{Binding Path=ExaminationDate}"
+                    DisplayDate="{Binding Path=ExaminationDate}"/>
+            </StackPanel>
+            <Button
+                Grid.Row="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Padding="10 0"
+                Content="Сформировать список"
+                Command="{Binding Path=FormExamListCommand}"/>
+        </Grid>                 
+        <controls:OpenXmlDocumentViewer
+            Document="{Binding Path=Document, IsAsync=True}"
+            Grid.Row="1"/>
     </Grid>
 </Page>
