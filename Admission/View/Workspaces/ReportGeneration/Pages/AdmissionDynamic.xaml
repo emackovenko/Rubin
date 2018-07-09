@@ -5,12 +5,62 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Admission.View.Workspaces.ReportGeneration.Pages"
       xmlns:vm="clr-namespace:Admission.ViewModel.Workspaces.ReportGeneration"
+      xmlns:controls="clr-namespace:Admission.View.Theme.Controls"
       mc:Ignorable="d" 
       Title="AdmissionDynamic">
     <Page.DataContext>
         <vm:AdmissionDynamicViewModel/>
+
     </Page.DataContext>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="56"/>
+            <RowDefinition
+               />
+        </Grid.RowDefinitions>
+        <GroupBox
+			Header="Управление"
+			Padding="5,0">
+            <StackPanel
+				Orientation="Horizontal">
+                <TextBlock
+					VerticalAlignment="Center"
+					Text="Дата:"
+					Margin="3" />
+                <DatePicker
+                    Grid.Row="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="1,4,0,4"
+                    SelectedDate="{Binding Path=SelectedDate}"
+                    DisplayDate="{Binding Path=SelectedDate}"/>
+                <Button
+					VerticalAlignment="Center"
+					Padding="15,0"
+					Margin="15,0"
+					Height="23"
+					Content="Сформировать документ"
+					Command="{Binding Path=GenerateDocumentCommand}" />
+            </StackPanel>
+        </GroupBox>
+        <controls:OpenXmlDocumentViewer
+			Grid.Row="1"
+			Document="{Binding Path=Document, IsAsync=True}">
+            <controls:OpenXmlDocumentViewer.Style>
+                <Style
+					TargetType="controls:OpenXmlDocumentViewer">
+                    <Style.Triggers>
+                        <Trigger
+							Property="Document"
+							Value="{x:Null}">
+                            <Setter
+								Property="Template"
+								Value="{StaticResource DataWaitControlTemplate}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:OpenXmlDocumentViewer.Style>
+        </controls:OpenXmlDocumentViewer>
     </Grid>
 </Page>
