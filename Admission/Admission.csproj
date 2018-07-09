@@ -485,6 +485,7 @@
     </Compile>
     <Compile Include="DialogService\Messenger.cs" />
     <Compile Include="ViewModel\Administration\ScratchServiceViewModel.cs" />
+    <Compile Include="ViewModel\Documents\AdmissionDynamic.cs" />
     <Compile Include="ViewModel\Documents\AdmissionStatistic.cs" />
     <Compile Include="ViewModel\Documents\CampaignMonitoring.cs" />
     <Compile Include="ViewModel\Documents\DocumentClaimMiddleEducation.cs" />
