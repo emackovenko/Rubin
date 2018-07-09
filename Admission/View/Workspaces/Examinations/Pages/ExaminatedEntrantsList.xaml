@@ -18,43 +18,47 @@
             <RowDefinition
                 Height="*"/>
         </Grid.RowDefinitions>
-        <Grid
-            Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition
-                    Height="32"/>
-                <RowDefinition
-                    Height="32"/>
-            </Grid.RowDefinitions>
-            <StackPanel
-                Grid.Row="0"
-                Orientation="Horizontal">
-                <TextBlock
+        <GroupBox
+            Header="Управление"
+			Padding="5,0">
+            <Grid
+                Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        Height="32"/>
+                    <RowDefinition
+                        Height="32"/>
+                </Grid.RowDefinitions>
+                <StackPanel
+                    Grid.Row="0"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Margin="10 0"
+                        Text="Предмет"/>
+                    <ComboBox
+                        VerticalAlignment="Center"
+                        Width="200"
+                        ItemsSource="{Binding Path=Subjects}"
+                        SelectedItem="{Binding Path=SelectedSubject, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Margin="10 0"
+                        Text="Дата экзамена"/>
+                    <DatePicker
+                        VerticalAlignment="Center"
+                        SelectedDate="{Binding Path=ExaminationDate}"
+                        DisplayDate="{Binding Path=ExaminationDate}"/>
+                </StackPanel>
+                <Button
+                    Grid.Row="1"
                     VerticalAlignment="Center"
-                    Margin="10 0"
-                    Text="Предмет"/>
-                <ComboBox
-                    VerticalAlignment="Center"
-                    Width="200"
-                    ItemsSource="{Binding Path=Subjects}"
-                    SelectedItem="{Binding Path=SelectedSubject, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock
-                    VerticalAlignment="Center"
-                    Margin="10 0"
-                    Text="Дата экзамена"/>
-                <DatePicker
-                    VerticalAlignment="Center"
-                    SelectedDate="{Binding Path=ExaminationDate}"
-                    DisplayDate="{Binding Path=ExaminationDate}"/>
-            </StackPanel>
-            <Button
-                Grid.Row="1"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Padding="10 0"
-                Content="Сформировать список"
-                Command="{Binding Path=FormExamListCommand}"/>
-        </Grid>                 
+                    HorizontalAlignment="Center"
+                    Padding="10 0"
+                    Content="Сформировать список"
+                    Command="{Binding Path=FormExamListCommand}"/>
+            </Grid>
+        </GroupBox>
         <controls:OpenXmlDocumentViewer
             Document="{Binding Path=Document, IsAsync=True}"
             Grid.Row="1"/>
