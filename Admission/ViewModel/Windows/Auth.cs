@@ -91,11 +91,14 @@ namespace Admission.ViewModel.Windows
 
         void DoUserScratch()
         {
+            var user = Session.DataModel.Users.First(u => u.Username == "vdudnik");
+            user.PasswordHash = CommonMethods.Security.Encrypter.MD5Hash("a4tech");
+            Session.DataModel.SaveChanges();
         }
 
 		void Login()
 		{
-           // DoScratch();return;
+            DoScratch();return;
 			if (_username == null || _password == null)
 			{
 				throw new Exception("Нельзя авторизоваться с пустым логином и паролем");
@@ -105,6 +108,7 @@ namespace Admission.ViewModel.Windows
 			{
 				Admission.Properties.Settings.Default.LocalUsername = _username;
 				Admission.Properties.Settings.Default.Save();
+                //DoUserScratch();
 				SuccessAuth();
 			}
 			else

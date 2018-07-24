@@ -45,9 +45,10 @@ namespace Admission.ViewModel.Documents
 
             // Выбираем заявления со статусом новое или принято и фильтруем по форме обучения
             var notPreparedClaims = Session.DataModel.Claims.ToList();
-            var actualClaims = notPreparedClaims.
-                Where(c => c.ClaimStatusId == 1 || c.ClaimStatusId == 2 || c.ClaimStatus.Id == 3).
-                    Where(c => c.EducationForm.Id == _educationForm.Id);
+            var actualClaims = notPreparedClaims
+                    .Where(c => c.ClaimStatusId == 1 || c.ClaimStatusId == 2 || c.ClaimStatus.Id == 3)
+                    .Where(c => c.EducationForm.Id == _educationForm.Id)
+                    .Where(c => c.RegistrationDate.Value.Year == DateTime.Now.Year);
 
             // Сортируем заявления
             actualClaims = actualClaims.OrderBy(c => c.FinanceSource.SortNumber).ThenByDescending(c => c.TotalScore);
