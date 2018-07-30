@@ -13,13 +13,13 @@ namespace Admission.ViewModel.Documents
 {
     public class ExaminatedEntrantList : OpenXmlDocument
     {
-        public ExaminatedEntrantList(IEnumerable<EntranceTest> tests)
+        public ExaminatedEntrantList(IEnumerable<EntranceTestResult> tests)
         {
             exams = tests;
             DocumentType = OpenXmlDocumentType.Spreadsheet;
         }
 
-        IEnumerable<EntranceTest> exams;
+        IEnumerable<EntranceTestResult> exams;
 
         public override void CreatePackage(string fileName)
         {
@@ -27,8 +27,8 @@ namespace Admission.ViewModel.Documents
             var ws = ef.Worksheets[0];
 
             // заполняем статичные данные
-            string examName = exams.FirstOrDefault()?.ExamSubject.Name;
-            string examDate = exams.FirstOrDefault()?.ExaminationDate.Value.ToString("dd.MM.yyyy");
+            string examName = exams.FirstOrDefault()?.EntranceTest.ExamSubject.Name;
+            string examDate = exams.FirstOrDefault()?.EntranceTest.ExaminationDate.Value.ToString("dd.MM.yyyy");
             ws.FindAndReplaceText("SubjectName", examName);
             ws.FindAndReplaceText("ExaminationDate", examDate);
 
@@ -36,18 +36,9 @@ namespace Admission.ViewModel.Documents
 
             // получаем абитуриентов на все выбранные экзамены в коллекцию
             var claims = new List<Claim>();
-            foreach (var item in exams)
-            {
-                foreach (var cet in item.CompetitionEntranceTests)
-                {
-                    claims.AddRange(cet.CompetitiveGroup.ClaimConditions
-                    .Where(cc => cc.Claim != null)
-                    .Where(cc => cc.Claim.ClaimStatusId != 3 && cc.Claim.ClaimStatusId != 4)
-                    .Select(cc => cc.Claim));
-                   
-                 }
-                
-            }
+            claims.AddRange(exams.Where(cc => cc.Claim != null)
+                .Where(cc => cc.Claim.ClaimStatusId != 3 && cc.Claim.ClaimStatusId != 4)
+                .Select(cc => cc.Claim));
 
             claims = claims.OrderBy(c => c.Person.FullName).ToList();
             claims = claims.Distinct().ToList();

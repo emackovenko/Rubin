@@ -39,10 +39,10 @@ namespace Admission.ViewModel.Workspaces.Examinations
         void FormExamList()
         {
             // загружаем список экзаменов на активные кампании и выбираем нужные нам по фильтру
-            var exams = Session.DataModel.EntranceTests
-                .Where(et => et.Campaign.CampaignStatusId == 2)
-                .Where(et => et.ExamSubjectId == SelectedSubject.Id)
-                .Where(et => et.ExaminationDate == ExaminationDate)
+            var exams = Session.DataModel.EntranceTestResults
+                .Where(et => et.EntranceTest.Campaign.CampaignStatusId == 2)
+                .Where(et => et.EntranceTest.ExamSubjectId == SelectedSubject.Id)
+                .Where(et => et.EntranceTest.ExaminationDate == ExaminationDate)
                 .ToList();
 
             // создаем документ

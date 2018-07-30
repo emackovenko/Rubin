@@ -45,7 +45,10 @@
 					<controls:WorkspaceMenuItem
 						Title="Список лиц, сдающих внутренний экзамен"
 						URL="Pages/ExaminatedEntrantsList.xaml" />
-				</ListView>
+                    <controls:WorkspaceMenuItem
+						Title="Ввод результатов внутренних экзаменов"
+						URL="Pages/InputOfExamResult.xaml" />
+                </ListView>
             </Expander>
         </Border>
         <Border
