@@ -22,7 +22,7 @@ namespace Model.ExportData
         /// <summary>
         /// Тип документа, подтверждающего сиротство
         /// </summary>
-        public int OrphanCategoryID { get; set; }
+        public string OrphanCategoryID { get; set; }
 
         /// <summary>
         /// Наименование документа
@@ -32,12 +32,12 @@ namespace Model.ExportData
         /// <summary>
         /// Серия документа
         /// </summary>
-        public int DocumentSeries { get; set; }
+        public string DocumentSeries { get; set; }
 
         /// <summary>
         /// Номер документа
         /// </summary>
-        public int DocumentNumber { get; set; }
+        public string DocumentNumber { get; set; }
 
         /// <summary>
         /// Дата выдачи документа
@@ -48,6 +48,7 @@ namespace Model.ExportData
         /// Организация выдавшая документ
         /// </summary>
         public string DocumentOrganization { get; set; }
+
         #endregion
     }
 }

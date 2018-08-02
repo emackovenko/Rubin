@@ -54,7 +54,7 @@ namespace Admission.ViewModel.Workspaces
                                                                  orderby claim.RegistrationDate, claim.Id
                                                                  select claim);
 
-                    _claimList = new ObservableCollection<Claim>(list.Where(c => c.Campaign.CampaignStatusId == 2));
+                    _claimList = new ObservableCollection<Claim>(list.Where(c => c.Campaign?.CampaignStatusId == 2));
                 }
 				return _claimList;
 			}

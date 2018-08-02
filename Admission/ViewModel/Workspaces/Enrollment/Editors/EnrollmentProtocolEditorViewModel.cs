@@ -348,15 +348,15 @@ namespace Admission.ViewModel.Workspaces.Enrollment.Editors
 			if (Protocol.EnrollmentOrder != null &&
 					SelectedDirection != null)
 			{
-				// Получаем конкурсные группы по указанному выше набору условий
-				var compGroups = (from cg in Session.DataModel.CompetitiveGroups
-								  where cg.EducationForm.Id == Protocol.EnrollmentOrder.EducationForm.Id &&
-									cg.FinanceSource.Id == Protocol.EnrollmentOrder.FinanceSource.Id &&
-									cg.Direction.Id == SelectedDirection.Id
-								  select cg);
+                // Получаем конкурсные группы по указанному выше набору условий
+                var compGroups = (from cg in Session.DataModel.CompetitiveGroups
+                                  where cg.EducationForm.Id == Protocol.EnrollmentOrder.EducationForm.Id &&
+                                    cg.FinanceSource.Id == Protocol.EnrollmentOrder.FinanceSource.Id &&
+                                    cg.Direction.Id == SelectedDirection.Id
+                                  select cg).ToList() ;
 				if (compGroups.Count() > 0)
 				{
-					ProtocolCompetitiveGroup = compGroups.First();
+					ProtocolCompetitiveGroup = compGroups.FirstOrDefault(cg => cg.Campaign.CampaignStatusId == 2);
 					return;
 				}
 			}			
@@ -418,7 +418,7 @@ namespace Admission.ViewModel.Workspaces.Enrollment.Editors
 					}
 				}
 
-				AvailableClaims = new ObservableCollection<Claim>(claims);
+				AvailableClaims = new ObservableCollection<Claim>(claims.Where(c => c.Campaign.CampaignStatusId == 2));
 			}
 			else
 			{
