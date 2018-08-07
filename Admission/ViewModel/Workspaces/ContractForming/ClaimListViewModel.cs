@@ -20,7 +20,7 @@ namespace Admission.ViewModel.Workspaces.ContractForming
         {
             get
             {
-                return new ObservableCollection<Claim>(Session.DataModel.Claims.ToList().Where(c => c.FinanceSource.Id == 2));
+                return new ObservableCollection<Claim>(Session.DataModel.Claims.ToList().Where(c => c.FinanceSource.Id == 2).Where(c => c.Campaign.CampaignStatusId == 2));
             }
         }
 
@@ -74,8 +74,8 @@ namespace Admission.ViewModel.Workspaces.ContractForming
         {
 			// Получаем номер
 			int num = 0;
-			var col = Session.DataModel.EntrantContracts.ToList();
-			if ( col.Count > 0)
+            var col = Session.DataModel.EntrantContracts.ToList().Where(ec => ec.Entrant.Claim.Campaign.CampaignStatusId == 2);
+			if (col.Count() > 0)
 			{
 				num = (from c in col
 					   select int.Parse(c.Number.WithoutLetters())).Max();

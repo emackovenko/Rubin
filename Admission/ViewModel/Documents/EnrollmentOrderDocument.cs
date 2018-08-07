@@ -49,11 +49,9 @@ namespace Admission.ViewModel.Documents
             document.InsertToBookmark("OrderDate",
                 ((DateTime)_order.Date).ToString("«dd» MMMM yyyy г."), simpleTextFormat);
             document.InsertToBookmark("OrderNumber", _order.Number, underlinedCharacterFormat);
-			//document.InsertToBookmark("TrainingBeginDate",
-			//	((DateTime)_order.EnrollmentProtocols.First().TrainingBeginDate).ToString("dd MMMM yyyy"));
-			document.InsertToBookmark("TrainingBeginDate",
-				"01 октября 2017", simpleTextFormat);
-			document.InsertToBookmark("EducationForm", "заочную", simpleTextFormat);
+            document.InsertToBookmark("TrainingBeginDate",
+                ((DateTime)_order.EnrollmentProtocols.First().TrainingBeginDate).ToString("dd MMMM yyyy"));
+            document.InsertToBookmark("EducationForm", ChangeToAccusative(_order.EducationForm.Name), simpleTextFormat);
 
             // Получаем строку с протоклами
             string namesProtocol = string.Empty;
@@ -113,7 +111,7 @@ namespace Admission.ViewModel.Documents
 					tableRow.Cells[1].Content.LoadText(claim.Claim.Person.FullName, simpleTextFormat);
 
 					// Основание
-					tableRow.Cells[2].Content.LoadText("Внебюджетный приём", simpleTextFormat);
+					tableRow.Cells[2].Content.LoadText(protocol.CompetitiveGroup.FinanceSource.EnrollmentReason, simpleTextFormat);
 
 					// Рег. номер
 					tableRow.Cells[3].Content.LoadText(claim.Claim.Number, simpleTextFormat);
@@ -130,7 +128,9 @@ namespace Admission.ViewModel.Documents
 				// Итог
 				var resultRow = table.Rows[4].Clone(true);
 				resultRow.Cells[0].Content.LoadText("Итого:", simpleTextFormat);
-				resultRow.Cells[1].Content.LoadText(string.Format("Внебюджетный приём - {0}", protocol.EnrollmentClaims.Count), simpleTextFormat);			  
+				resultRow.Cells[1].Content.LoadText(string.Format("{0} - {1}",
+                    protocol.CompetitiveGroup.FinanceSource.EnrollmentReason,
+                    protocol.EnrollmentClaims.Count), simpleTextFormat);			  
 				table.Rows.Add(resultRow);			  
 
 				tableIndex++;

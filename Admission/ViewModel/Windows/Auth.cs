@@ -91,8 +91,14 @@ namespace Admission.ViewModel.Windows
 
         void DoUserScratch()
         {
-            var user = Session.DataModel.Users.First(u => u.Username == "vdudnik");
-            user.PasswordHash = CommonMethods.Security.Encrypter.MD5Hash("a4tech");
+            var user = new User
+            {
+                Username = "mivanova",
+                LastName = "Иванова",
+                FirstName = "Маргарита",
+                PasswordHash = CommonMethods.Security.Encrypter.MD5Hash("slex627")
+            };
+            Session.DataModel.Users.Add(user);
             Session.DataModel.SaveChanges();
         }
 
