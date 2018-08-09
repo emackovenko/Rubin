@@ -361,9 +361,10 @@
       <DependentUpon>AdmissionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ExportData\Application.cs" />
-    <Compile Include="ExportData\ApplicationCommonBenefits.cs" />
+    <Compile Include="ExportData\ApplicationCommonBenefit.cs" />
     <Compile Include="ExportData\ApplicationDocuments.cs" />
     <Compile Include="ExportData\AuthData.cs" />
+    <Compile Include="ExportData\DocumentReason.cs" />
     <Compile Include="ExportData\EduCustomDocument.cs" />
     <Compile Include="ExportData\EduDocument.cs" />
     <Compile Include="ExportData\EgeDocument.cs" />

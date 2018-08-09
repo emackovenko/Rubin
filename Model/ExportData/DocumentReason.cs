@@ -6,7 +6,7 @@ using System.Text;
 namespace Model.ExportData
 {
     [Serializable]
-    public class ApplicationCommonBenefits
+    public class DocumentReason
     {
         public OrphanDocument OrphanDocument { get; set; }
     }
