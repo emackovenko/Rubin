@@ -291,6 +291,7 @@
           <Property Name="ExportCode" Type="varchar" MaxLength="10" />
           <Property Name="WorkOkId" Type="int" />
           <Property Name="AstuId" Type="varchar" MaxLength="30" />
+          <Property Name="ContractNumberPart" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="DistributedAdmissionVolume">
           <Key>
@@ -3156,6 +3157,7 @@
           <Property Name="WorkOkId" Type="Int32" />
           <Property Name="AstuId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DirectionProfiles" Relationship="AdmissionModel.FK_DirectionProfiles_Directions_Id" FromRole="Direction" ToRole="DirectionProfile" />
+          <Property Name="ContractNumberPart" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="DistributedAdmissionVolume">
           <Key>
@@ -5259,6 +5261,7 @@
           <EntitySetMapping Name="Directions">
             <EntityTypeMapping TypeName="AdmissionModel.Direction">
               <MappingFragment StoreEntitySet="Directions">
+                <ScalarProperty Name="ContractNumberPart" ColumnName="ContractNumberPart" />
                 <ScalarProperty Name="AstuId" ColumnName="AstuId" />
                 <ScalarProperty Name="WorkOkId" ColumnName="WorkOkId" />
                 <ScalarProperty Name="ShortName" ColumnName="ShortName" />

@@ -86,8 +86,12 @@ namespace Admission.ViewModel.Workspaces.ContractForming
 			{
 				Date = DateTime.Now,
 				Entrant = SelectedClaim.Person,
-				Number = string.Format("{0}{1}{2}", num + 1, SelectedClaim.FirstDirection.ShortName, SelectedClaim.EducationForm.Name[0])
+				Number = string.Format("{0}{1}", num + 1, SelectedClaim.FirstDirection.ContractNumberPart)
 			};
+            if (SelectedClaim.EducationForm.Id == 2)
+            {
+                contract.Number += SelectedClaim.EducationForm.Name[0];
+            }
 
 			// Создаем ВМ и редактор
 			var vm = new EntrantContractEditorViewModel(contract);

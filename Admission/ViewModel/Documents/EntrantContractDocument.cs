@@ -26,39 +26,46 @@ namespace Admission.ViewModel.Documents
 		{
 			var document = DocumentModel.Load(DocumentTemplate.ExtractDoc("EntrantContract"));
 
-			// Подготовка стилей
-			var underlinedText = new CharacterFormat
+            // Подготовка стилей
+            var simpleText = new CharacterFormat
+            {
+                Bold = false,
+                Size = 9.0
+            };
+            var underlinedText = new CharacterFormat
 			{
 				UnderlineColor = Color.Black,
-				UnderlineStyle = UnderlineType.Single
+				UnderlineStyle = UnderlineType.Single,
+                Size = 9.0
 			};
 			var underlinedBoldText = new CharacterFormat
 			{
 				UnderlineColor = Color.Black,
 				UnderlineStyle = UnderlineType.Single,
-				Bold = true
-			};
+				Bold = true,
+                Size = 9.0
+            };
 			var boldText = new CharacterFormat
 			{
-				Bold = true
-			};
+				Bold = true,
+                Size = 9.0
+            };
 
 			// Готовим текст
-			string yearPrice = string.Format("{0} {1}", _contract.YearPrice,
+			string yearPrice = string.Format("{0} ({1})", _contract.YearPrice,
 				RusCurrency.Str((double)_contract.YearPrice));
-			string fullPrice = string.Format("{0} {1}", _contract.FullPrice,
+			string fullPrice = string.Format("{0} ({1})", _contract.FullPrice,
 				RusCurrency.Str((double)_contract.FullPrice));
 			string shhets = _contract.ContragentType.Id == 1 ? "2" : "3";
 
 			// Вставляем текст на закладки
 			document.InsertToBookmark("Number", _contract.Number, underlinedBoldText);
-			document.InsertToBookmark("Date", ((DateTime)_contract.Date).ToString("«dd» MMMM yyyy г."));
+			document.InsertToBookmark("Date", ((DateTime)_contract.Date).ToString("«dd» MMMM yyyy г."), underlinedText);
 			document.InsertToBookmark("YearPrice", yearPrice, underlinedBoldText);
 			document.InsertToBookmark("FullPrice", fullPrice, underlinedBoldText);
-			document.InsertToBookmark("YearPrice1", yearPrice, underlinedBoldText);
-			document.InsertToBookmark("SheetCount", shhets);
-			document.InsertToBookmark("AgentInfo", GetAgentInfo());
-			document.InsertToBookmark("EntrantInfo", GetEntrantInfo());
+			document.InsertToBookmark("SheetCount", shhets, underlinedText);
+			document.InsertToBookmark("AgentInfo", GetAgentInfo(), simpleText);
+			document.InsertToBookmark("EntrantInfo", GetEntrantInfo(), simpleText);
 			document.InsertToBookmark("EntrantName", _contract.Entrant.FullName, boldText);
 			document.InsertToBookmark("AgentName", _contract.PayerName, boldText);
 			document.InsertToBookmark("CompetitiveGroup", 
@@ -71,9 +78,9 @@ namespace Admission.ViewModel.Documents
 			string diplomaType = _contract.Entrant.Claim.EducationLevel.Id == 1 ? "диплом о высшем образовании" : "диплом о среднем профессиональном образовании";
 			document.InsertToBookmark("DiplomaType", diplomaType, underlinedText);
 			document.InsertToBookmark("EducationLevel", educationLevel, underlinedText);
-			document.InsertToBookmark("TrainingTime", _contract.TrainingPeriod.AsPeriod(), underlinedText);
+            document.InsertToBookmark("TrainingTime", _contract.TrainingPeriod.AsPeriod(), underlinedText);
 
-			document.Save(fileName);
+            document.Save(fileName);
 		}
 
 		string GetAgentInfo()

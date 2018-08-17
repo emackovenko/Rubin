@@ -21,7 +21,7 @@ namespace Admission.ViewModel.Export
 
 			var root = new Root();
 
-			exporter.FillEnrolledPackage(root);
+			exporter.FillPackage(root);
 
 			Microsoft.Win32.SaveFileDialog save = new Microsoft.Win32.SaveFileDialog();
 			save.Filter = "XML files|*.xml";

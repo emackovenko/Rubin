@@ -64,9 +64,16 @@ namespace CommonMethods.TypeExtensions.exString
 		public static string AsPeriod(this string value)
 		{
 			var str = string.Empty;
-
-			// разбираем на составляющие
-			var periodParts = value.Split('.');
+            var periodParts = new string[2]; 
+            // разбираем на составляющие
+            if (value.Contains('.'))
+            {
+                periodParts = value.Split('.');
+            }
+            else
+            {
+                periodParts = value.Split(',');
+            }
 
 			// по целой части бьем по падежам
 			str += string.Format("{0} {1}",
