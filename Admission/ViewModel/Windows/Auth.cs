@@ -104,8 +104,9 @@ namespace Admission.ViewModel.Windows
 
 		void Login()
 		{
-            DoScratch();return;
-			if (_username == null || _password == null)
+            //DoScratch();return;
+
+            if (_username == null || _password == null)
 			{
 				throw new Exception("Нельзя авторизоваться с пустым логином и паролем");
 			}

@@ -1,0 +1,131 @@
+﻿<Page x:Class="Admission.View.Workspaces.Examinations.Pages.ExamSeating"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Admission.View.Workspaces.Examinations.Pages"
+      xmlns:controls="clr-namespace:Admission.View.Theme.Controls"
+      xmlns:vm="clr-namespace:Admission.ViewModel.Workspaces.Examinations"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ExamSeating">
+    <Page.DataContext>
+        <vm:ExamSeatingViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="Auto"/>
+            <RowDefinition
+                Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid
+            Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="Auto"/>
+                <RowDefinition
+                    Height="Auto"/>
+                <RowDefinition
+                    Height="Auto"/>
+            </Grid.RowDefinitions>
+            <WrapPanel    
+                Grid.Row="0"
+                Orientation="Horizontal">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Margin="5 10 0 10"
+                    Text="Предмет*"/>
+                <ComboBox
+                    VerticalAlignment="Center"
+                    Margin="5 10 10 10"
+                    Width="150"
+                    SelectedItem="{Binding Path=Subject, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding Path=Subjects}"
+                    DisplayMemberPath="Name"/>
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Margin="5 10 0 10"
+                    Text="Форма обучения"/>
+                <ComboBox
+                    VerticalAlignment="Center"
+                    Margin="5 10 10 10"
+                    Width="150"  
+                    SelectedItem="{Binding Path=EducationForm, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding Path=EducationForms}"
+                    DisplayMemberPath="Name"/>
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Margin="5 10 0 10"
+                    Text="Ист. финанс."/>
+                <ComboBox
+                    VerticalAlignment="Center"
+                    Margin="5 10 10 10"
+                    Width="150"  
+                    SelectedItem="{Binding Path=FinanceSource, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding Path=FinanceSources}"
+                    DisplayMemberPath="Name"/>
+                <Button
+                    Width="24"
+                    Height="24"
+                    VerticalAlignment="Center"
+                    Command="{Binding Path=ResetFilterCommand}"
+                    ToolTip="Сбросить фильтр">
+                    <Image
+                        Source="/ResourceLibrary;component/Images/Buttons/delete2.png"/>
+                </Button>
+            </WrapPanel>
+            <WrapPanel
+                Grid.Row="1"
+                Orientation="Horizontal">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Margin="5 10 0 10"
+                    Text="Аудитория*"/>
+                <TextBox
+                    VerticalAlignment="Center"
+                    Margin="5 10 10 10"
+                    Width="100"
+                    Text="{Binding Path=Classroom, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Margin="5 10 0 10"
+                    Text="Кол-во рядов*"/>
+                <TextBox
+                    VerticalAlignment="Center"
+                    Margin="5 10 10 10"
+                    Width="60"
+                    Text="{Binding Path=LinesCount, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Margin="5 10 0 10"
+                    Text="Мест в ряду*"/>
+                <TextBox
+                    VerticalAlignment="Center"
+                    Margin="5 10 10 10"
+                    Width="60"
+                    Text="{Binding Path=PlacesCount, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Margin="5 10 0 10"
+                    Text="Кол-во вариантов*"/>
+                <TextBox
+                    VerticalAlignment="Center"
+                    Margin="5 10 10 10"
+                    Width="60"
+                    Text="{Binding Path=VariantsCount, UpdateSourceTrigger=PropertyChanged}"/>
+            </WrapPanel>
+            <Button
+                Grid.Row="2"
+                Padding="20 3"
+                Margin="0 10"             
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Content="Сгенерировать рассадку"
+                Command="{Binding Path=GenerateSeatingCommand}"/>
+        </Grid>
+        <controls:OpenXmlDocumentViewer
+            Grid.Row="1"
+            Document="{Binding Path=ExaminationRegister}"/>
+    </Grid>
+</Page>

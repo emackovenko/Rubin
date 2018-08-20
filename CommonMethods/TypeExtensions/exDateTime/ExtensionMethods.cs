@@ -17,7 +17,7 @@ namespace CommonMethods.TypeExtensions.exDateTime
 		public static bool IsInRange(this DateTime date, DateTime startRangeDate, DateTime endRangeDate)
 		{
 			return date >= startRangeDate && date <= endRangeDate;
-		}
+        }
 
         public static string Format(this DateTime? date, string format = "dd.MM.yyyy г.")
         {
@@ -27,5 +27,10 @@ namespace CommonMethods.TypeExtensions.exDateTime
             }
             return "нет даты";
         }
-	}
+
+        public static string Format(this DateTime date, string format = "dd.MM.yyyy г.")
+        {
+            return date.ToString(format);
+        }
+    }
 }

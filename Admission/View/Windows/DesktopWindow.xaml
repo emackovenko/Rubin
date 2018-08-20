@@ -25,7 +25,29 @@
     </Window.DataContext>
     <Grid>
         <TabControl
-            Margin="0,0,0,25">                     
+            Margin="0,0,0,25">
+            <controls:ProtectedTabItem     
+                PermissionName="Scratch"
+                Title="Приветствие" 
+                Icon="/ResourceLibrary;component/Images/id_cards.png">
+                <Grid
+                    Background="#FFE7F3F9">
+                    <StackPanel
+                        VerticalAlignment="Center"
+                        Orientation="Vertical">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Text="Добро пожаловать в информационную систему Приёмной комиссии РИИ АлтГТУ"
+                            FontSize="16"/>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Text="Чтобы приступить к работе, выберите необходимую Вам вкладку."
+                            FontSize="16"/>
+                    </StackPanel>
+                </Grid>
+            </controls:ProtectedTabItem>
             <controls:ProtectedTabItem     
                 PermissionName="EntrantClaims"
                 Title="Заявления абитуриентов" 

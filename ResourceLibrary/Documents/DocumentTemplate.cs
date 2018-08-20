@@ -44,8 +44,9 @@ namespace ResourceLibrary.Documents
 			{"ExaminationStatementMiddleEducation", Resources.ExaminationStatementMiddleEducation },
 			{"ContractIndividualPlanAgreement", Resources.ContractIndividualPlanAgreement },
             {"CampaignMonitoring", Resources.CampaignMonitoring },
-            {"ExaminatedEntrantList", Resources.ExaminatedEntrantList }
-		};
+            {"ExaminatedEntrantList", Resources.ExaminatedEntrantList },
+            {"ExaminationRegister", Resources.ExaminationRegister }
+        };
 
         /// <summary>
         /// Извлекает шаблон из файла ресурсов в папку данных приложения и возвращает полное имя файла-шаблона
