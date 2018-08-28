@@ -32,8 +32,9 @@ namespace Admission.ViewModel.Documents
                 _protocol.Number, ((DateTime)_protocol.Date).ToString("dd.MM.yyyy г."));
             ws.FindAndReplaceText("Title", title);
 
-            string enrollString = string.Format("Зачислить в число студентов РИИ АлтГТУ с {0}",
-                ((DateTime)_protocol.TrainingBeginDate).ToString("dd.MM.yyyy г."));
+            //string enrollString = string.Format("Зачислить в число студентов РИИ АлтГТУ с {0}",
+            //    ((DateTime)_protocol.TrainingBeginDate).ToString("dd.MM.yyyy г."));
+            string enrollString = string.Format("Зачислить в число студентов РИИ АлтГТУ с 01.09.2018 г.");
             ws.FindAndReplaceText("EnrollmentString", enrollString);
 
             string cgString = string.Format("на направление подготовки (бакалавриат) ВО {0}\"{1}\" ({2}) ({3} форма обучения)",
@@ -75,7 +76,7 @@ namespace Admission.ViewModel.Documents
                 currentRow.Cells[5].Value = claim.IndividualAchievementsScore;
                 currentRow.Cells[6].Value = claim.TotalScore;
                 currentRow.Cells[7].Value = claim.MiddleMark;
-                currentRow.Cells[8].Value = claim.FinanceSource.Name;
+                currentRow.Cells[8].Value = "на общих основаниях";//claim.FinanceSource.Name;
                 currentRow.Cells[9].Value = claim.Number;
                 i++;
                 j++;

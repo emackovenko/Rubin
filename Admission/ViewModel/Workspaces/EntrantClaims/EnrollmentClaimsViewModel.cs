@@ -52,7 +52,11 @@ namespace Admission.ViewModel.Workspaces
                                      where claim.ClaimStatusId == 3
                                      orderby claim.RegistrationDate, claim.Id
                                      select claim).ToList();
-                    collection = collection.Where(c => c.Campaign.CampaignStatusId == 2).ToList();
+                    collection = collection
+                        .Where(c => c.Campaign.CampaignStatusId == 2)
+                        .OrderBy(c => c.Person.FullName)
+                        .OrderBy(c => c.EnrollmentOrder.Date)
+                        .ToList();
 
                     _claimList = new ObservableCollection<Claim>(collection);
                 }
