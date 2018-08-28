@@ -36,10 +36,10 @@
                     <controls:WorkspaceMenuItem
                         Title="Основной конкурс" 
                         URL="/Admission;component/View/Workspaces/EntrantClaims/Pages/ClaimList.xaml"/>
-                    <!--<controls:WorkspaceMenuItem
+                    <controls:WorkspaceMenuItem
                         Title="Зачисленные абитуриенты" 
                         URL="/Admission;component/View/Workspaces/EntrantClaims/Pages/EnrollmentClaims.xaml"/>
-                    <controls:WorkspaceMenuItem
+                    <!--<controls:WorkspaceMenuItem
                         Title="Архив" 
                         URL="/Admission;component/View/Workspaces/EntrantClaims/Pages/ArchiveClaims.xaml"/>-->
                 </ListView>

@@ -227,23 +227,8 @@
                             Header="Гражданство"
                             DisplayMemberBinding="{Binding Path=Citizenship, Mode=OneWay}"/>
                         <GridViewColumn
-                            Header="Оригинал"
-                            DisplayMemberBinding="{Binding Path=IsOriginal, Converter={StaticResource IsOrginalToString}, Mode=OneWay}"/>
-						<GridViewColumn
-							Header="Форма обучения"
-							DisplayMemberBinding="{Binding Path=EducationForm.Name}"/>
-						<GridViewColumn
-							Header="Источник финансирования"
-							DisplayMemberBinding="{Binding Path=FinanceSource.Name}"/>
-						<GridViewColumn
-                            Header="I"
-                            DisplayMemberBinding="{Binding Path=FirstDirection.ShortName}"/>
-                        <GridViewColumn
-                            Header="II"
-                            DisplayMemberBinding="{Binding Path=SecondDirection.ShortName}"/>
-                        <GridViewColumn
-                            Header="III"
-                            DisplayMemberBinding="{Binding Path=ThirdDirection.ShortName}"/>
+                            Header="Приказ"
+                            DisplayMemberBinding="{Binding Path=EnrollmentOrder.Number}"/>
                         <GridViewColumn
                             Header="ИД"
                             DisplayMemberBinding="{Binding Path=IndividualAchievementsScore}"/>
