@@ -21,7 +21,7 @@ namespace Admission.ViewModel.Export
 
 			var root = new Root();
 
-			exporter.FillPackage(root);
+			exporter.FillOrderPackage(root);
 
 			Microsoft.Win32.SaveFileDialog save = new Microsoft.Win32.SaveFileDialog();
 			save.Filter = "XML files|*.xml";
@@ -514,7 +514,9 @@ namespace Admission.ViewModel.Export
             context.Claims.Load();
 
             var collection = (from ec in context.EnrollmentClaims
-                              where ec.EnrollmentProtocol.EnrollmentOrder.Number == "735" &&
+                              where (ec.EnrollmentProtocol.EnrollmentOrder.Number == "816" ||
+                              ec.EnrollmentProtocol.EnrollmentOrder.Number == "817" ||
+                              ec.EnrollmentProtocol.EnrollmentOrder.Number == "818") &&
                               ec.Claim != null
                               select ec.Claim).ToList();
 
@@ -990,14 +992,14 @@ namespace Admission.ViewModel.Export
 				OrdersOfAdmission = new List<OrderOfAdmission>(),
 				Applications = new List<OrderApplication>()
 			};
-			var collection = context.EnrollmentOrders.Where(o => o.Number == "747").ToList();
+			var collection = context.EnrollmentOrders.Where(o => o.Number == "816" || o.Number == "817" || o.Number == "818").ToList();
 			foreach (var order in collection)
 			{
 				var admissionOrder = new OrderOfAdmission
 				{
 					CampaignUID = "RII_2018_Campaign_3",
-					EducationFormID = 11,
-					FinanceSourceID = 20,
+					EducationFormID = int.Parse(order.EducationForm.ExportCode),
+					FinanceSourceID = int.Parse(order.FinanceSource.ExportCode),
 					EducationLevelID = 2,
 					OrderOfAdmissionUID = string.Format("EnrollmentOrder_{0}", order.Id),
 					OrderDate = ((DateTime)order.Date).ToString(DATE_FORMAT),

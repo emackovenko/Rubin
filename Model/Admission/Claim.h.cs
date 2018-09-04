@@ -334,7 +334,6 @@ namespace Model.Admission
             {
                 if (res.EntranceTest.ExamSubject.Id == subjectId)
                 {
-                    // коновалов - 56
                     result = (int)res.Value;
                     return result;
                 }
