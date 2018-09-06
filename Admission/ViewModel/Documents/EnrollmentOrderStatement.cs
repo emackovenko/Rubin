@@ -79,18 +79,12 @@ namespace Admission.ViewModel.Documents
             namesProtocol = namesProtocol.TrimEnd(',');
 
             document.InsertToBookmark("EnrollmentProtocols", namesProtocol, simpleTextFormat);
-
-            var reasons = document.Sections[3].Clone(true);
-            document.Sections.Remove(document.Sections[3]);
-
-
+         
             // Вставляем таблицы по протоколам и заполняем их
-
             int tableIndex = 2;
             foreach (var protocol in _order.EnrollmentProtocols.Where(ep => ep.EnrollmentClaims.Contains(_claim.EnrollmentClaims.FirstOrDefault())))
             {
                 var table = document.Sections[tableIndex].GetChildElements(true, ElementType.Table).Cast<Table>().FirstOrDefault();
-
 
                 // Направление подготовки
                 string dirStrHelper = "программа бакалавриата";
@@ -109,11 +103,11 @@ namespace Admission.ViewModel.Documents
                 directionString = directionString.Trim(' ');
                 directionString = directionString.Trim(',');
 
-                table.Rows[1].Cells[0].Content.LoadText(directionString, simpleTextFormat);
+                table.Rows[0].Cells[0].Content.LoadText(directionString, simpleTextFormat);
 
                 // Срок освоения
                 string trainingTime = string.Format("Срок получения образования по программе: {0}", protocol.TrainingTime.AsPeriod());
-                table.Rows[2].Cells[0].Content.LoadText(trainingTime, simpleTextFormat);
+                table.Rows[1].Cells[0].Content.LoadText(trainingTime, simpleTextFormat);
 
                 // Срок окончания
                 string trainingEndDate = string.Format("Срок окончания обучения по образовательной программе: {0}",
@@ -124,10 +118,10 @@ namespace Admission.ViewModel.Documents
                 {
                     trainingEndDate = string.Empty;
                 }
-                table.Rows[3].Cells[0].Content.LoadText(trainingEndDate, simpleTextFormat);
+                table.Rows[2].Cells[0].Content.LoadText(trainingEndDate, simpleTextFormat);
 
                 // Список
-                var rowTemplate = table.Rows[5];
+                var rowTemplate = table.Rows[4];
                 foreach (var claim in protocol.EnrollmentClaims.Where(ec => ec.ClaimId == _claim.Id).OrderBy(ec => ec.StringNumber))
                 {
                     var tableRow = rowTemplate.Clone(true);
@@ -154,18 +148,18 @@ namespace Admission.ViewModel.Documents
                 }
 
                 // Итог
-                var resultRow = table.Rows[4].Clone(true);
+                var resultRow = table.Rows[3].Clone(true);
                 resultRow.Cells[0].Content.LoadText("Итого:", simpleTextFormat);
                 resultRow.Cells[1].Content.LoadText(string.Format("{0} - {1}",
                     protocol.CompetitiveGroup.FinanceSource.EnrollmentReason, 1), simpleTextFormat);
                 table.Rows.Add(resultRow);
+                table.Rows.Remove(table.Rows[3]);
 
                 tableIndex++;
             }
 
-            document.InsertToBookmark("StatementDate", DateTime.Now.Format());
+            document.InsertToBookmark("StatementDate", _order.Date.Format());
 
-            document.Sections.Add(reasons);
             document.Save(fileName);
         }
 
