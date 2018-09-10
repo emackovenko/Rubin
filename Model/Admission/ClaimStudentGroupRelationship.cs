@@ -12,21 +12,14 @@ namespace Model.Admission
     using System;
     using System.Collections.Generic;
     
-    public partial class Citizenship
+    public partial class ClaimStudentGroupRelationship
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Citizenship()
-        {
-            this.IdentityDocuments = new HashSet<IdentityDocument>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string ExportCode { get; set; }
-        public string AstuId { get; set; }
-        public Nullable<int> WorkOkId { get; set; }
+        public Nullable<int> ClaimId { get; set; }
+        public Nullable<int> StudentGroupId { get; set; }
+        public string OrderStringNumber { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<IdentityDocument> IdentityDocuments { get; set; }
+        public virtual Claim Claim { get; set; }
+        public virtual StudentGroup StudentGroup { get; set; }
     }
 }

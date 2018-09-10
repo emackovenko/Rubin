@@ -99,5 +99,8 @@ namespace Model.Admission
         public virtual DbSet<ContractIndividualPlanAuxAgreement> ContractIndividualPlanAuxAgreements { get; set; }
         public virtual DbSet<DirectionProfile> DirectionProfiles { get; set; }
         public virtual DbSet<MarritalStatus> MarritalStatuses { get; set; }
+        public virtual DbSet<ClaimStudentGroupRelationship> ClaimStudentGroupRelationships { get; set; }
+        public virtual DbSet<GroupFormingOrder> GroupFormingOrders { get; set; }
+        public virtual DbSet<StudentGroup> StudentGroups { get; set; }
     }
 }

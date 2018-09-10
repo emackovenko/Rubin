@@ -143,6 +143,9 @@
       <DependentUpon>AdmissionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Admission\ClaimStatus.h.cs" />
+    <Compile Include="Admission\ClaimStudentGroupRelationship.cs">
+      <DependentUpon>AdmissionModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Admission\Classroom.cs">
       <DependentUpon>AdmissionModel.tt</DependentUpon>
     </Compile>
@@ -287,6 +290,9 @@
       <DependentUpon>AdmissionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Admission\Gender.h.cs" />
+    <Compile Include="Admission\GroupFormingOrder.cs">
+      <DependentUpon>AdmissionModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Admission\HighEducationDiplomaDocument.cs">
       <DependentUpon>AdmissionModel.tt</DependentUpon>
     </Compile>
@@ -347,6 +353,9 @@
       <DependentUpon>AdmissionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Admission\Street.h.cs" />
+    <Compile Include="Admission\StudentGroup.cs">
+      <DependentUpon>AdmissionModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Admission\Town.cs">
       <DependentUpon>AdmissionModel.tt</DependentUpon>
     </Compile>

@@ -515,7 +515,7 @@ namespace Admission.ViewModel.Export
 
             var collection = (from ec in context.EnrollmentClaims
                               where (ec.EnrollmentProtocol.EnrollmentOrder.Number == "816" ||
-                              ec.EnrollmentProtocol.EnrollmentOrder.Number == "817" ||
+                              //ec.EnrollmentProtocol.EnrollmentOrder.Number == "817" ||
                               ec.EnrollmentProtocol.EnrollmentOrder.Number == "818") &&
                               ec.Claim != null
                               select ec.Claim).ToList();
@@ -992,7 +992,7 @@ namespace Admission.ViewModel.Export
 				OrdersOfAdmission = new List<OrderOfAdmission>(),
 				Applications = new List<OrderApplication>()
 			};
-			var collection = context.EnrollmentOrders.Where(o => o.Number == "816" || o.Number == "817" || o.Number == "818").ToList();
+			var collection = context.EnrollmentOrders.Where(o => o.Number == "816" || o.Number == "818").ToList();
 			foreach (var order in collection)
 			{
 				var admissionOrder = new OrderOfAdmission

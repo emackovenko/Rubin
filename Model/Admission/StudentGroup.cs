@@ -12,25 +12,25 @@ namespace Model.Admission
     using System;
     using System.Collections.Generic;
     
-    public partial class Faculty
+    public partial class StudentGroup
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Faculty()
+        public StudentGroup()
         {
-            this.EnrollmentProtocols = new HashSet<EnrollmentProtocol>();
-            this.StudentGroups = new HashSet<StudentGroup>();
+            this.ClaimStudentGroupRelationships = new HashSet<ClaimStudentGroupRelationship>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public string ShortName { get; set; }
-        public string ChiefName { get; set; }
+        public Nullable<int> GroupFormingOrderId { get; set; }
         public Nullable<int> WorkOkId { get; set; }
         public string AstuId { get; set; }
+        public Nullable<int> FacultyId { get; set; }
+        public string PlanId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EnrollmentProtocol> EnrollmentProtocols { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StudentGroup> StudentGroups { get; set; }
+        public virtual ICollection<ClaimStudentGroupRelationship> ClaimStudentGroupRelationships { get; set; }
+        public virtual Faculty Faculty { get; set; }
+        public virtual GroupFormingOrder GroupFormingOrder { get; set; }
     }
 }
