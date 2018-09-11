@@ -16,8 +16,7 @@ namespace Data.Astu
         /// <summary>
         /// Идентификатор типа документа об образовании
         /// </summary>
-        [DbFieldInfo("VDO")]
-        
+        [DbFieldInfo("VDO")]        
         public string EducationDocumentTypeId { get; set; }
 
         /// <summary>

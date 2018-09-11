@@ -57,25 +57,29 @@ namespace Data.Astu
                 return;
             }
 
-            var cmd = Astu.DbConnection.CreateCommand();
-            cmd.CommandText = QueryProvider.GetSaveQuery(this);
+            if (EntityState == EntityState.New)
+            {
+                UpdateSelfId();
+            }
+
             using (var transaction = Astu.DbConnection.BeginTransaction())
             {
                 try
                 {
+                    var cmd = Astu.DbConnection.CreateCommand();
+                    cmd.CommandText = QueryProvider.GetSaveQuery(this);
                     // выполняем команду
                     cmd.Transaction = transaction;
                     cmd.ExecuteNonQuery();
-                    transaction.Commit();
-                    
+                    transaction.Commit();                    
                     // Помечаем сущность как дефолтную и пересоздаем бэкап
                     EntityState = EntityState.Default;
                     _backup = Clone() as Entity;
                 }
                 catch (Exception e)
                 {
-                    string errorMessage = string.Format("При сохранении сущности произошла ошибка.\nТекст SQL:\n{0}\n\nТекст ошибки:\n{1}",
-                        cmd.CommandText, e.Message);
+                    string errorMessage = string.Format("При сохранении сущности произошла ошибка.\n\nТекст ошибки:\n{0}",
+                        e.Message);
                     transaction.Rollback();
                     throw new DataException(errorMessage, e);
                 }
@@ -217,6 +221,25 @@ namespace Data.Astu
                 PropertyChanged += OnPropertyChanged;
             }
             IsLoaded = true;
+        }
+
+        /// <summary>
+        /// Получает свой ИД при инсерте
+        /// </summary>
+        private void UpdateSelfId()
+        {
+            // получаем свойство ключа
+            var primaryProp = QueryProvider.GetPrimaryKeyPropertyInfo(GetType());
+
+            // присваиваем ему значение
+            if (primaryProp.PropertyType == typeof(decimal))
+            {
+                primaryProp.SetValue(this, QueryProvider.GetNewGeneratedId(GetType()));
+            }
+            else
+            {
+                primaryProp.SetValue(this, QueryProvider.GetNewGeneratedId(GetType()).ToString());
+            }
         }
     }	
 }

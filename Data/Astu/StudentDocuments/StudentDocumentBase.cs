@@ -36,15 +36,13 @@ namespace Data.Astu
         /// <summary>
         /// Идентификатор студента
         /// </summary>
-        [DbFieldInfo("KOD")]
-        
+        [DbFieldInfo("KOD")]        
         public string StudentId { get; set; }
 
         /// <summary>
         /// Идентификатор типа документа
         /// </summary>
-        [DbFieldInfo("ID_DOCUMENTTYPE", DbFieldType.Integer)]
-        
+        [DbFieldInfo("ID_DOCUMENTTYPE", DbFieldType.Integer)]        
         public int? DocumentTypeId { get; set; }
 
         /// <summary>

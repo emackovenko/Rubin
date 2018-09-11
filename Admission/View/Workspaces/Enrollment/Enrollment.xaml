@@ -33,10 +33,13 @@
                     SelectionMode="Single"
                     SelectedIndex="0"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-					<controls:WorkspaceMenuItem
+                    <controls:WorkspaceMenuItem
 						Title="Приказы о зачислении"
 						URL="Pages/EnrollmentOrders.xaml"/>
-				</ListView>
+                    <controls:WorkspaceMenuItem
+						Title="Перевод студентов в rating.astu"
+						URL="Pages/AdmissionToAstuTransfer.xaml"/>
+                </ListView>
             </Expander>
         </Border>
         <Border

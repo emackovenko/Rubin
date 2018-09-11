@@ -129,7 +129,7 @@ namespace Data.Astu
         /// Год приёма
         /// </summary>
         [DbFieldInfo("GOD_P", DbFieldType.Integer)]
-        public int AdmissionYear { get; set; }
+        public int? AdmissionYear { get; set; }
 
         /// <summary>
         /// Идентификатор источника финансирования

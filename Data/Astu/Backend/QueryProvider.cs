@@ -305,6 +305,7 @@ namespace Data.Astu
                 cmd.Transaction = transaction;
                 cmd.CommandText = query;
                 id = cmd.ExecuteScalar();
+                transaction.Commit();
             }
 
             return id;
