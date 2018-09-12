@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonMethods", "CommonMethods\CommonMethods.csproj", "{E41820C5-0C01-4C5E-B9D5-B2EA7BCDC050}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{48ADCD34-9031-4605-9DF8-EC6C04CF801D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,14 @@ Global
 		{E41820C5-0C01-4C5E-B9D5-B2EA7BCDC050}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E41820C5-0C01-4C5E-B9D5-B2EA7BCDC050}.Release|x64.ActiveCfg = Release|Any CPU
 		{E41820C5-0C01-4C5E-B9D5-B2EA7BCDC050}.Release|x64.Build.0 = Release|Any CPU
+		{48ADCD34-9031-4605-9DF8-EC6C04CF801D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48ADCD34-9031-4605-9DF8-EC6C04CF801D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48ADCD34-9031-4605-9DF8-EC6C04CF801D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{48ADCD34-9031-4605-9DF8-EC6C04CF801D}.Debug|x64.Build.0 = Debug|Any CPU
+		{48ADCD34-9031-4605-9DF8-EC6C04CF801D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48ADCD34-9031-4605-9DF8-EC6C04CF801D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48ADCD34-9031-4605-9DF8-EC6C04CF801D}.Release|x64.ActiveCfg = Release|Any CPU
+		{48ADCD34-9031-4605-9DF8-EC6C04CF801D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

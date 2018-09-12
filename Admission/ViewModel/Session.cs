@@ -5,6 +5,9 @@ using System.Data.Entity;
 using MySql.Data.MySqlClient;
 using Model.Admission;
 using CommonMethods.Security;
+using System.Data.OracleClient;
+using System.Windows;
+using Data.Astu;
 
 namespace Admission.ViewModel
 {
@@ -61,7 +64,7 @@ namespace Admission.ViewModel
 				throw new InvalidOperationException("Сеанс был инициализирован ранее");
 			}
 			try
-			{               
+			{
                 password = Encrypter.MD5Hash(password);
                 var context = new AdmissionDatabase();
                 var result = (from user in context.Users
@@ -78,7 +81,8 @@ namespace Admission.ViewModel
 				_data = null;
 				return false;
 			}
-		}			 
+		}		
+        
 
 		/// <summary>
 		/// Повторно загружает измененную сущность из базы данных
