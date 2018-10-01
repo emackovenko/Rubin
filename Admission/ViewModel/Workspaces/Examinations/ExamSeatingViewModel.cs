@@ -18,8 +18,9 @@ namespace Admission.ViewModel.Workspaces.Examinations
         public ExamSeatingViewModel()
         {
             // Рассадку делаем только на текущую СЕРВЕРНУЮ дату. Сделано так, чоб не было желания ни у кого
-            // узнать чей-то вариант заранее (нехуй было так нагло продавать ответы, дешевые вы проститутки)
-            _examinationDate = Session.DataModel.Database.SqlQuery<DateTime>("SELECT CURDATE()").SingleOrDefault();
+            // узнать чей-то вариант заранее 
+            //_examinationDate = Session.DataModel.Database.SqlQuery<DateTime>("SELECT CURDATE()").SingleOrDefault();
+            _examinationDate = DateTime.Now;
             Classroom = "213";
             LinesCount = 6;
             PlacesCount = 10;
@@ -63,6 +64,19 @@ namespace Admission.ViewModel.Workspaces.Examinations
         }
 
         DateTime _examinationDate;
+
+        public DateTime ExaminationDate
+        {
+            get
+            {
+                return _examinationDate;
+            }
+            set
+            {
+                _examinationDate = value;
+                RaisePropertyChanged("ExaminationDate");
+            }
+        }
 
         public string Classroom { get; set; }
 

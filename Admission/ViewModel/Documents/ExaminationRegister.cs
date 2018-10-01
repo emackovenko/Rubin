@@ -130,7 +130,9 @@ namespace Admission.ViewModel.Documents
 
             // рандомно раскидываем 
             var rnd = new Random();
-            claimList = claimList.OrderBy(c => rnd.Next()).ToList();
+            claimList = claimList
+                .Where(c => c != null)
+                .OrderBy(c => rnd.Next()).ToList();
 
             // по каждому абитриенту заполняем таблицу
             doc.InsertToBookmark("CommonCount", claimList.Count.ToString(), simpleText);
@@ -143,6 +145,7 @@ namespace Admission.ViewModel.Documents
 
             foreach (var claim in claimList)
             {
+
                 // создаем строку и в нее создаем ячейки
                 var row = new TableRow(doc);
 

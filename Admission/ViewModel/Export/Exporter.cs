@@ -21,11 +21,13 @@ namespace Admission.ViewModel.Export
 
 			var root = new Root();
 
-			exporter.FillOrderPackage(root);
+			exporter.FillPackage(root);
 
-			Microsoft.Win32.SaveFileDialog save = new Microsoft.Win32.SaveFileDialog();
-			save.Filter = "XML files|*.xml";
-			string fileName = string.Format("Applications_{0}.xml", 
+            Microsoft.Win32.SaveFileDialog save = new Microsoft.Win32.SaveFileDialog
+            {
+                Filter = "XML files|*.xml"
+            };
+            string fileName = string.Format("Applications_{0}.xml", 
 				DateTime.Now.ToString("dd.MM.yyyy"));				
 			if (save.ShowDialog() ?? false)
 			{
@@ -514,9 +516,7 @@ namespace Admission.ViewModel.Export
             context.Claims.Load();
 
             var collection = (from ec in context.EnrollmentClaims
-                              where (ec.EnrollmentProtocol.EnrollmentOrder.Number == "816" ||
-                              //ec.EnrollmentProtocol.EnrollmentOrder.Number == "817" ||
-                              ec.EnrollmentProtocol.EnrollmentOrder.Number == "818") &&
+                              where ec.EnrollmentProtocol.EnrollmentOrder.Number == "971" &&
                               ec.Claim != null
                               select ec.Claim).ToList();
 
@@ -992,7 +992,7 @@ namespace Admission.ViewModel.Export
 				OrdersOfAdmission = new List<OrderOfAdmission>(),
 				Applications = new List<OrderApplication>()
 			};
-			var collection = context.EnrollmentOrders.Where(o => o.Number == "816" || o.Number == "818").ToList();
+			var collection = context.EnrollmentOrders.Where(o => o.Number == "971").ToList();
 			foreach (var order in collection)
 			{
 				var admissionOrder = new OrderOfAdmission

@@ -89,18 +89,6 @@ namespace Admission.ViewModel.Windows
             Admission.ViewModel.Export.Exporter.GeneratePackage();
         }
 
-        void DoUserScratch()
-        {
-            var user = new User
-            {
-                Username = "mivanova",
-                LastName = "Иванова",
-                FirstName = "Маргарита",
-                PasswordHash = CommonMethods.Security.Encrypter.MD5Hash("slex627")
-            };
-            Session.DataModel.Users.Add(user);
-            Session.DataModel.SaveChanges();
-        }
 
 		void Login()
 		{
@@ -115,8 +103,7 @@ namespace Admission.ViewModel.Windows
 			{
 				Admission.Properties.Settings.Default.LocalUsername = _username;
 				Admission.Properties.Settings.Default.Save();
-                //DoUserScratch();
-				SuccessAuth();
+                SuccessAuth();
 			}
 			else
 			{

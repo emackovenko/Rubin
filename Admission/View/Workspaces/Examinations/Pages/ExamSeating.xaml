@@ -114,6 +114,11 @@
                     Margin="5 10 10 10"
                     Width="60"
                     Text="{Binding Path=VariantsCount, UpdateSourceTrigger=PropertyChanged}"/>
+                <DatePicker
+                    VerticalAlignment="Center"
+                    Margin="5 10 10 10"
+                    SelectedDate="{Binding Path=ExaminationDate, UpdateSourceTrigger=PropertyChanged}"
+                    DisplayDate="{Binding Path=ExaminationDate, UpdateSourceTrigger=PropertyChanged}"/>
             </WrapPanel>
             <Button
                 Grid.Row="2"
