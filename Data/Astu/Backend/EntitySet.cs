@@ -65,7 +65,11 @@ namespace Data.Astu
                             }
                             else
                             {
-                                if (value.GetType() == typeof(decimal))
+                                if (typeof(TEntity) == typeof(UnenrollmentReason))
+                                {
+                                    int ttt = 0;
+                                }
+                                if (value.GetType() == typeof(decimal) || value.GetType() == typeof(int) || value.GetType() == typeof(int?))
                                 {
                                     if (f.PropertyType == typeof(bool))
                                     {

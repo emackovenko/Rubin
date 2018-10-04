@@ -95,6 +95,18 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Devart.Data, Version=5.0.2021.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Devart\dotConnect\Oracle\Devart.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Devart.Data.Oracle, Version=9.6.597.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Devart\dotConnect\Oracle\Devart.Data.Oracle.dll</HintPath>
+    </Reference>
+    <Reference Include="Devart.Data.Oracle.Vs, Version=9.6.597.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Devart\dotConnect\Oracle\Devart.Data.Oracle.Vs.dll</HintPath>
+    </Reference>
     <Reference Include="DocumentFormat.OpenXml">
       <HintPath>..\..\University\Other\Outsource\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
