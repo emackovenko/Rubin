@@ -32,23 +32,32 @@ namespace Admission.ViewModel.Documents
                 _protocol.Number, ((DateTime)_protocol.Date).ToString("dd.MM.yyyy г."));
             ws.FindAndReplaceText("Title", title);
 
-            string enrollString = string.Format("Зачислить в число студентов РИИ АлтГТУ с {0}",
-                ((DateTime)_protocol.TrainingBeginDate).ToString("dd.MM.yyyy г."));
+            string enrollString = string.Format("Зачислить в число студентов РИИ АлтГТУ с {0} по {1} форме обучения",
+                ((DateTime)_protocol.TrainingBeginDate).ToString("dd.MM.yyyy г."),
+                ChangeToAccusative(_protocol.CompetitiveGroup.EducationForm.Name));
             ws.FindAndReplaceText("EnrollmentString", enrollString);
 
-            string cgString = string.Format("на направление подготовки (бакалавриат) ВО {0}\"{1}\" ({2}) ({3} форма обучения)",
-                _protocol.Direction.Code, _protocol.Direction.Name, _protocol.CompetitiveGroup.EducationProgramType.Name,
-                _protocol.EducationForm.Name);
+            string cgString = string.Format("на направление подготовки {0} {1}",
+                _protocol.Direction.Code, _protocol.Direction.Name);
             ws.FindAndReplaceText("CompetitiveGroupString", cgString);
 
-            if (_protocol.EnrollmentClaims.Where(ec => ec.Claim != null).Count() > 1)
+            string countPrograms = "программа бакалавриата";
+            if (_protocol.Direction.DirectionProfiles.Count() > 1)
             {
-                ws.FindAndReplaceText("NextEntrantsString", "следующих поступающих согласно списку:");
+                countPrograms = "совокупность программ бакалавриата";
             }
-            else
+
+            string programNames = string.Empty;
+            foreach (var profile in _protocol.Direction.DirectionProfiles)
             {
-                ws.FindAndReplaceText("NextEntrantsString", "следующего поступающего:");
+                programNames += string.Format("«{0}», ", profile.Name);
             }
+            programNames = programNames.Trim(' ');
+            programNames = programNames.Trim(',');
+
+            string nextEntrantsString = string.Format("{0} {1}", countPrograms, programNames);
+            ws.FindAndReplaceText("NextEntrantsString", nextEntrantsString);
+
             // Шаблоны строк
             var tableStringTemplate = ws.Rows[9];
             var statisticStringTemplate = ws.Rows[11];
@@ -75,7 +84,7 @@ namespace Admission.ViewModel.Documents
                 currentRow.Cells[5].Value = claim.IndividualAchievementsScore;
                 currentRow.Cells[6].Value = claim.TotalScore;
                 currentRow.Cells[7].Value = claim.MiddleMark;
-                currentRow.Cells[8].Value = claim.FinanceSource.Name;
+                currentRow.Cells[8].Value = claim.FinanceSource.EnrollmentReason;
                 currentRow.Cells[9].Value = claim.Number;
                 i++;
                 j++;
@@ -85,6 +94,19 @@ namespace Admission.ViewModel.Documents
             ws.Rows[i].Hidden = true;
 
             ef.Save(fileName);
+        }
+
+
+        /// <summary>
+        /// Возвращает имя формы обучения в винительном (теперь предложном) падеже
+        /// </summary>
+        /// <param name="educationFormName">имя в оригинале</param>
+        /// <returns></returns>
+        private string ChangeToAccusative(string educationFormName)
+        {
+            string str = educationFormName;
+            str = str.Replace("ая", "ой");
+            return str;
         }
     }
 }

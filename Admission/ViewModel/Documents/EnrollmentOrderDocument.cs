@@ -49,11 +49,21 @@ namespace Admission.ViewModel.Documents
             document.InsertToBookmark("OrderDate",
                 ((DateTime)_order.Date).ToString("«dd» MMMM yyyy г."), simpleTextFormat);
             document.InsertToBookmark("OrderNumber", _order.Number, underlinedCharacterFormat);
-			//document.InsertToBookmark("TrainingBeginDate",
-			//	((DateTime)_order.EnrollmentProtocols.First().TrainingBeginDate).ToString("dd MMMM yyyy"));
-			document.InsertToBookmark("TrainingBeginDate",
-				"01 октября 2017", simpleTextFormat);
-			document.InsertToBookmark("EducationForm", "заочную", simpleTextFormat);
+            document.InsertToBookmark("TrainingBeginDate",
+                ((DateTime)_order.EnrollmentProtocols.First().TrainingBeginDate).ToString("dd.MM.yyyy"));
+            document.InsertToBookmark("EducationForm", ChangeToAccusative(_order.EducationForm.Name), simpleTextFormat);
+
+            string auxOrderReason = "оригинал документа об образовании";
+            if (_order.FinanceSource.Id == 2)
+            {
+                auxOrderReason = "договоры об оказании платных образовательных услуг";
+            }
+            document.InsertToBookmark("AuxOrderReason", auxOrderReason);
+
+            if (_order.FinanceSource.Id == 2)
+            {
+                document.InsertToBookmark("IsPaylineEducation", "не ", simpleTextFormat);
+            }
 
             // Получаем строку с протоклами
             string namesProtocol = string.Empty;
@@ -82,22 +92,39 @@ namespace Admission.ViewModel.Documents
 			{
 				var table = document.Sections[tableIndex].GetChildElements(true, ElementType.Table).Cast<Table>().FirstOrDefault();
 
-				// Факультет
-				table.Rows[0].Cells[0].Content.LoadText(protocol.Faculty.Name, simpleTextFormat);
 
-				// Направление подготовки
-				string directionString = string.Format("Направление подготовки ({0}, {1}): {2} {3}",
-					protocol.CompetitiveGroup.EducationProgramType.Name, protocol.CompetitiveGroup.EducationLevel.Name,
-					protocol.CompetitiveGroup.Direction.Code, protocol.CompetitiveGroup.Direction.Name);
+                // Направление подготовки
+                string dirStrHelper = "программа бакалавриата";
+                if (protocol.CompetitiveGroup.Direction.DirectionProfiles.Count() > 1)
+                {
+                    dirStrHelper = "совокупность программ бакалавриата";
+                }
+
+				string directionString = string.Format("Направление подготовки\n{0} {1}, {2}\n",
+					protocol.CompetitiveGroup.Direction.Code, protocol.CompetitiveGroup.Direction.Name,
+                    dirStrHelper);
+                foreach (var profile in protocol.CompetitiveGroup.Direction.DirectionProfiles)
+                {
+                    directionString += string.Format("«{0}», ", profile.Name);
+                }
+                directionString = directionString.Trim(' ');
+                directionString = directionString.Trim(',');
+
 				table.Rows[1].Cells[0].Content.LoadText(directionString, simpleTextFormat);
 
 				// Срок освоения
-				string trainingTime = string.Format("Срок освоения образовательной программы: {0}", protocol.TrainingTime.AsPeriod());
+				string trainingTime = string.Format("Срок получения образования по программе: {0}", protocol.TrainingTime.AsPeriod());
 				table.Rows[2].Cells[0].Content.LoadText(trainingTime, simpleTextFormat);
 
 				// Срок окончания
-				string trainingEndDate = string.Format("Срок окончания образовательной программы: {0}", 
+				string trainingEndDate = string.Format("Срок окончания обучения по образовательной программе: {0}", 
 					((DateTime)protocol.TrainingEndDate).ToString("dd MMMM yyyy г."));
+
+                //ебучий костыль: строчка, что выше, выводится в документ только у очников
+                if (_order.EducationForm.Id == 2)
+                {
+                    trainingEndDate = string.Empty;
+                }
 				table.Rows[3].Cells[0].Content.LoadText(trainingEndDate, simpleTextFormat);
 
 				// Список
@@ -113,7 +140,7 @@ namespace Admission.ViewModel.Documents
 					tableRow.Cells[1].Content.LoadText(claim.Claim.Person.FullName, simpleTextFormat);
 
 					// Основание
-					tableRow.Cells[2].Content.LoadText("Внебюджетный приём", simpleTextFormat);
+					tableRow.Cells[2].Content.LoadText(protocol.CompetitiveGroup.FinanceSource.EnrollmentReason, simpleTextFormat);
 
 					// Рег. номер
 					tableRow.Cells[3].Content.LoadText(claim.Claim.Number, simpleTextFormat);
@@ -130,12 +157,14 @@ namespace Admission.ViewModel.Documents
 				// Итог
 				var resultRow = table.Rows[4].Clone(true);
 				resultRow.Cells[0].Content.LoadText("Итого:", simpleTextFormat);
-				resultRow.Cells[1].Content.LoadText(string.Format("Внебюджетный приём - {0}", protocol.EnrollmentClaims.Count), simpleTextFormat);			  
+				resultRow.Cells[1].Content.LoadText(string.Format("{0} - {1}",
+                    protocol.CompetitiveGroup.FinanceSource.EnrollmentReason,
+                    protocol.EnrollmentClaims.Count), simpleTextFormat);			  
 				table.Rows.Add(resultRow);			  
 
 				tableIndex++;
 			}
-									   
+
 			document.Sections.Add(reasons);
             document.Save(fileName);
 
@@ -143,14 +172,14 @@ namespace Admission.ViewModel.Documents
 
 
 		/// <summary>
-		/// Возвращает имя формы обучения в винительном падеже
+		/// Возвращает имя формы обучения в винительном (теперь предложном) падеже
 		/// </summary>
 		/// <param name="educationFormName">имя в оригинале</param>
 		/// <returns></returns>
 		private string ChangeToAccusative(string educationFormName)
 		{
 			string str = educationFormName;
-			str = str.Replace("ая", "ую");
+			str = str.Replace("ая", "ой");
 			return str;
 		}
 

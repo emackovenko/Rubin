@@ -63,6 +63,10 @@ namespace Model.ExportData
         /// Результаты вступительных испытаний
         /// </summary>
         public List<EntranceTestResult> EntranceTestResults { get; set; }
-#endregion
+
+
+        public List<ApplicationCommonBenefit> ApplicationCommonBenefits { get; set; }
+
+        #endregion
     }
 }

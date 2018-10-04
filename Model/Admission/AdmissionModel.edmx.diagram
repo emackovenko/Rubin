@@ -173,6 +173,13 @@
         <EntityTypeShape EntityType="AdmissionModel.MarritalStatus" Width="1.5" PointX="13.375" PointY="13.875" />
         <AssociationConnector Association="AdmissionModel.FK_DirectionProfiles_Directions_Id" />
         <AssociationConnector Association="AdmissionModel.FK_Entrants_MarritalStatuses_Id" />
+        <EntityTypeShape EntityType="AdmissionModel.ClaimStudentGroupRelationship" Width="1.5" PointX="11.25" PointY="11" />
+        <EntityTypeShape EntityType="AdmissionModel.GroupFormingOrder" Width="1.5" PointX="0.75" PointY="16.25" />
+        <EntityTypeShape EntityType="AdmissionModel.StudentGroup" Width="1.5" PointX="3" PointY="11.625" />
+        <AssociationConnector Association="AdmissionModel.FK_ClaimStudentGroupRelationships_Claims_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_ClaimStudentGroupRelationships_StudentGroups_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_StudentGroups_Faculties_Id" />
+        <AssociationConnector Association="AdmissionModel.FK_StudentGroups_GroupFormingOrders_Id" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

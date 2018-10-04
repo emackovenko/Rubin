@@ -24,7 +24,9 @@ namespace Admission.ViewModel.Workspaces.ContractForming
 			{
 				if (_contracts == null)
 				{
-					_contracts = new ObservableCollection<EntrantContract>(Session.DataModel.EntrantContracts);
+					var contracts = Session.DataModel.EntrantContracts.ToList();
+                    contracts = contracts.Where(c => c.Entrant.Claim.Campaign.CampaignStatusId == 2).ToList();
+                    _contracts = new ObservableCollection<EntrantContract>(contracts);
 				}
 				return _contracts;
 			}
@@ -210,7 +212,7 @@ namespace Admission.ViewModel.Workspaces.ContractForming
 
 		bool AgreementPrintCanExecute()
 		{
-			return SelectedContract.ContractIndividualPlanAuxAgreements.Count > 0;
+			return SelectedContract?.ContractIndividualPlanAuxAgreements.Count > 0;
 		}
 
 	}

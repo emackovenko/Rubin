@@ -89,14 +89,12 @@ namespace Admission.ViewModel.Windows
             Admission.ViewModel.Export.Exporter.GeneratePackage();
         }
 
-        void DoUserScratch()
-        {
-        }
 
 		void Login()
 		{
             //DoScratch();return;
-			if (_username == null || _password == null)
+
+            if (_username == null || _password == null)
 			{
 				throw new Exception("Нельзя авторизоваться с пустым логином и паролем");
 			}
@@ -105,7 +103,7 @@ namespace Admission.ViewModel.Windows
 			{
 				Admission.Properties.Settings.Default.LocalUsername = _username;
 				Admission.Properties.Settings.Default.Save();
-				SuccessAuth();
+                SuccessAuth();
 			}
 			else
 			{

@@ -48,10 +48,17 @@ namespace Admission.ViewModel.Workspaces
 			{
                 if (_claimList == null)
                 {
-                    _claimList = new ObservableCollection<Claim>(from claim in Session.DataModel.Claims
-                                                                 where claim.ClaimStatusId == 3
-                                                                 orderby claim.RegistrationDate, claim.Id
-                                                                 select claim);
+                    var collection = (from claim in Session.DataModel.Claims
+                                     where claim.ClaimStatusId == 3
+                                     orderby claim.RegistrationDate, claim.Id
+                                     select claim).ToList();
+                    collection = collection
+                        .Where(c => c.Campaign.CampaignStatusId == 2)
+                        .OrderBy(c => c.Person.FullName)
+                        .OrderBy(c => c.EnrollmentOrder.Date)
+                        .ToList();
+
+                    _claimList = new ObservableCollection<Claim>(collection);
                 }
 				return _claimList;
 			}

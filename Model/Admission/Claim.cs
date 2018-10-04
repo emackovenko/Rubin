@@ -29,6 +29,7 @@ namespace Model.Admission
             this.EntranceIndividualAchievements = new HashSet<EntranceIndividualAchievement>();
             this.OtherRequiredDocuments = new HashSet<OtherRequiredDocument>();
             this.EnrollmentClaims = new HashSet<EnrollmentClaim>();
+            this.ClaimStudentGroupRelationships = new HashSet<ClaimStudentGroupRelationship>();
         }
     
         public int Id { get; set; }
@@ -67,5 +68,7 @@ namespace Model.Admission
         public virtual ICollection<OtherRequiredDocument> OtherRequiredDocuments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EnrollmentClaim> EnrollmentClaims { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClaimStudentGroupRelationship> ClaimStudentGroupRelationships { get; set; }
     }
 }

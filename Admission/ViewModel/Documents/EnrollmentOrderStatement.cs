@@ -9,6 +9,7 @@ using CommonMethods.Documents;
 using ResourceLibrary.Documents;
 using CommonMethods.TypeExtensions.exGemBox;
 using CommonMethods.TypeExtensions.exString;
+using CommonMethods.TypeExtensions.exDateTime;
 
 namespace Admission.ViewModel.Documents
 {
@@ -17,91 +18,160 @@ namespace Admission.ViewModel.Documents
 		public EnrollmentOrderStatement(Claim claim)
 		{
 			_claim = claim;
+
+            _order = _claim.EnrollmentOrder;
+
 			DocumentType = OpenXmlDocumentType.Document;
 		}
 
+        EnrollmentOrder _order;
 
 		Claim _claim;
 
 		public override void CreatePackage(string fileName)
 		{
-			// Загружаем документ
-			var document = DocumentModel.Load(DocumentTemplate.ExtractDoc("EnrollmentOrderStatement"));
 
-			// Подготовка стилей
-			var underlinedText = new CharacterFormat
-			{
-				UnderlineColor = Color.Black,
-				UnderlineStyle = UnderlineType.Single
-			};
+            // Извлекаем шаблон
+            var document = DocumentModel.Load(DocumentTemplate.ExtractDoc("EnrollmentOrderStatement"));
 
-			var ec = _claim.EnrollmentClaims.Where(e => e.EnrollmentExceptionOrder == null).FirstOrDefault();
-
-			if (ec == null)
-			{
-				throw new Exception("Нет приказа о зачислении из которого этот чувак не был бы исключен.");
-			}
-
-			// Вставляем текст на закладки
-			document.InsertToBookmark("OrderDate", 
-				((DateTime)ec.EnrollmentProtocol.EnrollmentOrder.Date).ToString("«dd» MMMM yyyy г."));
-			document.InsertToBookmark("OrderNumber",
-				ec.EnrollmentProtocol.EnrollmentOrder.Number,
-				underlinedText);
-			document.InsertToBookmark("TrainingBeginDate",
-				((DateTime)ec.EnrollmentProtocol.TrainingBeginDate).ToString("d MMMM yyyy"));
-			document.InsertToBookmark("TrainingEndDate",
-				((DateTime)ec.EnrollmentProtocol.TrainingEndDate).ToString("d MMMM yyyy г."));		   
-			document.InsertToBookmark("EducationFormName", 
-				ChangeToAccusative(_claim.EnrollmentClaims.First().EnrollmentProtocol.CompetitiveGroup.EducationForm.Name));
-			document.InsertToBookmark("FacultyName",
-				ec.EnrollmentProtocol.Faculty.Name);
-			document.InsertToBookmark("DirectionString",
-				string.Format("Направление подготовки ({0}): {1} {2}",
-				ec.EnrollmentProtocol.CompetitiveGroup.EducationProgramType.Name,
-				ec.EnrollmentProtocol.CompetitiveGroup.Direction.Code,
-				ec.EnrollmentProtocol.CompetitiveGroup.Direction.Name));
-			document.InsertToBookmark("TableStringNumber", 
-				ec.StringNumber.ToString());
-			document.InsertToBookmark("StudentName", 
-				_claim.Person.FullName);
-			document.InsertToBookmark("EnrollmentReason",
-				ec.EnrollmentProtocol.CompetitiveGroup.FinanceSource.EnrollmentReason);
-			document.InsertToBookmark("ClaimNumber", 
-				_claim.Number);
-            string totalScore;
-            if (_claim.TotalScore > 0)
+            // Подготовка стилей
+            var underlinedCharacterFormat = new CharacterFormat
             {
-                totalScore = _claim.TotalScore.ToString();
-            }
-            else
+                UnderlineColor = Color.Black,
+                UnderlineStyle = UnderlineType.Single,
+                Size = 12.0
+            };
+
+            var simpleTextFormat = new CharacterFormat
             {
-                totalScore = _claim.MiddleMark.ToString();
+                Size = 12.0,
+                FontName = "Times New Roman"
+            };
+
+
+            // Вставляем текст на закладки
+            document.InsertToBookmark("OrderDate",
+                ((DateTime)_order.Date).ToString("«dd» MMMM yyyy г."), simpleTextFormat);
+            document.InsertToBookmark("OrderNumber", _order.Number, underlinedCharacterFormat);
+            document.InsertToBookmark("TrainingBeginDate",
+                ((DateTime)_order.EnrollmentProtocols.First().TrainingBeginDate).ToString("dd.MM.yyyy"));
+            document.InsertToBookmark("EducationForm", ChangeToAccusative(_order.EducationForm.Name), simpleTextFormat);
+
+            string auxOrderReason = "оригинал документа об образовании";
+            if (_order.FinanceSource.Id == 2)
+            {
+                auxOrderReason = "договоры об оказании платных образовательных услуг";
             }
-			document.InsertToBookmark("TotalScore", 
-				totalScore);
-			document.InsertToBookmark("ProtocolInfo", 
-				string.Format("№ {0} от {1}",
-				ec.EnrollmentProtocol.Number,
-				((DateTime)ec.EnrollmentProtocol.Date).ToString("dd.MM.yyyy г.")));
-			document.InsertToBookmark("StatementDate",
-				((DateTime)ec.EnrollmentProtocol.EnrollmentOrder.Date).ToString("dd.MM.yyyy г."));
+            document.InsertToBookmark("AuxOrderReason", auxOrderReason);
 
-            document.InsertToBookmark("TrainingPeriod", 
-                _claim.EnrollmentClaims.First().EnrollmentProtocol.TrainingTime.AsPeriod());
+            if (_order.FinanceSource.Id == 2)
+            {
+                document.InsertToBookmark("IsPaylineEducation", "не ", simpleTextFormat);
+            }
 
-			document.Save(fileName, SaveOptions.DocxDefault);
-		}
+            // Получаем строку с протоклами
+            string namesProtocol = string.Empty;
+            foreach (var p in _order.EnrollmentProtocols.OrderBy(p => p.Number))
+            {
+                namesProtocol += string.Format(" № {0} от {1},", p.Number,
+                    ((DateTime)p.Date).ToString("dd.MM.yyyy г."));
+            }
+            namesProtocol = namesProtocol.TrimEnd(',');
 
-		/// <summary>
-		/// Возвращает имя формы обучения в винительном падеже
-		/// </summary>
-		/// <param name="educationFormName">имя в оригинале</param>
-		/// <returns></returns>
-		private string ChangeToAccusative(string educationFormName)
+            document.InsertToBookmark("EnrollmentProtocols", namesProtocol, simpleTextFormat);
+         
+            // Вставляем таблицы по протоколам и заполняем их
+            int tableIndex = 2;
+            foreach (var protocol in _order.EnrollmentProtocols.Where(ep => ep.EnrollmentClaims.Contains(_claim.EnrollmentClaims.FirstOrDefault())))
+            {
+                var table = document.Sections[tableIndex].GetChildElements(true, ElementType.Table).Cast<Table>().FirstOrDefault();
+
+                // Направление подготовки
+                string dirStrHelper = "программа бакалавриата";
+                if (protocol.CompetitiveGroup.Direction.DirectionProfiles.Count() > 1)
+                {
+                    dirStrHelper = "совокупность программ бакалавриата";
+                }
+
+                string directionString = string.Format("Направление подготовки\n{0} {1}, {2}\n",
+                    protocol.CompetitiveGroup.Direction.Code, protocol.CompetitiveGroup.Direction.Name,
+                    dirStrHelper);
+                foreach (var profile in protocol.CompetitiveGroup.Direction.DirectionProfiles)
+                {
+                    directionString += string.Format("«{0}», ", profile.Name);
+                }
+                directionString = directionString.Trim(' ');
+                directionString = directionString.Trim(',');
+
+                table.Rows[0].Cells[0].Content.LoadText(directionString, simpleTextFormat);
+
+                // Срок освоения
+                string trainingTime = string.Format("Срок получения образования по программе: {0}", protocol.TrainingTime.AsPeriod());
+                table.Rows[1].Cells[0].Content.LoadText(trainingTime, simpleTextFormat);
+
+                // Срок окончания
+                string trainingEndDate = string.Format("Срок окончания обучения по образовательной программе: {0}",
+                    ((DateTime)protocol.TrainingEndDate).ToString("dd MMMM yyyy г."));
+
+                //ебучий костыль: строчка, что выше, выводится в документ только у очников
+                if (_order.EducationForm.Id == 2)
+                {
+                    trainingEndDate = string.Empty;
+                }
+                table.Rows[2].Cells[0].Content.LoadText(trainingEndDate, simpleTextFormat);
+
+                // Список
+                var rowTemplate = table.Rows[4];
+                foreach (var claim in protocol.EnrollmentClaims.Where(ec => ec.ClaimId == _claim.Id).OrderBy(ec => ec.StringNumber))
+                {
+                    var tableRow = rowTemplate.Clone(true);
+
+                    // №
+                    tableRow.Cells[0].Content.LoadText(claim.StringNumber.ToString(), simpleTextFormat);
+
+                    // ФИО
+                    tableRow.Cells[1].Content.LoadText(claim.Claim.Person.FullName, simpleTextFormat);
+
+                    // Основание
+                    tableRow.Cells[2].Content.LoadText(protocol.CompetitiveGroup.FinanceSource.EnrollmentReason, simpleTextFormat);
+
+                    // Рег. номер
+                    tableRow.Cells[3].Content.LoadText(claim.Claim.Number, simpleTextFormat);
+
+                    // Сумма баллов	 
+                    tableRow.Cells[4].Content.LoadText(claim.Claim.TotalScore.ToString(), simpleTextFormat);
+                    tableRow.Cells[0].CellFormat = new TableCellFormat
+                    {
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+                    table.Rows.Add(tableRow);
+                }
+
+                // Итог
+                var resultRow = table.Rows[3].Clone(true);
+                resultRow.Cells[0].Content.LoadText("Итого:", simpleTextFormat);
+                resultRow.Cells[1].Content.LoadText(string.Format("{0} - {1}",
+                    protocol.CompetitiveGroup.FinanceSource.EnrollmentReason, 1), simpleTextFormat);
+                table.Rows.Add(resultRow);
+                table.Rows.Remove(table.Rows[3]);
+
+                tableIndex++;
+            }
+
+            document.InsertToBookmark("StatementDate", _order.Date.Format());
+
+            document.Save(fileName);
+        }
+
+        /// <summary>
+        /// Возвращает имя формы обучения в винительном падеже
+        /// </summary>
+        /// <param name="educationFormName">имя в оригинале</param>
+        /// <returns></returns>
+        private string ChangeToAccusative(string educationFormName)
 		{
 			string str = educationFormName;
-			str = str.Replace("ая", "ую");
+			str = str.Replace("ая", "ой");
 			return str;
 		}
 

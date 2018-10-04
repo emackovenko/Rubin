@@ -20,7 +20,7 @@ namespace Admission.ViewModel.Workspaces.ContractForming
         {
             get
             {
-                return new ObservableCollection<Claim>(Session.DataModel.Claims.ToList().Where(c => c.FinanceSource.Id == 2));
+                return new ObservableCollection<Claim>(Session.DataModel.Claims.ToList().Where(c => c.FinanceSource.Id == 2).Where(c => c.Campaign.CampaignStatusId == 2));
             }
         }
 
@@ -74,8 +74,8 @@ namespace Admission.ViewModel.Workspaces.ContractForming
         {
 			// Получаем номер
 			int num = 0;
-			var col = Session.DataModel.EntrantContracts.ToList();
-			if ( col.Count > 0)
+            var col = Session.DataModel.EntrantContracts.ToList().Where(ec => ec.Entrant.Claim.Campaign.CampaignStatusId == 2);
+			if (col.Count() > 0)
 			{
 				num = (from c in col
 					   select int.Parse(c.Number.WithoutLetters())).Max();
@@ -86,8 +86,12 @@ namespace Admission.ViewModel.Workspaces.ContractForming
 			{
 				Date = DateTime.Now,
 				Entrant = SelectedClaim.Person,
-				Number = string.Format("{0}{1}{2}", num + 1, SelectedClaim.FirstDirection.ShortName, SelectedClaim.EducationForm.Name[0])
+				Number = string.Format("{0}{1}", num + 1, SelectedClaim.FirstDirection.ContractNumberPart)
 			};
+            if (SelectedClaim.EducationForm.Id == 2)
+            {
+                contract.Number += SelectedClaim.EducationForm.Name[0];
+            }
 
 			// Создаем ВМ и редактор
 			var vm = new EntrantContractEditorViewModel(contract);

@@ -18,6 +18,7 @@ namespace Model.Admission
         public Faculty()
         {
             this.EnrollmentProtocols = new HashSet<EnrollmentProtocol>();
+            this.StudentGroups = new HashSet<StudentGroup>();
         }
     
         public int Id { get; set; }
@@ -29,5 +30,7 @@ namespace Model.Admission
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EnrollmentProtocol> EnrollmentProtocols { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StudentGroup> StudentGroups { get; set; }
     }
 }

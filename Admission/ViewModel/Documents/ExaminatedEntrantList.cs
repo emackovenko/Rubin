@@ -41,21 +41,24 @@ namespace Admission.ViewModel.Documents
                 foreach (var cet in item.CompetitionEntranceTests)
                 {
                     claims.AddRange(cet.CompetitiveGroup.ClaimConditions
-                        .Where(cc => cc.Claim != null)
-                        .Where(cc => cc.Claim.ClaimStatusId != 3 && cc.Claim.ClaimStatusId != 4)
-                        .Select(cc => cc.Claim));
-                }
+                    .Where(cc => cc.Claim != null)
+                    .Where(cc => cc.Claim.ClaimStatusId != 3 && cc.Claim.ClaimStatusId != 4)
+                    .Select(cc => cc.Claim));
+                   
+                 }
+                
             }
 
             claims = claims.OrderBy(c => c.Person.FullName).ToList();
-
-
+            claims = claims.Distinct().ToList();
+            
             // вставляем их в документ
             int i = 1;
             foreach (var claim in claims)
             {
-                ws.Rows[5 - i].Cells[0].Value = string.Format("{0}.", i);
-                ws.Rows[5 - i].Cells[1].Value = claim.Person.FullName;
+                ws.Rows[i+3].Cells[0].Value = string.Format("{0}.", i);
+                ws.Rows[i+3].Cells[1].Value = claim.Person.FullName;
+                i++;
             }
 
             ef.Save(fileName);

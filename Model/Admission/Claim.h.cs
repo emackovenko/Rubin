@@ -342,7 +342,24 @@ namespace Model.Admission
             return result;
         }
 
-		#endregion
+        #endregion
 
-	}
+
+        public EnrollmentOrder EnrollmentOrder
+        {
+            get
+            {
+                return EnrollmentClaims.FirstOrDefault()?.EnrollmentProtocol.EnrollmentOrder;
+            }
+        }
+
+
+        public EnrollmentProtocol EnrollmentProtocol
+        {
+            get
+            {
+                return EnrollmentClaims.FirstOrDefault()?.EnrollmentProtocol;
+            }
+        }
+    }
 }

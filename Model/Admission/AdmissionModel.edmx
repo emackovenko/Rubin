@@ -94,6 +94,7 @@
           <Property Name="Name" Type="varchar" MaxLength="100" />
           <Property Name="ExportCode" Type="varchar" MaxLength="5" />
           <Property Name="AstuId" Type="varchar" MaxLength="10" />
+          <Property Name="WorkOkId" Type="int" />
         </EntityType>
         <EntityType Name="ClaimConditions">
           <Key>
@@ -128,6 +129,15 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="255" />
           <Property Name="ExportCode" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="ClaimStudentGroupRelationships">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClaimId" Type="int" />
+          <Property Name="StudentGroupId" Type="int" />
+          <Property Name="OrderStringNumber" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Classrooms">
           <Key>
@@ -291,6 +301,7 @@
           <Property Name="ExportCode" Type="varchar" MaxLength="10" />
           <Property Name="WorkOkId" Type="int" />
           <Property Name="AstuId" Type="varchar" MaxLength="30" />
+          <Property Name="ContractNumberPart" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="DistributedAdmissionVolume">
           <Key>
@@ -598,6 +609,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="10" />
         </EntityType>
+        <EntityType Name="GroupFormingOrders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="varchar" MaxLength="10" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
         <EntityType Name="HighEducationDiplomaDocuments">
           <Key>
             <PropertyRef Name="Id" />
@@ -796,6 +815,18 @@
           <Property Name="MailIndex" Type="varchar" MaxLength="6" />
           <Property Name="ParentID" Type="int" />
           <Property Name="ParentLevel" Type="int" />
+        </EntityType>
+        <EntityType Name="StudentGroups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="10" />
+          <Property Name="GroupFormingOrderId" Type="int" />
+          <Property Name="WorkOkId" Type="int" />
+          <Property Name="AstuId" Type="varchar" MaxLength="20" />
+          <Property Name="FacultyId" Type="int" />
+          <Property Name="PlanId" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Towns">
           <Key>
@@ -1036,6 +1067,30 @@
             </Principal>
             <Dependent Role="Claims">
               <PropertyRef Name="ClaimStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClaimStudentGroupRelationships_Claims_Id">
+          <End Role="Claims" Type="Self.Claims" Multiplicity="0..1" />
+          <End Role="ClaimStudentGroupRelationships" Type="Self.ClaimStudentGroupRelationships" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Claims">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClaimStudentGroupRelationships">
+              <PropertyRef Name="ClaimId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClaimStudentGroupRelationships_StudentGroups_Id">
+          <End Role="StudentGroups" Type="Self.StudentGroups" Multiplicity="0..1" />
+          <End Role="ClaimStudentGroupRelationships" Type="Self.ClaimStudentGroupRelationships" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentGroups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClaimStudentGroupRelationships">
+              <PropertyRef Name="StudentGroupId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1939,6 +1994,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StudentGroups_Faculties_Id">
+          <End Role="Faculties" Type="Self.Faculties" Multiplicity="0..1" />
+          <End Role="StudentGroups" Type="Self.StudentGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculties">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StudentGroups">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentGroups_GroupFormingOrders_Id">
+          <End Role="GroupFormingOrders" Type="Self.GroupFormingOrders" Multiplicity="0..1" />
+          <End Role="StudentGroups" Type="Self.StudentGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupFormingOrders">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StudentGroups">
+              <PropertyRef Name="GroupFormingOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Users_Roles_Id">
           <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
@@ -1987,6 +2066,7 @@
           <EntitySet Name="ClaimConditions" EntityType="Self.ClaimConditions" Schema="Admission" store:Type="Tables" />
           <EntitySet Name="Claims" EntityType="Self.Claims" Schema="Admission" store:Type="Tables" />
           <EntitySet Name="ClaimStatuses" EntityType="Self.ClaimStatuses" Schema="Admission" store:Type="Tables" />
+          <EntitySet Name="ClaimStudentGroupRelationships" EntityType="Self.ClaimStudentGroupRelationships" Schema="Admission" store:Type="Tables" />
           <EntitySet Name="Classrooms" EntityType="Self.Classrooms" Schema="Admission" store:Type="Tables" />
           <EntitySet Name="CommandPermissions" EntityType="Self.CommandPermissions" Schema="Admission" store:Type="Tables" />
           <EntitySet Name="Commands" EntityType="Self.Commands" Schema="Admission" store:Type="Tables" />
@@ -2028,6 +2108,7 @@
           <EntitySet Name="FinanceSources" EntityType="Self.FinanceSources" Schema="Admission" store:Type="Tables" />
           <EntitySet Name="ForeignLanguages" EntityType="Self.ForeignLanguages" Schema="Admission" store:Type="Tables" />
           <EntitySet Name="Genders" EntityType="Self.Genders" Schema="Admission" store:Type="Tables" />
+          <EntitySet Name="GroupFormingOrders" EntityType="Self.GroupFormingOrders" Schema="Admission" store:Type="Tables" />
           <EntitySet Name="HighEducationDiplomaDocuments" EntityType="Self.HighEducationDiplomaDocuments" Schema="Admission" store:Type="Tables" />
           <EntitySet Name="IdentityDocuments" EntityType="Self.IdentityDocuments" Schema="Admission" store:Type="Tables" />
           <EntitySet Name="IdentityDocumentTypes" EntityType="Self.IdentityDocumentTypes" Schema="Admission" store:Type="Tables" />
@@ -2045,6 +2126,7 @@
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="Admission" store:Type="Tables" />
           <EntitySet Name="SchoolCertificateDocuments" EntityType="Self.SchoolCertificateDocuments" Schema="Admission" store:Type="Tables" />
           <EntitySet Name="Streets" EntityType="Self.Streets" Schema="Admission" store:Type="Tables" />
+          <EntitySet Name="StudentGroups" EntityType="Self.StudentGroups" Schema="Admission" store:Type="Tables" />
           <EntitySet Name="Towns" EntityType="Self.Towns" Schema="Admission" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="Admission" store:Type="Tables" />
           <EntitySet Name="Versions" EntityType="Self.Versions" Schema="Admission" store:Type="Tables" />
@@ -2113,6 +2195,14 @@
           <AssociationSet Name="FK_Claims_ClaimStatuses_Id" Association="Self.FK_Claims_ClaimStatuses_Id">
             <End Role="ClaimStatuses" EntitySet="ClaimStatuses" />
             <End Role="Claims" EntitySet="Claims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClaimStudentGroupRelationships_Claims_Id" Association="Self.FK_ClaimStudentGroupRelationships_Claims_Id">
+            <End Role="Claims" EntitySet="Claims" />
+            <End Role="ClaimStudentGroupRelationships" EntitySet="ClaimStudentGroupRelationships" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClaimStudentGroupRelationships_StudentGroups_Id" Association="Self.FK_ClaimStudentGroupRelationships_StudentGroups_Id">
+            <End Role="StudentGroups" EntitySet="StudentGroups" />
+            <End Role="ClaimStudentGroupRelationships" EntitySet="ClaimStudentGroupRelationships" />
           </AssociationSet>
           <AssociationSet Name="FK_CommandPermissions_Commands_Id" Association="Self.FK_CommandPermissions_Commands_Id">
             <End Role="Commands" EntitySet="Commands" />
@@ -2413,6 +2503,14 @@
           <AssociationSet Name="FK_SchoolCertificateDocuments_EducationOrganizations_Id" Association="Self.FK_SchoolCertificateDocuments_EducationOrganizations_Id">
             <End Role="EducationOrganizations" EntitySet="EducationOrganizations" />
             <End Role="SchoolCertificateDocuments" EntitySet="SchoolCertificateDocuments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentGroups_Faculties_Id" Association="Self.FK_StudentGroups_Faculties_Id">
+            <End Role="Faculties" EntitySet="Faculties" />
+            <End Role="StudentGroups" EntitySet="StudentGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentGroups_GroupFormingOrders_Id" Association="Self.FK_StudentGroups_GroupFormingOrders_Id">
+            <End Role="GroupFormingOrders" EntitySet="GroupFormingOrders" />
+            <End Role="StudentGroups" EntitySet="StudentGroups" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_Roles_Id" Association="Self.FK_Users_Roles_Id">
             <End Role="Roles" EntitySet="Roles" />
@@ -2882,6 +2980,25 @@
             <End Role="MarritalStatus" EntitySet="MarritalStatuses" />
             <End Role="Entrant" EntitySet="Entrants" />
           </AssociationSet>
+          <EntitySet Name="ClaimStudentGroupRelationships" EntityType="AdmissionModel.ClaimStudentGroupRelationship" />
+          <EntitySet Name="GroupFormingOrders" EntityType="AdmissionModel.GroupFormingOrder" />
+          <EntitySet Name="StudentGroups" EntityType="AdmissionModel.StudentGroup" />
+          <AssociationSet Name="FK_ClaimStudentGroupRelationships_Claims_Id" Association="AdmissionModel.FK_ClaimStudentGroupRelationships_Claims_Id">
+            <End Role="Claim" EntitySet="Claims" />
+            <End Role="ClaimStudentGroupRelationship" EntitySet="ClaimStudentGroupRelationships" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClaimStudentGroupRelationships_StudentGroups_Id" Association="AdmissionModel.FK_ClaimStudentGroupRelationships_StudentGroups_Id">
+            <End Role="StudentGroup" EntitySet="StudentGroups" />
+            <End Role="ClaimStudentGroupRelationship" EntitySet="ClaimStudentGroupRelationships" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentGroups_Faculties_Id" Association="AdmissionModel.FK_StudentGroups_Faculties_Id">
+            <End Role="Faculty" EntitySet="Faculties" />
+            <End Role="StudentGroup" EntitySet="StudentGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentGroups_GroupFormingOrders_Id" Association="AdmissionModel.FK_StudentGroups_GroupFormingOrders_Id">
+            <End Role="GroupFormingOrder" EntitySet="GroupFormingOrders" />
+            <End Role="StudentGroup" EntitySet="StudentGroups" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Address">
           <Key>
@@ -3000,6 +3117,7 @@
           <Property Name="ExportCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="IdentityDocuments" Relationship="AdmissionModel.FK_IdentityDocuments_Citizenships_Id" FromRole="Citizenships" ToRole="IdentityDocuments" />
           <Property Name="AstuId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="WorkOkId" Type="Int32" />
         </EntityType>
         <EntityType Name="ClaimCondition">
           <Key>
@@ -3042,6 +3160,7 @@
           <NavigationProperty Name="EnrollmentClaims" Relationship="AdmissionModel.FK_EnrollmentClaims_Claims_Id" FromRole="Claim" ToRole="EnrollmentClaims" />
           <Property Name="WorkOkStudentId" Type="Int32" />
           <Property Name="AstuStudentId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ClaimStudentGroupRelationships" Relationship="AdmissionModel.FK_ClaimStudentGroupRelationships_Claims_Id" FromRole="Claim" ToRole="ClaimStudentGroupRelationship" />
         </EntityType>
         <EntityType Name="ClaimStatus">
           <Key>
@@ -3156,6 +3275,7 @@
           <Property Name="WorkOkId" Type="Int32" />
           <Property Name="AstuId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DirectionProfiles" Relationship="AdmissionModel.FK_DirectionProfiles_Directions_Id" FromRole="Direction" ToRole="DirectionProfile" />
+          <Property Name="ContractNumberPart" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="DistributedAdmissionVolume">
           <Key>
@@ -4645,6 +4765,7 @@
           <Property Name="WorkOkId" Type="Int32" />
           <Property Name="AstuId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="EnrollmentProtocols" Relationship="AdmissionModel.FK_EnrollmentProtocols_Faculties_Id" FromRole="Faculty" ToRole="EnrollmentProtocols" />
+          <NavigationProperty Name="StudentGroups" Relationship="AdmissionModel.FK_StudentGroups_Faculties_Id" FromRole="Faculty" ToRole="StudentGroup" />
         </EntityType>
         <EntityType Name="ContragentOrganization">
           <Key>
@@ -5036,6 +5157,89 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ClaimStudentGroupRelationship">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClaimId" Type="Int32" />
+          <Property Name="StudentGroupId" Type="Int32" />
+          <Property Name="OrderStringNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Claim" Relationship="AdmissionModel.FK_ClaimStudentGroupRelationships_Claims_Id" FromRole="ClaimStudentGroupRelationship" ToRole="Claim" />
+          <NavigationProperty Name="StudentGroup" Relationship="AdmissionModel.FK_ClaimStudentGroupRelationships_StudentGroups_Id" FromRole="ClaimStudentGroupRelationship" ToRole="StudentGroup" />
+        </EntityType>
+        <EntityType Name="GroupFormingOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" />
+          <NavigationProperty Name="StudentGroups" Relationship="AdmissionModel.FK_StudentGroups_GroupFormingOrders_Id" FromRole="GroupFormingOrder" ToRole="StudentGroup" />
+        </EntityType>
+        <EntityType Name="StudentGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="GroupFormingOrderId" Type="Int32" />
+          <Property Name="WorkOkId" Type="Int32" />
+          <Property Name="AstuId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FacultyId" Type="Int32" />
+          <Property Name="PlanId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ClaimStudentGroupRelationships" Relationship="AdmissionModel.FK_ClaimStudentGroupRelationships_StudentGroups_Id" FromRole="StudentGroup" ToRole="ClaimStudentGroupRelationship" />
+          <NavigationProperty Name="Faculty" Relationship="AdmissionModel.FK_StudentGroups_Faculties_Id" FromRole="StudentGroup" ToRole="Faculty" />
+          <NavigationProperty Name="GroupFormingOrder" Relationship="AdmissionModel.FK_StudentGroups_GroupFormingOrders_Id" FromRole="StudentGroup" ToRole="GroupFormingOrder" />
+        </EntityType>
+        <Association Name="FK_ClaimStudentGroupRelationships_Claims_Id">
+          <End Type="AdmissionModel.Claim" Role="Claim" Multiplicity="0..1" />
+          <End Type="AdmissionModel.ClaimStudentGroupRelationship" Role="ClaimStudentGroupRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Claim">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClaimStudentGroupRelationship">
+              <PropertyRef Name="ClaimId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClaimStudentGroupRelationships_StudentGroups_Id">
+          <End Type="AdmissionModel.StudentGroup" Role="StudentGroup" Multiplicity="0..1" />
+          <End Type="AdmissionModel.ClaimStudentGroupRelationship" Role="ClaimStudentGroupRelationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ClaimStudentGroupRelationship">
+              <PropertyRef Name="StudentGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentGroups_Faculties_Id">
+          <End Type="AdmissionModel.Faculty" Role="Faculty" Multiplicity="0..1" />
+          <End Type="AdmissionModel.StudentGroup" Role="StudentGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StudentGroup">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentGroups_GroupFormingOrders_Id">
+          <End Type="AdmissionModel.GroupFormingOrder" Role="GroupFormingOrder" Multiplicity="0..1" />
+          <End Type="AdmissionModel.StudentGroup" Role="StudentGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupFormingOrder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="StudentGroup">
+              <PropertyRef Name="GroupFormingOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5133,6 +5337,7 @@
           <EntitySetMapping Name="Citizenships">
             <EntityTypeMapping TypeName="AdmissionModel.Citizenship">
               <MappingFragment StoreEntitySet="Citizenships">
+                <ScalarProperty Name="WorkOkId" ColumnName="WorkOkId" />
                 <ScalarProperty Name="AstuId" ColumnName="AstuId" />
                 <ScalarProperty Name="ExportCode" ColumnName="ExportCode" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -5259,6 +5464,7 @@
           <EntitySetMapping Name="Directions">
             <EntityTypeMapping TypeName="AdmissionModel.Direction">
               <MappingFragment StoreEntitySet="Directions">
+                <ScalarProperty Name="ContractNumberPart" ColumnName="ContractNumberPart" />
                 <ScalarProperty Name="AstuId" ColumnName="AstuId" />
                 <ScalarProperty Name="WorkOkId" ColumnName="WorkOkId" />
                 <ScalarProperty Name="ShortName" ColumnName="ShortName" />
@@ -5948,6 +6154,38 @@
           <EntitySetMapping Name="MarritalStatuses">
             <EntityTypeMapping TypeName="AdmissionModel.MarritalStatus">
               <MappingFragment StoreEntitySet="MarritalStatuses">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClaimStudentGroupRelationships">
+            <EntityTypeMapping TypeName="AdmissionModel.ClaimStudentGroupRelationship">
+              <MappingFragment StoreEntitySet="ClaimStudentGroupRelationships">
+                <ScalarProperty Name="OrderStringNumber" ColumnName="OrderStringNumber" />
+                <ScalarProperty Name="StudentGroupId" ColumnName="StudentGroupId" />
+                <ScalarProperty Name="ClaimId" ColumnName="ClaimId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupFormingOrders">
+            <EntityTypeMapping TypeName="AdmissionModel.GroupFormingOrder">
+              <MappingFragment StoreEntitySet="GroupFormingOrders">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentGroups">
+            <EntityTypeMapping TypeName="AdmissionModel.StudentGroup">
+              <MappingFragment StoreEntitySet="StudentGroups">
+                <ScalarProperty Name="PlanId" ColumnName="PlanId" />
+                <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
+                <ScalarProperty Name="AstuId" ColumnName="AstuId" />
+                <ScalarProperty Name="WorkOkId" ColumnName="WorkOkId" />
+                <ScalarProperty Name="GroupFormingOrderId" ColumnName="GroupFormingOrderId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

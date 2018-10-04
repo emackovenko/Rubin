@@ -24,6 +24,7 @@ namespace Model.Admission
         public string Name { get; set; }
         public string ExportCode { get; set; }
         public string AstuId { get; set; }
+        public Nullable<int> WorkOkId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IdentityDocument> IdentityDocuments { get; set; }

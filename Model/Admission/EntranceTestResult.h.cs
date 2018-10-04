@@ -66,7 +66,12 @@ namespace Model.Admission
 					{
 						tests.Remove(etr.EntranceTest);
 					}
-				}		
+				}
+
+                if (tests.Count() == 0 && EntranceTest != null)
+                {
+                    tests.Add(EntranceTest);
+                }
 
 				return tests;
 			}

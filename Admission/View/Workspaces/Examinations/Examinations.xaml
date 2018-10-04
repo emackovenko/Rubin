@@ -35,17 +35,20 @@
 					ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 					<!--<controls:WorkspaceMenuItem
 						Title="Конвертирование первичных баллов внутренних вступительных испытаний в основные"
-						URL="Pages/EntranceTestResultConverting.xaml" />
+						URL="Pages/EntranceTestResultConverting.xaml" />-->
 					<controls:WorkspaceMenuItem
 						Title="Проверка результатов ЕГЭ"
 						URL="Pages/EgeResultChecking.xaml" />
-					<controls:WorkspaceMenuItem
+					<!--<controls:WorkspaceMenuItem
 						Title="Протоколы проверки результатов вступительных испытаний"
-						URL="Pages/EntranceExaminationsProtocols.xaml" />-->       
-					<controls:WorkspaceMenuItem
+						URL="Pages/EntranceExaminationsProtocols.xaml" />-->
+                    <controls:WorkspaceMenuItem
 						Title="Список лиц, сдающих внутренний экзамен"
 						URL="Pages/ExaminatedEntrantsList.xaml" />
-				</ListView>
+                    <controls:WorkspaceMenuItem
+						Title="Генерация ведомостей на экзамен"
+						URL="Pages/ExamSeating.xaml" />
+                </ListView>
             </Expander>
         </Border>
         <Border

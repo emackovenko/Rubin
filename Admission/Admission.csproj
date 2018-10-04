@@ -2,6 +2,7 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{16CBB707-552E-40C1-9DF8-5A8B8145C250}</ProjectGuid>
@@ -9,11 +10,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Admission</RootNamespace>
     <AssemblyName>Admission</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
     <PublishUrl>\\192.168.0.209\work\Admission\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
@@ -32,8 +36,8 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>93</ApplicationRevision>
-    <ApplicationVersion>1.0.45.%2a</ApplicationVersion>
+    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationVersion>1.0.46.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -49,6 +53,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
+    <NoWarn>CS0618</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -58,6 +64,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>ClientIcon.ico</ApplicationIcon>
@@ -88,7 +95,21 @@
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Devart.Data, Version=5.0.2021.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Devart\dotConnect\Oracle\Devart.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Devart.Data.Oracle, Version=9.6.597.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Devart\dotConnect\Oracle\Devart.Data.Oracle.dll</HintPath>
+    </Reference>
+    <Reference Include="Devart.Data.Oracle.Vs, Version=9.6.597.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Devart\dotConnect\Oracle\Devart.Data.Oracle.Vs.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml">
+      <HintPath>..\..\University\Other\Outsource\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
@@ -138,6 +159,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Printing" />
@@ -348,6 +370,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Workspaces\Enrollment\Pages\AdmissionToAstuTransfer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Workspaces\Enrollment\Pages\Editors\EnrollmentProtocolEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -432,6 +458,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Workspaces\Examinations\Pages\ExamSeating.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Workspaces\ReportGeneration\Pages\AdmissionDynamic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -503,6 +533,7 @@
     <Compile Include="ViewModel\Documents\ContractIndividualPlanAgreementDocument.cs" />
     <Compile Include="ViewModel\Documents\EntrantContractDocument.cs" />
     <Compile Include="ViewModel\Documents\ExaminatedEntrantList.cs" />
+    <Compile Include="ViewModel\Documents\ExaminationRegister.cs" />
     <Compile Include="ViewModel\Documents\ExaminationStatement.cs" />
     <Compile Include="ViewModel\Documents\ExaminationStatementMiddleEducationDocument.cs" />
     <Compile Include="ViewModel\Documents\GeneralizedEntrantList.cs" />
@@ -530,6 +561,7 @@
     <Compile Include="ViewModel\Editors\TownEditorViewModel.cs" />
     <Compile Include="ViewModel\Export\Exporter.cs" />
     <Compile Include="ViewModel\InfoBoxes\VersionHistoryViewModel.cs" />
+    <Compile Include="ViewModel\KoMAttributes.cs" />
     <Compile Include="ViewModel\ProtectedCommand.cs" />
     <Compile Include="ViewModel\ValidationRules\Email.cs" />
     <Compile Include="ViewModel\ValidationRules\NotEmptyOnlyRusLetterString.cs" />
@@ -546,6 +578,7 @@
     <Compile Include="ViewModel\Workspaces\ContractForming\Editors\ContragentOrganizationEditorViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\ContractForming\Editors\ContragentPersonEditorViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\ContractForming\Editors\EntrantContractEditorViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Enrollment\AdmissionToAstuTransferViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Enrollment\Editors\EnrollmentOrderEditorViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Enrollment\EnrollmentOrdersViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Enrollment\Editors\EnrollmentProtocolEditorViewModel.cs" />
@@ -557,6 +590,7 @@
     <Compile Include="ViewModel\Workspaces\Examinations\EgeResultCheckingViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Examinations\EntranceExaminationsProtocolsViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\Examinations\EntranceTestResultConvertingViewModel.cs" />
+    <Compile Include="ViewModel\Workspaces\Examinations\ExamSeatingViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\ReportGeneration\AdmissionDynamicViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\ReportGeneration\AdmissionStatisticViewModel.cs" />
     <Compile Include="ViewModel\Workspaces\ReportGeneration\CampaignMonitoringViewModel.cs" />
@@ -675,6 +709,9 @@
     <Compile Include="View\Workspaces\ContractForming\Pages\Editors\MotherCapitalCertificateEditor.xaml.cs">
       <DependentUpon>MotherCapitalCertificateEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Workspaces\Enrollment\Pages\AdmissionToAstuTransfer.xaml.cs">
+      <DependentUpon>AdmissionToAstuTransfer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Workspaces\Enrollment\Pages\Editors\EnrollmentProtocolEditor.xaml.cs">
       <DependentUpon>EnrollmentProtocolEditor.xaml</DependentUpon>
     </Compile>
@@ -744,6 +781,9 @@
     <Compile Include="View\Workspaces\Examinations\Pages\ExaminatedEntrantsList.xaml.cs">
       <DependentUpon>ExaminatedEntrantsList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Workspaces\Examinations\Pages\ExamSeating.xaml.cs">
+      <DependentUpon>ExamSeating.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Workspaces\ReportGeneration\Pages\AdmissionDynamic.xaml.cs">
       <DependentUpon>AdmissionDynamic.xaml</DependentUpon>
     </Compile>
@@ -802,6 +842,10 @@
       <Project>{e41820c5-0c01-4c5e-b9d5-b2ea7bcdc050}</Project>
       <Name>CommonMethods</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{48adcd34-9031-4605-9df8-ec6c04cf801d}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{0560a8da-69ed-4810-b450-02dc02f0ef85}</Project>
       <Name>Model</Name>
@@ -842,6 +886,13 @@
     <Folder Include="View\Workspaces\Dictionaries\Pages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\KindOfMagic.1.3.1\build\KindOfMagic.targets" Condition="Exists('..\packages\KindOfMagic.1.3.1\build\KindOfMagic.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\KindOfMagic.1.3.1\build\KindOfMagic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\KindOfMagic.1.3.1\build\KindOfMagic.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

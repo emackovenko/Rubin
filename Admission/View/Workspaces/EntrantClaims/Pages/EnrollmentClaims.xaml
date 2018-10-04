@@ -46,16 +46,6 @@
                 Margin="1,1,1,1"
                 Orientation="Horizontal"
                 VerticalAlignment="Top">
-                <Button
-                    Style="{StaticResource ToolButton}"
-                    Height="32"
-                    Width="32" 
-                    Foreground="{x:Null}" 
-                    Background="{x:Null}"
-                    ToolTip="Добавить запись"
-                    Command="{Binding AddCommand}">
-                    <Image Source="/ResourceLibrary;component/Images/Buttons/add2.png"/>
-                </Button>
                 <Button  
                     Style="{StaticResource ToolButton}"
                     Height="32"
@@ -66,15 +56,7 @@
                     Command="{Binding EditCommand}">
                     <Image Source="/ResourceLibrary;component/Images/Buttons/pencil.png"/>
                 </Button>
-                <Button 
-                    Style="{StaticResource ToolButton}"
-                    Height="32"
-                    Width="32" 
-                    Foreground="{x:Null}" 
-                    Background="{x:Null}"
-                    ToolTip="Информация">
-                    <Image Source="/ResourceLibrary;component/Images/Buttons/about.png"/>
-                </Button>
+               
                 <xctk:DropDownButton
                     ToolTip="Печать документов"
                     BorderBrush="{StaticResource ResourceKey=ToolButtonBorder}"
@@ -153,42 +135,6 @@
                         </TextBox>
                     </StackPanel>
 				</Border>
-				<Button 
-                    Style="{StaticResource ToolButton}"
-                    Height="32"
-                    Width="32" 
-                    Foreground="{x:Null}" 
-                    Background="{x:Null}"
-                    ToolTip="Возврат"
-                    Command="{Binding Path=SendClaimToArchiveCommand}"
-					CommandParameter="{Binding ElementName=claimList, Path=SelectedItem}">
-					<Image Source="/ResourceLibrary;component/Images/Buttons/id_card_delete.png"/>
-				</Button>
-				<Button 
-                    Style="{StaticResource ToolButton}"
-                    Height="32"
-                    Width="32" 
-                    Foreground="{x:Null}" 
-                    Background="{x:Null}"
-                    ToolTip="Отозвать выбраноое заявление и создать новое на его основе"
-					Command="{Binding Path=CopyAndArchiveClaimCommand}"
-					CommandParameter="{Binding ElementName=claimList, Path=SelectedItem}">
-					<Image Source="/ResourceLibrary;component/Images/Buttons/selection_replace.png"/>
-				</Button>
-			</StackPanel>
-			<StackPanel
-					Orientation="Horizontal"
-					FlowDirection="RightToLeft">
-				<Button 
-                    Style="{StaticResource ToolButton}"
-                    Height="32"
-                    Width="32" 
-                    Foreground="{x:Null}" 
-                    Background="{x:Null}"
-                    ToolTip="Открыть окно конфигурируемой выборки"
-					Command="{Binding Path=ShowFastStatisticCommand}">
-					<Image Source="/ResourceLibrary;component/Images/Buttons/information.png"/>
-				</Button>
 			</StackPanel>
 		</Grid>
         <Grid
@@ -227,23 +173,14 @@
                             Header="Гражданство"
                             DisplayMemberBinding="{Binding Path=Citizenship, Mode=OneWay}"/>
                         <GridViewColumn
-                            Header="Оригинал"
-                            DisplayMemberBinding="{Binding Path=IsOriginal, Converter={StaticResource IsOrginalToString}, Mode=OneWay}"/>
-						<GridViewColumn
-							Header="Форма обучения"
-							DisplayMemberBinding="{Binding Path=EducationForm.Name}"/>
-						<GridViewColumn
-							Header="Источник финансирования"
-							DisplayMemberBinding="{Binding Path=FinanceSource.Name}"/>
-						<GridViewColumn
-                            Header="I"
-                            DisplayMemberBinding="{Binding Path=FirstDirection.ShortName}"/>
+                            Header="Приказ"
+                            DisplayMemberBinding="{Binding Path=EnrollmentOrder.Number}"/>
                         <GridViewColumn
-                            Header="II"
-                            DisplayMemberBinding="{Binding Path=SecondDirection.ShortName}"/>
+                            Header="Дата"
+                            DisplayMemberBinding="{Binding Path=EnrollmentOrder.Date, Converter={StaticResource DateConverter}}"/>
                         <GridViewColumn
-                            Header="III"
-                            DisplayMemberBinding="{Binding Path=ThirdDirection.ShortName}"/>
+                            Header="Направление"
+                            DisplayMemberBinding="{Binding Path=EnrollmentProtocol.CompetitiveGroup.Direction.ShortName}"/>
                         <GridViewColumn
                             Header="ИД"
                             DisplayMemberBinding="{Binding Path=IndividualAchievementsScore}"/>
