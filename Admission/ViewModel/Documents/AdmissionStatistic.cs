@@ -219,7 +219,6 @@ namespace Admission.ViewModel.Documents
 			{
 				countFact = (from condition in currentCompetitiveGroup.ClaimConditions
 								   where condition.Claim != null &&
-									condition.Priority == 1 &&
 									(condition.Claim.ClaimStatus.Id == 1 || condition.Claim.ClaimStatus.Id == 2 || condition.Claim.ClaimStatus.Id == 3) &&
 									condition.Claim.RegistrationDate == DateTime.Now.Date
 								   select condition.Claim).Count();
@@ -229,7 +228,6 @@ namespace Admission.ViewModel.Documents
 			{
 				countFact = (from condition in currentCompetitiveGroup.ClaimConditions
 								   where condition.Claim != null &&
-									condition.Priority == 1 &&
 									(condition.Claim.ClaimStatus.Id == 1 || condition.Claim.ClaimStatus.Id == 2 || condition.Claim.ClaimStatus.Id == 3)
 								   select condition.Claim).Count();
 			}
@@ -240,7 +238,6 @@ namespace Admission.ViewModel.Documents
 			{
 				countOriginal = (from condition in currentCompetitiveGroup.ClaimConditions
 								   where condition.Claim != null &&
-									condition.Priority == 1 &&
 									(condition.Claim.ClaimStatus.Id == 1 || condition.Claim.ClaimStatus.Id == 2 || condition.Claim.ClaimStatus.Id == 3) &&
 									condition.Claim.RegistrationDate == DateTime.Now.Date
 								   select condition.Claim).Where(c => c.IsOriginal).Count();
@@ -251,7 +248,6 @@ namespace Admission.ViewModel.Documents
 			{
 				countOriginal = (from condition in currentCompetitiveGroup.ClaimConditions
 								   where condition.Claim != null &&
-									condition.Priority == 1 &&
 									(condition.Claim.ClaimStatus.Id == 1 || condition.Claim.ClaimStatus.Id == 2 || condition.Claim.ClaimStatus.Id == 3)
 								   select condition.Claim).Where(c => c.IsOriginal).Count();
 			}
