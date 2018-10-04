@@ -84,8 +84,7 @@ namespace Data.Astu
         /// <summary>
         /// Идентификатор гражданства или государства, выдавшего документ
         /// </summary>
-        [DbFieldInfo("GOS")]
-        
+        [DbFieldInfo("GOS")]        
         public string CitizenshipId { get; set; }
 
         /// <summary>

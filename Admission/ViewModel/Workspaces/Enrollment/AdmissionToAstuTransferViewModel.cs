@@ -41,7 +41,129 @@ namespace Admission.ViewModel.Workspaces.Enrollment
             }
         }
 
-        public RelayCommand DoItCommand { get => new RelayCommand(GetIdentifiers); }
+        public RelayCommand DoItCommand { get => new RelayCommand(FixAstuRecords); }
+
+        void FixAstuRecords()
+        {
+            _log.Clear();
+            RaisePropertyChanged("Log");
+
+            // авторизуемся в Astu
+            if (AstuAuth())
+            {
+                Log = "Авторизация в БД rating.astu прошла успешно.";
+            }
+            else
+            {
+                Log = "Не удалось авторизоваться в БД rating.astu. Операция прервана.";
+                return;
+            }
+
+            // получаем зачисленных абитуиентов
+            var enrolledClaims = Session.DataModel.Claims.Where(c => c.AstuStudentId != null).ToList();
+            enrolledClaims = enrolledClaims.Where(c => c.IsCurrentCampaign).ToList();
+
+            // по каждому находим такого в АСту
+            foreach (var claim in enrolledClaims)
+            {
+                var student = Astu.Students.FirstOrDefault(s => s.Id == claim.AstuStudentId);
+                if (student == null)
+                {
+                    Log = string.Format("{0} не найденю Идем дальше.", claim.Person.FullName);
+                    continue;
+                }
+
+                Log = string.Format("{0} найден. Работаем по нему:", student.FullName);
+
+                // Вносим адрес
+                student.Address = string.Empty;
+                Log = string.Format("\tАдрес изменен на {0}", student.Address);
+                try
+                {
+                    student.Save();
+                }
+                catch (Exception e)
+                {
+                    Log = string.Format("НЕ УДАЛОСЬ СОХРАНИТЬ: \n{0}\n\n", e.Message);
+                }
+
+
+                // находим документы об образовании
+                foreach (var eduDoc in student.Documents.Where(d => d.DocumentTypeId == 3 || d.DocumentTypeId == 4 || d.DocumentTypeId == 5))
+                {
+                    // находим документ в приемке
+                    switch (eduDoc.DocumentTypeId)
+                    {
+                        case 3:
+                            {
+                                var admissionDoc = Session.DataModel.SchoolCertificateDocuments.FirstOrDefault(d => d.ClaimId == claim.Id);
+                                if (admissionDoc == null)
+                                {
+                                    Log = "\tВ приемке не нашлось такого документа об образовании.";
+                                    break;
+                                }
+                                eduDoc.CitizenshipId = admissionDoc.EducationOrganization.Address.Country.AstuId;
+                                Log = string.Format("\tГосударство, выдавшее документ об образовании изменено на {0}", eduDoc.Citizenship.Name);
+                                (eduDoc as EducationDocument).EducationDocumentTypeId = "0001";
+                                student.EducationDocumentTypeId = "0001";
+                                Log = string.Format("\tВид предыдущего образования изменен на {0}", student.EducationDocumentType.Name);
+                                break;
+                            }
+                        case 5:
+                            {
+                                var admissionDoc = Session.DataModel.MiddleEducationDiplomaDocuments.FirstOrDefault(d => d.ClaimId == claim.Id);
+                                if (admissionDoc == null)
+                                {
+                                    Log = "\tВ приемке не нашлось такого документа об образовании.";
+                                    break;
+                                }
+                                eduDoc.CitizenshipId = admissionDoc.EducationOrganization.Address.Country.AstuId;
+                                Log = string.Format("\tГосударство, выдавшее документ об образовании изменено на {0}", eduDoc.Citizenship.Name);
+                                (eduDoc as EducationDocument).EducationDocumentTypeId = "0009";
+                                student.EducationDocumentTypeId = "0009";
+                                Log = string.Format("\tВид предыдущего образования изменен на {0}", student.EducationDocumentType.Name);
+                                break;
+                            }
+                        case 4:
+                            {
+                                var admissionDoc = Session.DataModel.HighEducationDiplomaDocuments.FirstOrDefault(d => d.ClaimId == claim.Id);
+                                if (admissionDoc == null)
+                                {
+                                    Log = "\tВ приемке не нашлось такого документа об образовании.";
+                                    break;
+                                }
+                                eduDoc.CitizenshipId = admissionDoc.EducationOrganization.Address.Country.AstuId;
+                                Log = string.Format("\tГосударство, выдавшее документ об образовании изменено на {0}", eduDoc.Citizenship.Name);
+                                (eduDoc as EducationDocument).EducationDocumentTypeId = "0052";
+                                student.EducationDocumentTypeId = "0052";
+                                Log = string.Format("\tВид предыдущего образования изменен на {0}", student.EducationDocumentType.Name);
+                                break;
+                            }
+                        default:
+                            break;
+                    }
+                }
+
+                // находим доки личности
+                foreach (var idDoc in Astu.IdentityDocuments.Where(id => id.StudentId == student.Id).ToList())
+                {
+                    // находим док в приемке
+                    var admissionDoc = Session.DataModel.IdentityDocuments.FirstOrDefault(id => id.ClaimId == claim.Id && id.Series == idDoc.Series && id.Number == idDoc.Number);
+                    if (admissionDoc == null)
+                    {
+                        Log = "\tВ приемке не нашлось такого, удостоверяющего личность";
+                        continue;
+                    }
+
+                    // проставляем организацию
+                    idDoc.Organization = admissionDoc.Organization;
+                    Log = string.Format("\tПроставлена организация, выдавшая документ, удостоверяющий личность.");
+                    
+                }
+
+                // сохраняем его
+            }
+        }
 
         void GetIdentifiers()
         {

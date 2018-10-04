@@ -105,7 +105,12 @@ namespace Data.Astu
         /// </summary>
         [DbFieldInfo("ATT_DATE", DbFieldType.DateTime)]
         public DateTime? GraduationDocumentDate { get; set; }
-        
+
+        /// <summary>
+        /// Адрес студента (Говно)
+        /// </summary>
+        [DbFieldInfo("ADRES", DbFieldType.String)]
+        public string Address { get; set; }
 
         /// <summary>
         /// Идентификатор группы
